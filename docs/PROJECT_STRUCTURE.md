@@ -14,6 +14,9 @@ FE Case Study/
 ├── .git/                                # Git version control database (main branch)
 ├── .gitattributes                       # Line ending and binary asset Git attributes
 ├── .gitignore                           # Git ignore rules for node_modules, dist, scratch, etc.
+├── .github/                             # CI/CD & AUTOMATION WORKFLOWS
+│   └── workflows/                       # GitHub Actions workflows
+│       └── deploy.yml                   # Automated GitHub Pages build & deployment pipeline
 │
 ├── src/                                 # ACTIVE APPLICATION SOURCE CODE
 │   ├── components/                      # Reusable React UI components
@@ -90,6 +93,7 @@ FE Case Study/
 │   │   ├── products/                    # Product imagery, swatches, and model portraits
 │   │   ├── site-icons/                  # Favicons, Apple touch icon, webmanifest
 │   │   └── weave-library/diagrams/      # 9 technical SVG diagrams + 9 PNG fallbacks
+│   ├── 404.html                         # GitHub Pages SPA deep-link redirect fallback
 │   ├── everthread-loader-hand-clean.png # Approved artisan hand illustration for loader
 │   ├── everthread-loader-hand.png       # Original raw hand illustration
 │   └── favicon.ico                      # Root fallback favicon

@@ -67,7 +67,36 @@ Locally preview the generated production build:
 ```bash
 npm run preview
 ```
-The production preview server will start at `http://localhost:4173`.
+The production preview server will start at `http://localhost:4173/everthread/`.
+
+---
+
+## Deployment & GitHub Pages
+
+- **Repository:** [`https://github.com/Omkar-D-Londhe/everthread`](https://github.com/Omkar-D-Londhe/everthread)
+- **Live Application URL:** [`https://omkar-d-londhe.github.io/everthread/`](https://omkar-d-londhe.github.io/everthread/)
+
+### Automated CI/CD Pipeline
+Every push to the `main` branch automatically triggers the official GitHub Pages deployment workflow defined in [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml):
+1. **Verification Gate:** Runs `npm test -- --run` (all 238 unit and integration tests must pass) and `npx tsc --noEmit` (strict TypeScript validation with 0 errors).
+2. **Production Compilation:** Compiles the optimized application with `npm run build`, generating subpath-aware bundles under `/everthread/`.
+3. **Artifact Publishing:** Deploys `dist/` to GitHub Pages using official `actions/upload-pages-artifact@v3` and `actions/deploy-pages@v4` under the `github-pages` environment.
+
+### Monitoring & Workflow Runs
+To inspect deployment progress, view build logs, or diagnose workflow failures:
+👉 **[GitHub Actions Dashboard](https://github.com/Omkar-D-Londhe/everthread/actions)**
+
+### GitHub Pages Routing & Deep-Link Architecture
+Because GitHub Pages is a static file host without native server-side URL rewriting, EverThread employs a zero-dependency SPA redirect strategy:
+- When a patron enters or refreshes a deep link (e.g. `/everthread/archive?tradition=banarasi-brocade` or `/everthread/product/et-01`), GitHub Pages serves [`public/404.html`](./public/404.html).
+- `404.html` preserves the route path, query parameters, and hash, instantly redirecting to `index.html`.
+- [`index.html`](./index.html) restores the original URL via `window.history.replaceState` before React Router mounts with `basename="/everthread/"`.
+- Genuinely invalid paths (e.g. `/everthread/invalid-route`) cleanly render EverThread's branded 404 recovery plinth.
+
+### Required Repository Settings
+In your GitHub repository:
+1. Navigate to **Settings > Pages**.
+2. Under **Build and deployment > Source**, select **GitHub Actions**.
 
 ---
 
