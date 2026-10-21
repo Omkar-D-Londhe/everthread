@@ -8,6 +8,14 @@ export interface AtelierLensModalProps {
   title?: string;
   subtitle?: string;
   caption?: string;
+  zoom?: number;
+  productAction?: {
+    label: string;
+    productSlug: string;
+    price: number;
+    currency?: string;
+    onAddToCart?: () => void;
+  };
 }
 
 export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
@@ -17,7 +25,9 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
   fallbackImageSrc = '/images/home/everthread-hero-01.webp',
   title = 'Living Weave Detail',
   subtitle = 'Hand-spun Mulberry Silk & Structured Cashmere',
-  caption = 'A closer look at the weave. High-resolution study of the raw silk fibers and structured weft geometry.'
+  caption = 'A closer look at the weave. High-resolution study of the raw silk fibers and structured weft geometry.',
+  zoom = 3.5,
+  productAction
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
@@ -70,15 +80,15 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
     };
   }, [isOpen, onClose]);
 
-  // High-performance pointer tracking for loupe magnification without React state re-renders
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+  // Update loupe glass position and background offset
+  const updateLoupePosition = useCallback((clientX: number, clientY: number) => {
     const viewport = viewportRef.current;
     const glass = glassRef.current;
     if (!viewport || !glass) return;
 
     const rect = viewport.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
     // Constrain position within viewport boundaries
     const clampedX = Math.max(0, Math.min(x, rect.width));
@@ -87,14 +97,19 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
     glass.style.left = `${clampedX}px`;
     glass.style.top = `${clampedY}px`;
 
-    // Mathematical coordinate alignment: 2.2x magnification directly centered under cursor
-    const zoom = 2.2;
-    const bgX = -(clampedX * zoom - 80);
-    const bgY = -(clampedY * zoom - 80);
+    // Mathematical coordinate alignment: 3.5x magnification centered directly under pointer
+    const glassRadius = 80;
+    const bgX = -(clampedX * zoom - glassRadius);
+    const bgY = -(clampedY * zoom - glassRadius);
     glass.style.backgroundSize = `${rect.width * zoom}px ${rect.height * zoom}px`;
     glass.style.backgroundPosition = `${bgX}px ${bgY}px`;
     glass.style.opacity = '1';
-  }, []);
+  }, [zoom]);
+
+  // Pointer tracking for loupe magnification
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    updateLoupePosition(e.clientX, e.clientY);
+  }, [updateLoupePosition]);
 
   const handleMouseEnter = useCallback(() => {
     if (glassRef.current) {
@@ -107,6 +122,19 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
       glassRef.current.style.opacity = '0';
     }
   }, []);
+
+  // Touch tracking for mobile loupe magnification
+  const handleTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length > 0) {
+      updateLoupePosition(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, [updateLoupePosition]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length > 0) {
+      updateLoupePosition(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, [updateLoupePosition]);
 
   if (!isOpen) return null;
 
@@ -160,10 +188,12 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
         <div
           ref={viewportRef}
           className="atelier-lens-viewport position-relative"
-          style={{ width: '100%', aspectRatio: '16/10', maxHeight: '58vh' }}
+          style={{ width: '100%', aspectRatio: '16/10', maxHeight: '58vh', touchAction: 'none' }}
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           data-testid="atelier-lens-viewport"
         >
           <img
@@ -174,48 +204,74 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
             data-testid="atelier-lens-image"
           />
 
-          {/* Desktop Precision Loupe Glass */}
+          {/* Precision Loupe Glass */}
           <div
             ref={glassRef}
             className="atelier-lens-glass"
             data-testid="atelier-lens-glass"
             style={{
               backgroundImage: `url("${currentSrc}")`,
-              backgroundSize: '220% 220%'
+              backgroundSize: `${zoom * 100}% ${zoom * 100}%`
             }}
           />
 
           {/* Inspection Mode Indicator Badge */}
           <div
-            className="position-absolute top-0 end-0 m-3 px-2 py-1 bg-stone border-hairline label-caps text-muted-editorial d-none d-sm-inline-flex align-items-center gap-1"
-            style={{ backgroundColor: 'rgba(254, 249, 240, 0.9)', backdropFilter: 'blur(4px)' }}
+            className="position-absolute top-0 end-0 m-3 px-2 py-1 bg-stone border-hairline label-caps text-oxblood d-none d-sm-inline-flex align-items-center gap-1 fw-bold"
+            style={{ backgroundColor: 'rgba(254, 249, 240, 0.94)', backdropFilter: 'blur(4px)', fontSize: '0.6875rem' }}
           >
-            <span className="material-symbols-outlined text-champagne" style={{ fontSize: '0.875rem' }}>
+            <span className="material-symbols-outlined text-oxblood" style={{ fontSize: '0.875rem' }}>
               loupe
             </span>
-            <span>2.2× Atelier Magnification</span>
+            <span>{zoom.toFixed(1)}× Atelier Magnification</span>
           </div>
         </div>
 
         {/* Archival Caption Plinth */}
         <div className="p-3 px-4 bg-canvas border-hairline-t">
-          <div className="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2">
+          <div className="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
             <div>
               <h2 id="atelier-lens-title" className="title-md text-oxblood mb-1" data-testid="atelier-lens-title">
                 {title}
               </h2>
-              <p className="body-sm text-champagne fw-medium mb-1 font-serif">
+              <p className="body-sm text-oxblood fw-medium mb-1 font-serif">
                 {subtitle}
               </p>
               <p className="body-sm text-muted-editorial mb-0" style={{ maxWidth: 640 }}>
                 {caption}
               </p>
+
+              {/* Integrated Purchasing Action for Sellable Traditional Outfits */}
+              {productAction && (
+                <div className="d-flex align-items-center gap-2 mt-2 pt-2 border-hairline-t">
+                  <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
+                    Sellable Repertoire Piece:
+                  </span>
+                  <button
+                    type="button"
+                    className="btn-oxblood py-1 px-3 body-sm d-inline-flex align-items-center gap-2"
+                    onClick={() => {
+                      if (productAction.onAddToCart) {
+                        productAction.onAddToCart();
+                      }
+                    }}
+                    data-testid="lens-acquire-btn"
+                  >
+                    <span>Acquire Piece ({productAction.currency || '₹'}{productAction.price.toLocaleString('en-IN')})</span>
+                    <span className="material-symbols-outlined fs-6" aria-hidden="true">shopping_bag</span>
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className="text-sm-end text-muted-editorial font-sans" style={{ fontSize: '0.75rem' }}>
-              <span className="d-block label-caps text-outline mb-1">Navigation Guidance</span>
-              <span className="d-none d-sm-inline">Move cursor to magnify • Press ESC to exit</span>
-              <span className="d-inline d-sm-none">Tap Close to return to Atelier Home</span>
+              <span className="d-block label-caps-wide text-oxblood mb-1 fw-semibold">Navigation Guidance</span>
+              <span className="d-none d-sm-inline">
+                Move pointer to magnify • Press <kbd className="editorial-kbd">ESC</kbd> to exit
+              </span>
+              <span className="d-inline d-sm-none">
+                Drag finger to magnify • Tap Close to exit
+              </span>
             </div>
           </div>
         </div>

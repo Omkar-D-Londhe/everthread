@@ -121,16 +121,18 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSearch }) => {
 
           {/* Header Action Controls */}
           <div className="d-flex align-items-center gap-2 gap-sm-3 flex-shrink-0">
-            <button 
-              className="action-icon-btn" 
+            <button
+              className="action-icon-btn d-inline-flex align-items-center gap-1"
               type="button" 
-              aria-label="Search Collection"
+              aria-label="Search Collection (/)"
+              title="Search Collection (/)"
               onClick={onOpenSearch}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
+              <kbd className="editorial-kbd d-none d-lg-inline-flex" style={{ fontSize: '0.625rem' }}>/</kbd>
             </button>
 
             <Link 

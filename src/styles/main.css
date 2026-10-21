@@ -1865,8 +1865,50 @@ button {
   color: var(--color-primary);
 }
 
+/* ==========================================================================
+   Editorial Keyboard Shortcuts & Instruction Badges
+   ========================================================================== */
+kbd.editorial-kbd,
+.editorial-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  margin: 0 2px;
+  color: var(--color-espresso, #251800) !important;
+  background-color: var(--color-stone, #f8f3ea) !important;
+  border: 1px solid rgba(48, 35, 31, 0.22) !important;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(37, 24, 0, 0.08);
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
 
+kbd.editorial-kbd--oxblood {
+  background-color: rgba(73, 35, 45, 0.08) !important;
+  border-color: rgba(73, 35, 45, 0.25) !important;
+  color: var(--color-oxblood, #49232d) !important;
+}
 
+.editorial-scroll-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: editorialGuidanceBob 2.2s ease-in-out infinite;
+}
 
-
+@keyframes editorialGuidanceBob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
 

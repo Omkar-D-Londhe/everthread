@@ -876,6 +876,7 @@ export const ProductDetailPage: React.FC = () => {
         title={`${product.title} — Textile Architecture`}
         subtitle={`${product.fiberPurity} • ${product.weaveType}`}
         caption={`High-resolution atelier inspection of ${product.title}. Examined under natural light to reveal the ${product.warpDensity} structural density and authentic handloom surface geometry.`}
+        zoom={3.5}
       />
     </main>
   );

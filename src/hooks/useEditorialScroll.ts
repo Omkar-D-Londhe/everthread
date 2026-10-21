@@ -115,28 +115,58 @@ export function useEditorialScroll({
         );
       }
 
-      // 2. Staggered Card Reveals on Viewport Entry (Glide → Settle)
-      const cards = scope.querySelectorAll(staggerSelector);
+      // 2. Staggered Card Reveals (Immediate in-viewport vs Off-screen ScrollTrigger)
+      const cards = Array.from(scope.querySelectorAll<HTMLElement>(staggerSelector));
       if (cards.length > 0) {
-        ScrollTrigger.batch(cards, {
-          start: 'top 88%',
-          once: true,
-          onEnter: (batch) => {
-            gsap.fromTo(
-              batch,
-              { opacity: 0, y: 20 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.55,
-                stagger: 0.08,
-                ease: 'power2.out',
-                overwrite: 'auto',
-                clearProps: 'transform'
-              }
-            );
+        const windowH = typeof window !== 'undefined' ? (window.innerHeight || document.documentElement.clientHeight) : 800;
+        const inViewCards: HTMLElement[] = [];
+        const offScreenCards: HTMLElement[] = [];
+
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          if (rect.top < windowH * 0.95 && rect.bottom > 0) {
+            inViewCards.push(card);
+          } else {
+            offScreenCards.push(card);
           }
         });
+
+        if (inViewCards.length > 0) {
+          gsap.fromTo(
+            inViewCards,
+            { opacity: 0, y: 16 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.55,
+              stagger: 0.06,
+              ease: 'power2.out',
+              clearProps: 'transform'
+            }
+          );
+        }
+
+        if (offScreenCards.length > 0) {
+          ScrollTrigger.batch(offScreenCards, {
+            start: 'top 88%',
+            once: true,
+            onEnter: (batch) => {
+              gsap.fromTo(
+                batch,
+                { opacity: 0, y: 20 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.55,
+                  stagger: 0.08,
+                  ease: 'power2.out',
+                  overwrite: 'auto',
+                  clearProps: 'transform'
+                }
+              );
+            }
+          });
+        }
       }
 
       // 3. Section Flow Reveals (Initiate → Glide → Settle)
@@ -179,6 +209,11 @@ export function useEditorialScroll({
             clearProps: 'transform'
           }
         );
+      });
+
+      // Synchronize trigger calculations after initial DOM layout settle
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
       });
     }, scope);
 

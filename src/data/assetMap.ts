@@ -811,6 +811,14 @@ const buildArchiveAssetMap = (): Record<string, TraditionAssetRecord> => {
     map[meta.slug] = record;
   }
 
+  // Cultural and search aliases for direct accession
+  if (map['kota-doria']) {
+    map['chanderi'] = map['kota-doria'];
+  }
+  if (map['kashmiri-sozni']) {
+    map['pashmina'] = map['kashmiri-sozni'];
+  }
+
   return map;
 };
 

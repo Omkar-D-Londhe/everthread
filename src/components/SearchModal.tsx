@@ -352,10 +352,31 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                             )}
                           </div>
 
-                          <div className="text-oxblood flex-shrink-0">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                              <polyline points="9 18 15 12 9 6"/>
-                            </svg>
+                          <div className="d-flex align-items-center gap-2 flex-shrink-0">
+                            {item.category === 'product' ? (
+                              <span
+                                className="btn-oxblood py-1 px-2 body-sm d-none d-sm-inline-flex align-items-center gap-1"
+                                style={{ fontSize: '0.6875rem' }}
+                              >
+                                <span>Order Folio</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                  <line x1="5" y1="12" x2="19" y2="12"/>
+                                  <polyline points="12 5 19 12 12 19"/>
+                                </svg>
+                              </span>
+                            ) : (
+                              <span
+                                className="btn-outline-editorial py-1 px-2 body-sm d-none d-sm-inline-flex align-items-center"
+                                style={{ fontSize: '0.6875rem' }}
+                              >
+                                {item.category === 'tradition' ? 'Examine' : item.category === 'story' ? 'Read Folio' : 'Read Essay'}
+                              </span>
+                            )}
+                            <div className="text-oxblood flex-shrink-0">
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <polyline points="9 18 15 12 9 6"/>
+                              </svg>
+                            </div>
                           </div>
                         </Link>
                       );
@@ -389,12 +410,22 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
             </div>
 
             {/* Footer Navigation Hints */}
-            <div className="modal-footer p-2 px-4 bg-cream border-hairline-t d-flex justify-content-between align-items-center body-sm text-muted-editorial">
-              <span style={{ fontSize: '0.75rem' }}>
-                <kbd className="px-1 py-0 border-hairline bg-surface text-oxblood">ESC</kbd> to exit •{' '}
-                <kbd className="px-1 py-0 border-hairline bg-surface text-oxblood">↵</kbd> to navigate
-              </span>
-              <span style={{ fontSize: '0.75rem' }}>
+            <div className="modal-footer p-2 px-4 bg-cream border-hairline-t d-flex flex-wrap justify-content-between align-items-center body-sm text-muted-editorial">
+              <div className="d-flex align-items-center gap-2 flex-wrap" style={{ fontSize: '0.75rem' }}>
+                <span className="d-inline-flex align-items-center gap-1 text-espresso">
+                  <kbd className="editorial-kbd">ESC</kbd> to exit
+                </span>
+                <span className="text-muted-editorial">•</span>
+                <span className="d-inline-flex align-items-center gap-1 text-espresso">
+                  <kbd className="editorial-kbd">↑</kbd>
+                  <kbd className="editorial-kbd">↓</kbd> to navigate
+                </span>
+                <span className="text-muted-editorial">•</span>
+                <span className="d-inline-flex align-items-center gap-1 text-espresso">
+                  <kbd className="editorial-kbd">↵</kbd> to select
+                </span>
+              </div>
+              <span className="d-none d-md-inline" style={{ fontSize: '0.75rem' }}>
                 EverThread Curatorial Catalog
               </span>
             </div>

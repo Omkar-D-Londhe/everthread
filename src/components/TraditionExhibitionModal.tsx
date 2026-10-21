@@ -6,6 +6,7 @@ import { PRODUCTS } from '../data/products.ts';
 import { useOptionalCart } from '../context/CartContext.tsx';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.ts';
 import { WeaveGridIllustration } from './archive/ArchiveIllustrations.tsx';
+import { AtelierLensModal } from './AtelierLensModal.tsx';
 
 // Safe link that degrades gracefully to anchor tag if rendered outside router context
 const SafeLink: React.FC<{
@@ -24,12 +25,12 @@ const SafeLink: React.FC<{
 
 // Verified cultural lineage mapping from Archive Traditions to EverThread Repertoire Silhouettes
 const TRADITION_PRODUCT_MAP: Record<string, string> = {
-  'banarasi-brocade': 'et-01', // Oxblood Wool-Silk Signature Coat-Dress (Varanasi Kadwa Facing)
-  'chanderi': 'et-02',         // Pleated Indigo Chanderi Tunic
-  'pashmina': 'et-04',         // Ivory Tailored Coat (Changthangi Pashmina)
-  'bandhani': 'et-05',         // Burgundy Scarf (Tie-dyed noble silk)
-  'jamdani': 'et-06',          // Ivory Scarf (Fine hand-loomed jamdani motif)
-  'patan-patola': 'et-07',     // Oxblood Handbag (Double-ikat geometric lining)
+  'banarasi-brocade': 'et-01',   // Oxblood Wool-Silk Signature Coat-Dress (Kadwa Brocade Facing)
+  'chanderi': 'et-04',           // Pleated Indigo Chanderi Tunic (Chanderi Handloom Weave)
+  'kota-doria': 'et-04',         // Pleated Indigo Chanderi Tunic (Chanderi & Kota Khat Weave)
+  'pashmina': 'et-07',           // Fine Pashmina & Zari Reversible Stole (Changthangi Pashmina)
+  'kashmiri-sozni': 'et-07',     // Fine Pashmina & Zari Reversible Stole (Changthangi Pashmina)
+  'muga-silk': 'et-02',          // Ivory Structured Raw Silk Coat (Assam Wild Silk Matka)
 };
 
 export interface TraditionExhibitionModalProps {
@@ -65,6 +66,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
   const [isThreadDrawn, setIsThreadDrawn] = useState<boolean>(false);
   const [imageError, setImageError] = useState<boolean>(false);
   const [bagToast, setBagToast] = useState<string | null>(null);
+  const [isLensOpen, setIsLensOpen] = useState<boolean>(false);
 
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -411,16 +413,37 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
 
               {/* Stage Floating Caption / Role pill with mobile & desktop descriptive text */}
               <div className="exhibition-stage-caption">
-                <div className="exhibition-stage-caption__meta">
-                  <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.6875rem' }}>
-                    Plate 0{currentRoleIndex + 1} of 0{TRADITION_ROLES.length}
-                  </span>
-                  <span className="exhibition-stage-caption__label text-oxblood" data-testid="active-role-label">
-                    {activeItem?.label || activeRole}
-                  </span>
+                <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-1">
+                  <div className="exhibition-stage-caption__meta">
+                    <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.6875rem' }}>
+                      Plate 0{currentRoleIndex + 1} of 0{TRADITION_ROLES.length}
+                    </span>
+                    <span className="exhibition-stage-caption__label text-oxblood" data-testid="active-role-label">
+                      {activeItem?.label || activeRole}
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="btn-outline-editorial py-1 px-2 px-sm-3 body-sm d-inline-flex align-items-center gap-1"
+                    style={{ fontSize: '0.75rem', backgroundColor: 'rgba(254, 249, 240, 0.95)' }}
+                    onClick={() => setIsLensOpen(true)}
+                    aria-haspopup="dialog"
+                    aria-label={`Inspect ${activeItem?.label || 'textile plate'} with Atelier Lens`}
+                    data-testid="inspect-tradition-lens-btn"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <circle cx="11" cy="11" r="8"/>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                      <line x1="11" y1="8" x2="11" y2="14"/>
+                      <line x1="8" y1="11" x2="14" y2="11"/>
+                    </svg>
+                    <span className="d-none d-sm-inline">Inspect with Atelier Lens (3.5×)</span>
+                    <span className="d-inline d-sm-none">Inspect (3.5×)</span>
+                  </button>
                 </div>
                 <p
-                  className="exhibition-stage-caption__desc body-sm text-espresso"
+                  className="exhibition-stage-caption__desc body-sm text-espresso mb-0"
                   data-testid="active-plate-description"
                 >
                   {activeItem?.alt || activeItem?.purpose || 'Archival textile documentation plate.'}
@@ -494,7 +517,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
             </div>
 
             {/* Cultural Archive Commerce Bridge: Associated Repertoire Silhouette */}
-            {associatedProduct && (
+            {associatedProduct ? (
               <div className="p-3 mx-3 mb-3 bg-stone border-hairline" data-testid="exhibition-commerce-card">
                 <div className="d-flex align-items-center justify-content-between mb-2">
                   <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
@@ -554,6 +577,20 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
                     Acquire to Bag
                   </button>
                 </div>
+              </div>
+            ) : (
+              <div className="p-3 mx-3 mb-3 bg-stone border-hairline" data-testid="exhibition-curatorial-notice">
+                <div className="d-flex align-items-center justify-content-between mb-1">
+                  <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
+                    Curatorial Archival Record
+                  </span>
+                  <span className="badge badge-sand text-oxblood" style={{ fontSize: '0.5625rem' }}>
+                    Educational Document
+                  </span>
+                </div>
+                <p className="body-sm text-espresso mb-0" style={{ fontSize: '0.75rem' }}>
+                  Documented exclusively for textile preservation and technical guild study. Not currently commissioned in the commercial repertoire.
+                </p>
               </div>
             )}
 
@@ -686,15 +723,46 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
               </div>
             </div>
 
-            <div className="d-flex align-items-center gap-2">
-              <span className="text-muted-editorial" style={{ fontSize: '0.75rem' }}>
-                Use <kbd className="px-1 py-0 border-hairline bg-surface text-oxblood">←</kbd>{' '}
-                <kbd className="px-1 py-0 border-hairline bg-surface text-oxblood">→</kbd> to browse plates,{' '}
-                <kbd className="px-1 py-0 border-hairline bg-surface text-oxblood">ESC</kbd> to exit
+            <div className="d-flex align-items-center gap-2 flex-wrap">
+              <span className="d-inline-flex align-items-center gap-1 text-espresso" style={{ fontSize: '0.75rem' }}>
+                Use <kbd className="editorial-kbd">←</kbd> <kbd className="editorial-kbd">→</kbd> to browse plates
+              </span>
+              <span className="text-muted-editorial d-none d-sm-inline">•</span>
+              <span className="d-inline-flex align-items-center gap-1 text-espresso" style={{ fontSize: '0.75rem' }}>
+                <kbd className="editorial-kbd">ESC</kbd> to exit
               </span>
             </div>
           </div>
         </footer>
+
+        {/* Atelier Lens Magnification Modal for Traditional Outfits & Weave Plates */}
+        <AtelierLensModal
+          isOpen={isLensOpen}
+          onClose={() => setIsLensOpen(false)}
+          imageSrc={activeItem?.src}
+          fallbackImageSrc={activeItem?.src}
+          title={`${currentRecord.title} — ${activeItem?.label || 'Textile Specimen'}`}
+          subtitle={`${currentRecord.region} • ${currentRecord.fiber}`}
+          caption={activeItem?.alt || activeItem?.purpose || currentRecord.structuralProfile}
+          zoom={3.5}
+          productAction={associatedProduct ? {
+            label: associatedProduct.title,
+            productSlug: associatedProduct.slug,
+            price: associatedProduct.price,
+            currency: associatedProduct.currency,
+            onAddToCart: () => {
+              cart?.addToBag({
+                productId: associatedProduct.id,
+                size: associatedProduct.sizes[0] || 'Standard',
+                color: associatedProduct.colors[0]?.name || 'Signature',
+                quantity: 1
+              });
+              setBagToast(associatedProduct.title);
+              setTimeout(() => setBagToast(null), 4000);
+              setIsLensOpen(false);
+            }
+          } : undefined}
+        />
       </div>
     </div>
   );
