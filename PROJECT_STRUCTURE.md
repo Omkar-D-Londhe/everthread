@@ -94,45 +94,20 @@ FE Case Study/
 │   ├── everthread-loader-hand.png       # Original raw hand illustration
 │   └── favicon.ico                      # Root fallback favicon
 │
-├── artifacts/                           # QA SCREENSHOT ARCHIVES (Local archive, Git-ignored)
-│   ├── phase-6-4/                       # 10 Chrome screenshots of Compass & Product Detail
-│   ├── phase-6-5/                       # 16 Chrome screenshots of Monograph Folios & Diagrams
-│   └── phase-6-6/                       # 18 Chrome screenshots across Desktop, Tablet, & Mobile
-│
-├── audit-output/                        # HISTORICAL AUDIT LOGS & INVENTORIES (Local archive, Git-ignored)
-│   ├── contact-sheets/                  # Generated visual contact sheets for image auditing
-│   ├── everthread_asset_manifest.csv    # CSV asset inventory with dimensions and ratios
-│   ├── everthread_image_audit_report.md # Phase 6.3 image audit findings
-│   ├── everthread_image_inventory.csv   # Image metadata spreadsheet
-│   ├── everthread_replacement_checklist.md # Image replacement tracking sheet
-│   └── inventory_dump.json              # Raw JSON inventory dump
-│
 ├── scripts/                             # ASSET PROCESSING & BUILD UTILITIES
 │   ├── build_verified_asset_map.py      # Python script generating verified asset maps
 │   ├── generate_asset_map.py            # Utility script for mapping responsive image variants
 │   └── optimize_assets.py               # Image compression and WebP conversion script
 │
-├── archive/                             # HISTORICAL DESIGN ARTIFACTS (Local archive, Git-ignored)
-│   └── legacy-mockups/                  # 11 static HTML mockups from initial design sprint
-│
-├── css/                                 # HISTORICAL PRE-REACT STYLESHEETS (Local archive, Git-ignored)
-│   ├── animations.css                   # Superseded by src/styles/animations.css
-│   ├── design-tokens.css                # Superseded by src/styles/design-tokens.css
-│   └── main.css                         # Superseded by src/styles/main.css
-│
-├── js/                                  # HISTORICAL PRE-REACT VANILLA SCRIPTS (Local archive, Git-ignored)
-│   ├── collections.js                   # Superseded by src/pages/CollectionsPage.tsx
-│   ├── compass.js                       # Superseded by src/pages/CompassPage.tsx
-│   ├── navigation.js                    # Superseded by src/components/Header.tsx
-│   ├── product-detail.js                # Superseded by src/pages/ProductDetailPage.tsx
-│   ├── store.js                         # Superseded by src/context/CartContext.tsx
-│   └── thread-animations.js             # Superseded by src/components/ThreadLoader.tsx
-│
-├── Images/                              # HISTORICAL RAW SOURCE IMAGES (Local archive, Git-ignored)
-│   └── [subdirectories]                 # Raw unoptimized assets gathered before WebP conversion
-│
-├── stitch_everthread_luxury_heritage_homepage/ # HISTORICAL STITCH PROTOTYPES (Local archive, Git-ignored)
-├── Stitch_New_Pages/                    # HISTORICAL STITCH VARIANT PROTOTYPES (Local archive, Git-ignored)
+├── _legacy_archive/                     # CONSOLIDATED HISTORICAL ARCHIVE (Local disk only, Git-ignored, 453 MB)
+│   ├── Images/                          # Raw pre-conversion PNGs (378 MB - replaced by public/images)
+│   ├── audit-output/                    # Phase 6.3 image audit manifests & contact sheets (31.6 MB)
+│   ├── artifacts/                       # QA browser visual screenshot archives (30.1 MB)
+│   ├── stitch_everthread_.../           # Historical Stitch design homepage prototype (6.2 MB)
+│   ├── Stitch_New_Pages/                # Historical Stitch variant prototypes (6.4 MB)
+│   ├── archive/legacy-mockups/          # 11 static pre-React HTML mockups (0.24 MB)
+│   ├── css/                             # Static pre-React stylesheets (0.03 MB)
+│   └── js/                              # Static pre-React vanilla JS scripts (0.07 MB)
 │
 ├── dist/                                # GENERATED PRODUCTION BUILD (Git-ignored)
 │   ├── assets/                          # Bundled JS and CSS chunks
@@ -258,9 +233,9 @@ EverThread features a comprehensive, regression-tested Vitest test suite organiz
   - `scripts/` (Utility scripts for asset generation).
   - `audit-output/` (Audit reports from Phase 6.3).
   - `scratch/` (Developer scratchpad; ignored by Git).
-- **Historical Lineage & Reference:**
-  - `archive/legacy-mockups/`, `css/`, `js/`, `Images/`, `stitch_*`, `Stitch_New_Pages/`.
-  - These files are safely tracked in Git for historical reference but have zero impact on the Vite production build.
+- **Historical Lineage & Reference (Local Archive):**
+  - `_legacy_archive/` (contains `Images/`, `audit-output/`, `artifacts/`, `archive/`, `css/`, `js/`, `stitch_*`, `Stitch_New_Pages/`).
+  - These files total 453 MB and are safely preserved locally on disk for design provenance, but are excluded from Git to keep the repository lightweight (under 90 MB).
 
 ---
 

@@ -55,7 +55,8 @@ yarn-error.log*
 pnpm-debug.log*
 *.log
 
-# Historical raw assets and legacy prototypes (preserved on local disk)
+# Historical legacy archive (raw assets, prototypes, QA screenshots, audit data)
+/_legacy_archive/
 /Images/
 /archive/
 /css/
