@@ -1,0 +1,19 @@
+{
+  "name": "EverThread",
+  "short_name": "EverThread",
+  "icons": [
+    {
+      "src": "/images/site-icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/site-icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#49232D",
+  "background_color": "#FEF9F0",
+  "display": "standalone"
+}

@@ -1,0 +1,130 @@
+/**
+ * EverThread Haute Couture Design System Tokens
+ * Source: Heritage Editorial Luxury (DESIGN.md)
+ * Strict Architectural Precision — Zero Border Radius
+ */
+
+:root {
+  /* ==========================================================================
+     Color Palette
+     ========================================================================== */
+  /* Primary Foundation */
+  --color-primary: #300f19;              /* Deep Oxblood Core */
+  --color-primary-container: #49232d;    /* Deep Oxblood Container */
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #bd8894;
+  --color-inverse-primary: #f2b7c3;
+
+  /* Secondary Foundation */
+  --color-secondary: #6c5b56;            /* Muted Warm Earth */
+  --color-secondary-container: #f2dbd4;  /* Soft Terracotta Tint */
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #705f5a;
+  --color-espresso: #30231f;             /* Rich Espresso for typography & hairlines */
+
+  /* Tertiary: The Champagne Silk Thread */
+  --color-tertiary: #251800;             /* Antique Deep Bronze */
+  --color-tertiary-container: #3d2c0b;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #ac9369;
+  --color-champagne-thread: #b49a70;     /* Restrained Champagne Silk */
+  --color-champagne-glow: #dfc396;       /* Radiant Champagne Highlight */
+  --color-champagne-pale: #fcdeb0;
+
+  /* Surfaces & Canvas (Warm Ivory) */
+  --color-surface: #fef9f0;              /* Warm Ivory Primary Canvas */
+  --color-surface-dim: #ded9d1;          /* Natural Stone Dim */
+  --color-surface-bright: #fef9f0;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f8f3ea; /* Cream Plinth */
+  --color-surface-container: #f2ede4;     /* Elevated Stone */
+  --color-surface-container-high: #ece8df;/* Subtle Panel High */
+  --color-surface-container-highest: #e7e2d9;
+  --color-surface-variant: #e7e2d9;
+  --color-surface-tint: #7f515c;
+
+  /* Text & Contrast */
+  --color-on-surface: #1d1c16;           /* Deep Charcoal-Espresso text */
+  --color-on-surface-variant: #504446;   /* Editorial Body Secondary */
+  --color-inverse-surface: #32302a;
+  --color-inverse-on-surface: #f5f0e7;
+
+  /* Hairlines & Boundaries */
+  --color-outline: #827376;
+  --color-outline-variant: #d4c2c5;
+  --color-hairline: rgba(48, 35, 31, 0.12);
+  --color-hairline-champagne: rgba(180, 154, 112, 0.35);
+
+  /* Status */
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* ==========================================================================
+     Typography
+     ========================================================================== */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Display & Headlines (Playfair Display) */
+  --font-display-hero: 400 5rem/5.5rem var(--font-serif);
+  --font-display-hero-mobile: 400 2.75rem/3.25rem var(--font-serif);
+  --font-headline-lg: 400 3.25rem/3.75rem var(--font-serif);
+  --font-headline-lg-mobile: 400 2.125rem/2.625rem var(--font-serif);
+  --font-headline-md: 400 2rem/2.5rem var(--font-serif);
+  --font-headline-sm: 500 1.5rem/2rem var(--font-serif);
+  --font-label-editorial: 400 0.875rem/1.25rem var(--font-serif);
+
+  /* Functional Body & Metadata (Hanken Grotesk) */
+  --font-title-md: 500 1.125rem/1.625rem var(--font-sans);
+  --font-body-lg: 400 1.125rem/1.875rem var(--font-sans);
+  --font-body-md: 400 0.9375rem/1.5rem var(--font-sans);
+  --font-body-sm: 400 0.8125rem/1.25rem var(--font-sans);
+  --font-label-caps: 600 0.6875rem/1rem var(--font-sans);
+
+  /* Letter Spacing */
+  --tracking-caps: 0.18em;
+  --tracking-caps-wide: 0.28em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0.01em;
+
+  /* ==========================================================================
+     Layout & Spacing
+     ========================================================================== */
+  --max-width-canvas: 1440px;
+  --header-height: 5rem; /* 80px */
+  
+  --space-xs: 0.375rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.25rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4.5rem;
+  --space-xxl: 8rem;
+
+  --gutter-mobile: 1rem;
+  --gutter-desktop: 2.5rem;
+  --margin-mobile: 1.25rem;
+  --margin-desktop: 4rem;
+
+  /* ==========================================================================
+     Shape & Elevation: Strictly Zero Border Radius
+     ========================================================================== */
+  --radius-none: 0px;
+  --shadow-none: none;
+  --shadow-editorial: 0 1px 8px rgba(0, 0, 0, 0.04);
+  --shadow-modal: 0 16px 40px rgba(48, 35, 31, 0.12);
+
+  /* Touch Targets & Button Geometry */
+  --touch-target-min: 44px;
+  --button-height-editorial: 48px;
+
+  /* Editorial Easing Functions */
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-thread: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-panel: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Transitions */
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.2s ease-out;
+}

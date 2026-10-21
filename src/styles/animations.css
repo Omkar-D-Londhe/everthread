@@ -1,0 +1,1006 @@
+/**
+ * EverThread Signature Animations & Fabric Transitions
+ * GSAP helpers, thread drawing, and fabric-inspired folding
+ */
+
+/* ==========================================================================
+   Signature Thread Drawing Motif
+   ========================================================================== */
+.thread-path {
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+  transition: stroke-dashoffset 2.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.thread-path.drawn {
+  stroke-dashoffset: 0;
+}
+
+.thread-loop-infinite {
+  animation: threadBreathe 8s ease-in-out infinite alternate;
+}
+
+@keyframes threadBreathe {
+  0% {
+    stroke-opacity: 0.75;
+    stroke-width: 1.1;
+  }
+  50% {
+    stroke-opacity: 1;
+    stroke-width: 1.35;
+  }
+  100% {
+    stroke-opacity: 0.75;
+    stroke-width: 1.1;
+  }
+}
+
+/* ==========================================================================
+   Fabric-Inspired Panel & Folio Folding
+   ========================================================================== */
+.fabric-fold-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.fabric-panel {
+  transform-origin: top center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+  will-change: transform, opacity;
+}
+
+.fabric-panel.folded-up {
+  transform: rotateX(15deg) translateY(-20px);
+  opacity: 0.3;
+}
+
+.fabric-crease {
+  position: relative;
+}
+
+.fabric-crease::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(180, 154, 112, 0.6), transparent);
+  box-shadow: 0 1px 2px rgba(48, 35, 31, 0.05);
+}
+
+/* Vertical Weave Slide Transition */
+.weave-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.weave-reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay helpers */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+
+/* ==========================================================================
+   Macro Weave Inspector Lens
+   ========================================================================== */
+.macro-lens-trigger {
+  position: relative;
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.macro-lens-glass {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50% !important;
+  border: 1px solid var(--color-champagne-glow);
+  box-shadow: 0 0 0 2px rgba(48, 35, 31, 0.2), 0 8px 24px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  background-repeat: no-repeat;
+  z-index: 30;
+  background-color: var(--color-surface);
+}
+
+.macro-lens-trigger:hover .macro-lens-glass {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ==========================================================================
+   Atelier Lens Fabric Inspection Modal & Loupe Viewer
+   ========================================================================== */
+.atelier-lens-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 15, 20, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.atelier-lens-modal {
+  background-color: var(--color-surface, #FEF9F0);
+  border: 1px solid var(--color-champagne-thread, #B49A70);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  max-width: 880px;
+  width: 100%;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  outline: none;
+}
+
+.atelier-lens-viewport {
+  position: relative;
+  overflow: hidden;
+  background-color: #1a1416;
+  cursor: crosshair;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.atelier-lens-glass {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50% !important;
+  border: 2px solid var(--color-champagne-glow, #dfc396);
+  box-shadow: 0 0 0 3px rgba(48, 35, 31, 0.35), 0 12px 32px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  background-repeat: no-repeat;
+  z-index: 30;
+  background-color: var(--color-surface, #FEF9F0);
+}
+
+.atelier-lens-viewport:hover .atelier-lens-glass {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Touch device adaptation */
+@media (hover: none) {
+  .atelier-lens-viewport {
+    cursor: default;
+  }
+  .atelier-lens-glass {
+    display: none !important;
+  }
+}
+
+/* Trigger button focus rings and transitions */
+.loupe-badge-trigger {
+  background: rgba(254, 249, 240, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-champagne-thread, #B49A70);
+  padding: 0.875rem 1.25rem;
+  box-shadow: 0 8px 24px rgba(48, 35, 31, 0.12);
+  transition: transform 0.25s var(--ease-editorial), box-shadow 0.25s var(--ease-editorial), border-color 0.25s ease;
+  cursor: pointer;
+  border-radius: 0;
+  text-align: left;
+}
+
+.loupe-badge-trigger:hover,
+.loupe-badge-trigger:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(48, 35, 31, 0.18);
+  border-color: var(--color-champagne-glow, #dfc396);
+  outline: 2px solid var(--color-champagne-glow, #dfc396);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Phase 6.2: Cinematic Hero Curtain Reveal & Plinth Presentation
+   ========================================================================== */
+.headline-mask-wrapper {
+  overflow: hidden;
+  display: block;
+}
+
+.hero-curtain-headline {
+  will-change: transform, opacity;
+}
+
+.hero-plinth-frame {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-surface-container-low);
+  border: 1px solid var(--color-hairline);
+  box-shadow: 0 16px 48px rgba(48, 35, 31, 0.08);
+  transition: transform 0.6s var(--ease-editorial), box-shadow 0.6s var(--ease-editorial);
+}
+
+.hero-plinth-frame:hover {
+  box-shadow: 0 24px 64px rgba(48, 35, 31, 0.14);
+}
+
+/* Hero Editorial Campaign Photograph Framing (Phase 6.3.2.1) */
+.hero-editorial__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Desktop focal calibration: Shift focal point to the model (x=1025-1574) with balanced architectural framing */
+  object-position: 96% center;
+  transition: transform 0.6s var(--ease-editorial);
+}
+
+@media (max-width: 768px) {
+  .hero-editorial__image {
+    /* Mobile focal calibration: Center subject and preserve headroom */
+    object-position: center 8%;
+  }
+}
+
+.living-weave-tile-trigger {
+  background: var(--color-surface, #FEF9F0);
+  border: 1px solid var(--color-champagne-thread, #B49A70);
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 0;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: block;
+}
+
+.living-weave-tile-trigger:hover,
+.living-weave-tile-trigger:focus-visible {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  outline: 2px solid var(--color-champagne-glow, #dfc396);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Stage 5.4: Collection Plinth Card Elevation & Entrance Reveals
+   ========================================================================== */
+.plinth-card {
+  position: relative;
+  background-color: transparent;
+  border-radius: 0;
+  will-change: transform;
+}
+
+/* Subtle short entrance reveal (staggered via animation-delay) */
+.plinth-reveal {
+  animation: plinthEntrance 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes plinthEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Architectural Plinth Image Frame */
+.plinth-card .garment-img-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: var(--color-surface-container-low, #f8f3ea);
+  border: 1px solid rgba(180, 154, 112, 0.25);
+  box-shadow: 0 4px 16px rgba(48, 35, 31, 0.04);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease;
+  will-change: transform, box-shadow;
+}
+
+.plinth-card .garment-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Flagship Editorial Plinth Card */
+.flagship-card {
+  background-color: var(--color-surface, #FEF9F0);
+  border: 1px solid var(--color-hairline, rgba(180, 154, 112, 0.25));
+  box-shadow: 0 4px 20px rgba(48, 35, 31, 0.04);
+  transition: box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease;
+}
+
+.flagship-card .garment-img-wrap {
+  aspect-ratio: 4 / 5;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .flagship-card .garment-img-wrap {
+    max-width: 480px;
+    width: 46%;
+  }
+}
+
+@media (hover: hover) {
+  .flagship-card:hover {
+    border-color: rgba(180, 154, 112, 0.55);
+    box-shadow: 0 16px 48px rgba(48, 35, 31, 0.08);
+  }
+}
+
+/* Restrained plinth lift on pointer hover (desktop only) */
+@media (hover: hover) {
+  .plinth-card:hover .garment-img-wrap {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 36px rgba(48, 35, 31, 0.1), 0 2px 6px rgba(180, 154, 112, 0.15);
+    border-color: rgba(180, 154, 112, 0.55);
+  }
+
+  .plinth-card:hover .garment-img-wrap img {
+    transform: scale(1.03);
+  }
+}
+
+/* Accessible focus-visible state matching luxury champagne aesthetic */
+.plinth-card:focus-within .garment-img-wrap,
+.plinth-card a:focus-visible,
+.plinth-card button:focus-visible {
+  outline: 2px solid var(--color-champagne-thread, #B49A70);
+  outline-offset: 3px;
+}
+
+/* Strict reduced-motion bypass */
+@media (prefers-reduced-motion: reduce) {
+  .plinth-card,
+  .plinth-reveal,
+  .plinth-card .garment-img-wrap,
+  .plinth-card .garment-img-wrap img {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ==========================================================================
+   Thread Controls & Accessibility
+   ========================================================================== */
+.animation-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.625rem;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  background: rgba(254, 249, 240, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(180, 154, 112, 0.3);
+  padding: 0.25rem 0.5rem;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.animation-toggle-btn:hover {
+  color: var(--color-primary);
+  border-color: var(--color-champagne-thread);
+}
+
+/* ==========================================================================
+   Reduced Motion Fallback & Global Motion Paused State
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .thread-path {
+    stroke-dashoffset: 0 !important;
+    stroke-dasharray: none !important;
+  }
+
+  .thread-loop-infinite {
+    animation: none !important;
+  }
+
+  .weave-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .atelier-lens-backdrop {
+    transition: none !important;
+  }
+
+  .atelier-lens-glass {
+    transition: none !important;
+  }
+
+  .loupe-badge-trigger,
+  .living-weave-tile-trigger {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* User-controlled Motion Paused State */
+.motion-paused *,
+.motion-paused *::before,
+.motion-paused *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.motion-paused .thread-path {
+  stroke-dashoffset: 0 !important;
+  stroke-dasharray: none !important;
+}
+
+.motion-paused .thread-loop-infinite {
+  animation: none !important;
+}
+
+.motion-paused .weave-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.motion-paused .plinth-card,
+.motion-paused .plinth-reveal,
+.motion-paused .flagship-card,
+.motion-paused .plinth-card .garment-img-wrap,
+.motion-paused .plinth-card .garment-img-wrap img,
+.motion-paused .flagship-card .garment-img-wrap,
+.motion-paused .flagship-card .garment-img-wrap img {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.motion-paused .loupe-badge-trigger,
+.motion-paused .living-weave-tile-trigger {
+  transition: none !important;
+  transform: none !important;
+}
+
+/* ==========================================================================
+   Phase 6.3.2.2: Immersive Textile Exhibition Modal
+   Architectonic Luxury Gallery with Dominant Adaptive Stage
+   ========================================================================== */
+.exhibition-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(30, 23, 20, 0.88);
+  backdrop-filter: blur(8px);
+  padding: 0;
+  overflow: hidden;
+  animation: exhibitionFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes exhibitionFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.exhibition-dialog {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 0;
+  min-height: 0;
+  background-color: var(--color-surface, #fef9f0);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+/* Header */
+.exhibition-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1.75rem;
+  background-color: var(--color-surface, #fef9f0);
+  border-bottom: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  flex-shrink: 0;
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.exhibition-header__meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.exhibition-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--color-primary, #300f19);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.exhibition-tradition-nav {
+  background-color: var(--color-surface-container-low, #f8f3ea);
+  border: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  padding: 0.25rem 0.5rem;
+}
+
+/* Body Layout */
+.exhibition-body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background-color: var(--color-surface-container-low, #f8f3ea);
+}
+
+/* Dominant Adaptive Stage */
+.exhibition-stage-container {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  padding: 1rem 1.5rem;
+  background-color: var(--color-surface-container-low, #f8f3ea);
+}
+
+.exhibition-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface, #fef9f0);
+  border: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(48, 35, 31, 0.05);
+}
+
+.exhibition-stage-picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 1.25rem 2rem 2.75rem;
+  box-sizing: border-box;
+}
+
+.exhibition-stage-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 8px 30px rgba(48, 35, 31, 0.1);
+  transition: opacity 0.3s ease;
+}
+
+/* Champagne Thread Trace SVG */
+.exhibition-thread-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Stage Navigation Chevrons */
+.exhibition-chevron-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(254, 249, 240, 0.88);
+  border: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.16));
+  color: var(--color-primary, #300f19);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.exhibition-chevron-btn:hover {
+  background-color: var(--color-primary, #300f19);
+  color: var(--color-surface, #fef9f0);
+  border-color: var(--color-primary, #300f19);
+}
+
+.exhibition-chevron-btn:focus-visible {
+  outline: 2px solid var(--color-champagne-thread, #b49a70);
+  outline-offset: 2px;
+}
+
+.chevron-prev {
+  left: 1rem;
+}
+
+.chevron-next {
+  right: 1rem;
+}
+
+/* Stage Caption Bar */
+.exhibition-stage-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1.25rem 0.625rem;
+  background: linear-gradient(0deg, rgba(254, 249, 240, 0.98) 70%, rgba(254, 249, 240, 0.85) 100%);
+  border-top: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.08));
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.exhibition-stage-caption__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.exhibition-stage-caption__label {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--color-primary, #300f19);
+  font-weight: 600;
+}
+
+.exhibition-stage-caption__desc {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--color-on-surface-variant, #6b5c56);
+  margin: 0;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Image Fallback Container */
+.exhibition-image-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+/* Supporting Plates Column (Desktop) */
+.exhibition-supporting-col {
+  width: 320px;
+  flex-shrink: 0;
+  background-color: var(--color-surface, #fef9f0);
+  border-left: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.exhibition-supporting-header {
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.08));
+  display: flex;
+  flex-direction: column;
+}
+
+.exhibition-supporting-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.exhibition-thumb-card {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.5rem;
+  background-color: var(--color-surface-container-low, #f8f3ea);
+  border: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  min-height: 56px;
+}
+
+.exhibition-thumb-card:hover {
+  border-color: var(--color-champagne-thread, #b49a70);
+  background-color: #ffffff;
+}
+
+.exhibition-thumb-card.is-active {
+  border: 2px solid var(--color-primary, #300f19);
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(48, 35, 31, 0.08);
+}
+
+.exhibition-thumb-card:focus-visible {
+  outline: 2px solid var(--color-champagne-thread, #b49a70);
+  outline-offset: 2px;
+}
+
+.exhibition-thumb-img-wrap {
+  width: 60px;
+  height: 50px;
+  flex-shrink: 0;
+  background-color: var(--color-surface, #fef9f0);
+  border: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.08));
+  overflow: hidden;
+}
+
+.exhibition-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.exhibition-thumb-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.exhibition-thumb-label {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--color-primary, #300f19);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Contextual Technical Diagram Drawer */
+.exhibition-diagram-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 480px;
+  max-width: 90vw;
+  background-color: var(--color-surface, #fef9f0);
+  border-left: 2px solid var(--color-primary, #300f19);
+  box-shadow: -8px 0 32px rgba(48, 35, 31, 0.18);
+  display: flex;
+  flex-direction: column;
+  z-index: 25;
+  animation: diagramDrawerSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes diagramDrawerSlide {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.exhibition-diagram-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  background-color: var(--color-surface, #fef9f0);
+}
+
+.exhibition-diagram-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Mobile Horizontal Thumbnail Strip */
+.exhibition-mobile-strip {
+  background-color: var(--color-surface, #fef9f0);
+  border-top: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  padding: 0.5rem 0.75rem;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-champagne-thread, #b49a70) transparent;
+  box-sizing: border-box;
+}
+
+.exhibition-mobile-strip__track {
+  display: flex;
+  gap: 0.5rem;
+  min-width: max-content;
+}
+
+.exhibition-mobile-thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem;
+  background-color: var(--color-surface-container-low, #f8f3ea);
+  border: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  cursor: pointer;
+  min-width: 58px;
+  min-height: 52px;
+}
+
+.exhibition-mobile-thumb.is-active {
+  border: 2px solid var(--color-primary, #300f19);
+  background-color: #ffffff;
+}
+
+.exhibition-mobile-thumb:focus-visible {
+  outline: 2px solid var(--color-champagne-thread, #b49a70);
+  outline-offset: 2px;
+}
+
+.exhibition-mobile-thumb-img {
+  width: 44px;
+  height: 32px;
+  object-fit: cover;
+  display: block;
+}
+
+.exhibition-mobile-thumb-label {
+  font-size: 0.5625rem;
+  color: var(--color-primary, #300f19);
+  white-space: nowrap;
+  max-width: 56px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Footer Bar */
+.exhibition-footer {
+  padding: 0.625rem 1.75rem;
+  background-color: var(--color-surface, #fef9f0);
+  border-top: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  flex-shrink: 0;
+}
+
+/* Responsive Adaptations */
+@media (max-width: 991px) {
+  .exhibition-supporting-col {
+    width: 260px;
+  }
+}
+
+@media (max-width: 767px) {
+  .exhibition-supporting-col {
+    display: none;
+  }
+  .exhibition-header {
+    padding: 0.625rem 0.875rem;
+    gap: 0.5rem;
+  }
+  .exhibition-header__meta {
+    flex: 1;
+    min-width: 0;
+  }
+  .exhibition-title {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+  .exhibition-stage-container {
+    padding: 0.5rem;
+  }
+  .exhibition-stage-caption {
+    padding: 0.375rem 0.75rem 0.5rem;
+    gap: 0.125rem;
+  }
+  .exhibition-stage-caption__label {
+    font-size: 0.875rem;
+  }
+  .exhibition-stage-caption__desc {
+    font-size: 0.6875rem;
+    line-height: 1.25;
+    -webkit-line-clamp: 1;
+  }
+  .exhibition-stage-picture {
+    padding: 0.5rem 0.5rem 3.25rem;
+  }
+  .exhibition-stage-image {
+    max-height: 100%;
+  }
+  .exhibition-footer {
+    display: none;
+  }
+  .exhibition-chevron-btn {
+    width: 44px;
+    height: 44px;
+  }
+  .chevron-prev {
+    left: 0.5rem;
+  }
+  .chevron-next {
+    right: 0.5rem;
+  }
+}
+
+/* Prefers Reduced Motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  .exhibition-backdrop {
+    animation: none !important;
+  }
+  .exhibition-diagram-drawer {
+    animation: none !important;
+  }
+  .exhibition-stage-image,
+  .exhibition-thumb-card,
+  .exhibition-chevron-btn {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,251 @@
+/**
+ * EverThread Cinematic Loading Animation Styles
+ * "The Thread Between Fingers" — Luxury Fashion House Loading Experience
+ * Watercolor Hand Artwork + Continuous Animated Silk Filament
+ * Palette: Warm Ivory (#FEF9F0), Oxblood (#49232D), Champagne Gold (#B49A70), Silk Gold (#DFC396).
+ */
+
+.thread-loader-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: var(--color-surface, #FEF9F0);
+  color: var(--color-primary-container, #49232D);
+  font-family: var(--font-sans, 'Hanken Grotesk', sans-serif);
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s ease;
+  will-change: opacity, visibility;
+}
+
+/* Fullscreen Overlay Mode (Initial Application Bootstrap) */
+.thread-loader-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  background-color: var(--color-surface, #FEF9F0);
+}
+
+/* Container Overlay Mode (Modal / Card context) */
+.thread-loader-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background-color: rgba(254, 249, 240, 0.95);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Inline Mode (within document flow) */
+.thread-loader-inline {
+  position: relative;
+  width: 100%;
+  padding: 3rem 1.5rem;
+  background: transparent;
+}
+
+/* Fading Out state (smooth dissolve into destination) */
+.thread-loader-fading {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Canvas & Artwork Framing */
+.thread-loader-canvas {
+  width: min(440px, 84vw);
+  height: auto;
+  aspect-ratio: 896 / 1200;
+  max-height: 54vh;
+  margin-bottom: 1.25rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thread-loader-artwork-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Phase A: Hand Emergence */
+.thread-hand-artwork {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  animation: handGracefulEmerge 1.0s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes handGracefulEmerge {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Phase B: Silk Drawing */
+.thread-loader-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.thread-active-silk {
+  stroke: url(#champagneSilkFilament);
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  filter: url(#silkSubtleGlow);
+  animation: threadGlideThroughFingers 1.25s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+@keyframes threadGlideThroughFingers {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* Phase C: Brand Typography & Tagline Resolves */
+.thread-loader-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -2px;
+}
+
+.thread-loader-brand {
+  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-size: clamp(1.3rem, 2.8vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  color: var(--color-primary-container, #49232D);
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+  line-height: 1.2;
+  padding-left: 0.35em; /* Optical center alignment */
+  animation: brandWordmarkResolve 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both;
+}
+
+@keyframes brandWordmarkResolve {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.39em;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 0.35em;
+    transform: translateY(0);
+  }
+}
+
+.thread-loader-tagline {
+  font-family: var(--font-sans, 'Hanken Grotesk', sans-serif);
+  font-size: clamp(0.72rem, 1.4vw, 0.85rem);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  color: var(--color-champagne-thread, #B49A70);
+  text-transform: uppercase;
+  line-height: 1.4;
+  padding-left: 0.22em;
+  opacity: 0.95;
+  animation: taglineResolve 0.75s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
+}
+
+@keyframes taglineResolve {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 0.95;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+  .thread-loader-canvas {
+    width: min(320px, 80vw);
+    max-height: 48vh;
+    margin-bottom: 1rem;
+  }
+
+  .thread-loader-brand {
+    font-size: 1.15rem;
+    letter-spacing: 0.28em;
+    padding-left: 0.28em;
+  }
+
+  .thread-loader-tagline {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    padding-left: 0.16em;
+  }
+}
+
+/* ==========================================================================
+   Accessibility & Reduced Motion Compliance
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .thread-loader-root {
+    transition: none !important;
+  }
+
+  .thread-hand-artwork,
+  .thread-active-silk,
+  .thread-loader-tagline,
+  .thread-loader-brand {
+    animation: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+.motion-paused .thread-loader-root {
+  transition: none !important;
+}
+
+.motion-paused .thread-hand-artwork,
+.motion-paused .thread-active-silk,
+.motion-paused .thread-loader-tagline,
+.motion-paused .thread-loader-brand {
+  animation: none !important;
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+  transform: none !important;
+  opacity: 1 !important;
+}

@@ -1,0 +1,35 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+export const NotFoundPage: React.FC = () => {
+  return (
+    <main id="main-content" className="main-content">
+      <section className="py-5 bg-cream border-hairline-b text-center" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center' }}>
+        <div className="page-container py-5">
+          <div className="d-inline-flex align-items-center gap-2 mb-3">
+            <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+            <span className="label-caps text-champagne">Folio Unrecorded</span>
+            <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+          </div>
+          <h1 className="display-hero text-oxblood mb-3" style={{ fontSize: '4rem' }}>
+            404
+          </h1>
+          <p className="headline-sm text-on-surface fst-italic fw-light mb-4">
+            This thread has not yet been woven into the archive.
+          </p>
+          <p className="body-md text-muted-editorial mx-auto mb-4" style={{ maxWidth: 520 }}>
+            The requested atelier folio, silhouette, or monograph could not be located.
+          </p>
+          <div className="d-flex justify-content-center gap-3">
+            <Link to="/" className="btn-oxblood">
+              <span>Return to Atelier Home</span>
+            </Link>
+            <Link to="/collections" className="btn-outline-editorial">
+              <span>Explore Repertoire</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+};

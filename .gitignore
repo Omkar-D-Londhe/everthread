@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production build output
+dist/
+dist-ssr/
+*.local
+
+# Temporary scratch, browser automation data, and test caches
+scratch/
+.system_generated/
+.vite/
+*.tsbuildinfo
+
+# Test coverage and reports
+coverage/
+.nyc_output/
+*.lcov
+
+# Environment files and credentials (secrets)
+.env
+.env.local
+.env.*.local
+!.env.example
+!.env.sample
+
+# Editor and IDE configurations
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+[Dd]esktop.ini
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Historical raw assets and legacy prototypes (preserved on local disk)
+/Images/
+/archive/
+/css/
+/js/
+/stitch_everthread_luxury_heritage_homepage/
+/Stitch_New_Pages/
+
+# Historical QA screenshot archives and audit manifests (preserved on local disk)
+/artifacts/
+/audit-output/

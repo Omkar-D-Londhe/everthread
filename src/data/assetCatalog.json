@@ -1,0 +1,1262 @@
+{
+  "products": {
+    "architectonic-zari-waistcoat": [
+      {
+        "src": "/images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-back-01.webp",
+        "srcSet": "/images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-back-01.webp 1453w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-back-01-1200w.webp 1200w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-back-01-800w.webp 800w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-back-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1453,
+        "height": 1083,
+        "alt": "et 03 zari waistcoat back 01"
+      },
+      {
+        "src": "/images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-detail-01.webp",
+        "srcSet": "/images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-detail-01.webp 1452w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-detail-01-1200w.webp 1200w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-detail-01-800w.webp 800w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-detail-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1452,
+        "height": 1083,
+        "alt": "et 03 zari waistcoat detail 01"
+      },
+      {
+        "src": "/images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-front-01.webp",
+        "srcSet": "/images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-front-01.webp 1453w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-front-01-1200w.webp 1200w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-front-01-800w.webp 800w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-front-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1453,
+        "height": 1083,
+        "alt": "et 03 zari waistcoat front 01"
+      },
+      {
+        "src": "/images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-model-01.webp",
+        "srcSet": "/images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-model-01.webp 1024w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-model-01-800w.webp 800w, /images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "et 03 zari waistcoat model 01"
+      }
+    ],
+    "burgundy-scarf": [
+      {
+        "src": "/images/products/burgundy-scarf/product-burgundy-scarf-01.webp",
+        "srcSet": "/images/products/burgundy-scarf/product-burgundy-scarf-01.webp 1144w, /images/products/burgundy-scarf/product-burgundy-scarf-01-800w.webp 800w, /images/products/burgundy-scarf/product-burgundy-scarf-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1144,
+        "height": 1375,
+        "alt": "product burgundy scarf 01"
+      },
+      {
+        "src": "/images/products/burgundy-scarf/product-burgundy-scarf-back-01.webp",
+        "srcSet": "/images/products/burgundy-scarf/product-burgundy-scarf-back-01.webp 1536w, /images/products/burgundy-scarf/product-burgundy-scarf-back-01-1200w.webp 1200w, /images/products/burgundy-scarf/product-burgundy-scarf-back-01-800w.webp 800w, /images/products/burgundy-scarf/product-burgundy-scarf-back-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product burgundy scarf back 01"
+      },
+      {
+        "src": "/images/products/burgundy-scarf/product-burgundy-scarf-detail-01.webp",
+        "srcSet": "/images/products/burgundy-scarf/product-burgundy-scarf-detail-01.webp 1448w, /images/products/burgundy-scarf/product-burgundy-scarf-detail-01-1200w.webp 1200w, /images/products/burgundy-scarf/product-burgundy-scarf-detail-01-800w.webp 800w, /images/products/burgundy-scarf/product-burgundy-scarf-detail-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1448,
+        "height": 1086,
+        "alt": "product burgundy scarf detail 01"
+      },
+      {
+        "src": "/images/products/burgundy-scarf/product-burgundy-scarf-styled-01.webp",
+        "srcSet": "/images/products/burgundy-scarf/product-burgundy-scarf-styled-01.webp 1024w, /images/products/burgundy-scarf/product-burgundy-scarf-styled-01-800w.webp 800w, /images/products/burgundy-scarf/product-burgundy-scarf-styled-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "product burgundy scarf styled 01"
+      }
+    ],
+    "ivory-scarf": [
+      {
+        "src": "/images/products/ivory-scarf/product-ivory-scarf-01.webp",
+        "srcSet": "/images/products/ivory-scarf/product-ivory-scarf-01.webp 1145w, /images/products/ivory-scarf/product-ivory-scarf-01-800w.webp 800w, /images/products/ivory-scarf/product-ivory-scarf-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1145,
+        "height": 1374,
+        "alt": "product ivory scarf 01"
+      },
+      {
+        "src": "/images/products/ivory-scarf/product-ivory-scarf-back-01.webp",
+        "srcSet": "/images/products/ivory-scarf/product-ivory-scarf-back-01.webp 1374w, /images/products/ivory-scarf/product-ivory-scarf-back-01-1200w.webp 1200w, /images/products/ivory-scarf/product-ivory-scarf-back-01-800w.webp 800w, /images/products/ivory-scarf/product-ivory-scarf-back-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "product ivory scarf back 01"
+      },
+      {
+        "src": "/images/products/ivory-scarf/product-ivory-scarf-detail-01.webp",
+        "srcSet": "/images/products/ivory-scarf/product-ivory-scarf-detail-01.webp 1536w, /images/products/ivory-scarf/product-ivory-scarf-detail-01-1200w.webp 1200w, /images/products/ivory-scarf/product-ivory-scarf-detail-01-800w.webp 800w, /images/products/ivory-scarf/product-ivory-scarf-detail-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product ivory scarf detail 01"
+      },
+      {
+        "src": "/images/products/ivory-scarf/product-ivory-scarf-styled-01.webp",
+        "srcSet": "/images/products/ivory-scarf/product-ivory-scarf-styled-01.webp 1536w, /images/products/ivory-scarf/product-ivory-scarf-styled-01-1200w.webp 1200w, /images/products/ivory-scarf/product-ivory-scarf-styled-01-800w.webp 800w, /images/products/ivory-scarf/product-ivory-scarf-styled-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product ivory scarf styled 01"
+      }
+    ],
+    "ivory-tailored-coat": [
+      {
+        "src": "/images/products/ivory-tailored-coat/product-ivory-tailored-back-01.webp",
+        "srcSet": "/images/products/ivory-tailored-coat/product-ivory-tailored-back-01.webp 1024w, /images/products/ivory-tailored-coat/product-ivory-tailored-back-01-800w.webp 800w, /images/products/ivory-tailored-coat/product-ivory-tailored-back-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "product ivory tailored back 01"
+      },
+      {
+        "src": "/images/products/ivory-tailored-coat/product-ivory-tailored-detail-01.webp",
+        "srcSet": "/images/products/ivory-tailored-coat/product-ivory-tailored-detail-01.webp 1536w, /images/products/ivory-tailored-coat/product-ivory-tailored-detail-01-1200w.webp 1200w, /images/products/ivory-tailored-coat/product-ivory-tailored-detail-01-800w.webp 800w, /images/products/ivory-tailored-coat/product-ivory-tailored-detail-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product ivory tailored detail 01"
+      },
+      {
+        "src": "/images/products/ivory-tailored-coat/product-ivory-tailored-front-01.webp",
+        "srcSet": "/images/products/ivory-tailored-coat/product-ivory-tailored-front-01.webp 1024w, /images/products/ivory-tailored-coat/product-ivory-tailored-front-01-800w.webp 800w, /images/products/ivory-tailored-coat/product-ivory-tailored-front-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "product ivory tailored front 01"
+      },
+      {
+        "src": "/images/products/ivory-tailored-coat/product-ivory-tailored-styled-01.webp",
+        "srcSet": "/images/products/ivory-tailored-coat/product-ivory-tailored-styled-01.webp 1024w, /images/products/ivory-tailored-coat/product-ivory-tailored-styled-01-800w.webp 800w, /images/products/ivory-tailored-coat/product-ivory-tailored-styled-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "product ivory tailored styled 01"
+      }
+    ],
+    "oxblood-handbag": [
+      {
+        "src": "/images/products/oxblood-handbag/product-leather-accessory-detail-01.webp",
+        "srcSet": "/images/products/oxblood-handbag/product-leather-accessory-detail-01.webp 1536w, /images/products/oxblood-handbag/product-leather-accessory-detail-01-1200w.webp 1200w, /images/products/oxblood-handbag/product-leather-accessory-detail-01-800w.webp 800w, /images/products/oxblood-handbag/product-leather-accessory-detail-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product leather accessory detail 01"
+      },
+      {
+        "src": "/images/products/oxblood-handbag/product-oxblood-handbag-01.webp",
+        "srcSet": "/images/products/oxblood-handbag/product-oxblood-handbag-01.webp 1312w, /images/products/oxblood-handbag/product-oxblood-handbag-01-1200w.webp 1200w, /images/products/oxblood-handbag/product-oxblood-handbag-01-800w.webp 800w, /images/products/oxblood-handbag/product-oxblood-handbag-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1312,
+        "height": 1199,
+        "alt": "product oxblood handbag 01"
+      },
+      {
+        "src": "/images/products/oxblood-handbag/product-oxblood-handbag-back-01.webp",
+        "srcSet": "/images/products/oxblood-handbag/product-oxblood-handbag-back-01.webp 1536w, /images/products/oxblood-handbag/product-oxblood-handbag-back-01-1200w.webp 1200w, /images/products/oxblood-handbag/product-oxblood-handbag-back-01-800w.webp 800w, /images/products/oxblood-handbag/product-oxblood-handbag-back-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product oxblood handbag back 01"
+      },
+      {
+        "src": "/images/products/oxblood-handbag/product-oxblood-handbag-detail-02.webp",
+        "srcSet": "/images/products/oxblood-handbag/product-oxblood-handbag-detail-02.webp 1536w, /images/products/oxblood-handbag/product-oxblood-handbag-detail-02-1200w.webp 1200w, /images/products/oxblood-handbag/product-oxblood-handbag-detail-02-800w.webp 800w, /images/products/oxblood-handbag/product-oxblood-handbag-detail-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product oxblood handbag detail 02"
+      },
+      {
+        "src": "/images/products/oxblood-handbag/product-oxblood-handbag-editorial-03.webp",
+        "srcSet": "/images/products/oxblood-handbag/product-oxblood-handbag-editorial-03.webp 1374w, /images/products/oxblood-handbag/product-oxblood-handbag-editorial-03-1200w.webp 1200w, /images/products/oxblood-handbag/product-oxblood-handbag-editorial-03-800w.webp 800w, /images/products/oxblood-handbag/product-oxblood-handbag-editorial-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "product oxblood handbag editorial 03"
+      }
+    ],
+    "pleated-indigo-chanderi-tunic": [
+      {
+        "src": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-back-01.webp",
+        "srcSet": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-back-01.webp 1452w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-back-01-1200w.webp 1200w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-back-01-800w.webp 800w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-back-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1452,
+        "height": 1083,
+        "alt": "et 04 chanderi tunic back 01"
+      },
+      {
+        "src": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-detail-01.webp",
+        "srcSet": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-detail-01.webp 1452w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-detail-01-1200w.webp 1200w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-detail-01-800w.webp 800w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-detail-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1452,
+        "height": 1083,
+        "alt": "et 04 chanderi tunic detail 01"
+      },
+      {
+        "src": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-front-01.webp",
+        "srcSet": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-front-01.webp 1452w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-front-01-1200w.webp 1200w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-front-01-800w.webp 800w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-front-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1452,
+        "height": 1083,
+        "alt": "et 04 chanderi tunic front 01"
+      },
+      {
+        "src": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-model-01.webp",
+        "srcSet": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-model-01.webp 1024w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-model-01-800w.webp 800w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "et 04 chanderi tunic model 01"
+      }
+    ],
+    "signature-coat-dress": [
+      {
+        "src": "/images/products/signature-coat-dress/product-oxblood-signature-back-01.webp",
+        "srcSet": "/images/products/signature-coat-dress/product-oxblood-signature-back-01.webp 1536w, /images/products/signature-coat-dress/product-oxblood-signature-back-01-1200w.webp 1200w, /images/products/signature-coat-dress/product-oxblood-signature-back-01-800w.webp 800w, /images/products/signature-coat-dress/product-oxblood-signature-back-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product oxblood signature back 01"
+      },
+      {
+        "src": "/images/products/signature-coat-dress/product-oxblood-signature-detail-01.webp",
+        "srcSet": "/images/products/signature-coat-dress/product-oxblood-signature-detail-01.webp 1536w, /images/products/signature-coat-dress/product-oxblood-signature-detail-01-1200w.webp 1200w, /images/products/signature-coat-dress/product-oxblood-signature-detail-01-800w.webp 800w, /images/products/signature-coat-dress/product-oxblood-signature-detail-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product oxblood signature detail 01"
+      },
+      {
+        "src": "/images/products/signature-coat-dress/product-oxblood-signature-detail-clean-01.webp",
+        "srcSet": "/images/products/signature-coat-dress/product-oxblood-signature-detail-clean-01.webp 1536w, /images/products/signature-coat-dress/product-oxblood-signature-detail-clean-01-1200w.webp 1200w, /images/products/signature-coat-dress/product-oxblood-signature-detail-clean-01-800w.webp 800w, /images/products/signature-coat-dress/product-oxblood-signature-detail-clean-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product oxblood signature detail clean 01"
+      },
+      {
+        "src": "/images/products/signature-coat-dress/product-oxblood-signature-front-01.webp",
+        "srcSet": "/images/products/signature-coat-dress/product-oxblood-signature-front-01.webp 1024w, /images/products/signature-coat-dress/product-oxblood-signature-front-01-800w.webp 800w, /images/products/signature-coat-dress/product-oxblood-signature-front-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "product oxblood signature front 01"
+      },
+      {
+        "src": "/images/products/signature-coat-dress/product-oxblood-signature-side-01.webp",
+        "srcSet": "/images/products/signature-coat-dress/product-oxblood-signature-side-01.webp 1024w, /images/products/signature-coat-dress/product-oxblood-signature-side-01-800w.webp 800w, /images/products/signature-coat-dress/product-oxblood-signature-side-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "product oxblood signature side 01"
+      },
+      {
+        "src": "/images/products/signature-coat-dress/product-oxblood-signature-side-02.webp",
+        "srcSet": "/images/products/signature-coat-dress/product-oxblood-signature-side-02.webp 1024w, /images/products/signature-coat-dress/product-oxblood-signature-side-02-800w.webp 800w, /images/products/signature-coat-dress/product-oxblood-signature-side-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "product oxblood signature side 02"
+      }
+    ]
+  },
+  "diagrams": {
+    "library-block-printing-process-01": {
+      "fallbackPng": "/images/weave-library/diagrams/fallback/library-block-printing-process-01.png",
+      "svg": "/images/weave-library/diagrams/library-block-printing-process-01.svg"
+    },
+    "library-double-ikat-process-01": {
+      "fallbackPng": "/images/weave-library/diagrams/fallback/library-double-ikat-process-01.png",
+      "svg": "/images/weave-library/diagrams/library-double-ikat-process-01.svg"
+    },
+    "library-embroidery-weaving-comparison-01": {
+      "fallbackPng": "/images/weave-library/diagrams/fallback/library-embroidery-weaving-comparison-01.png",
+      "svg": "/images/weave-library/diagrams/library-embroidery-weaving-comparison-01.svg"
+    },
+    "library-garment-construction-01": {
+      "fallbackPng": "/images/weave-library/diagrams/fallback/library-garment-construction-01.png",
+      "svg": "/images/weave-library/diagrams/library-garment-construction-01.svg"
+    },
+    "library-resist-dyeing-process-01": {
+      "fallbackPng": "/images/weave-library/diagrams/fallback/library-resist-dyeing-process-01.png",
+      "svg": "/images/weave-library/diagrams/library-resist-dyeing-process-01.svg"
+    },
+    "library-technique-comparison-01": {
+      "fallbackPng": "/images/weave-library/diagrams/fallback/library-technique-comparison-01.png",
+      "svg": "/images/weave-library/diagrams/library-technique-comparison-01.svg"
+    },
+    "library-textile-to-garment-sequence-01": {
+      "fallbackPng": "/images/weave-library/diagrams/fallback/library-textile-to-garment-sequence-01.png",
+      "svg": "/images/weave-library/diagrams/library-textile-to-garment-sequence-01.svg"
+    },
+    "library-textile-vocabulary-01": {
+      "fallbackPng": "/images/weave-library/diagrams/fallback/library-textile-vocabulary-01.png",
+      "svg": "/images/weave-library/diagrams/library-textile-vocabulary-01.svg"
+    },
+    "library-warp-weft-diagram-01": {
+      "fallbackPng": "/images/weave-library/diagrams/fallback/library-warp-weft-diagram-01.png",
+      "svg": "/images/weave-library/diagrams/library-warp-weft-diagram-01.svg"
+    }
+  },
+  "archive": {
+    "ajrakh": [
+      {
+        "src": "/images/archive/ajrakh/archive-ajrakh-drape-03.webp",
+        "srcSet": "/images/archive/ajrakh/archive-ajrakh-drape-03.webp 1024w, /images/archive/ajrakh/archive-ajrakh-drape-03-800w.webp 800w, /images/archive/ajrakh/archive-ajrakh-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive ajrakh drape 03"
+      },
+      {
+        "src": "/images/archive/ajrakh/archive-ajrakh-macro-05.webp",
+        "srcSet": "/images/archive/ajrakh/archive-ajrakh-macro-05.webp 1536w, /images/archive/ajrakh/archive-ajrakh-macro-05-1200w.webp 1200w, /images/archive/ajrakh/archive-ajrakh-macro-05-800w.webp 800w, /images/archive/ajrakh/archive-ajrakh-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive ajrakh macro 05"
+      },
+      {
+        "src": "/images/archive/ajrakh/archive-ajrakh-model-01.webp",
+        "srcSet": "/images/archive/ajrakh/archive-ajrakh-model-01.webp 1024w, /images/archive/ajrakh/archive-ajrakh-model-01-800w.webp 800w, /images/archive/ajrakh/archive-ajrakh-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive ajrakh model 01"
+      },
+      {
+        "src": "/images/archive/ajrakh/archive-ajrakh-model-02.webp",
+        "srcSet": "/images/archive/ajrakh/archive-ajrakh-model-02.webp 1024w, /images/archive/ajrakh/archive-ajrakh-model-02-800w.webp 800w, /images/archive/ajrakh/archive-ajrakh-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive ajrakh model 02"
+      },
+      {
+        "src": "/images/archive/ajrakh/archive-ajrakh-process-06.webp",
+        "srcSet": "/images/archive/ajrakh/archive-ajrakh-process-06.webp 1536w, /images/archive/ajrakh/archive-ajrakh-process-06-1200w.webp 1200w, /images/archive/ajrakh/archive-ajrakh-process-06-800w.webp 800w, /images/archive/ajrakh/archive-ajrakh-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive ajrakh process 06"
+      },
+      {
+        "src": "/images/archive/ajrakh/archive-ajrakh-stilllife-04.webp",
+        "srcSet": "/images/archive/ajrakh/archive-ajrakh-stilllife-04.webp 1536w, /images/archive/ajrakh/archive-ajrakh-stilllife-04-1200w.webp 1200w, /images/archive/ajrakh/archive-ajrakh-stilllife-04-800w.webp 800w, /images/archive/ajrakh/archive-ajrakh-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive ajrakh stilllife 04"
+      }
+    ],
+    "bagru": [
+      {
+        "src": "/images/archive/bagru/archive-bagru-drape-03.webp",
+        "srcSet": "/images/archive/bagru/archive-bagru-drape-03.webp 1024w, /images/archive/bagru/archive-bagru-drape-03-800w.webp 800w, /images/archive/bagru/archive-bagru-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive bagru drape 03"
+      },
+      {
+        "src": "/images/archive/bagru/archive-bagru-macro-05.webp",
+        "srcSet": "/images/archive/bagru/archive-bagru-macro-05.webp 1536w, /images/archive/bagru/archive-bagru-macro-05-1200w.webp 1200w, /images/archive/bagru/archive-bagru-macro-05-800w.webp 800w, /images/archive/bagru/archive-bagru-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive bagru macro 05"
+      },
+      {
+        "src": "/images/archive/bagru/archive-bagru-model-01.webp",
+        "srcSet": "/images/archive/bagru/archive-bagru-model-01.webp 1024w, /images/archive/bagru/archive-bagru-model-01-800w.webp 800w, /images/archive/bagru/archive-bagru-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive bagru model 01"
+      },
+      {
+        "src": "/images/archive/bagru/archive-bagru-model-02.webp",
+        "srcSet": "/images/archive/bagru/archive-bagru-model-02.webp 1024w, /images/archive/bagru/archive-bagru-model-02-800w.webp 800w, /images/archive/bagru/archive-bagru-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive bagru model 02"
+      },
+      {
+        "src": "/images/archive/bagru/archive-bagru-process-06.webp",
+        "srcSet": "/images/archive/bagru/archive-bagru-process-06.webp 1536w, /images/archive/bagru/archive-bagru-process-06-1200w.webp 1200w, /images/archive/bagru/archive-bagru-process-06-800w.webp 800w, /images/archive/bagru/archive-bagru-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive bagru process 06"
+      },
+      {
+        "src": "/images/archive/bagru/archive-bagru-stilllife-04.webp",
+        "srcSet": "/images/archive/bagru/archive-bagru-stilllife-04.webp 1536w, /images/archive/bagru/archive-bagru-stilllife-04-1200w.webp 1200w, /images/archive/bagru/archive-bagru-stilllife-04-800w.webp 800w, /images/archive/bagru/archive-bagru-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive bagru stilllife 04"
+      }
+    ],
+    "banarasi-brocade": [
+      {
+        "src": "/images/archive/banarasi-brocade/archive-banarasi-brocade-drape-03.webp",
+        "srcSet": "/images/archive/banarasi-brocade/archive-banarasi-brocade-drape-03.webp 1536w, /images/archive/banarasi-brocade/archive-banarasi-brocade-drape-03-1200w.webp 1200w, /images/archive/banarasi-brocade/archive-banarasi-brocade-drape-03-800w.webp 800w, /images/archive/banarasi-brocade/archive-banarasi-brocade-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive banarasi brocade drape 03"
+      },
+      {
+        "src": "/images/archive/banarasi-brocade/archive-banarasi-brocade-macro-05.webp",
+        "srcSet": "/images/archive/banarasi-brocade/archive-banarasi-brocade-macro-05.webp 1536w, /images/archive/banarasi-brocade/archive-banarasi-brocade-macro-05-1200w.webp 1200w, /images/archive/banarasi-brocade/archive-banarasi-brocade-macro-05-800w.webp 800w, /images/archive/banarasi-brocade/archive-banarasi-brocade-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive banarasi brocade macro 05"
+      },
+      {
+        "src": "/images/archive/banarasi-brocade/archive-banarasi-brocade-model-01.webp",
+        "srcSet": "/images/archive/banarasi-brocade/archive-banarasi-brocade-model-01.webp 1536w, /images/archive/banarasi-brocade/archive-banarasi-brocade-model-01-1200w.webp 1200w, /images/archive/banarasi-brocade/archive-banarasi-brocade-model-01-800w.webp 800w, /images/archive/banarasi-brocade/archive-banarasi-brocade-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive banarasi brocade model 01"
+      },
+      {
+        "src": "/images/archive/banarasi-brocade/archive-banarasi-brocade-model-02.webp",
+        "srcSet": "/images/archive/banarasi-brocade/archive-banarasi-brocade-model-02.webp 1536w, /images/archive/banarasi-brocade/archive-banarasi-brocade-model-02-1200w.webp 1200w, /images/archive/banarasi-brocade/archive-banarasi-brocade-model-02-800w.webp 800w, /images/archive/banarasi-brocade/archive-banarasi-brocade-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive banarasi brocade model 02"
+      },
+      {
+        "src": "/images/archive/banarasi-brocade/archive-banarasi-brocade-process-06.webp",
+        "srcSet": "/images/archive/banarasi-brocade/archive-banarasi-brocade-process-06.webp 1536w, /images/archive/banarasi-brocade/archive-banarasi-brocade-process-06-1200w.webp 1200w, /images/archive/banarasi-brocade/archive-banarasi-brocade-process-06-800w.webp 800w, /images/archive/banarasi-brocade/archive-banarasi-brocade-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive banarasi brocade process 06"
+      },
+      {
+        "src": "/images/archive/banarasi-brocade/archive-banarasi-brocade-stilllife-04.webp",
+        "srcSet": "/images/archive/banarasi-brocade/archive-banarasi-brocade-stilllife-04.webp 1448w, /images/archive/banarasi-brocade/archive-banarasi-brocade-stilllife-04-1200w.webp 1200w, /images/archive/banarasi-brocade/archive-banarasi-brocade-stilllife-04-800w.webp 800w, /images/archive/banarasi-brocade/archive-banarasi-brocade-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1448,
+        "height": 1086,
+        "alt": "archive banarasi brocade stilllife 04"
+      }
+    ],
+    "bandhani": [
+      {
+        "src": "/images/archive/bandhani/archive-bandhani-drape-03.webp",
+        "srcSet": "/images/archive/bandhani/archive-bandhani-drape-03.webp 1024w, /images/archive/bandhani/archive-bandhani-drape-03-800w.webp 800w, /images/archive/bandhani/archive-bandhani-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive bandhani drape 03"
+      },
+      {
+        "src": "/images/archive/bandhani/archive-bandhani-macro-05.webp",
+        "srcSet": "/images/archive/bandhani/archive-bandhani-macro-05.webp 1374w, /images/archive/bandhani/archive-bandhani-macro-05-1200w.webp 1200w, /images/archive/bandhani/archive-bandhani-macro-05-800w.webp 800w, /images/archive/bandhani/archive-bandhani-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive bandhani macro 05"
+      },
+      {
+        "src": "/images/archive/bandhani/archive-bandhani-model-01.webp",
+        "srcSet": "/images/archive/bandhani/archive-bandhani-model-01.webp 1374w, /images/archive/bandhani/archive-bandhani-model-01-1200w.webp 1200w, /images/archive/bandhani/archive-bandhani-model-01-800w.webp 800w, /images/archive/bandhani/archive-bandhani-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive bandhani model 01"
+      },
+      {
+        "src": "/images/archive/bandhani/archive-bandhani-model-02.webp",
+        "srcSet": "/images/archive/bandhani/archive-bandhani-model-02.webp 1374w, /images/archive/bandhani/archive-bandhani-model-02-1200w.webp 1200w, /images/archive/bandhani/archive-bandhani-model-02-800w.webp 800w, /images/archive/bandhani/archive-bandhani-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive bandhani model 02"
+      },
+      {
+        "src": "/images/archive/bandhani/archive-bandhani-process-06.webp",
+        "srcSet": "/images/archive/bandhani/archive-bandhani-process-06.webp 1536w, /images/archive/bandhani/archive-bandhani-process-06-1200w.webp 1200w, /images/archive/bandhani/archive-bandhani-process-06-800w.webp 800w, /images/archive/bandhani/archive-bandhani-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive bandhani process 06"
+      },
+      {
+        "src": "/images/archive/bandhani/archive-bandhani-stilllife-04.webp",
+        "srcSet": "/images/archive/bandhani/archive-bandhani-stilllife-04.webp 1374w, /images/archive/bandhani/archive-bandhani-stilllife-04-1200w.webp 1200w, /images/archive/bandhani/archive-bandhani-stilllife-04-800w.webp 800w, /images/archive/bandhani/archive-bandhani-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive bandhani stilllife 04"
+      }
+    ],
+    "chikankari": [
+      {
+        "src": "/images/archive/chikankari/archive-chikankari-drape-03.webp",
+        "srcSet": "/images/archive/chikankari/archive-chikankari-drape-03.webp 1024w, /images/archive/chikankari/archive-chikankari-drape-03-800w.webp 800w, /images/archive/chikankari/archive-chikankari-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive chikankari drape 03"
+      },
+      {
+        "src": "/images/archive/chikankari/archive-chikankari-macro-05.webp",
+        "srcSet": "/images/archive/chikankari/archive-chikankari-macro-05.webp 1536w, /images/archive/chikankari/archive-chikankari-macro-05-1200w.webp 1200w, /images/archive/chikankari/archive-chikankari-macro-05-800w.webp 800w, /images/archive/chikankari/archive-chikankari-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive chikankari macro 05"
+      },
+      {
+        "src": "/images/archive/chikankari/archive-chikankari-model-01.webp",
+        "srcSet": "/images/archive/chikankari/archive-chikankari-model-01.webp 1024w, /images/archive/chikankari/archive-chikankari-model-01-800w.webp 800w, /images/archive/chikankari/archive-chikankari-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive chikankari model 01"
+      },
+      {
+        "src": "/images/archive/chikankari/archive-chikankari-model-02.webp",
+        "srcSet": "/images/archive/chikankari/archive-chikankari-model-02.webp 1024w, /images/archive/chikankari/archive-chikankari-model-02-800w.webp 800w, /images/archive/chikankari/archive-chikankari-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive chikankari model 02"
+      },
+      {
+        "src": "/images/archive/chikankari/archive-chikankari-process-06.webp",
+        "srcSet": "/images/archive/chikankari/archive-chikankari-process-06.webp 1536w, /images/archive/chikankari/archive-chikankari-process-06-1200w.webp 1200w, /images/archive/chikankari/archive-chikankari-process-06-800w.webp 800w, /images/archive/chikankari/archive-chikankari-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive chikankari process 06"
+      },
+      {
+        "src": "/images/archive/chikankari/archive-chikankari-stilllife-04.webp",
+        "srcSet": "/images/archive/chikankari/archive-chikankari-stilllife-04.webp 1536w, /images/archive/chikankari/archive-chikankari-stilllife-04-1200w.webp 1200w, /images/archive/chikankari/archive-chikankari-stilllife-04-800w.webp 800w, /images/archive/chikankari/archive-chikankari-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive chikankari stilllife 04"
+      }
+    ],
+    "general": [
+      {
+        "src": "/images/archive/general/archive-architecture-of-garment-01.webp",
+        "srcSet": "/images/archive/general/archive-architecture-of-garment-01.webp 1536w, /images/archive/general/archive-architecture-of-garment-01-1200w.webp 1200w, /images/archive/general/archive-architecture-of-garment-01-800w.webp 800w, /images/archive/general/archive-architecture-of-garment-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive architecture of garment 01"
+      },
+      {
+        "src": "/images/archive/general/archive-art-of-drape-01.webp",
+        "srcSet": "/images/archive/general/archive-art-of-drape-01.webp 1312w, /images/archive/general/archive-art-of-drape-01-1200w.webp 1200w, /images/archive/general/archive-art-of-drape-01-800w.webp 800w, /images/archive/general/archive-art-of-drape-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1312,
+        "height": 1199,
+        "alt": "archive art of drape 01"
+      },
+      {
+        "src": "/images/archive/general/archive-language-of-surface-01.webp",
+        "srcSet": "/images/archive/general/archive-language-of-surface-01.webp 1536w, /images/archive/general/archive-language-of-surface-01-1200w.webp 1200w, /images/archive/general/archive-language-of-surface-01-800w.webp 800w, /images/archive/general/archive-language-of-surface-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive language of surface 01"
+      },
+      {
+        "src": "/images/archive/general/archive-living-loom-01.webp",
+        "srcSet": "/images/archive/general/archive-living-loom-01.webp 1536w, /images/archive/general/archive-living-loom-01-1200w.webp 1200w, /images/archive/general/archive-living-loom-01-800w.webp 800w, /images/archive/general/archive-living-loom-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive living loom 01"
+      }
+    ],
+    "kanchipuram-silk": [
+      {
+        "src": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-drape-03.webp",
+        "srcSet": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-drape-03.webp 1024w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-drape-03-800w.webp 800w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive kanchipuram silk drape 03"
+      },
+      {
+        "src": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-macro-05.webp",
+        "srcSet": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-macro-05.webp 1536w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-macro-05-1200w.webp 1200w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-macro-05-800w.webp 800w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive kanchipuram silk macro 05"
+      },
+      {
+        "src": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-model-01.webp",
+        "srcSet": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-model-01.webp 1024w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-model-01-800w.webp 800w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive kanchipuram silk model 01"
+      },
+      {
+        "src": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-model-02.webp",
+        "srcSet": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-model-02.webp 1024w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-model-02-800w.webp 800w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive kanchipuram silk model 02"
+      },
+      {
+        "src": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-process-06.webp",
+        "srcSet": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-process-06.webp 1536w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-process-06-1200w.webp 1200w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-process-06-800w.webp 800w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive kanchipuram silk process 06"
+      },
+      {
+        "src": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-stilllife-04.webp",
+        "srcSet": "/images/archive/kanchipuram-silk/archive-kanchipuram-silk-stilllife-04.webp 1536w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-stilllife-04-1200w.webp 1200w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-stilllife-04-800w.webp 800w, /images/archive/kanchipuram-silk/archive-kanchipuram-silk-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive kanchipuram silk stilllife 04"
+      }
+    ],
+    "kashmiri-sozni": [
+      {
+        "src": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-drape-03.webp",
+        "srcSet": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-drape-03.webp 1024w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-drape-03-800w.webp 800w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive kashmiri sozni drape 03"
+      },
+      {
+        "src": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-macro-05.webp",
+        "srcSet": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-macro-05.webp 1536w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-macro-05-1200w.webp 1200w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-macro-05-800w.webp 800w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive kashmiri sozni macro 05"
+      },
+      {
+        "src": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-model-01.webp",
+        "srcSet": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-model-01.webp 1024w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-model-01-800w.webp 800w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive kashmiri sozni model 01"
+      },
+      {
+        "src": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-model-02.webp",
+        "srcSet": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-model-02.webp 1024w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-model-02-800w.webp 800w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive kashmiri sozni model 02"
+      },
+      {
+        "src": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-process-06.webp",
+        "srcSet": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-process-06.webp 1536w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-process-06-1200w.webp 1200w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-process-06-800w.webp 800w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive kashmiri sozni process 06"
+      },
+      {
+        "src": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-stilllife-04.webp",
+        "srcSet": "/images/archive/kashmiri-sozni/archive-kashmiri-sozni-stilllife-04.webp 1536w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-stilllife-04-1200w.webp 1200w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-stilllife-04-800w.webp 800w, /images/archive/kashmiri-sozni/archive-kashmiri-sozni-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive kashmiri sozni stilllife 04"
+      }
+    ],
+    "kota-doria": [
+      {
+        "src": "/images/archive/kota-doria/archive-kota-doria-drape-03.webp",
+        "srcSet": "/images/archive/kota-doria/archive-kota-doria-drape-03.webp 1024w, /images/archive/kota-doria/archive-kota-doria-drape-03-800w.webp 800w, /images/archive/kota-doria/archive-kota-doria-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive kota doria drape 03"
+      },
+      {
+        "src": "/images/archive/kota-doria/archive-kota-doria-macro-05.webp",
+        "srcSet": "/images/archive/kota-doria/archive-kota-doria-macro-05.webp 1374w, /images/archive/kota-doria/archive-kota-doria-macro-05-1200w.webp 1200w, /images/archive/kota-doria/archive-kota-doria-macro-05-800w.webp 800w, /images/archive/kota-doria/archive-kota-doria-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive kota doria macro 05"
+      },
+      {
+        "src": "/images/archive/kota-doria/archive-kota-doria-model-01.webp",
+        "srcSet": "/images/archive/kota-doria/archive-kota-doria-model-01.webp 1024w, /images/archive/kota-doria/archive-kota-doria-model-01-800w.webp 800w, /images/archive/kota-doria/archive-kota-doria-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive kota doria model 01"
+      },
+      {
+        "src": "/images/archive/kota-doria/archive-kota-doria-model-02.webp",
+        "srcSet": "/images/archive/kota-doria/archive-kota-doria-model-02.webp 1024w, /images/archive/kota-doria/archive-kota-doria-model-02-800w.webp 800w, /images/archive/kota-doria/archive-kota-doria-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive kota doria model 02"
+      },
+      {
+        "src": "/images/archive/kota-doria/archive-kota-doria-process-06.webp",
+        "srcSet": "/images/archive/kota-doria/archive-kota-doria-process-06.webp 1374w, /images/archive/kota-doria/archive-kota-doria-process-06-1200w.webp 1200w, /images/archive/kota-doria/archive-kota-doria-process-06-800w.webp 800w, /images/archive/kota-doria/archive-kota-doria-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive kota doria process 06"
+      },
+      {
+        "src": "/images/archive/kota-doria/archive-kota-doria-stilllife-04.webp",
+        "srcSet": "/images/archive/kota-doria/archive-kota-doria-stilllife-04.webp 1374w, /images/archive/kota-doria/archive-kota-doria-stilllife-04-1200w.webp 1200w, /images/archive/kota-doria/archive-kota-doria-stilllife-04-800w.webp 800w, /images/archive/kota-doria/archive-kota-doria-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive kota doria stilllife 04"
+      }
+    ],
+    "muga-silk": [
+      {
+        "src": "/images/archive/muga-silk/archive-muga-silk-drape-03.webp",
+        "srcSet": "/images/archive/muga-silk/archive-muga-silk-drape-03.webp 1024w, /images/archive/muga-silk/archive-muga-silk-drape-03-800w.webp 800w, /images/archive/muga-silk/archive-muga-silk-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive muga silk drape 03"
+      },
+      {
+        "src": "/images/archive/muga-silk/archive-muga-silk-macro-05.webp",
+        "srcSet": "/images/archive/muga-silk/archive-muga-silk-macro-05.webp 1374w, /images/archive/muga-silk/archive-muga-silk-macro-05-1200w.webp 1200w, /images/archive/muga-silk/archive-muga-silk-macro-05-800w.webp 800w, /images/archive/muga-silk/archive-muga-silk-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive muga silk macro 05"
+      },
+      {
+        "src": "/images/archive/muga-silk/archive-muga-silk-model-01.webp",
+        "srcSet": "/images/archive/muga-silk/archive-muga-silk-model-01.webp 1024w, /images/archive/muga-silk/archive-muga-silk-model-01-800w.webp 800w, /images/archive/muga-silk/archive-muga-silk-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive muga silk model 01"
+      },
+      {
+        "src": "/images/archive/muga-silk/archive-muga-silk-model-02.webp",
+        "srcSet": "/images/archive/muga-silk/archive-muga-silk-model-02.webp 1024w, /images/archive/muga-silk/archive-muga-silk-model-02-800w.webp 800w, /images/archive/muga-silk/archive-muga-silk-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive muga silk model 02"
+      },
+      {
+        "src": "/images/archive/muga-silk/archive-muga-silk-process-06.webp",
+        "srcSet": "/images/archive/muga-silk/archive-muga-silk-process-06.webp 1374w, /images/archive/muga-silk/archive-muga-silk-process-06-1200w.webp 1200w, /images/archive/muga-silk/archive-muga-silk-process-06-800w.webp 800w, /images/archive/muga-silk/archive-muga-silk-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive muga silk process 06"
+      },
+      {
+        "src": "/images/archive/muga-silk/archive-muga-silk-stilllife-04.webp",
+        "srcSet": "/images/archive/muga-silk/archive-muga-silk-stilllife-04.webp 1374w, /images/archive/muga-silk/archive-muga-silk-stilllife-04-1200w.webp 1200w, /images/archive/muga-silk/archive-muga-silk-stilllife-04-800w.webp 800w, /images/archive/muga-silk/archive-muga-silk-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive muga silk stilllife 04"
+      }
+    ],
+    "paithani-silk": [
+      {
+        "src": "/images/archive/paithani-silk/archive-paithani-silk-drape-03.webp",
+        "srcSet": "/images/archive/paithani-silk/archive-paithani-silk-drape-03.webp 1024w, /images/archive/paithani-silk/archive-paithani-silk-drape-03-800w.webp 800w, /images/archive/paithani-silk/archive-paithani-silk-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive paithani silk drape 03"
+      },
+      {
+        "src": "/images/archive/paithani-silk/archive-paithani-silk-macro-05.webp",
+        "srcSet": "/images/archive/paithani-silk/archive-paithani-silk-macro-05.webp 1536w, /images/archive/paithani-silk/archive-paithani-silk-macro-05-1200w.webp 1200w, /images/archive/paithani-silk/archive-paithani-silk-macro-05-800w.webp 800w, /images/archive/paithani-silk/archive-paithani-silk-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive paithani silk macro 05"
+      },
+      {
+        "src": "/images/archive/paithani-silk/archive-paithani-silk-model-01.webp",
+        "srcSet": "/images/archive/paithani-silk/archive-paithani-silk-model-01.webp 1024w, /images/archive/paithani-silk/archive-paithani-silk-model-01-800w.webp 800w, /images/archive/paithani-silk/archive-paithani-silk-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive paithani silk model 01"
+      },
+      {
+        "src": "/images/archive/paithani-silk/archive-paithani-silk-model-02.webp",
+        "srcSet": "/images/archive/paithani-silk/archive-paithani-silk-model-02.webp 1024w, /images/archive/paithani-silk/archive-paithani-silk-model-02-800w.webp 800w, /images/archive/paithani-silk/archive-paithani-silk-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive paithani silk model 02"
+      },
+      {
+        "src": "/images/archive/paithani-silk/archive-paithani-silk-process-06.webp",
+        "srcSet": "/images/archive/paithani-silk/archive-paithani-silk-process-06.webp 1374w, /images/archive/paithani-silk/archive-paithani-silk-process-06-1200w.webp 1200w, /images/archive/paithani-silk/archive-paithani-silk-process-06-800w.webp 800w, /images/archive/paithani-silk/archive-paithani-silk-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive paithani silk process 06"
+      },
+      {
+        "src": "/images/archive/paithani-silk/archive-paithani-silk-stilllife-04.webp",
+        "srcSet": "/images/archive/paithani-silk/archive-paithani-silk-stilllife-04.webp 1536w, /images/archive/paithani-silk/archive-paithani-silk-stilllife-04-1200w.webp 1200w, /images/archive/paithani-silk/archive-paithani-silk-stilllife-04-800w.webp 800w, /images/archive/paithani-silk/archive-paithani-silk-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive paithani silk stilllife 04"
+      }
+    ],
+    "patan-patola": [
+      {
+        "src": "/images/archive/patan-patola/archive-patan-patola-drape-03.webp",
+        "srcSet": "/images/archive/patan-patola/archive-patan-patola-drape-03.webp 1024w, /images/archive/patan-patola/archive-patan-patola-drape-03-800w.webp 800w, /images/archive/patan-patola/archive-patan-patola-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive patan patola drape 03"
+      },
+      {
+        "src": "/images/archive/patan-patola/archive-patan-patola-macro-05.webp",
+        "srcSet": "/images/archive/patan-patola/archive-patan-patola-macro-05.webp 1536w, /images/archive/patan-patola/archive-patan-patola-macro-05-1200w.webp 1200w, /images/archive/patan-patola/archive-patan-patola-macro-05-800w.webp 800w, /images/archive/patan-patola/archive-patan-patola-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive patan patola macro 05"
+      },
+      {
+        "src": "/images/archive/patan-patola/archive-patan-patola-model-01.webp",
+        "srcSet": "/images/archive/patan-patola/archive-patan-patola-model-01.webp 1024w, /images/archive/patan-patola/archive-patan-patola-model-01-800w.webp 800w, /images/archive/patan-patola/archive-patan-patola-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive patan patola model 01"
+      },
+      {
+        "src": "/images/archive/patan-patola/archive-patan-patola-model-02.webp",
+        "srcSet": "/images/archive/patan-patola/archive-patan-patola-model-02.webp 1024w, /images/archive/patan-patola/archive-patan-patola-model-02-800w.webp 800w, /images/archive/patan-patola/archive-patan-patola-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive patan patola model 02"
+      },
+      {
+        "src": "/images/archive/patan-patola/archive-patan-patola-process-06.webp",
+        "srcSet": "/images/archive/patan-patola/archive-patan-patola-process-06.webp 1536w, /images/archive/patan-patola/archive-patan-patola-process-06-1200w.webp 1200w, /images/archive/patan-patola/archive-patan-patola-process-06-800w.webp 800w, /images/archive/patan-patola/archive-patan-patola-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive patan patola process 06"
+      },
+      {
+        "src": "/images/archive/patan-patola/archive-patan-patola-stilllife-04.webp",
+        "srcSet": "/images/archive/patan-patola/archive-patan-patola-stilllife-04.webp 1536w, /images/archive/patan-patola/archive-patan-patola-stilllife-04-1200w.webp 1200w, /images/archive/patan-patola/archive-patan-patola-stilllife-04-800w.webp 800w, /images/archive/patan-patola/archive-patan-patola-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "archive patan patola stilllife 04"
+      }
+    ],
+    "pochampally-ikat": [
+      {
+        "src": "/images/archive/pochampally-ikat/archive-pochampally-ikat-drape-03.webp",
+        "srcSet": "/images/archive/pochampally-ikat/archive-pochampally-ikat-drape-03.webp 1024w, /images/archive/pochampally-ikat/archive-pochampally-ikat-drape-03-800w.webp 800w, /images/archive/pochampally-ikat/archive-pochampally-ikat-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive pochampally ikat drape 03"
+      },
+      {
+        "src": "/images/archive/pochampally-ikat/archive-pochampally-ikat-macro-05.webp",
+        "srcSet": "/images/archive/pochampally-ikat/archive-pochampally-ikat-macro-05.webp 1374w, /images/archive/pochampally-ikat/archive-pochampally-ikat-macro-05-1200w.webp 1200w, /images/archive/pochampally-ikat/archive-pochampally-ikat-macro-05-800w.webp 800w, /images/archive/pochampally-ikat/archive-pochampally-ikat-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive pochampally ikat macro 05"
+      },
+      {
+        "src": "/images/archive/pochampally-ikat/archive-pochampally-ikat-model-01.webp",
+        "srcSet": "/images/archive/pochampally-ikat/archive-pochampally-ikat-model-01.webp 1024w, /images/archive/pochampally-ikat/archive-pochampally-ikat-model-01-800w.webp 800w, /images/archive/pochampally-ikat/archive-pochampally-ikat-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive pochampally ikat model 01"
+      },
+      {
+        "src": "/images/archive/pochampally-ikat/archive-pochampally-ikat-model-02.webp",
+        "srcSet": "/images/archive/pochampally-ikat/archive-pochampally-ikat-model-02.webp 1024w, /images/archive/pochampally-ikat/archive-pochampally-ikat-model-02-800w.webp 800w, /images/archive/pochampally-ikat/archive-pochampally-ikat-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive pochampally ikat model 02"
+      },
+      {
+        "src": "/images/archive/pochampally-ikat/archive-pochampally-ikat-process-06.webp",
+        "srcSet": "/images/archive/pochampally-ikat/archive-pochampally-ikat-process-06.webp 1374w, /images/archive/pochampally-ikat/archive-pochampally-ikat-process-06-1200w.webp 1200w, /images/archive/pochampally-ikat/archive-pochampally-ikat-process-06-800w.webp 800w, /images/archive/pochampally-ikat/archive-pochampally-ikat-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive pochampally ikat process 06"
+      },
+      {
+        "src": "/images/archive/pochampally-ikat/archive-pochampally-ikat-stilllife-04.webp",
+        "srcSet": "/images/archive/pochampally-ikat/archive-pochampally-ikat-stilllife-04.webp 1374w, /images/archive/pochampally-ikat/archive-pochampally-ikat-stilllife-04-1200w.webp 1200w, /images/archive/pochampally-ikat/archive-pochampally-ikat-stilllife-04-800w.webp 800w, /images/archive/pochampally-ikat/archive-pochampally-ikat-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive pochampally ikat stilllife 04"
+      }
+    ],
+    "sambalpuri-ikat": [
+      {
+        "src": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-drape-03.webp",
+        "srcSet": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-drape-03.webp 1024w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-drape-03-800w.webp 800w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-drape-03-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive sambalpuri ikat drape 03"
+      },
+      {
+        "src": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-macro-05.webp",
+        "srcSet": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-macro-05.webp 1374w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-macro-05-1200w.webp 1200w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-macro-05-800w.webp 800w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-macro-05-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive sambalpuri ikat macro 05"
+      },
+      {
+        "src": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-model-01.webp",
+        "srcSet": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-model-01.webp 1024w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-model-01-800w.webp 800w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-model-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive sambalpuri ikat model 01"
+      },
+      {
+        "src": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-model-02.webp",
+        "srcSet": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-model-02.webp 1024w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-model-02-800w.webp 800w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-model-02-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "archive sambalpuri ikat model 02"
+      },
+      {
+        "src": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-process-06.webp",
+        "srcSet": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-process-06.webp 1374w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-process-06-1200w.webp 1200w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-process-06-800w.webp 800w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-process-06-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive sambalpuri ikat process 06"
+      },
+      {
+        "src": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-stilllife-04.webp",
+        "srcSet": "/images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-stilllife-04.webp 1374w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-stilllife-04-1200w.webp 1200w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-stilllife-04-800w.webp 800w, /images/archive/sambalpuri-ikat/archive-sambalpuri-ikat-stilllife-04-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1374,
+        "height": 1145,
+        "alt": "archive sambalpuri ikat stilllife 04"
+      }
+    ]
+  },
+  "brand": {
+    "everthread-textile-detail-01": {
+      "src": "/images/brand/everthread-textile-detail-01.webp",
+      "srcSet": "/images/brand/everthread-textile-detail-01.webp 1678w, /images/brand/everthread-textile-detail-01-1200w.webp 1200w, /images/brand/everthread-textile-detail-01-800w.webp 800w, /images/brand/everthread-textile-detail-01-400w.webp 400w",
+      "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      "width": 1678,
+      "height": 937,
+      "alt": "everthread textile detail 01"
+    },
+    "everthread-textile-macro-01": {
+      "src": "/images/brand/everthread-textile-macro-01.webp",
+      "srcSet": "/images/brand/everthread-textile-macro-01.webp 1678w, /images/brand/everthread-textile-macro-01-1200w.webp 1200w, /images/brand/everthread-textile-macro-01-800w.webp 800w, /images/brand/everthread-textile-macro-01-400w.webp 400w",
+      "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      "width": 1678,
+      "height": 937,
+      "alt": "everthread textile macro 01"
+    },
+    "everthread-textile-macro-ivory-01": {
+      "src": "/images/brand/everthread-textile-macro-ivory-01.webp",
+      "srcSet": "/images/brand/everthread-textile-macro-ivory-01.webp 1678w, /images/brand/everthread-textile-macro-ivory-01-1200w.webp 1200w, /images/brand/everthread-textile-macro-ivory-01-800w.webp 800w, /images/brand/everthread-textile-macro-ivory-01-400w.webp 400w",
+      "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      "width": 1678,
+      "height": 937,
+      "alt": "everthread textile macro ivory 01"
+    },
+    "og-everthread": {
+      "src": "/images/brand/og-everthread.webp",
+      "srcSet": "/images/brand/og-everthread.webp 1200w, /images/brand/og-everthread-800w.webp 800w, /images/brand/og-everthread-400w.webp 400w",
+      "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      "width": 1200,
+      "height": 630,
+      "alt": "og everthread"
+    },
+    "android-chrome-192x192": {
+      "src": "/images/brand/site-icons/android-chrome-192x192.webp",
+      "srcSet": "/images/brand/site-icons/android-chrome-192x192.webp 192w",
+      "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      "width": 192,
+      "height": 192,
+      "alt": "android chrome 192x192"
+    },
+    "android-chrome-512x512": {
+      "src": "/images/brand/site-icons/android-chrome-512x512.webp",
+      "srcSet": "/images/brand/site-icons/android-chrome-512x512.webp 512w, /images/brand/site-icons/android-chrome-512x512-400w.webp 400w",
+      "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      "width": 512,
+      "height": 512,
+      "alt": "android chrome 512x512"
+    },
+    "apple-touch-icon": {
+      "src": "/images/brand/site-icons/apple-touch-icon.webp",
+      "srcSet": "/images/brand/site-icons/apple-touch-icon.webp 180w",
+      "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      "width": 180,
+      "height": 180,
+      "alt": "apple touch icon"
+    },
+    "favicon-16x16": {
+      "src": "/images/brand/site-icons/favicon-16x16.webp",
+      "srcSet": "/images/brand/site-icons/favicon-16x16.webp 16w",
+      "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      "width": 16,
+      "height": 16,
+      "alt": "favicon 16x16"
+    },
+    "favicon-32x32": {
+      "src": "/images/brand/site-icons/favicon-32x32.webp",
+      "srcSet": "/images/brand/site-icons/favicon-32x32.webp 32w",
+      "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      "width": 32,
+      "height": 32,
+      "alt": "favicon 32x32"
+    }
+  },
+  "editorial": {
+    "craft": [
+      {
+        "src": "/images/craft/everthread-craft-thread-spools-01.webp",
+        "srcSet": "/images/craft/everthread-craft-thread-spools-01.webp 1536w, /images/craft/everthread-craft-thread-spools-01-1200w.webp 1200w, /images/craft/everthread-craft-thread-spools-01-800w.webp 800w, /images/craft/everthread-craft-thread-spools-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "everthread craft thread spools 01"
+      },
+      {
+        "src": "/images/craft/journal-construction-01.webp",
+        "srcSet": "/images/craft/journal-construction-01.webp 1536w, /images/craft/journal-construction-01-1200w.webp 1200w, /images/craft/journal-construction-01-800w.webp 800w, /images/craft/journal-construction-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "journal construction 01"
+      }
+    ],
+    "home": [
+      {
+        "src": "/images/home/everthread-architecture-01.webp",
+        "srcSet": "/images/home/everthread-architecture-01.webp 1672w, /images/home/everthread-architecture-01-1200w.webp 1200w, /images/home/everthread-architecture-01-800w.webp 800w, /images/home/everthread-architecture-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1672,
+        "height": 941,
+        "alt": "everthread architecture 01"
+      },
+      {
+        "src": "/images/home/everthread-atelier-still-life-01.webp",
+        "srcSet": "/images/home/everthread-atelier-still-life-01.webp 1678w, /images/home/everthread-atelier-still-life-01-1200w.webp 1200w, /images/home/everthread-atelier-still-life-01-800w.webp 800w, /images/home/everthread-atelier-still-life-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1678,
+        "height": 937,
+        "alt": "everthread atelier still life 01"
+      },
+      {
+        "src": "/images/home/everthread-campaign-saree-concept-01.webp",
+        "srcSet": "/images/home/everthread-campaign-saree-concept-01.webp 1731w, /images/home/everthread-campaign-saree-concept-01-1200w.webp 1200w, /images/home/everthread-campaign-saree-concept-01-800w.webp 800w, /images/home/everthread-campaign-saree-concept-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1731,
+        "height": 909,
+        "alt": "everthread campaign saree concept 01"
+      },
+      {
+        "src": "/images/home/everthread-collection-transition-01.webp",
+        "srcSet": "/images/home/everthread-collection-transition-01.webp 1774w, /images/home/everthread-collection-transition-01-1200w.webp 1200w, /images/home/everthread-collection-transition-01-800w.webp 800w, /images/home/everthread-collection-transition-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1774,
+        "height": 887,
+        "alt": "everthread collection transition 01"
+      },
+      {
+        "src": "/images/home/everthread-editorial-01.webp",
+        "srcSet": "/images/home/everthread-editorial-01.webp 1678w, /images/home/everthread-editorial-01-1200w.webp 1200w, /images/home/everthread-editorial-01-800w.webp 800w, /images/home/everthread-editorial-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1678,
+        "height": 937,
+        "alt": "everthread editorial 01"
+      },
+      {
+        "src": "/images/home/everthread-editorial-ivory-01.webp",
+        "srcSet": "/images/home/everthread-editorial-ivory-01.webp 1536w, /images/home/everthread-editorial-ivory-01-1200w.webp 1200w, /images/home/everthread-editorial-ivory-01-800w.webp 800w, /images/home/everthread-editorial-ivory-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "everthread editorial ivory 01"
+      },
+      {
+        "src": "/images/home/everthread-garment-display-01.webp",
+        "srcSet": "/images/home/everthread-garment-display-01.webp 1679w, /images/home/everthread-garment-display-01-1200w.webp 1200w, /images/home/everthread-garment-display-01-800w.webp 800w, /images/home/everthread-garment-display-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1679,
+        "height": 937,
+        "alt": "everthread garment display 01"
+      },
+      {
+        "src": "/images/home/everthread-hero-01.webp",
+        "srcSet": "/images/home/everthread-hero-01.webp 1678w, /images/home/everthread-hero-01-1200w.webp 1200w, /images/home/everthread-hero-01-800w.webp 800w, /images/home/everthread-hero-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1678,
+        "height": 937,
+        "alt": "everthread hero 01"
+      },
+      {
+        "src": "/images/home/everthread-hero-mobile-01.webp",
+        "srcSet": "/images/home/everthread-hero-mobile-01.webp 1024w, /images/home/everthread-hero-mobile-01-800w.webp 800w, /images/home/everthread-hero-mobile-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1024,
+        "height": 1536,
+        "alt": "everthread hero mobile 01"
+      },
+      {
+        "src": "/images/home/everthread-ivory-campaign-01.webp",
+        "srcSet": "/images/home/everthread-ivory-campaign-01.webp 1678w, /images/home/everthread-ivory-campaign-01-1200w.webp 1200w, /images/home/everthread-ivory-campaign-01-800w.webp 800w, /images/home/everthread-ivory-campaign-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1678,
+        "height": 937,
+        "alt": "everthread ivory campaign 01"
+      },
+      {
+        "src": "/images/home/everthread-story-cover-default-01.webp",
+        "srcSet": "/images/home/everthread-story-cover-default-01.webp 1672w, /images/home/everthread-story-cover-default-01-1200w.webp 1200w, /images/home/everthread-story-cover-default-01-800w.webp 800w, /images/home/everthread-story-cover-default-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1672,
+        "height": 941,
+        "alt": "everthread story cover default 01"
+      },
+      {
+        "src": "/images/home/everthread-textile-folds-01.webp",
+        "srcSet": "/images/home/everthread-textile-folds-01.webp 1536w, /images/home/everthread-textile-folds-01-1200w.webp 1200w, /images/home/everthread-textile-folds-01-800w.webp 800w, /images/home/everthread-textile-folds-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "everthread textile folds 01"
+      },
+      {
+        "src": "/images/home/product-collection-still-life-01.webp",
+        "srcSet": "/images/home/product-collection-still-life-01.webp 1536w, /images/home/product-collection-still-life-01-1200w.webp 1200w, /images/home/product-collection-still-life-01-800w.webp 800w, /images/home/product-collection-still-life-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "product collection still life 01"
+      }
+    ],
+    "house": [
+      {
+        "src": "/images/house/everthread-craft-process-01.webp",
+        "srcSet": "/images/house/everthread-craft-process-01.webp 1678w, /images/house/everthread-craft-process-01-1200w.webp 1200w, /images/house/everthread-craft-process-01-800w.webp 800w, /images/house/everthread-craft-process-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1678,
+        "height": 937,
+        "alt": "everthread craft process 01"
+      },
+      {
+        "src": "/images/house/house-design-studio-01.webp",
+        "srcSet": "/images/house/house-design-studio-01.webp 1536w, /images/house/house-design-studio-01-1200w.webp 1200w, /images/house/house-design-studio-01-800w.webp 800w, /images/house/house-design-studio-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "house design studio 01"
+      },
+      {
+        "src": "/images/house/house-philosophy-01.webp",
+        "srcSet": "/images/house/house-philosophy-01.webp 1536w, /images/house/house-philosophy-01-1200w.webp 1200w, /images/house/house-philosophy-01-800w.webp 800w, /images/house/house-philosophy-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "house philosophy 01"
+      }
+    ],
+    "journal": [
+      {
+        "src": "/images/journal/journal-architecture-01.webp",
+        "srcSet": "/images/journal/journal-architecture-01.webp 1536w, /images/journal/journal-architecture-01-1200w.webp 1200w, /images/journal/journal-architecture-01-800w.webp 800w, /images/journal/journal-architecture-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "journal architecture 01"
+      },
+      {
+        "src": "/images/journal/journal-materials-01.webp",
+        "srcSet": "/images/journal/journal-materials-01.webp 1536w, /images/journal/journal-materials-01-1200w.webp 1200w, /images/journal/journal-materials-01-800w.webp 800w, /images/journal/journal-materials-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "journal materials 01"
+      }
+    ],
+    "materials": [
+      {
+        "src": "/images/materials/everthread-material-still-life-01.webp",
+        "srcSet": "/images/materials/everthread-material-still-life-01.webp 1536w, /images/materials/everthread-material-still-life-01-1200w.webp 1200w, /images/materials/everthread-material-still-life-01-800w.webp 800w, /images/materials/everthread-material-still-life-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "everthread material still life 01"
+      },
+      {
+        "src": "/images/materials/journal-drape-01.webp",
+        "srcSet": "/images/materials/journal-drape-01.webp 1536w, /images/materials/journal-drape-01-1200w.webp 1200w, /images/materials/journal-drape-01-800w.webp 800w, /images/materials/journal-drape-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "journal drape 01"
+      }
+    ],
+    "packaging": [
+      {
+        "src": "/images/packaging/everthread-packaging-still-life-01.webp",
+        "srcSet": "/images/packaging/everthread-packaging-still-life-01.webp 1536w, /images/packaging/everthread-packaging-still-life-01-1200w.webp 1200w, /images/packaging/everthread-packaging-still-life-01-800w.webp 800w, /images/packaging/everthread-packaging-still-life-01-400w.webp 400w",
+        "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        "width": 1536,
+        "height": 1024,
+        "alt": "everthread packaging still life 01"
+      }
+    ]
+  }
+}
