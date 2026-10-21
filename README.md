@@ -94,10 +94,11 @@ The production preview server will start at `http://localhost:4173`.
 
 ## Repository Documentation
 
-For in-depth architectural and asset details, consult the accompanying project documentation:
-- **[`PROJECT_STRUCTURE.md`](./PROJECT_STRUCTURE.md):** Complete directory tree map, entry point specifications, `src/` vs `public/` asset handling, and testing structure.
-- **[`FILE_USAGE_AUDIT.md`](./FILE_USAGE_AUDIT.md):** Multi-category file inventory classifying active code, static assets, tests, documentation, and historical mockups.
-- **[`phase_7_0_release_readiness_report.md`](./phase_7_0_release_readiness_report.md):** Comprehensive release readiness audit, Git setup summary, and hosting compatibility report.
+For in-depth architectural and asset details, consult the accompanying documentation in the [`docs/`](./docs) directory:
+- **[`PROJECT_STRUCTURE.md`](./docs/PROJECT_STRUCTURE.md):** Complete directory tree map, entry point specifications, `src/` vs `public/` asset handling, and testing structure.
+- **[`FILE_USAGE_AUDIT.md`](./docs/FILE_USAGE_AUDIT.md):** Multi-category file inventory classifying active code, static assets, tests, documentation, and historical mockups.
+- **[`phase_7_0_release_readiness_report.md`](./docs/phase_7_0_release_readiness_report.md):** Comprehensive release readiness audit, Git setup summary, and hosting compatibility report.
+- **[Phase Reports & Specs](./docs/):** Historical phase implementation reports (`phase_6_3` through `phase_6_6`), design briefs, and technical specifications.
 
 ---
 
