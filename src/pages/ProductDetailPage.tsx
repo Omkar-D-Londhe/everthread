@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProductBySlug, PRODUCTS } from '../data/products.ts';
 import { ProductColorVariant } from '../types/catalog.ts';
@@ -7,6 +7,8 @@ import { useCart } from '../context/CartContext.tsx';
 import { useSaved } from '../context/SavedContext.tsx';
 import { getStoryBySlug } from '../data/stories.ts';
 import { ProductCard } from '../components/ProductCard.tsx';
+import { AtelierLensModal } from '../components/AtelierLensModal.tsx';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 export const ProductDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -24,6 +26,15 @@ export const ProductDetailPage: React.FC = () => {
   const [validationError, setValidationError] = useState<string | null>(null);
   const [addedSuccess, setAddedSuccess] = useState<boolean>(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState<boolean>(false);
+  const [isLensOpen, setIsLensOpen] = useState<boolean>(false);
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    sectionSelector: '.editorial-section',
+    deps: [product?.id]
+  });
 
   // Accordion open states
   const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({
@@ -169,7 +180,7 @@ export const ProductDetailPage: React.FC = () => {
   const complementaryProducts = PRODUCTS.filter(p => p.id !== product.id).slice(0, 3);
 
   return (
-    <main id="main-content" className="main-content">
+    <main id="main-content" className="main-content" ref={mainRef}>
       {/* Top Breadcrumb & Archival Identifier Bar */}
       <div className="py-2 border-hairline-b bg-stone">
         <div className="page-container">
@@ -286,11 +297,27 @@ export const ProductDetailPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* Macro Loupe Archival Caption */}
-                <div className="pt-2 text-start">
+                {/* Macro Loupe Archival Caption & Atelier Lens Trigger */}
+                <div className="pt-2 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
                   <p className="body-sm text-muted-editorial fst-italic mb-0" style={{ fontSize: '0.75rem' }}>
                     * Natural atelier light capture. {product.imageCredit || 'EverThread Atelier Archival Study'}.
                   </p>
+                  <button
+                    type="button"
+                    className="btn-outline-editorial py-1 px-3 body-sm d-inline-flex align-items-center gap-2"
+                    onClick={() => setIsLensOpen(true)}
+                    data-testid="inspect-fabric-lens-btn"
+                    aria-haspopup="dialog"
+                    style={{ fontSize: '0.75rem' }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <circle cx="11" cy="11" r="8"/>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                      <line x1="11" y1="8" x2="11" y2="14"/>
+                      <line x1="8" y1="11" x2="14" y2="11"/>
+                    </svg>
+                    <span>Inspect with Atelier Lens (2.2×)</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -372,6 +399,9 @@ export const ProductDetailPage: React.FC = () => {
                     );
                   })}
                 </div>
+                <p className="body-sm text-muted-editorial mt-1 mb-0" style={{ fontSize: '0.75rem' }}>
+                  * Bespoke Vegetal Dye Allocation: Hand-dyed upon commission. Shown in atelier signature tone.
+                </p>
               </div>
 
               {/* Variant 2: Size Selector (Apparel Only) or Dimension Note (Accessories) */}
@@ -836,6 +866,17 @@ export const ProductDetailPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Atelier Fabric Inspection Lens Modal (Supports All 7 Silhouettes) */}
+      <AtelierLensModal
+        isOpen={isLensOpen}
+        onClose={() => setIsLensOpen(false)}
+        imageSrc={product.macroImage || currentImage.src}
+        fallbackImageSrc={currentImage.src}
+        title={`${product.title} — Textile Architecture`}
+        subtitle={`${product.fiberPurity} • ${product.weaveType}`}
+        caption={`High-resolution atelier inspection of ${product.title}. Examined under natural light to reveal the ${product.warpDensity} structural density and authentic handloom surface geometry.`}
+      />
     </main>
   );
 };

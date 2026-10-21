@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { JOURNAL_ARTICLES } from '../data/journal.ts';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 export const JournalPage: React.FC = () => {
   const [subEmail, setSubEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    staggerSelector: '.editorial-card',
+    sectionSelector: '.editorial-section'
+  });
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,20 +27,20 @@ export const JournalPage: React.FC = () => {
   const remainingArticles = JOURNAL_ARTICLES.slice(1);
 
   return (
-    <main id="main-content" className="main-content bg-canvas" data-testid="journal-page">
+    <main id="main-content" className="main-content bg-canvas" data-testid="journal-page" ref={mainRef}>
       {/* Editorial Header */}
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
-          <div className="d-flex align-items-center gap-2 mb-2">
+          <div className="d-flex align-items-center gap-2 mb-2 editorial-enter">
             <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
             <span className="label-caps text-champagne">The EverThread Gazette</span>
           </div>
 
-          <h1 className="display-hero text-oxblood mb-3" style={{ fontSize: '3.5rem' }}>
+          <h1 className="display-hero text-oxblood mb-3 editorial-enter" style={{ fontSize: '3.5rem' }}>
             Monographs &amp; Essays
           </h1>
 
-          <p className="body-lg text-muted-editorial mb-0" style={{ maxWidth: 680 }}>
+          <p className="body-lg text-muted-editorial mb-0 editorial-enter" style={{ maxWidth: 680 }}>
             Quarterly critical writings on textile ecology, guild anthropology, anatomical drape engineering, and the enduring poetics of slow fashion.
           </p>
         </div>
@@ -38,7 +48,7 @@ export const JournalPage: React.FC = () => {
 
       {/* Featured Lead Monograph Section */}
       {featuredArticle && (
-        <section className="py-5 bg-canvas border-hairline-b" data-testid="featured-article-section">
+        <section className="py-5 bg-canvas border-hairline-b editorial-section" data-testid="featured-article-section">
           <div className="page-container">
             <article className="p-4 p-lg-5 bg-stone border-hairline">
               <div className="row g-5 align-items-center">
@@ -106,7 +116,7 @@ export const JournalPage: React.FC = () => {
       )}
 
       {/* Gazette Archive Articles Grid */}
-      <section className="py-5 bg-cream border-hairline-b">
+      <section className="py-5 bg-cream border-hairline-b editorial-section">
         <div className="page-container">
           <div className="d-flex align-items-center justify-content-between mb-4 pb-2 border-hairline-b">
             <div>
@@ -120,7 +130,7 @@ export const JournalPage: React.FC = () => {
 
           <div className="row g-4" data-testid="journal-grid">
             {remainingArticles.map(article => (
-              <div key={article.id} className="col-12 col-md-6">
+              <div key={article.id} className="col-12 col-md-6 editorial-card">
                 <article 
                   className="p-4 bg-canvas border-hairline h-100 d-flex flex-column justify-content-between"
                   data-testid={`journal-card-${article.slug}`}

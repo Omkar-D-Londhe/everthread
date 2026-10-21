@@ -813,10 +813,17 @@
 .exhibition-thumb-label {
   font-family: var(--font-sans);
   font-size: 0.8125rem;
-  color: var(--color-primary, #300f19);
+  color: var(--color-espresso, #251800);
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.exhibition-scroll-guidance {
+  color: var(--color-espresso, #251800);
+  font-weight: 600;
+  user-select: none;
 }
 
 /* Contextual Technical Diagram Drawer */

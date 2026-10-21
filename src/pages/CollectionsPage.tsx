@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PRODUCTS } from '../data/products.ts';
 import { Product } from '../types/catalog.ts';
 import { ProductCard } from '../components/ProductCard.tsx';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 // Attribute Filter Definitions derived directly from actual catalogue data
 export interface FilterOption {
@@ -184,6 +185,14 @@ export const CollectionsPage: React.FC = () => {
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const openTriggerRef = useRef<HTMLButtonElement>(null);
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    staggerSelector: '.editorial-card',
+    deps: [selectedCategory, selectedMaterials, selectedColours, selectedCrafts, selectedPriceTier, sortOrder]
+  });
 
   // Total active filter count
   const activeFilterCount = useMemo(() => {
@@ -287,21 +296,21 @@ export const CollectionsPage: React.FC = () => {
   }, [selectedCategory, selectedMaterials, selectedColours, selectedCrafts, selectedPriceTier, sortOrder]);
 
   return (
-    <main id="main-content" className="main-content">
+    <main id="main-content" className="main-content" ref={mainRef}>
       {/* Editorial Repertoire Hero */}
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
-          <div className="d-flex align-items-center gap-2 mb-2">
+          <div className="d-flex align-items-center gap-2 mb-2 editorial-enter">
             <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
             <span className="label-caps text-champagne">Permanent Capsule</span>
             <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
           </div>
 
-          <h1 className="display-hero text-oxblood mb-2">
+          <h1 className="display-hero text-oxblood mb-2 editorial-enter">
             Curated Repertoire
           </h1>
 
-          <p className="headline-sm text-on-surface fst-italic fw-light mb-4" style={{ maxWidth: 760 }}>
+          <p className="headline-sm text-on-surface fst-italic fw-light mb-4 editorial-enter" style={{ maxWidth: 760 }}>
             Seven architectural heirlooms hand-finished across master weaving guilds and leather ateliers, numbered and registered in the House Ledger.
           </p>
 
@@ -669,7 +678,7 @@ export const CollectionsPage: React.FC = () => {
                     return (
                       <div 
                         key={product.id} 
-                        className={colClass}
+                        className={`${colClass} editorial-card`}
                       >
                         <ProductCard 
                           product={product} 

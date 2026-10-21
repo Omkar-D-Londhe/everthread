@@ -1,80 +1,402 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { PRODUCTS } from '../data/products.ts';
+import { WEAVE_LIBRARY, STORIES } from '../data/stories.ts';
+import { JOURNAL_ARTICLES } from '../data/journal.ts';
+import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 
 interface SearchModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+type SearchCategory = 'product' | 'tradition' | 'story' | 'journal';
 
+interface SearchResultItem {
+  id: string;
+  category: SearchCategory;
+  categoryLabel: string;
+  title: string;
+  subtitle?: string;
+  url: string;
+  image?: string;
+  badge?: string;
+}
+
+const CURATED_SEARCH_SUGGESTIONS = [
+  'Varanasi Brocade',
+  'Changthangi Pashmina',
+  'Chanderi',
+  'Coat Dress',
+  'Kadwa Weave',
+  'Handloom Silk',
+  'Pit Loom',
+  'Jamdani'
+];
+
+export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
+  const [query, setQuery] = useState<string>('');
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  // Reset and auto-focus when opened
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
+      setQuery('');
+      setSelectedIndex(-1);
+      const timer = setTimeout(() => inputRef.current?.focus(), 50);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
+  // Global keydown listeners
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
-      if (
-        e.key === '/' && 
-        !isOpen && 
-        document.activeElement?.tagName !== 'INPUT' && 
-        document.activeElement?.tagName !== 'TEXTAREA'
-      ) {
         e.preventDefault();
-        // Trigger opening via parent
+        onClose();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
+  // Unified index search across all 4 house directories
+  const results: SearchResultItem[] = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+
+    const matches: SearchResultItem[] = [];
+
+    // 1. Products (7 Canonical Pieces)
+    PRODUCTS.forEach(p => {
+      const haystack = `${p.title} ${p.subtitle || ''} ${p.category} ${p.weaveType} ${p.fiberPurity} ${p.origin} ${p.description}`.toLowerCase();
+      if (haystack.includes(q)) {
+        const asset = PRODUCT_ASSET_MAP[p.id];
+        matches.push({
+          id: `prod-${p.id}`,
+          category: 'product',
+          categoryLabel: 'Silhouettes & Repertoire',
+          title: p.title,
+          subtitle: `${p.currency}${p.price.toLocaleString('en-IN')} • ${p.weaveType}`,
+          url: `/product/${p.slug}`,
+          image: asset?.primary.src || p.image,
+          badge: p.category
+        });
+      }
+    });
+
+    // 2. Cultural Archive Traditions (13 Living Weave Traditions)
+    WEAVE_LIBRARY.forEach(w => {
+      const haystack = `${w.title} ${w.region} ${w.fiber} ${w.distinction} ${w.structuralProfile} ${w.description}`.toLowerCase();
+      if (haystack.includes(q)) {
+        matches.push({
+          id: `weave-${w.id}`,
+          category: 'tradition',
+          categoryLabel: 'Living Weave Tradition',
+          title: w.title,
+          subtitle: `${w.region} • ${w.fiber}`,
+          url: `/archive?tradition=${w.traditionKey || w.slug}`,
+          image: w.image,
+          badge: w.distinction.toUpperCase()
+        });
+      }
+    });
+
+    // 3. Archive Monograph Folios (4 Studies)
+    STORIES.forEach(s => {
+      const haystack = `${s.title} ${s.subtitle} ${s.chapter} ${s.folio} ${s.location} ${s.artisan} ${s.summary}`.toLowerCase();
+      if (haystack.includes(q)) {
+        matches.push({
+          id: `story-${s.id}`,
+          category: 'story',
+          categoryLabel: 'Archival Folio Monograph',
+          title: s.title,
+          subtitle: `${s.chapter} • ${s.folio} • ${s.location}`,
+          url: `/archive/${s.slug}`,
+          image: s.image,
+          badge: 'MONOGRAPH'
+        });
+      }
+    });
+
+    // 4. Journal Articles (Editorial Monograph Essays)
+    JOURNAL_ARTICLES.forEach(j => {
+      const haystack = `${j.title} ${j.subtitle} ${j.category} ${j.author} ${j.excerpt} ${j.bodyParagraphs.join(' ')}`.toLowerCase();
+      if (haystack.includes(q)) {
+        matches.push({
+          id: `journal-${j.id}`,
+          category: 'journal',
+          categoryLabel: 'Editorial Journal',
+          title: j.title,
+          subtitle: `${j.category} • ${j.readTime}`,
+          url: `/journal/${j.slug}`,
+          image: j.image,
+          badge: 'ESSAY'
+        });
+      }
+    });
+
+    return matches;
+  }, [query]);
+
+  // Keyboard navigation through results
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (results.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev + 1 < results.length ? prev + 1 : 0));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev - 1 >= 0 ? prev - 1 : results.length - 1));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      const target = selectedIndex >= 0 ? results[selectedIndex] : results[0];
+      if (target) {
+        onClose();
+        navigate(target.url);
+      }
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
     <>
-      <div 
-        className="modal-backdrop fade show" 
-        style={{ zIndex: 1050 }} 
-        onClick={onClose} 
+      <div
+        className="modal-backdrop fade show"
+        style={{ zIndex: 1050, backgroundColor: 'rgba(26, 20, 22, 0.72)', backdropFilter: 'blur(6px)' }}
+        onClick={onClose}
+        data-testid="search-modal-backdrop"
       />
-      <div 
-        className="modal fade show d-block" 
-        tabIndex={-1} 
-        role="dialog" 
+      <div
+        className="modal fade show d-block"
+        tabIndex={-1}
+        role="dialog"
         aria-modal="true"
+        aria-label="Atelier Curatorial Search"
         style={{ zIndex: 1055 }}
       >
-        <div className="modal-dialog modal-lg modal-dialog-centered">
-          <div className="modal-content bg-canvas border-hairline p-0 text-dark">
-            <div className="modal-header border-hairline-b p-3 bg-cream d-flex justify-content-between align-items-center">
-              <span className="label-caps text-oxblood">Atelier Curatorial Search</span>
-              <button 
-                type="button" 
-                className="btn-close" 
-                aria-label="Close" 
-                onClick={onClose} 
-              />
+        <div className="modal-dialog modal-lg modal-dialog-centered" style={{ maxWidth: 740 }}>
+          <div className="modal-content bg-canvas border-hairline p-0 text-dark shadow-lg overflow-hidden">
+            {/* Header */}
+            <div className="modal-header border-hairline-b p-3 px-4 bg-cream d-flex justify-content-between align-items-center">
+              <div className="d-flex align-items-center gap-2">
+                <span style={{ width: 6, height: 6, backgroundColor: 'var(--color-champagne-thread)', transform: 'rotate(45deg)' }} />
+                <span className="label-caps text-oxblood">Atelier Curatorial Search</span>
+              </div>
+              <button
+                type="button"
+                className="btn-outline-editorial py-1 px-3 body-sm d-inline-flex align-items-center gap-1"
+                aria-label="Close search"
+                onClick={onClose}
+                data-testid="search-close-btn"
+              >
+                <span>Close</span>
+                <span className="material-symbols-outlined fs-6">close</span>
+              </button>
             </div>
-            <div className="modal-body p-4">
-              <div className="position-relative mb-3">
-                <input 
+
+            {/* Search Input Bar */}
+            <div className="p-4 bg-surface border-hairline-b">
+              <div className="position-relative">
+                <span
+                  className="position-absolute top-50 start-0 translate-middle-y ps-3 text-muted-editorial d-flex align-items-center"
+                  style={{ pointerEvents: 'none' }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  </svg>
+                </span>
+                <input
                   ref={inputRef}
-                  type="text" 
-                  className="form-control form-control-editorial w-100 ps-3" 
-                  placeholder="Type a fabric, weave, silhouette or heritage chapter... (Press Esc to close)" 
+                  type="text"
+                  value={query}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    setSelectedIndex(-1);
+                  }}
+                  onKeyDown={handleInputKeyDown}
+                  className="form-control form-control-editorial w-100 py-3 ps-5 pe-4"
+                  placeholder="Search silhouettes, weaves, materials, or folios... (e.g. Pashmina, Brocade)"
+                  data-testid="search-input"
+                  aria-autocomplete="list"
+                  aria-controls="search-results-list"
                 />
+                {query && (
+                  <button
+                    type="button"
+                    className="position-absolute top-50 end-0 translate-middle-y pe-3 border-0 bg-transparent text-muted-editorial"
+                    onClick={() => {
+                      setQuery('');
+                      setSelectedIndex(-1);
+                      inputRef.current?.focus();
+                    }}
+                    aria-label="Clear search query"
+                  >
+                    <span className="material-symbols-outlined fs-5">clear</span>
+                  </button>
+                )}
               </div>
-              <div className="p-4 text-center text-muted-editorial font-sans">
-                <span className="label-caps d-block mb-2 text-champagne">Atelier Index Search</span>
-                <p className="body-sm mb-0">
-                  Search across silk trenches, Changthangi pashmina, Varanasi Kadwa weaves, or archive folios...
-                </p>
-              </div>
+            </div>
+
+            {/* Results or Suggestions Panel */}
+            <div
+              ref={listRef}
+              id="search-results-list"
+              className="p-3 p-sm-4 bg-canvas overflow-y-auto"
+              style={{ maxHeight: '60vh', minHeight: 240 }}
+              data-testid="search-results-container"
+            >
+              {query.trim() === '' ? (
+                /* Initial Curated Guidance State */
+                <div>
+                  <div className="d-flex align-items-center justify-content-between mb-3 pb-2 border-hairline-b">
+                    <span className="label-caps text-oxblood">Curatorial Suggestions</span>
+                    <span className="body-sm text-muted-editorial" style={{ fontSize: '0.75rem' }}>
+                      Click to explore
+                    </span>
+                  </div>
+                  <div className="d-flex flex-wrap gap-2 mb-4">
+                    {CURATED_SEARCH_SUGGESTIONS.map(sug => (
+                      <button
+                        key={sug}
+                        type="button"
+                        className="btn-outline-editorial py-1 px-3 body-sm"
+                        style={{ fontSize: '0.8125rem' }}
+                        onClick={() => {
+                          setQuery(sug);
+                          inputRef.current?.focus();
+                        }}
+                      >
+                        {sug}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="p-3 bg-stone border-hairline body-sm text-muted-editorial font-sans">
+                    <span className="label-caps-wide text-oxblood d-block mb-1" style={{ fontSize: '0.625rem' }}>
+                      House Search Index
+                    </span>
+                    <p className="mb-0" style={{ fontSize: '0.8125rem' }}>
+                      Indexed across 7 permanent silhouettes, 13 living weave traditions, 4 curatorial folios, and continuous field journal studies.
+                    </p>
+                  </div>
+                </div>
+              ) : results.length > 0 ? (
+                /* Search Results List */
+                <div data-testid="search-results-list">
+                  <div className="d-flex align-items-center justify-content-between mb-3 pb-2 border-hairline-b">
+                    <span className="label-caps text-oxblood">
+                      Archival Matches ({results.length})
+                    </span>
+                    <span className="body-sm text-muted-editorial" style={{ fontSize: '0.75rem' }}>
+                      Use ↑↓ to browse • Press Enter to select
+                    </span>
+                  </div>
+
+                  <div className="d-flex flex-column gap-2">
+                    {results.map((item, idx) => {
+                      const isFocused = idx === selectedIndex;
+                      return (
+                        <Link
+                          key={item.id}
+                          to={item.url}
+                          onClick={onClose}
+                          className={`p-3 bg-stone border-hairline d-flex align-items-center gap-3 text-decoration-none transition-all ${
+                            isFocused ? 'bg-cream border-oxblood' : ''
+                          }`}
+                          style={{
+                            borderLeft: isFocused ? '3px solid var(--color-primary)' : '1px solid var(--color-hairline)'
+                          }}
+                          data-testid="search-result-item"
+                          data-result-id={item.id}
+                        >
+                          {item.image && (
+                            <div
+                              style={{ width: 56, height: 56, flexShrink: 0, overflow: 'hidden' }}
+                              className="border-hairline bg-surface"
+                            >
+                              <img
+                                src={item.image}
+                                alt=""
+                                width={56}
+                                height={56}
+                                className="w-100 h-100 object-fit-cover"
+                              />
+                            </div>
+                          )}
+
+                          <div className="flex-grow-1 min-w-0">
+                            <div className="d-flex align-items-center gap-2 mb-1">
+                              <span className="label-caps-wide text-champagne" style={{ fontSize: '0.5625rem' }}>
+                                {item.categoryLabel}
+                              </span>
+                              {item.badge && (
+                                <span className="badge badge-sand text-oxblood" style={{ fontSize: '0.5625rem' }}>
+                                  {item.badge}
+                                </span>
+                              )}
+                            </div>
+                            <h4 className="title-md text-oxblood mb-0 text-truncate" style={{ fontSize: '1rem' }}>
+                              {item.title}
+                            </h4>
+                            {item.subtitle && (
+                              <p className="body-sm text-muted-editorial mb-0 text-truncate" style={{ fontSize: '0.8125rem' }}>
+                                {item.subtitle}
+                              </p>
+                            )}
+                          </div>
+
+                          <div className="text-oxblood flex-shrink-0">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <polyline points="9 18 15 12 9 6"/>
+                            </svg>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                /* Empty Match State */
+                <div className="text-center py-5" data-testid="search-empty-state">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-editorial mb-3" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    <line x1="8" y1="11" x2="14" y2="11"/>
+                  </svg>
+                  <h3 className="title-md text-oxblood mb-2">No Archival Records Found</h3>
+                  <p className="body-sm text-muted-editorial mx-auto mb-4" style={{ maxWidth: 440 }}>
+                    No specimens matching &ldquo;<strong className="text-oxblood">{query}</strong>&rdquo; were discovered in the house registry. Try refining your term or search by a fundamental weave (e.g. &ldquo;Brocade&rdquo;, &ldquo;Pashmina&rdquo;, &ldquo;Chanderi&rdquo;).
+                  </p>
+                  <button
+                    type="button"
+                    className="btn-outline-editorial py-1 px-3 body-sm"
+                    onClick={() => {
+                      setQuery('');
+                      inputRef.current?.focus();
+                    }}
+                  >
+                    Clear Search
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Footer Navigation Hints */}
+            <div className="modal-footer p-2 px-4 bg-cream border-hairline-t d-flex justify-content-between align-items-center body-sm text-muted-editorial">
+              <span style={{ fontSize: '0.75rem' }}>
+                <kbd className="px-1 py-0 border-hairline bg-surface text-oxblood">ESC</kbd> to exit •{' '}
+                <kbd className="px-1 py-0 border-hairline bg-surface text-oxblood">↵</kbd> to navigate
+              </span>
+              <span style={{ fontSize: '0.75rem' }}>
+                EverThread Curatorial Catalog
+              </span>
             </div>
           </div>
         </div>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSaved } from '../context/SavedContext.tsx';
 import { useCart } from '../context/CartContext.tsx';
 import { getProductById } from '../data/products.ts';
 import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { Product } from '../types/catalog.ts';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 interface SavedCardItemProps {
   product: Product;
@@ -181,6 +182,15 @@ export const SavedPiecesPage: React.FC = () => {
   const { saved, toggleSaved, clearSaved } = useSaved();
   const { addToBag } = useCart();
 
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    staggerSelector: '.editorial-card',
+    deps: [saved.length]
+  });
+
   // Resolve valid products from the canonical catalogue
   const savedProducts: Product[] = saved
     .map(id => getProductById(id))
@@ -202,27 +212,27 @@ export const SavedPiecesPage: React.FC = () => {
   };
 
   return (
-    <main id="main-content" className="main-content bg-canvas" data-testid="saved-pieces-page">
+    <main id="main-content" className="main-content bg-canvas" data-testid="saved-pieces-page" ref={mainRef}>
       {/* Editorial Header Plinth */}
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
-          <div className="d-flex align-items-center gap-2 mb-2">
+          <div className="d-flex align-items-center gap-2 mb-2 editorial-enter">
             <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
             <span className="label-caps text-champagne">Personal Archival Curation</span>
           </div>
 
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-3">
             <div>
-              <h1 className="display-hero text-oxblood mb-2" style={{ fontSize: '3rem' }}>
+              <h1 className="display-hero text-oxblood mb-2 editorial-enter" style={{ fontSize: '3rem' }}>
                 Saved Pieces
               </h1>
-              <p className="headline-sm text-on-surface fst-italic fw-light mb-0" style={{ fontSize: '1.25rem' }}>
+              <p className="headline-sm text-on-surface fst-italic fw-light mb-0 editorial-enter" style={{ fontSize: '1.25rem' }}>
                 Curated heirlooms reserved for consideration, consultation, and bespoke allocation.
               </p>
             </div>
 
             {savedProducts.length > 0 && (
-              <div className="d-flex align-items-center gap-3">
+              <div className="d-flex align-items-center gap-3 editorial-enter">
                 <span className="label-caps text-muted-editorial" data-testid="saved-total-count">
                   {savedProducts.length} {savedProducts.length === 1 ? 'Piece Reserved' : 'Pieces Reserved'}
                 </span>
@@ -266,7 +276,7 @@ export const SavedPiecesPage: React.FC = () => {
             <div>
               <div className="row g-4" data-testid="saved-products-grid">
                 {savedProducts.map(product => (
-                  <div key={product.id} className="col-12 col-md-6 col-lg-4">
+                  <div key={product.id} className="col-12 col-md-6 col-lg-4 editorial-card">
                     <SavedCardItem
                       product={product}
                       onRemove={handleRemove}

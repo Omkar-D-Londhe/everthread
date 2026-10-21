@@ -1,7 +1,36 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Link, useInRouterContext } from 'react-router-dom';
 import { TraditionImageRole, TraditionAssetRecord } from '../types/catalog.ts';
-import { getTraditionAssets, getAllTraditionAssets, DIAGRAM_ASSETS } from '../data/assetMap.ts';
+import { getTraditionAssets, getAllTraditionAssets, DIAGRAM_ASSETS, PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+import { PRODUCTS } from '../data/products.ts';
+import { useOptionalCart } from '../context/CartContext.tsx';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.ts';
+import { WeaveGridIllustration } from './archive/ArchiveIllustrations.tsx';
+
+// Safe link that degrades gracefully to anchor tag if rendered outside router context
+const SafeLink: React.FC<{
+  to: string;
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+  children: React.ReactNode;
+}> = ({ to, children, ...props }) => {
+  const inRouter = useInRouterContext();
+  if (inRouter) {
+    return <Link to={to} {...props}>{children}</Link>;
+  }
+  return <a href={to} {...props}>{children}</a>;
+};
+
+// Verified cultural lineage mapping from Archive Traditions to EverThread Repertoire Silhouettes
+const TRADITION_PRODUCT_MAP: Record<string, string> = {
+  'banarasi-brocade': 'et-01', // Oxblood Wool-Silk Signature Coat-Dress (Varanasi Kadwa Facing)
+  'chanderi': 'et-02',         // Pleated Indigo Chanderi Tunic
+  'pashmina': 'et-04',         // Ivory Tailored Coat (Changthangi Pashmina)
+  'bandhani': 'et-05',         // Burgundy Scarf (Tie-dyed noble silk)
+  'jamdani': 'et-06',          // Ivory Scarf (Fine hand-loomed jamdani motif)
+  'patan-patola': 'et-07',     // Oxblood Handbag (Double-ikat geometric lining)
+};
 
 export interface TraditionExhibitionModalProps {
   isOpen: boolean;
@@ -30,10 +59,12 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
   initialDiagramOpen = false
 }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const cart = useOptionalCart();
   const [activeRole, setActiveRole] = useState<TraditionImageRole>(initialRole);
   const [showDiagram, setShowDiagram] = useState<boolean>(initialDiagramOpen);
   const [isThreadDrawn, setIsThreadDrawn] = useState<boolean>(false);
   const [imageError, setImageError] = useState<boolean>(false);
+  const [bagToast, setBagToast] = useState<string | null>(null);
 
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -43,6 +74,10 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
   const currentRecord: TraditionAssetRecord | undefined = traditionKeyOrSlug
     ? getTraditionAssets(traditionKeyOrSlug)
     : undefined;
+
+  // Resolve verified associated purchasable product for cultural archive commerce bridge
+  const associatedProductId = currentRecord ? TRADITION_PRODUCT_MAP[currentRecord.traditionKey] : undefined;
+  const associatedProduct = associatedProductId ? PRODUCTS.find(p => p.id === associatedProductId) : undefined;
 
   const allTraditions = getAllTraditionAssets();
   const currentTraditionIndex = currentRecord
@@ -377,15 +412,15 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
               {/* Stage Floating Caption / Role pill with mobile & desktop descriptive text */}
               <div className="exhibition-stage-caption">
                 <div className="exhibition-stage-caption__meta">
-                  <span className="label-caps-wide text-champagne" style={{ fontSize: '0.625rem' }}>
+                  <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.6875rem' }}>
                     Plate 0{currentRoleIndex + 1} of 0{TRADITION_ROLES.length}
                   </span>
-                  <span className="exhibition-stage-caption__label" data-testid="active-role-label">
+                  <span className="exhibition-stage-caption__label text-oxblood" data-testid="active-role-label">
                     {activeItem?.label || activeRole}
                   </span>
                 </div>
                 <p
-                  className="exhibition-stage-caption__desc body-sm"
+                  className="exhibition-stage-caption__desc body-sm text-espresso"
                   data-testid="active-plate-description"
                 >
                   {activeItem?.alt || activeItem?.purpose || 'Archival textile documentation plate.'}
@@ -397,12 +432,27 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
           {/* Asymmetrical Supporting Views / Desktop Selector Column */}
           <aside className="exhibition-supporting-col" aria-label="Supporting textile plates">
             <div className="exhibition-supporting-header">
-              <span className="label-caps text-champagne" style={{ fontSize: '0.6875rem' }}>
-                Complete 6-Plate Suite
-              </span>
-              <span className="body-sm text-muted-editorial" style={{ fontSize: '0.75rem' }}>
+              <div className="d-flex align-items-center justify-content-between mb-1">
+                <span className="label-caps text-oxblood fw-bold" style={{ fontSize: '0.6875rem' }}>
+                  Complete 6-Plate Suite
+                </span>
+                <span className="badge badge-sand text-oxblood" style={{ fontSize: '0.5625rem' }}>
+                  Archival
+                </span>
+              </div>
+              <span className="body-sm text-espresso fw-medium" style={{ fontSize: '0.75rem' }}>
                 Directly inspect all dimensions
               </span>
+              {/* Downward Scroll & Inspection Guidance */}
+              <div className="exhibition-scroll-guidance d-flex align-items-center gap-1 mt-2 pt-1 border-hairline-t text-espresso" data-testid="exhibition-scroll-guidance">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="text-oxblood">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+                <span className="label-caps-wide text-espresso fw-bold" style={{ fontSize: '0.6875rem', letterSpacing: '0.08em' }}>
+                  Scroll Down To Examine Plates
+                </span>
+              </div>
             </div>
 
             <div className="exhibition-supporting-grid">
@@ -433,14 +483,86 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
                       />
                     </div>
                     <div className="exhibition-thumb-info">
-                      <span className="label-caps text-champagne" style={{ fontSize: '0.5625rem' }}>
+                      <span className="label-caps text-oxblood fw-semibold" style={{ fontSize: '0.6875rem' }}>
                         Plate 0{idx + 1}
                       </span>
-                      <strong className="exhibition-thumb-label">{roleItem.label}</strong>
+                      <strong className="exhibition-thumb-label text-espresso">{roleItem.label}</strong>
                     </div>
                   </button>
                 );
               })}
+            </div>
+
+            {/* Cultural Archive Commerce Bridge: Associated Repertoire Silhouette */}
+            {associatedProduct && (
+              <div className="p-3 mx-3 mb-3 bg-stone border-hairline" data-testid="exhibition-commerce-card">
+                <div className="d-flex align-items-center justify-content-between mb-2">
+                  <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
+                    Repertoire Lineage
+                  </span>
+                  <span className="badge badge-sand text-oxblood" style={{ fontSize: '0.5625rem' }}>
+                    {associatedProduct.category}
+                  </span>
+                </div>
+                <div className="d-flex gap-2 align-items-center mb-2">
+                  <img
+                    src={PRODUCT_ASSET_MAP[associatedProduct.id]?.primary.src || associatedProduct.image}
+                    alt={associatedProduct.title}
+                    width={48}
+                    height={60}
+                    className="object-fit-cover border-hairline flex-shrink-0"
+                  />
+                  <div className="min-w-0">
+                    <SafeLink
+                      to={`/product/${associatedProduct.slug}`}
+                      onClick={onClose}
+                      className="body-sm fw-bold text-oxblood text-decoration-none d-block text-truncate"
+                      style={{ fontSize: '0.8125rem' }}
+                    >
+                      {associatedProduct.title}
+                    </SafeLink>
+                    <span className="body-sm text-espresso fw-medium" style={{ fontSize: '0.75rem' }}>
+                      ₹{associatedProduct.price.toLocaleString('en-IN')}
+                    </span>
+                  </div>
+                </div>
+                <div className="d-flex gap-2">
+                  <SafeLink
+                    to={`/product/${associatedProduct.slug}`}
+                    onClick={onClose}
+                    className="btn-outline-editorial py-1 px-2 body-sm flex-grow-1 text-center text-decoration-none"
+                    style={{ fontSize: '0.6875rem' }}
+                  >
+                    Examine
+                  </SafeLink>
+                  <button
+                    type="button"
+                    className="btn-oxblood py-1 px-2 body-sm flex-grow-1"
+                    style={{ fontSize: '0.6875rem' }}
+                    onClick={() => {
+                      cart?.addToBag({
+                        productId: associatedProduct.id,
+                        size: associatedProduct.sizes[0] || 'Standard',
+                        color: associatedProduct.colors[0]?.name || 'Signature',
+                        quantity: 1
+                      });
+                      setBagToast(associatedProduct.title);
+                      setTimeout(() => setBagToast(null), 4000);
+                    }}
+                    data-testid="archive-acquire-btn"
+                  >
+                    Acquire to Bag
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Restrained Architectural SVG Textile Illustration */}
+            <div className="p-3 mx-3 mb-3 text-center d-flex flex-column align-items-center" aria-hidden="true">
+              <WeaveGridIllustration />
+              <span className="label-caps-wide text-muted-editorial mt-1" style={{ fontSize: '0.5625rem' }}>
+                Handloom Sett Geometry
+              </span>
             </div>
           </aside>
 
@@ -530,6 +652,24 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
             })}
           </div>
         </div>
+
+        {/* Toast Notification for Archive-to-Bag Acquisition */}
+        {bagToast && (
+          <div
+            className="position-absolute bottom-0 start-50 translate-middle-x mb-5 p-3 px-4 bg-oxblood text-white border-hairline shadow-lg d-flex align-items-center gap-3 z-3 body-sm"
+            style={{ borderRadius: 2 }}
+            data-testid="archive-bag-toast"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-champagne-glow" aria-hidden="true">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span>Piece added to your bespoke bag: <strong>{bagToast}</strong></span>
+            <SafeLink to="/bag" onClick={onClose} className="text-champagne-glow fw-bold text-decoration-underline ms-2">
+              View Bag →
+            </SafeLink>
+          </div>
+        )}
 
         {/* Footer Bar: Metadata specs */}
         <footer className="exhibition-footer">

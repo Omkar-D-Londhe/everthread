@@ -87,10 +87,12 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
     glass.style.left = `${clampedX}px`;
     glass.style.top = `${clampedY}px`;
 
-    // Percentage coordinates for 2.2x background magnification alignment
-    const percentX = (clampedX / rect.width) * 100;
-    const percentY = (clampedY / rect.height) * 100;
-    glass.style.backgroundPosition = `${percentX}% ${percentY}%`;
+    // Mathematical coordinate alignment: 2.2x magnification directly centered under cursor
+    const zoom = 2.2;
+    const bgX = -(clampedX * zoom - 80);
+    const bgY = -(clampedY * zoom - 80);
+    glass.style.backgroundSize = `${rect.width * zoom}px ${rect.height * zoom}px`;
+    glass.style.backgroundPosition = `${bgX}px ${bgY}px`;
     glass.style.opacity = '1';
   }, []);
 

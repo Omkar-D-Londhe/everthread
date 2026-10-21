@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext.tsx';
 import { useSaved } from '../context/SavedContext.tsx';
 import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 export const BagPage: React.FC = () => {
   const { bag, bagCount, subtotal, formatPrice, updateQuantity, removeFromBag, clearBag, getItemProduct } = useCart();
   const { isSaved, toggleSaved } = useSaved();
+
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    staggerSelector: '.editorial-card',
+    deps: [bagCount]
+  });
 
   const handleSaveForLater = (productId: string, index: number) => {
     if (!isSaved(productId)) {
@@ -16,27 +26,27 @@ export const BagPage: React.FC = () => {
   };
 
   return (
-    <main id="main-content" className="main-content bg-canvas" data-testid="bag-page">
+    <main id="main-content" className="main-content bg-canvas" data-testid="bag-page" ref={mainRef}>
       {/* Editorial Header */}
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
-          <div className="d-flex align-items-center gap-2 mb-2">
+          <div className="d-flex align-items-center gap-2 mb-2 editorial-enter">
             <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
             <span className="label-caps text-champagne">Atelier Concierge Order</span>
           </div>
 
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-3">
             <div>
-              <h1 className="display-hero text-oxblood mb-2" style={{ fontSize: '3rem' }}>
+              <h1 className="display-hero text-oxblood mb-2 editorial-enter" style={{ fontSize: '3rem' }}>
                 Bespoke Shopping Bag
               </h1>
-              <p className="headline-sm text-on-surface fst-italic fw-light mb-0" style={{ fontSize: '1.25rem' }}>
+              <p className="headline-sm text-on-surface fst-italic fw-light mb-0 editorial-enter" style={{ fontSize: '1.25rem' }}>
                 Review allocated pieces before bespoke tailoring and ledger registration.
               </p>
             </div>
 
             {bagCount > 0 && (
-              <div className="d-flex align-items-center gap-3">
+              <div className="d-flex align-items-center gap-3 editorial-enter">
                 <span className="label-caps text-muted-editorial" data-testid="bag-total-count">
                   {bagCount} {bagCount === 1 ? 'Piece Allocated' : 'Pieces Allocated'}
                 </span>

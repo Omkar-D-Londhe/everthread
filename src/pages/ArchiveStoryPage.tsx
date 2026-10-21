@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getStoryBySlug, STORIES } from '../data/stories.ts';
 import { getProductBySlug } from '../data/products.ts';
 import { Product } from '../types/catalog.ts';
 import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+import { LoomThreadPathIllustration } from '../components/archive/ArchiveIllustrations.tsx';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 export const ArchiveStoryPage: React.FC = () => {
   const { storySlug } = useParams<{ storySlug: string }>();
@@ -56,8 +58,17 @@ export const ArchiveStoryPage: React.FC = () => {
     .map(slug => getProductBySlug(slug))
     .filter((prod): prod is Product => !!prod);
 
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    sectionSelector: '.editorial-section',
+    deps: [story?.slug]
+  });
+
   return (
-    <main id="main-content" className="main-content bg-canvas" data-testid="archive-story-page">
+    <main id="main-content" className="main-content bg-canvas" data-testid="archive-story-page" ref={mainRef}>
       {/* Editorial Breadcrumb Plinth */}
       <div className="py-2 border-hairline-b bg-stone">
         <div className="page-container">
@@ -74,17 +85,17 @@ export const ArchiveStoryPage: React.FC = () => {
       {/* Hero Header */}
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
-          <div className="d-flex align-items-center gap-2 mb-2">
+          <div className="d-flex align-items-center gap-2 mb-2 editorial-enter">
             <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
             <span className="label-caps text-champagne">{story.chapter} • {story.folio}</span>
           </div>
 
-          <h1 className="display-hero text-oxblood mb-2" data-testid="story-title" style={{ fontSize: '3rem' }}>
+          <h1 className="display-hero text-oxblood mb-2 editorial-enter" data-testid="story-title" style={{ fontSize: '3rem' }}>
             {story.title}
           </h1>
           <span className="visually-hidden">{story.slug.replace(/-/g, ' ')}</span>
 
-          <p className="headline-sm text-on-surface fst-italic fw-light mb-3" data-testid="story-subtitle" style={{ maxWidth: 800 }}>
+          <p className="headline-sm text-on-surface fst-italic fw-light mb-3 editorial-enter" data-testid="story-subtitle" style={{ maxWidth: 800 }}>
             {story.subtitle}
           </p>
 
@@ -97,7 +108,7 @@ export const ArchiveStoryPage: React.FC = () => {
       </section>
 
       {/* Main Exhibition Article Body */}
-      <section className="py-5">
+      <section className="py-5 editorial-section">
         <div className="page-container">
           <div className="row g-5">
             {/* Left Main Article Column */}
@@ -210,6 +221,14 @@ export const ArchiveStoryPage: React.FC = () => {
                       <span className="fw-medium text-oxblood">Notice:</span> Named artisan is an illustrative persona representing traditional guild lineages.
                     </div>
                   )}
+
+                  {/* Restrained Architectural Loom Thread Path Illustration */}
+                  <div className="pt-3 text-center d-flex flex-column align-items-center" aria-hidden="true">
+                    <LoomThreadPathIllustration />
+                    <span className="label-caps-wide text-muted-editorial mt-1" style={{ fontSize: '0.5625rem' }}>
+                      Heddle Tension Sequence
+                    </span>
+                  </div>
                 </div>
 
                 {/* Related 6-Plate Exhibition Companion */}

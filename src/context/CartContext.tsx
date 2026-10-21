@@ -175,6 +175,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
+export const useOptionalCart = (): CartContextType | undefined => {
+  return useContext(CartContext);
+};
+
 export const useCart = (): CartContextType => {
   const context = useContext(CartContext);
   if (!context) {

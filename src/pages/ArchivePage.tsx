@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { STORIES, WEAVE_LIBRARY } from '../data/stories.ts';
 import { DIAGRAM_ASSETS } from '../data/assetMap.ts';
 import { WeaveLibraryItem, TraditionImageRole } from '../types/catalog.ts';
 import { TraditionExhibitionModal } from '../components/TraditionExhibitionModal.tsx';
+import { PalluBorderIllustration, ArchitecturalThreadDivider } from '../components/archive/ArchiveIllustrations.tsx';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 type WeaveFilter = 'all' | 'weaving' | 'embroidery' | 'dyeing' | 'draping';
 
@@ -15,6 +17,15 @@ export const ArchivePage: React.FC = () => {
   const [isExhibitionOpen, setIsExhibitionOpen] = useState<boolean>(false);
   const [initialRole, setInitialRole] = useState<TraditionImageRole>('model-01');
   const [initialDiagramOpen, setInitialDiagramOpen] = useState<boolean>(false);
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    sectionSelector: '.archive-folio-card',
+    staggerSelector: '.editorial-card',
+    deps: [weaveFilter]
+  });
 
   useEffect(() => {
     const traditionParam = searchParams.get('tradition');
@@ -56,7 +67,7 @@ export const ArchivePage: React.FC = () => {
   const diagramKeys = Object.keys(DIAGRAM_ASSETS);
 
   return (
-    <main id="main-content" className="main-content bg-canvas" data-testid="cultural-archive-page">
+    <main id="main-content" className="main-content bg-canvas" data-testid="cultural-archive-page" ref={mainRef}>
       {/* Hero Exhibition Header */}
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
@@ -211,6 +222,11 @@ export const ArchivePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Editorial Transition Divider */}
+      <div className="py-2 bg-canvas">
+        <ArchitecturalThreadDivider />
+      </div>
 
       {/* Embedded Weave Library Section */}
       <section id="weave-library" className="py-5 bg-cream border-hairline-b" data-testid="weave-library-section">
@@ -396,6 +412,9 @@ export const ArchivePage: React.FC = () => {
                       {activeDiagram.description}
                     </p>
                   )}
+                  <div className="pt-3" aria-hidden="true">
+                    <PalluBorderIllustration style={{ opacity: 0.45 }} />
+                  </div>
                 </div>
               </div>
 

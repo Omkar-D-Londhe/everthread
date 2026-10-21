@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getArticleBySlug, JOURNAL_ARTICLES } from '../data/journal.ts';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 export const JournalArticlePage: React.FC = () => {
   const { articleSlug } = useParams<{ articleSlug: string }>();
@@ -33,8 +34,17 @@ export const JournalArticlePage: React.FC = () => {
   const prevArticle = currentIndex > 0 ? JOURNAL_ARTICLES[currentIndex - 1] : undefined;
   const nextArticle = currentIndex < JOURNAL_ARTICLES.length - 1 ? JOURNAL_ARTICLES[currentIndex + 1] : undefined;
 
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    sectionSelector: '.editorial-section',
+    deps: [article?.slug]
+  });
+
   return (
-    <main id="main-content" className="main-content bg-canvas" data-testid="journal-article-page">
+    <main id="main-content" className="main-content bg-canvas" data-testid="journal-article-page" ref={mainRef}>
       {/* Editorial Breadcrumbs */}
       <div className="py-2 border-hairline-b bg-stone">
         <div className="page-container">
@@ -52,7 +62,7 @@ export const JournalArticlePage: React.FC = () => {
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
           <div className="mx-auto" style={{ maxWidth: 840 }}>
-            <div className="d-flex align-items-center gap-2 mb-2">
+            <div className="d-flex align-items-center gap-2 mb-2 editorial-enter">
               <span className="label-caps text-champagne">{article.category}</span>
               <span className="text-champagne">•</span>
               <span className="label-caps text-muted-editorial">{article.date}</span>
@@ -60,12 +70,12 @@ export const JournalArticlePage: React.FC = () => {
               <span className="label-caps text-muted-editorial">{article.readTime}</span>
             </div>
 
-            <h1 className="display-hero text-oxblood mb-3" data-testid="article-title" style={{ fontSize: '2.75rem', lineHeight: 1.2 }}>
+            <h1 className="display-hero text-oxblood mb-3 editorial-enter" data-testid="article-title" style={{ fontSize: '2.75rem', lineHeight: 1.2 }}>
               {article.title}
             </h1>
             <span className="visually-hidden">{article.slug.replace(/-/g, ' ')}</span>
 
-            <p className="headline-sm text-on-surface fst-italic fw-light mb-4" data-testid="article-subtitle" style={{ fontSize: '1.25rem' }}>
+            <p className="headline-sm text-on-surface fst-italic fw-light mb-4 editorial-enter" data-testid="article-subtitle" style={{ fontSize: '1.25rem' }}>
               {article.subtitle}
             </p>
 

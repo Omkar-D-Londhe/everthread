@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext.tsx';
 import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { BagItem } from '../types/index.ts';
 import { Product } from '../types/catalog.ts';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 interface FormData {
   fullName: string;
@@ -61,6 +62,14 @@ export const CheckoutPage: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [completedOrder, setCompletedOrder] = useState<CompletedOrderSnapshot | null>(null);
+
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    deps: [step]
+  });
 
   // Field change handler
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -340,7 +349,7 @@ export const CheckoutPage: React.FC = () => {
   // Case 3: Details & Review Stepper
   // ---------------------------------------------------------------------------
   return (
-    <main id="main-content" className="main-content bg-canvas" data-testid="checkout-page">
+    <main id="main-content" className="main-content bg-canvas" data-testid="checkout-page" ref={mainRef}>
       {/* Simulation Disclosure Banner */}
       <div className="simulation-banner">
         <span>SIMULATION NOTICE: This is an editorial frontend demonstration. No payment credentials are required or processed.</span>
@@ -351,11 +360,11 @@ export const CheckoutPage: React.FC = () => {
         <div className="page-container">
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
             <div>
-              <div className="d-flex align-items-center gap-2 mb-1">
+              <div className="d-flex align-items-center gap-2 mb-1 editorial-enter">
                 <span style={{ width: 16, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
                 <span className="label-caps text-champagne">Atelier Concierge Ledger</span>
               </div>
-              <h1 className="headline-md text-oxblood mb-0">
+              <h1 className="headline-md text-oxblood mb-0 editorial-enter">
                 {step === 'details' ? 'Step 1: Recipient & Delivery Residence' : 'Step 2: Order Review & Demo Allocation'}
               </h1>
             </div>

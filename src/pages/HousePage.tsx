@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 interface AppointmentForm {
   name: string;
@@ -21,6 +22,15 @@ export const HousePage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    staggerSelector: '.editorial-card',
+    sectionSelector: '.editorial-section'
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim()) {
@@ -32,30 +42,30 @@ export const HousePage: React.FC = () => {
   };
 
   return (
-    <main id="main-content" className="main-content bg-canvas" data-testid="house-page">
+    <main id="main-content" className="main-content bg-canvas" data-testid="house-page" ref={mainRef}>
       {/* Hero Header */}
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
           <div className="row g-5 align-items-center">
             <div className="col-12 col-lg-7">
-              <div className="d-flex align-items-center gap-2 mb-2">
+              <div className="d-flex align-items-center gap-2 mb-2 editorial-enter">
                 <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
                 <span className="label-caps text-champagne">The House of EverThread</span>
               </div>
 
-              <h1 className="display-hero text-oxblood mb-3" style={{ fontSize: '3.5rem' }}>
+              <h1 className="display-hero text-oxblood mb-3 editorial-enter" style={{ fontSize: '3.5rem' }}>
                 An heirloom, not a trend.
               </h1>
 
-              <p className="headline-sm text-on-surface fst-italic fw-light mb-4">
+              <p className="headline-sm text-on-surface fst-italic fw-light mb-4 editorial-enter">
                 Every thread carries a story.
               </p>
 
-              <p className="body-lg text-muted-editorial mb-4" style={{ maxWidth: 640 }}>
+              <p className="body-lg text-muted-editorial mb-4 editorial-enter" style={{ maxWidth: 640 }}>
                 EverThread was conceived upon an architectural imperative: that clothing must return to its enduring, cultural, and generational foundations. We create garments meant to outlive fleeting trend cycles, constructed with noble raw fibers and preserved through generational covenants.
               </p>
 
-              <div className="d-flex flex-wrap gap-3">
+              <div className="d-flex flex-wrap gap-3 editorial-enter">
                 <Link to="/collections" className="btn-oxblood">
                   Explore Curated Repertoire
                 </Link>
@@ -66,7 +76,7 @@ export const HousePage: React.FC = () => {
             </div>
 
             <div className="col-12 col-lg-5">
-              <div className="position-relative overflow-hidden border-hairline shadow-sm" style={{ aspectRatio: '4/3', backgroundColor: 'var(--color-surface)' }}>
+              <div className="position-relative overflow-hidden border-hairline shadow-sm editorial-enter" style={{ aspectRatio: '4/3', backgroundColor: 'var(--color-surface)' }}>
                 <img
                   src="/images/house/house-philosophy-01.webp"
                   srcSet="/images/house/house-philosophy-01.webp 1536w, /images/house/house-philosophy-01-1200w.webp 1200w, /images/house/house-philosophy-01-800w.webp 800w, /images/house/house-philosophy-01-400w.webp 400w"
@@ -89,7 +99,7 @@ export const HousePage: React.FC = () => {
       </section>
 
       {/* Craftsmanship Creed Section */}
-      <section id="philosophy" className="py-5 bg-canvas border-hairline-b">
+      <section id="philosophy" className="py-5 bg-canvas border-hairline-b editorial-section">
         <div className="page-container">
           <div className="row g-5 align-items-center">
             <div className="col-12 col-lg-7">
@@ -137,7 +147,7 @@ export const HousePage: React.FC = () => {
       </section>
 
       {/* Material Perspective Section */}
-      <section className="py-5 bg-cream border-hairline-b">
+      <section className="py-5 bg-cream border-hairline-b editorial-section">
         <div className="page-container">
           <div className="text-center mx-auto mb-5" style={{ maxWidth: 700 }}>
             <span className="label-caps text-champagne d-block mb-2">MATERIAL INTEGRITY</span>
@@ -148,7 +158,7 @@ export const HousePage: React.FC = () => {
           </div>
 
           <div className="row g-4">
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-4 editorial-card">
               <div className="p-4 bg-canvas border-hairline h-100">
                 <span className="label-caps text-champagne d-block mb-1">Kashmir &amp; Ladakh</span>
                 <h3 className="headline-sm text-oxblood mb-2">Grade-A Changthangi Pashmina</h3>
@@ -158,7 +168,7 @@ export const HousePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-4 editorial-card">
               <div className="p-4 bg-canvas border-hairline h-100">
                 <span className="label-caps text-champagne d-block mb-1">Assam &amp; Murshidabad</span>
                 <h3 className="headline-sm text-oxblood mb-2">Ahimsa Wild Mulberry Silk</h3>
@@ -168,7 +178,7 @@ export const HousePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-4 editorial-card">
               <div className="p-4 bg-canvas border-hairline h-100">
                 <span className="label-caps text-champagne d-block mb-1">Varanasi &amp; Bagru</span>
                 <h3 className="headline-sm text-oxblood mb-2">Pure Metallic Zari &amp; Botanicals</h3>
@@ -182,7 +192,7 @@ export const HousePage: React.FC = () => {
       </section>
 
       {/* Global Ateliers Section */}
-      <section className="py-5 bg-canvas border-hairline-b" id="ateliers">
+      <section className="py-5 bg-canvas border-hairline-b editorial-section" id="ateliers">
         <div className="page-container">
           <div className="text-center mx-auto mb-5" style={{ maxWidth: 700 }}>
             <span className="label-caps text-champagne d-block mb-2">DEMONSTRATION SANCTUARIES</span>
@@ -196,7 +206,7 @@ export const HousePage: React.FC = () => {
           </div>
 
           <div className="row g-4">
-            <div className="col-12 col-sm-6 col-lg-3">
+            <div className="col-12 col-sm-6 col-lg-3 editorial-card">
               <div className="p-4 bg-stone border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
                   <span className="label-caps text-champagne d-block mb-1">FRANCE</span>
@@ -211,7 +221,7 @@ export const HousePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="col-12 col-sm-6 col-lg-3">
+            <div className="col-12 col-sm-6 col-lg-3 editorial-card">
               <div className="p-4 bg-stone border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
                   <span className="label-caps text-champagne d-block mb-1">INDIA</span>
@@ -226,7 +236,7 @@ export const HousePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="col-12 col-sm-6 col-lg-3">
+            <div className="col-12 col-sm-6 col-lg-3 editorial-card">
               <div className="p-4 bg-stone border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
                   <span className="label-caps text-champagne d-block mb-1">JAPAN</span>
@@ -241,7 +251,7 @@ export const HousePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="col-12 col-sm-6 col-lg-3">
+            <div className="col-12 col-sm-6 col-lg-3 editorial-card">
               <div className="p-4 bg-stone border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
                   <span className="label-caps text-champagne d-block mb-1">ITALY</span>

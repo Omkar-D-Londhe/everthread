@@ -127,18 +127,25 @@ export const ThreadLoader: React.FC<ThreadLoaderProps> = ({
     >
       <div className="thread-loader-canvas">
         <div className="thread-loader-artwork-wrapper">
-          <img
-            src="/images/everthread-loader-hand-clean.png"
-            alt="EverThread artisan hand poised with thread"
-            className="thread-hand-artwork"
-            data-testid="thread-hand-artwork"
-            onError={(e) => {
-              const target = e.currentTarget;
-              if (!target.src.endsWith('everthread-loader-hand.png')) {
-                target.src = '/images/everthread-loader-hand.png';
-              }
-            }}
-          />
+          <picture className="d-flex align-items-center justify-content-center w-100 h-100">
+            <source srcSet="/images/everthread-loader-hand-clean.webp" type="image/webp" />
+            <img
+              src="/images/everthread-loader-hand-clean.png"
+              alt="EverThread artisan hand poised with thread"
+              className="thread-hand-artwork"
+              data-testid="thread-hand-artwork"
+              width={896}
+              height={1200}
+              loading="eager"
+              decoding="sync"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (!target.src.endsWith('everthread-loader-hand.png')) {
+                  target.src = '/images/everthread-loader-hand.png';
+                }
+              }}
+            />
+          </picture>
           <svg 
             className="thread-loader-svg" 
             viewBox="0 0 896 1200" 

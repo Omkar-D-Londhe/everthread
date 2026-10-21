@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CompassPreferences,
@@ -11,6 +11,7 @@ import {
 } from '../utils/compassMatcher.ts';
 import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { useSaved } from '../context/SavedContext.tsx';
+import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 export const CompassPage: React.FC = () => {
   // Stepper state: 1: Fabric, 2: Movement, 3: Craft, 4: Story, 5: Results
@@ -110,26 +111,35 @@ export const CompassPage: React.FC = () => {
   const selectedCraftLabel = CRAFT_OPTIONS.find(o => o.id === preferences.craft)?.title;
   const selectedStoryLabel = STORY_OPTIONS.find(o => o.id === preferences.story)?.title;
 
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEditorialScroll({
+    scopeRef: mainRef,
+    headerSelector: '.editorial-enter',
+    staggerSelector: '.editorial-card',
+    deps: [currentStep]
+  });
+
   return (
-    <main id="main-content" className="main-content">
+    <main id="main-content" className="main-content" ref={mainRef}>
       {/* Editorial Consultation Hero */}
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
-          <div className="d-flex align-items-center gap-2 mb-2">
+          <div className="d-flex align-items-center gap-2 mb-2 editorial-enter">
             <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
             <span className="label-caps text-champagne">Curated Consultation</span>
             <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
           </div>
 
-          <h1 className="display-hero text-oxblood mb-2">
+          <h1 className="display-hero text-oxblood mb-2 editorial-enter">
             The Thread Compass
           </h1>
 
-          <p className="headline-sm text-on-surface fst-italic fw-light mb-3" style={{ maxWidth: 760 }}>
+          <p className="headline-sm text-on-surface fst-italic fw-light mb-3 editorial-enter" style={{ maxWidth: 760 }}>
             Guided tactile discovery, not filters disguised as a quiz.
           </p>
 
-          <p className="body-md text-muted-editorial mb-0" style={{ maxWidth: 700 }}>
+          <p className="body-md text-muted-editorial mb-0 editorial-enter" style={{ maxWidth: 700 }}>
             An intentional consultation matching fiber composition, drape mechanics, and artisan lineages to your personal cadence. Grounded in deterministic catalogue attributes — zero artificial intelligence or fabricated claims.
           </p>
         </div>
