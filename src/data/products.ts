@@ -52,8 +52,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'et-02',
-    slug: 'ivory-structured-raw-silk-coat',
-    title: 'Ivory Structured Raw Silk Coat',
+    slug: 'ivory-raw-tussar-cocoon-trench',
+    title: 'Ivory Raw Tussar Cocoon Trench',
     subtitle: 'Hand-Spun Changthangi Matka Silk with Minimalist Cocoon Collar',
     category: 'Outerwear',
     edition: 'Edition of 15',
@@ -76,7 +76,7 @@ export const PRODUCTS: Product[] = [
     curatorTags: ['material-silk', 'form-structured', 'atelier-hands'],
     image: PRODUCT_ASSET_MAP['et-02'].primary.src,
     macroImage: PRODUCT_ASSET_MAP['et-02'].macro?.src || PRODUCT_ASSET_MAP['et-02'].primary.src,
-    imageAlt: 'Structured drape of the Ivory Raw Silk Coat in soft gallery light',
+    imageAlt: 'Structured drape of the Ivory Raw Tussar Cocoon Trench in soft gallery light',
     macroImageAlt: 'Macro loupe showing textured slubs of 100% hand-spun raw silk at 95 TPI',
     imageCredit: 'EverThread Atelier Archival Study',
     gallery: PRODUCT_ASSET_MAP['et-02'].gallery,
@@ -98,7 +98,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'et-03',
-    slug: 'the-architectonic-zari-waistcoat',
+    slug: 'architectonic-zari-waistcoat',
     title: 'Architectonic Zari Waistcoat',
     subtitle: 'Sculpted Tussar Silhouette with Interlocking Kadwa Zari Motifs',
     category: 'Waistcoats',
@@ -144,8 +144,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'et-04',
-    slug: 'the-pleated-indigo-chanderi-tunic',
-    title: 'Pleated Indigo Chanderi Tunic',
+    slug: 'angrakha-asymmetric-sheer-tunic',
+    title: 'Angrakha Asymmetric Sheer Tunic',
     subtitle: 'Fermented Indigo Resist Dye with Mother-of-Pearl Closures',
     category: 'Tunics & Drapes',
     edition: 'Edition of 25',
@@ -168,7 +168,7 @@ export const PRODUCTS: Product[] = [
     curatorTags: ['material-linen', 'form-fluid', 'heritage-ceremony'],
     image: PRODUCT_ASSET_MAP['et-04'].primary.src,
     macroImage: PRODUCT_ASSET_MAP['et-04'].macro?.src || PRODUCT_ASSET_MAP['et-04'].primary.src,
-    imageAlt: 'Translucent pleated silhouette of the Indigo Chanderi Tunic',
+    imageAlt: 'Translucent pleated silhouette of the Angrakha Asymmetric Sheer Tunic',
     macroImageAlt: 'Macro view showing natural indigo fermentation penetration on sheer Chanderi weave',
     imageCredit: 'EverThread Atelier Archival Study',
     gallery: PRODUCT_ASSET_MAP['et-04'].gallery,
@@ -190,8 +190,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'et-05',
-    slug: 'oxblood-structured-box-calf-leather-bag',
-    title: 'Oxblood Structured Box Calf Leather Bag',
+    slug: 'box-calf-structured-frame-bag',
+    title: 'Box-Calf Structured Frame Bag',
     subtitle: 'Architectonic Box Silhouette with Hand-Saddle Stitching and Brass Clasp',
     category: 'Accessories',
     edition: 'Edition of 20',
@@ -214,7 +214,7 @@ export const PRODUCTS: Product[] = [
     curatorTags: ['material-leather', 'form-structured', 'atelier-hands'],
     image: PRODUCT_ASSET_MAP['et-05'].primary.src,
     macroImage: PRODUCT_ASSET_MAP['et-05'].macro?.src || PRODUCT_ASSET_MAP['et-05'].primary.src,
-    imageAlt: 'Sculptural silhouette of the Oxblood Box Calf Leather Bag',
+    imageAlt: 'Sculptural silhouette of the Box-Calf Structured Frame Bag',
     macroImageAlt: 'Macro view showing vegetable-tanned leather grain and beeswax hand saddle stitching',
     imageCredit: 'EverThread Atelier Archival Study',
     gallery: PRODUCT_ASSET_MAP['et-05'].gallery,
@@ -236,8 +236,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'et-06',
-    slug: 'handspun-mulberry-silk-scarf-burgundy',
-    title: 'Handspun Mulberry Silk Scarf in Burgundy',
+    slug: 'hand-rolled-mulberry-twill-scarf',
+    title: 'Hand-Rolled Mulberry Twill Scarf',
     subtitle: 'Featherweight Handloom Twill with Hand-Rolled Handkerchief Hems',
     category: 'Accessories',
     edition: 'Edition of 50',
@@ -260,7 +260,7 @@ export const PRODUCTS: Product[] = [
     curatorTags: ['material-silk', 'form-fluid', 'atelier-loom'],
     image: PRODUCT_ASSET_MAP['et-06'].primary.src,
     macroImage: PRODUCT_ASSET_MAP['et-06'].macro?.src || PRODUCT_ASSET_MAP['et-06'].primary.src,
-    imageAlt: 'Fluid tactile fold of the Burgundy Handspun Silk Scarf',
+    imageAlt: 'Fluid tactile fold of the Hand-Rolled Mulberry Twill Scarf',
     macroImageAlt: 'Macro view showing diaphanous handspun silk gauze weave and eyelash fringe',
     imageCredit: 'EverThread Atelier Archival Study',
     gallery: PRODUCT_ASSET_MAP['et-06'].gallery,
@@ -282,8 +282,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'et-07',
-    slug: 'fine-pashmina-zari-reversible-stole-ivory',
-    title: 'Fine Pashmina & Zari Reversible Stole in Ivory',
+    slug: 'high-altitude-hand-spun-pashmina-stole',
+    title: 'High-Altitude Hand-Spun Pashmina Stole',
     subtitle: 'Hand-Combed Changthangi Pashmina with Interwoven Real Zari Borders',
     category: 'Accessories',
     edition: 'Edition of 35',
@@ -306,7 +306,7 @@ export const PRODUCTS: Product[] = [
     curatorTags: ['material-cashmere', 'form-fluid', 'heritage-ceremony'],
     image: PRODUCT_ASSET_MAP['et-07'].primary.src,
     macroImage: PRODUCT_ASSET_MAP['et-07'].macro?.src || PRODUCT_ASSET_MAP['et-07'].primary.src,
-    imageAlt: 'Reversible drape of the Ivory Pashmina and Zari Stole',
+    imageAlt: 'Reversible drape of the High-Altitude Hand-Spun Pashmina Stole',
     macroImageAlt: 'Macro view of interlocking Chashm-e-Bulbul diamond twill weave of fine pashm and zari',
     imageCredit: 'EverThread Atelier Archival Study',
     gallery: PRODUCT_ASSET_MAP['et-07'].gallery,
@@ -339,7 +339,14 @@ export const getProductBySlug = (slug: string): Product | undefined => {
          p.id === slug ||
          (slug === 'the-sylvan-mulberry-silk-trench' && p.id === 'et-01') ||
          (slug === 'the-drape-collar-pashmina-overcoat' && p.id === 'et-02') ||
+         (slug === 'ivory-structured-raw-silk-coat' && p.id === 'et-02') ||
+         (slug === 'the-architectonic-zari-waistcoat' && p.id === 'et-03') ||
+         (slug === 'the-pleated-indigo-chanderi-tunic' && p.id === 'et-04') ||
          (slug === 'the-madder-dyed-bias-robe' && p.id === 'et-05') ||
-         (slug === 'the-kadwa-brocade-ceremony-cape' && p.id === 'et-06')
+         (slug === 'oxblood-structured-box-calf-leather-bag' && p.id === 'et-05') ||
+         (slug === 'the-kadwa-brocade-ceremony-cape' && p.id === 'et-06') ||
+         (slug === 'handspun-mulberry-silk-scarf-burgundy' && p.id === 'et-06') ||
+         (slug === 'fine-pashmina-zari-reversible-stole-ivory' && p.id === 'et-07') ||
+         (slug === 'fine-pashmina-and-zari-reversible-stole-in-ivory' && p.id === 'et-07')
   );
 };

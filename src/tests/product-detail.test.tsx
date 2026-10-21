@@ -69,15 +69,15 @@ describe('Stage 3.3 Product Detail Implementation Tests', () => {
         isApparel: true
       },
       {
-        slug: 'ivory-structured-raw-silk-coat',
+        slug: 'ivory-raw-tussar-cocoon-trench',
         id: 'et-02',
-        title: 'Ivory Structured Raw Silk Coat',
+        title: 'Ivory Raw Tussar Cocoon Trench',
         expectedPrice: '₹1,12,000',
         category: 'Outerwear',
         isApparel: true
       },
       {
-        slug: 'the-architectonic-zari-waistcoat',
+        slug: 'architectonic-zari-waistcoat',
         id: 'et-03',
         title: 'Architectonic Zari Waistcoat',
         expectedPrice: '₹44,000',
@@ -85,33 +85,33 @@ describe('Stage 3.3 Product Detail Implementation Tests', () => {
         isApparel: true
       },
       {
-        slug: 'the-pleated-indigo-chanderi-tunic',
+        slug: 'angrakha-asymmetric-sheer-tunic',
         id: 'et-04',
-        title: 'Pleated Indigo Chanderi Tunic',
+        title: 'Angrakha Asymmetric Sheer Tunic',
         expectedPrice: '₹32,000',
         category: 'Tunics & Drapes',
         isApparel: true
       },
       {
-        slug: 'oxblood-structured-box-calf-leather-bag',
+        slug: 'box-calf-structured-frame-bag',
         id: 'et-05',
-        title: 'Oxblood Structured Box Calf Leather Bag',
+        title: 'Box-Calf Structured Frame Bag',
         expectedPrice: '₹54,000',
         category: 'Accessories',
         isApparel: false
       },
       {
-        slug: 'handspun-mulberry-silk-scarf-burgundy',
+        slug: 'hand-rolled-mulberry-twill-scarf',
         id: 'et-06',
-        title: 'Handspun Mulberry Silk Scarf in Burgundy',
+        title: 'Hand-Rolled Mulberry Twill Scarf',
         expectedPrice: '₹24,500',
         category: 'Accessories',
         isApparel: false
       },
       {
-        slug: 'fine-pashmina-zari-reversible-stole-ivory',
+        slug: 'high-altitude-hand-spun-pashmina-stole',
         id: 'et-07',
-        title: 'Fine Pashmina & Zari Reversible Stole in Ivory',
+        title: 'High-Altitude Hand-Spun Pashmina Stole',
         expectedPrice: '₹38,000',
         category: 'Accessories',
         isApparel: false
@@ -198,8 +198,8 @@ describe('Stage 3.3 Product Detail Implementation Tests', () => {
     });
 
     it('does NOT display apparel sizes for bags or scarves (accessories)', () => {
-      // ET-05: Oxblood Structured Box Calf Leather Bag
-      renderProductDetail('oxblood-structured-box-calf-leather-bag');
+      // ET-05: Box-Calf Structured Frame Bag
+      renderProductDetail('box-calf-structured-frame-bag');
 
       expect(screen.queryByTestId('size-selector')).not.toBeInTheDocument();
       expect(screen.getByTestId('accessory-dimension-spec')).toBeInTheDocument();

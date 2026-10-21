@@ -26,11 +26,11 @@ const SafeLink: React.FC<{
 // Verified cultural lineage mapping from Archive Traditions to EverThread Repertoire Silhouettes
 const TRADITION_PRODUCT_MAP: Record<string, string> = {
   'banarasi-brocade': 'et-01',   // Oxblood Wool-Silk Signature Coat-Dress (Kadwa Brocade Facing)
-  'chanderi': 'et-04',           // Pleated Indigo Chanderi Tunic (Chanderi Handloom Weave)
-  'kota-doria': 'et-04',         // Pleated Indigo Chanderi Tunic (Chanderi & Kota Khat Weave)
-  'pashmina': 'et-07',           // Fine Pashmina & Zari Reversible Stole (Changthangi Pashmina)
-  'kashmiri-sozni': 'et-07',     // Fine Pashmina & Zari Reversible Stole (Changthangi Pashmina)
-  'muga-silk': 'et-02',          // Ivory Structured Raw Silk Coat (Assam Wild Silk Matka)
+  'chanderi': 'et-04',           // Angrakha Asymmetric Sheer Tunic (Chanderi Handloom Weave)
+  'kota-doria': 'et-04',         // Angrakha Asymmetric Sheer Tunic (Chanderi & Kota Khat Weave)
+  'pashmina': 'et-07',           // High-Altitude Hand-Spun Pashmina Stole (Changthangi Pashmina)
+  'kashmiri-sozni': 'et-07',     // High-Altitude Hand-Spun Pashmina Stole (Changthangi Pashmina)
+  'muga-silk': 'et-02',          // Ivory Raw Tussar Cocoon Trench (Assam Wild Silk Matka)
 };
 
 export interface TraditionExhibitionModalProps {

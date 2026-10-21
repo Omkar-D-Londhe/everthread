@@ -184,9 +184,6 @@
   .atelier-lens-viewport {
     cursor: default;
   }
-  .atelier-lens-glass {
-    display: none !important;
-  }
 }
 
 /* Trigger button focus rings and transitions */

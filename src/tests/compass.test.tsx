@@ -300,7 +300,7 @@ describe('Stage 3.4 Thread Compass Implementation Tests', () => {
 
       const cardEt05 = screen.getByTestId('recommendation-card-et-05');
       const detailLink = within(cardEt05).getByRole('link', { name: /view heirloom folio/i });
-      expect(detailLink).toHaveAttribute('href', '/product/oxblood-structured-box-calf-leather-bag');
+      expect(detailLink).toHaveAttribute('href', '/product/box-calf-structured-frame-bag');
     });
   });
 

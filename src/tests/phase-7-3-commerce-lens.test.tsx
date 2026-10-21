@@ -13,7 +13,7 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
   });
 
   describe('1. Search Modal Chanderi and Editorial Navigation', () => {
-    it('displays canonical Pleated Indigo Chanderi Tunic (et-04) with Order Folio badge', () => {
+    it('displays canonical Angrakha Asymmetric Sheer Tunic (et-04) with Order Folio badge', () => {
       render(
         <MemoryRouter>
           <SearchModal isOpen={true} onClose={vi.fn()} />
@@ -24,7 +24,7 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
       fireEvent.change(input, { target: { value: 'Chanderi' } });
 
       // Product match for Chanderi
-      const productLink = screen.getByText('Pleated Indigo Chanderi Tunic');
+      const productLink = screen.getByText('Angrakha Asymmetric Sheer Tunic');
       expect(productLink).toBeInTheDocument();
       expect(screen.getByText(/₹32,000/)).toBeInTheDocument();
 
@@ -42,7 +42,7 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
   });
 
   describe('2. Tradition Exhibition Modal Commerce & Lineage Mappings', () => {
-    it('accurately maps Chanderi tradition to et-04 (Pleated Indigo Chanderi Tunic, ₹32,000)', () => {
+    it('accurately maps Chanderi tradition to et-04 (Angrakha Asymmetric Sheer Tunic, ₹32,000)', () => {
       render(
         <MemoryRouter>
           <CartProvider>
@@ -57,13 +57,13 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
 
       const commerceCard = screen.getByTestId('exhibition-commerce-card');
       expect(commerceCard).toBeInTheDocument();
-      expect(commerceCard.textContent).toContain('Pleated Indigo Chanderi Tunic');
+      expect(commerceCard.textContent).toContain('Angrakha Asymmetric Sheer Tunic');
       expect(commerceCard.textContent).toContain('₹32,000');
       // Must NOT be the Ivory Silk Coat (et-02)
-      expect(commerceCard.textContent).not.toContain('Ivory Structured Raw Silk Coat');
+      expect(commerceCard.textContent).not.toContain('Ivory Raw Tussar Cocoon Trench');
     });
 
-    it('accurately maps Pashmina tradition to et-07 (Fine Pashmina & Zari Reversible Stole, ₹38,000)', () => {
+    it('accurately maps Pashmina tradition to et-07 (High-Altitude Hand-Spun Pashmina Stole, ₹38,000)', () => {
       render(
         <MemoryRouter>
           <CartProvider>
@@ -78,10 +78,10 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
 
       const commerceCard = screen.getByTestId('exhibition-commerce-card');
       expect(commerceCard).toBeInTheDocument();
-      expect(commerceCard.textContent).toContain('Fine Pashmina & Zari Reversible Stole in Ivory');
+      expect(commerceCard.textContent).toContain('High-Altitude Hand-Spun Pashmina Stole');
       expect(commerceCard.textContent).toContain('₹38,000');
       // Must NOT be the Chanderi Tunic (et-04)
-      expect(commerceCard.textContent).not.toContain('Pleated Indigo Chanderi Tunic');
+      expect(commerceCard.textContent).not.toContain('Angrakha Asymmetric Sheer Tunic');
     });
 
     it('displays Curatorial Archival Record notice for educational non-sellable traditions (e.g. Ajrakh)', () => {

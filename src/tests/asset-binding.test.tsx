@@ -18,22 +18,22 @@ describe('Stage 3.1: Asset Deployment & Product Image Binding', () => {
     expect(getProductById('et-01')?.title).toBe('Oxblood Wool-Silk Signature Coat-Dress');
     expect(getProductById('et-01')?.price).toBe(68500);
 
-    expect(getProductById('et-02')?.title).toBe('Ivory Structured Raw Silk Coat');
+    expect(getProductById('et-02')?.title).toBe('Ivory Raw Tussar Cocoon Trench');
     expect(getProductById('et-02')?.price).toBe(112000);
 
     expect(getProductById('et-03')?.title).toBe('Architectonic Zari Waistcoat');
     expect(getProductById('et-03')?.price).toBe(44000);
 
-    expect(getProductById('et-04')?.title).toBe('Pleated Indigo Chanderi Tunic');
+    expect(getProductById('et-04')?.title).toBe('Angrakha Asymmetric Sheer Tunic');
     expect(getProductById('et-04')?.price).toBe(32000);
 
-    expect(getProductById('et-05')?.title).toBe('Oxblood Structured Box Calf Leather Bag');
+    expect(getProductById('et-05')?.title).toBe('Box-Calf Structured Frame Bag');
     expect(getProductById('et-05')?.price).toBe(54000);
 
-    expect(getProductById('et-06')?.title).toBe('Handspun Mulberry Silk Scarf in Burgundy');
+    expect(getProductById('et-06')?.title).toBe('Hand-Rolled Mulberry Twill Scarf');
     expect(getProductById('et-06')?.price).toBe(24500);
 
-    expect(getProductById('et-07')?.title).toBe('Fine Pashmina & Zari Reversible Stole in Ivory');
+    expect(getProductById('et-07')?.title).toBe('High-Altitude Hand-Spun Pashmina Stole');
     expect(getProductById('et-07')?.price).toBe(38000);
   });
 
@@ -98,7 +98,7 @@ describe('Stage 3.1: Asset Deployment & Product Image Binding', () => {
     });
   });
 
-  it('Requirement 2: ET-04 (Pleated Indigo Chanderi Tunic) maps all 4 verified views', () => {
+  it('Requirement 2: ET-04 (Angrakha Asymmetric Sheer Tunic) maps all 4 verified views', () => {
     const et04 = getProductById('et-04');
     expect(et04).toBeDefined();
     expect(et04?.gallery).toHaveLength(4);

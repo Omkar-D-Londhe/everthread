@@ -71,24 +71,24 @@ export const ArchivePage: React.FC = () => {
       {/* Hero Exhibition Header */}
       <section className="py-5 bg-cream border-hairline-b">
         <div className="page-container">
-          <div className="d-flex align-items-center gap-2 mb-2">
+          <div className="d-flex align-items-center gap-2 mb-2 editorial-enter">
             <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
             <span className="label-caps text-champagne">Curatorial Exhibition Series • Volume I</span>
           </div>
 
-          <h1 className="display-hero text-oxblood mb-2" style={{ fontSize: '3.5rem' }}>
+          <h1 className="display-hero text-oxblood mb-2 editorial-enter" style={{ fontSize: '3.5rem' }}>
             The Cultural Archive
           </h1>
 
-          <p className="headline-sm text-on-surface fst-italic fw-light mb-4" style={{ maxWidth: 720 }}>
+          <p className="headline-sm text-on-surface fst-italic fw-light mb-4 editorial-enter" style={{ maxWidth: 720 }}>
             Clothing as living history, memory, and spatial architecture.
           </p>
 
-          <p className="body-lg text-muted-editorial mb-4" style={{ maxWidth: 720 }}>
+          <p className="body-lg text-muted-editorial mb-4 editorial-enter" style={{ maxWidth: 720 }}>
             Our cultural archive exists to document, analyze, and perpetuate endangered textile guild methods. Explore four foundational monograph folios below, or enter the Weave Library to examine complete six-plate archival photographic exhibitions and technical drafting schematics across 13 Indian textile traditions.
           </p>
 
-          <div className="d-flex flex-wrap gap-3 pt-2">
+          <div className="d-flex flex-wrap gap-3 pt-2 editorial-enter">
             <a href="#folios" className="btn-oxblood d-inline-flex align-items-center gap-2">
               <span>Explore Exhibition Folios (1.1 – 1.4)</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -265,7 +265,7 @@ export const ArchivePage: React.FC = () => {
           {/* Filtered Library Grid */}
           <div className="row g-4 mb-5" data-testid="weave-library-grid">
             {filteredWeaves.map(item => (
-              <div key={item.id} className="col-12 col-md-6 col-lg-4">
+              <div key={item.id} className="col-12 col-md-6 col-lg-4 editorial-card">
                 <article className="p-4 bg-canvas border-hairline h-100 d-flex flex-column justify-content-between" data-testid={`weave-card-${item.slug}`}>
                   <div>
                     {item.image && (

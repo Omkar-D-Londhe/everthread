@@ -93,7 +93,7 @@ export const JournalArticlePage: React.FC = () => {
       </section>
 
       {/* Article Prose Content */}
-      <section className="py-5">
+      <section className="py-5 editorial-section">
         <div className="page-container">
           <article className="mx-auto" style={{ maxWidth: 800 }}>
             {/* Excerpt Lead Paragraph */}
@@ -103,7 +103,7 @@ export const JournalArticlePage: React.FC = () => {
 
             {/* Featured Article Lead Specimen */}
             {article.image && (
-              <div className="mb-5 overflow-hidden border-hairline bg-stone" style={{ aspectRatio: '16/9', maxHeight: 480 }}>
+              <div className="mb-5 overflow-hidden border-hairline bg-stone editorial-image" style={{ aspectRatio: '16/9', maxHeight: 480 }}>
                 <img
                   src={article.image}
                   alt={article.imageAlt || article.title}

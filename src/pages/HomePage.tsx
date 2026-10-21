@@ -1164,6 +1164,7 @@ export const HomePage: React.FC = () => {
         title="Living Weave Detail"
         subtitle="Hand-spun Mulberry Silk & Structured Cashmere"
         caption="A closer look at the weave. High-resolution study of the raw silk fibers and structured weft geometry."
+        zoom={3.5}
       />
     </main>
   );

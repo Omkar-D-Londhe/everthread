@@ -116,8 +116,8 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
   },
   "et-02": {
     "id": "et-02",
-    "slug": "ivory-structured-raw-silk-coat",
-    "title": "Ivory Structured Raw Silk Coat",
+    "slug": "ivory-raw-tussar-cocoon-trench",
+    "title": "Ivory Raw Tussar Cocoon Trench",
     "primary": {
       "src": "/images/products/ivory-tailored-coat/product-ivory-tailored-front-01.webp",
       "srcSet": "/images/products/ivory-tailored-coat/product-ivory-tailored-front-01.webp 1536w, /images/products/ivory-tailored-coat/product-ivory-tailored-front-01-800w.webp 800w, /images/products/ivory-tailored-coat/product-ivory-tailored-front-01-400w.webp 400w",
@@ -177,7 +177,7 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
   },
   "et-03": {
     "id": "et-03",
-    "slug": "the-architectonic-zari-waistcoat",
+    "slug": "architectonic-zari-waistcoat",
     "title": "Architectonic Zari Waistcoat",
     "primary": {
       "src": "/images/products/architectonic-zari-waistcoat/et-03-zari-waistcoat-model-01.webp",
@@ -238,8 +238,8 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
   },
   "et-04": {
     "id": "et-04",
-    "slug": "the-pleated-indigo-chanderi-tunic",
-    "title": "Pleated Indigo Chanderi Tunic",
+    "slug": "angrakha-asymmetric-sheer-tunic",
+    "title": "Angrakha Asymmetric Sheer Tunic",
     "primary": {
       "src": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-model-01.webp",
       "srcSet": "/images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-model-01.webp 1536w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-model-01-800w.webp 800w, /images/products/pleated-indigo-chanderi-tunic/et-04-chanderi-tunic-model-01-400w.webp 400w",
@@ -299,8 +299,8 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
   },
   "et-05": {
     "id": "et-05",
-    "slug": "oxblood-structured-box-calf-leather-bag",
-    "title": "Oxblood Structured Box Calf Leather Bag",
+    "slug": "box-calf-structured-frame-bag",
+    "title": "Box-Calf Structured Frame Bag",
     "primary": {
       "src": "/images/products/oxblood-handbag/product-oxblood-handbag-01.webp",
       "srcSet": "/images/products/oxblood-handbag/product-oxblood-handbag-01.webp 1536w, /images/products/oxblood-handbag/product-oxblood-handbag-01-1200w.webp 1200w, /images/products/oxblood-handbag/product-oxblood-handbag-01-800w.webp 800w, /images/products/oxblood-handbag/product-oxblood-handbag-01-400w.webp 400w",
@@ -369,8 +369,8 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
   },
   "et-06": {
     "id": "et-06",
-    "slug": "handspun-mulberry-silk-scarf-burgundy",
-    "title": "Handspun Mulberry Silk Scarf in Burgundy",
+    "slug": "hand-rolled-mulberry-twill-scarf",
+    "title": "Hand-Rolled Mulberry Twill Scarf",
     "primary": {
       "src": "/images/products/burgundy-scarf/product-burgundy-scarf-01.webp",
       "srcSet": "/images/products/burgundy-scarf/product-burgundy-scarf-01.webp 1536w, /images/products/burgundy-scarf/product-burgundy-scarf-01-800w.webp 800w, /images/products/burgundy-scarf/product-burgundy-scarf-01-400w.webp 400w",
@@ -430,8 +430,8 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
   },
   "et-07": {
     "id": "et-07",
-    "slug": "fine-pashmina-zari-reversible-stole-ivory",
-    "title": "Fine Pashmina & Zari Reversible Stole in Ivory",
+    "slug": "high-altitude-hand-spun-pashmina-stole",
+    "title": "High-Altitude Hand-Spun Pashmina Stole",
     "primary": {
       "src": "/images/products/ivory-scarf/product-ivory-scarf-01.webp",
       "srcSet": "/images/products/ivory-scarf/product-ivory-scarf-01.webp 1536w, /images/products/ivory-scarf/product-ivory-scarf-01-800w.webp 800w, /images/products/ivory-scarf/product-ivory-scarf-01-400w.webp 400w",

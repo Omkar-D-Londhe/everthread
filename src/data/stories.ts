@@ -22,7 +22,7 @@ export const STORIES: ArchiveStory[] = [
       { label: 'Reverse Finish', value: 'Zero Floating Threads (Individually Knotted Butis)' },
       { label: 'Daily Weaving Rate', value: '3 to 5 Centimeters per 8-Hour Cycle' }
     ],
-    relatedProductSlugs: ['the-architectonic-zari-waistcoat', 'the-kadwa-brocade-ceremony-cape'],
+    relatedProductSlugs: ['architectonic-zari-waistcoat', 'the-kadwa-brocade-ceremony-cape'],
     relatedTraditionKey: 'banarasi-brocade',
     relatedTraditionTitle: 'Varanasi Kadwa Brocade',
     sources: [
@@ -128,7 +128,7 @@ export const STORIES: ArchiveStory[] = [
       { label: 'Expansion Allowance', value: '1.5-Inch Concealed Hem & Side-Seam Inlays' },
       { label: 'Reinforcement', value: 'Hand-Stitched Silk Bar Tacks at Pocket Strains' }
     ],
-    relatedProductSlugs: ['the-sylvan-mulberry-silk-trench', 'the-pleated-indigo-chanderi-tunic'],
+    relatedProductSlugs: ['oxblood-wool-silk-signature-coat-dress', 'angrakha-asymmetric-sheer-tunic'],
     sources: [
       'Norah Waugh, The Cut of Men\'s and Women\'s Clothes.',
       'Chambre Syndicale de la Haute Couture Master Tailoring Guidelines.'

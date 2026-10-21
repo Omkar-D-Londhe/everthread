@@ -136,6 +136,12 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
     }
   }, [updateLoupePosition]);
 
+  const handleTouchEnd = useCallback(() => {
+    if (glassRef.current) {
+      glassRef.current.style.opacity = '0';
+    }
+  }, []);
+
   if (!isOpen) return null;
 
   return (
@@ -194,6 +200,8 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
           onMouseLeave={handleMouseLeave}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchEnd}
           data-testid="atelier-lens-viewport"
         >
           <img

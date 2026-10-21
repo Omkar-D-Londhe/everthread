@@ -99,7 +99,7 @@ export const ArchiveStoryPage: React.FC = () => {
             {story.subtitle}
           </p>
 
-          <div className="d-flex flex-wrap align-items-center gap-3 body-sm text-muted-editorial pt-2">
+          <div className="d-flex flex-wrap align-items-center gap-3 body-sm text-muted-editorial pt-2 editorial-enter">
             <span><strong>Focus:</strong> {story.focus}</span>
             <span>•</span>
             <span><strong>Location:</strong> {story.location}</span>
@@ -114,7 +114,7 @@ export const ArchiveStoryPage: React.FC = () => {
             {/* Left Main Article Column */}
             <div className="col-12 col-lg-8">
               {/* Primary Specimen Visual */}
-              <div className="mb-4 border-hairline overflow-hidden bg-stone" style={{ maxHeight: 560 }}>
+              <div className="mb-4 border-hairline overflow-hidden bg-stone editorial-image" style={{ maxHeight: 560 }}>
                 <img
                   src={story.image}
                   alt={story.imageAlt || story.title}

@@ -325,7 +325,7 @@ export const ProductDetailPage: React.FC = () => {
             {/* Right Column: Product Information, Actions & Accordions */}
             <div className="col-12 col-lg-5">
               {/* Product Header */}
-              <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
+              <div className="d-flex align-items-center gap-2 mb-2 flex-wrap editorial-enter">
                 <span className="label-caps text-champagne">{product.category}</span>
                 <span className="text-champagne">•</span>
                 <span className="label-caps text-muted-editorial">{product.status}</span>
@@ -335,18 +335,18 @@ export const ProductDetailPage: React.FC = () => {
                 </span>
               </div>
 
-              <h1 className="headline-lg text-oxblood mb-2" data-testid="product-title" style={{ fontSize: '2.5rem' }}>
+              <h1 className="headline-lg text-oxblood mb-2 editorial-enter" data-testid="product-title" style={{ fontSize: '2.5rem' }}>
                 {product.title}
               </h1>
 
               {product.subtitle && (
-                <p className="body-lg text-muted-editorial fst-italic mb-3" data-testid="product-subtitle">
+                <p className="body-lg text-muted-editorial fst-italic mb-3 editorial-enter" data-testid="product-subtitle">
                   {product.subtitle}
                 </p>
               )}
 
               {/* Dynamic Price Render */}
-              <div className="d-flex align-items-baseline gap-3 mb-4 pb-3 border-hairline-b">
+              <div className="d-flex align-items-baseline gap-3 mb-4 pb-3 border-hairline-b editorial-enter">
                 <span className="headline-sm text-oxblood fw-bold" data-testid="product-price">
                   {product.currency}{product.price.toLocaleString('en-IN')}
                 </span>
@@ -800,7 +800,7 @@ export const ProductDetailPage: React.FC = () => {
 
       {/* Related Cultural Archive Folios */}
       {relatedStories.length > 0 && (
-        <section className="py-5 bg-cream border-hairline-t" data-testid="related-stories-section">
+        <section className="py-5 bg-cream border-hairline-t editorial-section" data-testid="related-stories-section">
           <div className="page-container">
             <div className="d-flex align-items-center gap-2 mb-2">
               <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
@@ -816,7 +816,7 @@ export const ProductDetailPage: React.FC = () => {
 
             <div className="row g-4">
               {relatedStories.map(story => (
-                <div key={story.id} className="col-12 col-md-6">
+                <div key={story.id} className="col-12 col-md-6 editorial-card">
                   <div className="p-4 bg-canvas border-hairline h-100 d-flex flex-column" data-testid={`related-story-${story.slug}`}>
                     <div className="d-flex align-items-center justify-content-between mb-1">
                       <span className="label-caps text-champagne">{story.chapter} • {story.folio}</span>
@@ -845,7 +845,7 @@ export const ProductDetailPage: React.FC = () => {
       )}
 
       {/* Complementary Silhouettes (Related Products) */}
-      <section className="py-5 bg-canvas border-hairline-t" data-testid="related-products-section">
+      <section className="py-5 bg-canvas border-hairline-t editorial-section" data-testid="related-products-section">
         <div className="page-container">
           <div className="d-flex align-items-center justify-content-between mb-4">
             <div>
@@ -859,7 +859,7 @@ export const ProductDetailPage: React.FC = () => {
 
           <div className="row g-4">
             {complementaryProducts.map(compProduct => (
-              <div key={compProduct.id} className="col-12 col-md-4">
+              <div key={compProduct.id} className="col-12 col-md-4 editorial-card">
                 <ProductCard product={compProduct} />
               </div>
             ))}
