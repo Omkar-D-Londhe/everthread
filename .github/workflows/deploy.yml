@@ -43,6 +43,8 @@ jobs:
 
       - name: Build production release
         run: npm run build
+        env:
+          VITE_BASE_URL: /everthread/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
