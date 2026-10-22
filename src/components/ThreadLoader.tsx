@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.ts';
 
-// Resolve image paths relative to Vite's base (/ locally, /everthread/ on GitHub Pages)
-const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
-
 export interface ThreadLoaderProps {
   /**
    * Display mode:
@@ -131,9 +128,9 @@ export const ThreadLoader: React.FC<ThreadLoaderProps> = ({
       <div className="thread-loader-canvas">
         <div className="thread-loader-artwork-wrapper">
           <picture className="d-flex align-items-center justify-content-center w-100 h-100">
-            <source srcSet={`${BASE}/images/everthread-loader-hand-clean.webp`} type="image/webp" />
+            <source srcSet="/images/everthread-loader-hand-clean.webp" type="image/webp" />
             <img
-              src={`${BASE}/images/everthread-loader-hand-clean.png`}
+              src="/images/everthread-loader-hand-clean.png"
               alt="EverThread artisan hand poised with thread"
               className="thread-hand-artwork"
               data-testid="thread-hand-artwork"
@@ -144,7 +141,7 @@ export const ThreadLoader: React.FC<ThreadLoaderProps> = ({
               onError={(e) => {
                 const target = e.currentTarget;
                 if (!target.src.endsWith('everthread-loader-hand.png')) {
-                  target.src = `${BASE}/images/everthread-loader-hand.png`;
+                  target.src = '/images/everthread-loader-hand.png';
                 }
               }}
             />
