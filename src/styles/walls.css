@@ -1,0 +1,185 @@
+/* EverThread Stage 05: Collection Walls & Shared Stage Styles */
+
+.collection-walls-layout {
+  padding-top: var(--header-height, 4rem);
+}
+
+.wall-stage-root {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-canvas, #faf6f0);
+}
+
+.wall-tabs-container {
+  gap: 0.25rem;
+}
+
+.wall-tab-btn {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-serif-secondary, "Cinzel", Georgia, serif);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted-editorial, #5a4f48);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.wall-tab-btn:hover {
+  color: var(--color-oxblood, #49232d);
+}
+
+.wall-tab-btn:focus-visible {
+  outline: 2px solid var(--color-champagne-thread, #b49a70);
+  outline-offset: 2px;
+}
+
+.wall-tab-btn.active {
+  background-color: var(--color-oxblood, #49232d);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Horizontal Native Scrolling Stage Track */
+.wall-stage-track {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  width: 100%;
+}
+
+.wall-stage-track::-webkit-scrollbar {
+  display: none;
+}
+
+.wall-stage-panels-wrap {
+  display: flex;
+  position: relative;
+  width: max-content;
+  box-sizing: border-box;
+}
+
+/* Panel Width Geometry: 88vw on Desktop/Tablet (~12% peek of adjacent panel) */
+.wall-stage-panel {
+  flex: 0 0 88vw;
+  width: 88vw;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 340px;
+}
+
+.wall-panel-inner {
+  background-color: var(--color-cream, #fef9f0);
+  border-right: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.08));
+}
+
+.wall-hero-crop {
+  max-width: 100%;
+  border-radius: 2px;
+}
+
+.wall-panel-img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3/4;
+}
+
+.wall-panel-typographic {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+}
+
+/* Visual Thread Layer */
+.wall-thread-container {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.wall-thread-svg {
+  width: 100%;
+  height: 60px;
+  display: block;
+}
+
+.wall-thread-settled .wall-thread-svg {
+  animation: wallThreadPulse 0.4s ease-out;
+}
+
+@keyframes wallThreadPulse {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(180, 154, 112, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(180, 154, 112, 0.8));
+  }
+  100% {
+    filter: drop-shadow(0 0 0 rgba(180, 154, 112, 0));
+  }
+}
+
+/* Edge Cues */
+.wall-edge-cue button {
+  font-family: var(--font-serif-secondary, "Cinzel", Georgia, serif);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.wall-edge-cue button:hover {
+  color: var(--color-oxblood, #49232d);
+}
+
+/* Responsive Overrides (Mobile 390px) */
+@media (max-width: 768px) {
+  .wall-stage-panel {
+    flex: 0 0 92vw;
+    width: 92vw;
+    min-height: 300px;
+  }
+
+  .wall-tabs-container {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .wall-tab-btn {
+    flex: 1 1 50%;
+    text-align: center;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .wall-stage-track {
+    scroll-behavior: auto !important;
+  }
+  .wall-thread-settled .wall-thread-svg {
+    animation: none !important;
+  }
+}

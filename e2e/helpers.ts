@@ -5,7 +5,7 @@ import { Page, expect } from '@playwright/test';
  */
 export async function waitForAppReady(page: Page) {
   // Wait for loader container to detach or become hidden
-  const loader = page.locator('.atelier-thread-loader');
+  const loader = page.locator('.atelier-thread-loader, [data-testid="thread-loader"], .thread-loader-root');
   if (await loader.count() > 0) {
     await loader.waitFor({ state: 'hidden', timeout: 6000 }).catch(() => {});
   }

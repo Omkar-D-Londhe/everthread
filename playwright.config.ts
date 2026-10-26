@@ -10,7 +10,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [['list'], ['html', { open: 'never', outputFolder: process.env.PLAYWRIGHT_HTML_REPORT || 'docs/implementation/evidence/STAGE-04/playwright-report' }]],
+  reporter: [['list'], ['html', { open: 'never', outputFolder: process.env.PLAYWRIGHT_HTML_REPORT || 'docs/implementation/evidence/STAGE-05/playwright-report' }]],
 
   use: {
     baseURL: 'http://127.0.0.1:4173/everthread/',

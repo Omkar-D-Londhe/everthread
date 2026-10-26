@@ -1,20 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Product } from '../types/catalog.ts';
+import { CatalogueProduct } from '../types/catalog.ts';
 import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { useSaved } from '../context/SavedContext.tsx';
 
 interface ProductCardProps {
-  product: Product;
+  product: CatalogueProduct;
   index?: number;
   variant?: 'standard' | 'flagship';
+  isFlagship?: boolean;
+  priority?: boolean;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
   index,
-  variant = 'standard'
+  variant = 'standard',
+  isFlagship = false,
+  priority = false
 }) => {
+  const effectiveVariant = isFlagship ? 'flagship' : variant;
   const { isSaved, toggleSaved } = useSaved();
   const saved = isSaved(product.id);
   const assetRecord = PRODUCT_ASSET_MAP[product.id];
@@ -33,7 +38,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   // Prominent Editorial Flagship Plinth Variant
-  if (variant === 'flagship') {
+  if (effectiveVariant === 'flagship') {
     return (
       <article 
         className="garment-tile plinth-card plinth-reveal flagship-card w-100 d-flex flex-column flex-lg-row align-items-stretch" 
@@ -55,7 +60,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               srcSet={primaryImage?.srcSet}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 480px"
               alt={product.imageAlt || product.title}
-              loading="lazy"
+              loading={priority ? 'eager' : 'lazy'}
               width={primaryImage?.width || 800}
               height={primaryImage?.height || 1200}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -63,9 +68,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </Link>
 
           {/* Edition Badge */}
-          <span className="edition-badge">
-            {product.edition}
-          </span>
+          {'edition' in product && product.edition && (
+            <span className="edition-badge">
+              {product.edition}
+            </span>
+          )}
 
           {/* Save Piece Action Bookmark Button */}
           <button
@@ -138,7 +145,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   TAILORING FORM
                 </span>
                 <span className="body-sm text-oxblood fw-medium d-block pt-1">
-                  {product.weaveType}
+                  {'weaveType' in product ? product.weaveType : product.category}
                 </span>
               </div>
               <div className="col-6">
@@ -146,7 +153,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   FIBER COMPOSITION
                 </span>
                 <span className="body-sm text-oxblood fw-medium d-block pt-1">
-                  {product.fiberPurity}
+                  {'fiberPurity' in product ? product.fiberPurity : (product.materials?.[0]?.composition || 'Curated Textile Spec')}
                 </span>
               </div>
             </div>
@@ -207,9 +214,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </Link>
 
         {/* Edition / Allocation Badge */}
-        <span className="edition-badge">
-          {product.edition}
-        </span>
+        {'edition' in product && product.edition && (
+          <span className="edition-badge">
+            {product.edition}
+          </span>
+        )}
 
         {/* Save Piece Action Bookmark Button */}
         <button
@@ -250,7 +259,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Craft Lineage & Category Label */}
         <div className="label-caps text-champagne mb-1">
-          {product.category} • {product.weaveType}
+          {product.category} • {'weaveType' in product ? product.weaveType : product.category}
         </div>
 
         {/* Product Title Linked */}
@@ -266,7 +275,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Concise Fiber Composition Note */}
         <p className="body-sm text-muted-editorial mb-3 line-clamp-2" style={{ minHeight: '2.5rem' }}>
-          {product.fiberPurity}
+          {'fiberPurity' in product ? product.fiberPurity : (product.materials?.[0]?.composition || '')}
         </p>
 
         {/* Pricing & Navigation Footer */}

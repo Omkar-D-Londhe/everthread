@@ -49,18 +49,10 @@ test.describe('EverThread Stage 01: Baseline Characterization Suite', () => {
   });
 
   test.describe('E2E-BASE-01: The Living Inheritance Route is Branded 404 at Baseline', () => {
-    test('asserts /collections/the-living-inheritance displays branded 404 page', async ({ page }) => {
-      const pageErrors: Error[] = [];
-      page.on('pageerror', (err) => pageErrors.push(err));
-
-      await gotoRoute(page, '/collections/the-living-inheritance');
-
-      const h1 = page.locator('h1');
-      await expect(h1).toHaveText('404');
-      await expect(page.locator('text=Folio Unrecorded')).toBeVisible();
-      await expect(page.locator('text=This thread has not yet been woven into the archive.')).toBeVisible();
-
-      expect(pageErrors).toHaveLength(0);
+    test('asserts /collections/the-living-inheritance displays branded 404 page', async () => {
+      // Per 04_TEST_AND_ACCEPTANCE_PLAN.md §2 & STAGE-05:
+      // "E2E-BASE-01 asserts it is a 404 at baseline and is removed in Stage 5 (documented replacement, not a deletion of coverage; replaced by E2E-WALL-01 in Stage 5)"
+      test.skip(true, 'Retired in Stage 05 per 04_TEST_AND_ACCEPTANCE_PLAN.md; replaced by E2E-WALL-01');
     });
   });
 

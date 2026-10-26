@@ -7,7 +7,9 @@ import { ThreadLoader } from './components/ThreadLoader.tsx';
 
 // Pages
 import { HomePage } from './pages/HomePage.tsx';
-import { CollectionsPage } from './pages/CollectionsPage.tsx';
+import { CollectionWallsLayout } from './pages/collections/CollectionWallsLayout.tsx';
+import { ContemporaryWall } from './pages/collections/ContemporaryWall.tsx';
+import { LivingInheritanceWall } from './pages/collections/LivingInheritanceWall.tsx';
 import { ProductDetailPage } from './pages/ProductDetailPage.tsx';
 import { CompassPage } from './pages/CompassPage.tsx';
 import { ArchivePage } from './pages/ArchivePage.tsx';
@@ -70,7 +72,10 @@ export const App: React.FC = () => {
       <div className="flex-grow-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/collections" element={<CollectionsPage />} />
+          <Route path="/collections" element={<CollectionWallsLayout />}>
+            <Route index element={<ContemporaryWall />} />
+            <Route path="the-living-inheritance" element={<LivingInheritanceWall />} />
+          </Route>
           <Route path="/product/:slug" element={<ProductDetailPage />} />
           <Route path="/compass" element={<CompassPage />} />
           <Route path="/archive" element={<ArchivePage />} />
