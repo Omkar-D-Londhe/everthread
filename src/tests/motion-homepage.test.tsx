@@ -95,23 +95,25 @@ describe('EverThread Stage 5.1: Approved Homepage & SVG Thread Entrance Suite', 
       const secondaryCta = screen.getByTestId('hero-secondary-cta');
       expect(secondaryCta).toBeInTheDocument();
       expect(secondaryCta.getAttribute('href')).toBe('/archive');
-      expect(secondaryCta.textContent).toContain('Discover the stories');
+      expect(secondaryCta.textContent).toContain('Enter the Archive');
 
       // Click immediately navigates
       fireEvent.click(secondaryCta);
       expect(screen.getByTestId('archive-route')).toBeInTheDocument();
     });
 
-    it('displays the three archival metadata plinth attributes', () => {
+    it('displays the three archival metadata plinth attributes bound to ET-01 without unverified edition', () => {
       renderHomePage();
       const metadata = screen.getByTestId('hero-metadata');
       expect(metadata).toBeInTheDocument();
-      expect(metadata.textContent).toContain('FIBER PURITY');
-      expect(metadata.textContent).toContain('100% Unblended');
+      expect(metadata.textContent).toContain('MATERIAL');
+      expect(metadata.textContent).toContain('70% Fine Merino Wool, 30% Wild Mulberry Silk');
       expect(metadata.textContent).toContain('CONSTRUCTION');
-      expect(metadata.textContent).toContain('Pit-Loomed Jacquard');
-      expect(metadata.textContent).toContain('EDITION');
-      expect(metadata.textContent).toContain('Numbered 01–64');
+      expect(metadata.textContent).toContain('Pit-Loomed 2/2 Twill with Kadwa Facing');
+      expect(metadata.textContent).toContain('PIECE');
+      expect(metadata.textContent).toContain('Outerwear');
+      expect(metadata.textContent).not.toContain('Numbered');
+      expect(metadata.textContent).not.toContain('100% Unblended');
     });
 
     it('renders the editorial image frame and loupe preview badge without blocking layout', () => {
@@ -262,16 +264,16 @@ describe('EverThread Stage 5.1: Approved Homepage & SVG Thread Entrance Suite', 
       const compassLink = screen.getByRole('link', { name: /Start Consultation/i });
       expect(compassLink.getAttribute('href')).toBe('/compass');
 
-      // 02: Cultural Archive & Weave Library
-      const archiveCard = screen.getByRole('heading', { name: 'Cultural Archive & Weave Library' }).closest('div');
+      // 02: Cultural Archive
+      const archiveCard = screen.getByRole('heading', { name: 'Cultural Archive' }).closest('div');
       expect(archiveCard).toBeInTheDocument();
       const archiveLink = screen.getByRole('link', { name: /Examine Folios/i });
       expect(archiveLink.getAttribute('href')).toBe('/archive');
 
-      // 03: The Permanent Capsule
-      const capsuleCard = screen.getByRole('heading', { name: 'The Permanent Capsule' }).closest('div');
+      // 03: Curated Collections
+      const capsuleCard = screen.getByRole('heading', { name: /Collections/i }).closest('div');
       expect(capsuleCard).toBeInTheDocument();
-      const capsuleLink = screen.getByRole('link', { name: /View Silhouettes/i });
+      const capsuleLink = screen.getByRole('link', { name: /View Collections/i });
       expect(capsuleLink.getAttribute('href')).toBe('/collections');
     });
 
@@ -297,7 +299,7 @@ describe('EverThread Stage 5.1: Approved Homepage & SVG Thread Entrance Suite', 
     it('renders the highlights story-flow narrative connector SVG canvas and path', () => {
       renderHomePage();
 
-      const highlightsSection = screen.getByTestId('highlights-section');
+      const highlightsSection = screen.getByTestId('home-index');
       expect(highlightsSection).toBeInTheDocument();
 
       const connectorCanvas = screen.getByTestId('highlights-thread-canvas');
@@ -314,7 +316,7 @@ describe('EverThread Stage 5.1: Approved Homepage & SVG Thread Entrance Suite', 
     it('renders the archival folio divider crease header at the entrance of the highlights section', () => {
       renderHomePage();
 
-      expect(screen.getByText(/FOLIO PAGE 01 \/ UNFOLDING CHAPTER: DISCOVERY/i)).toBeInTheDocument();
+      expect(screen.getByText(/FOLIO PAGE 01 \/ CHAPTER INDEX/i)).toBeInTheDocument();
       expect(screen.getByText('FOLIO COMPASS')).toBeInTheDocument();
     });
 
@@ -395,7 +397,7 @@ describe('EverThread Stage 5.1: Approved Homepage & SVG Thread Entrance Suite', 
       const badgeTrigger = screen.getByTestId('atelier-lens-badge-trigger');
       expect(badgeTrigger).toBeInTheDocument();
       expect(badgeTrigger.getAttribute('aria-expanded')).toBe('false');
-      expect(badgeTrigger.textContent).toContain('Mulberry Silk & Cashmere');
+      expect(badgeTrigger.textContent).toContain('70% Fine Merino Wool');
       expect(badgeTrigger.textContent).toContain('A closer look at the weave');
     });
 
@@ -634,71 +636,73 @@ describe('EverThread Stage 5.1: Approved Homepage & SVG Thread Entrance Suite', 
   });
 
   /* -------------------------------------------------------------------------
-     8. Phase 6.2: 7-Chapter Cinematic Editorial Narrative
+     8. Stage 06: Editorial Scenes & Architecture Sequence
      ------------------------------------------------------------------------- */
-  describe('8. Phase 6.2: 7-Chapter Cinematic Editorial Narrative', () => {
-    it('renders all 7 chapters in continuous editorial sequence with authentic content', () => {
+  describe('8. Stage 06: Editorial Scenes & Architecture Sequence', () => {
+    it('renders all 8 scenes in continuous editorial sequence with authentic content', () => {
       renderHomePage();
 
-      // Chapter 01: Hero & Living Weave
+      // Scene 1: home-hero
+      expect(screen.getByTestId('home-hero')).toBeInTheDocument();
       expect(screen.getByTestId('hero-headline')).toBeInTheDocument();
+      expect(screen.getByTestId('hero-primary-cta')).toHaveAttribute('href', '/collections');
+      expect(screen.getByTestId('hero-secondary-cta')).toHaveAttribute('href', '/archive');
+      expect(screen.getByTestId('hero-secondary-cta')).toHaveTextContent('Enter the Archive');
       expect(screen.getByTestId('atelier-lens-badge-trigger')).toBeInTheDocument();
 
-      // Folio Page 01: Highlights Plinth Grid
-      expect(screen.getByTestId('highlights-section')).toBeInTheDocument();
+      // Scene 2: home-index (H1)
+      const indexSection = screen.getByTestId('home-index');
+      expect(indexSection).toBeInTheDocument();
+      expect(indexSection).toHaveAttribute('data-scene', 'H1');
       expect(screen.getByTestId('highlight-card-compass')).toBeInTheDocument();
       expect(screen.getByTestId('highlight-card-archive')).toBeInTheDocument();
       expect(screen.getByTestId('highlight-card-capsule')).toBeInTheDocument();
 
-      // Chapter 02: Thread Compass
-      const compassSection = screen.getByTestId('chapter-compass-section');
+      // Scene 3: home-compass
+      const compassSection = screen.getByTestId('home-compass');
       expect(compassSection).toBeInTheDocument();
       expect(within(compassSection).getByText('The Thread Compass')).toBeInTheDocument();
       const compassCta = screen.getByTestId('chapter-compass-cta');
       expect(compassCta).toHaveAttribute('href', '/compass');
 
-      // Chapter 03: Cultural Archive
-      const archiveSection = screen.getByTestId('chapter-archive-section');
-      expect(archiveSection).toBeInTheDocument();
-      expect(within(archiveSection).getByText('The Living Loom')).toBeInTheDocument();
-      const archiveStoryCta = screen.getByTestId('chapter-archive-story-cta');
-      expect(archiveStoryCta).toHaveAttribute('href', '/archive/the-living-loom');
-      const archiveIndexCta = screen.getByTestId('chapter-archive-index-cta');
-      expect(archiveIndexCta).toHaveAttribute('href', '/archive');
+      // Scene 4: home-craft (Living Loom + 3 Diagram Thumbnails)
+      const craftSection = screen.getByTestId('home-craft');
+      expect(craftSection).toBeInTheDocument();
+      expect(within(craftSection).getByText('The Living Loom')).toBeInTheDocument();
+      expect(screen.getByTestId('diagram-thumb-warp-weft')).toHaveAttribute('href', '/archive');
+      expect(screen.getByTestId('diagram-thumb-vocab')).toHaveAttribute('href', '/archive');
+      expect(screen.getByTestId('diagram-thumb-technique')).toHaveAttribute('href', '/archive');
 
-      // Chapter 04: The Permanent Capsule
-      const capsuleSection = screen.getByTestId('chapter-capsule-section');
-      expect(capsuleSection).toBeInTheDocument();
-      expect(within(capsuleSection).getByText('Oxblood Wool-Silk Signature Coat-Dress')).toBeInTheDocument();
-      expect(within(capsuleSection).getByText(/₹68,500/)).toBeInTheDocument();
-      const flagshipCta = screen.getByTestId('chapter-capsule-flagship-cta');
-      expect(flagshipCta).toHaveAttribute('href', '/product/oxblood-wool-silk-signature-coat-dress');
-      const capsuleCollectionCta = screen.getByTestId('chapter-capsule-collection-cta');
-      expect(capsuleCollectionCta).toHaveAttribute('href', '/collections');
+      // Scene 5: home-walls (H2 Walls Preview)
+      const wallsSection = screen.getByTestId('home-walls');
+      expect(wallsSection).toBeInTheDocument();
+      expect(wallsSection).toHaveAttribute('data-scene', 'H2');
+      expect(screen.getByTestId('wall-door-contemporary')).toHaveAttribute('href', '/collections');
+      expect(screen.getByTestId('wall-door-living-inheritance')).toHaveAttribute('href', '/collections/the-living-inheritance');
 
-      // Chapter 05: The Making / Architectural Tailoring
-      const makingSection = screen.getByTestId('chapter-making-section');
+      // Scene 6: home-making (H3 Narrative Spine + The Promise)
+      const makingSection = screen.getByTestId('home-making');
       expect(makingSection).toBeInTheDocument();
-      expect(within(makingSection).getByText('Subterranean Weft', { exact: false })).toBeInTheDocument();
-      expect(within(makingSection).getByText('Zero Synthetic Fusing', { exact: false })).toBeInTheDocument();
-      const makingHouseCta = screen.getByTestId('chapter-making-house-cta');
-      expect(makingHouseCta).toHaveAttribute('href', '/the-house');
+      expect(makingSection).toHaveAttribute('data-scene', 'H3');
+      expect(within(makingSection).getByText(/An heirloom, not a trend/i)).toBeInTheDocument();
+      expect(within(makingSection).getByText(/Every thread carries a story/i)).toBeInTheDocument();
+      expect(within(makingSection).getByText(/One thread\. A world of stories/i)).toBeInTheDocument();
 
-      // Chapter 06: The EverThread Promise
-      const promiseSection = screen.getByTestId('chapter-promise-section');
-      expect(promiseSection).toBeInTheDocument();
-      expect(within(promiseSection).getByText('Uncut Botanical Purity')).toBeInTheDocument();
-      expect(within(promiseSection).getByText('Generational Inlay Margins')).toBeInTheDocument();
-      expect(within(promiseSection).getByText('Documented Provenance')).toBeInTheDocument();
-
-      // Chapter 07: The Gazette / Monograph Series
-      const gazetteSection = screen.getByTestId('chapter-gazette-section');
-      expect(gazetteSection).toBeInTheDocument();
-      expect(within(gazetteSection).getByText(/On Unbroken Heirlooms/)).toBeInTheDocument();
+      // Scene 7: home-journal
+      const journalSection = screen.getByTestId('home-journal');
+      expect(journalSection).toBeInTheDocument();
+      expect(within(journalSection).getByText(/On Unbroken Heirlooms/)).toBeInTheDocument();
       const gazetteLeadCta = screen.getByTestId('chapter-gazette-lead-cta');
       expect(gazetteLeadCta).toHaveAttribute('href', '/journal/on-unbroken-heirlooms');
       const gazetteIndexCta = screen.getByTestId('chapter-gazette-index-cta');
       expect(gazetteIndexCta).toHaveAttribute('href', '/journal');
+
+      // Scene 8: home-closing
+      const closingSection = screen.getByTestId('home-closing');
+      expect(closingSection).toBeInTheDocument();
+      expect(within(closingSection).getByText(/One thread\. A world of stories\./i)).toBeInTheDocument();
+      expect(screen.getByTestId('home-closing-archive-cta')).toHaveAttribute('href', '/archive');
+      expect(screen.getByTestId('home-closing-collections-cta')).toHaveAttribute('href', '/collections');
     });
 
     it('verifies hero curtain reveal structure uses headline mask wrapper', () => {

@@ -202,9 +202,9 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
                 <span style={{ width: 16, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
                 <span className="label-caps-wide text-champagne">Atelier Curated Walls</span>
               </div>
-              <h1 className="h6 text-oxblood mb-0 font-serif" style={{ letterSpacing: '0.04em' }}>
+              <div className="h6 text-oxblood mb-0 font-serif" style={{ letterSpacing: '0.04em' }}>
                 EverThread Curatorial Repertoire
-              </h1>
+              </div>
             </div>
 
             <div 

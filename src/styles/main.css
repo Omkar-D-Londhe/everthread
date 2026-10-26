@@ -1912,3 +1912,93 @@ kbd.editorial-kbd--oxblood {
   }
 }
 
+/* ==========================================================================
+   EverThread Stage 06: Home Editorial Scenes, Walls Preview & Narrative Spine
+   ========================================================================== */
+
+/* Walls Preview Doors */
+.wall-door-card {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wall-door-card:hover {
+  transform: translateY(-4px);
+}
+
+.wall-door-frame {
+  aspect-ratio: 16 / 10;
+  border-radius: 2px;
+  background-color: var(--color-espresso, #30231f);
+}
+
+.wall-door-img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wall-door-card:hover .wall-door-img {
+  transform: scale(1.04);
+}
+
+.wall-door-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(20, 13, 11, 0.94) 0%, rgba(20, 13, 11, 0.55) 60%, transparent 100%);
+  z-index: 2;
+}
+
+/* Diagram Thumbnails Strip (Living Loom Craft Scene) */
+.craft-diagram-thumb {
+  background: #ffffff;
+  border: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  border-radius: 2px;
+  padding: 1rem;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.craft-diagram-thumb:hover {
+  border-color: var(--color-champagne-thread, #b49a70);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(48, 35, 31, 0.06);
+}
+
+.craft-diagram-thumb img {
+  width: 100%;
+  max-width: 140px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
+}
+
+/* Narrative Spine (The Making) */
+.narrative-spine-step {
+  border-radius: 2px;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.narrative-spine-step:hover {
+  background-color: #ffffff !important;
+  border-color: var(--color-champagne-thread, #b49a70) !important;
+  transform: translateX(4px);
+}
+
+/* The Promise */
+.promise-line-item {
+  border-left: 3px solid var(--color-champagne-thread, #b49a70) !important;
+  border-radius: 2px;
+}
+
+/* Home Closing Scene */
+.home-closing-scene {
+  background-color: var(--color-cream, #fef9f0);
+  border-top: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.08));
+}
+
+

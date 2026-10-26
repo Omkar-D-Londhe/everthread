@@ -4,9 +4,11 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AtelierLensModal } from '../components/AtelierLensModal.tsx';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.ts';
-import { PRODUCTS } from '../data/products.ts';
+import { getProductById } from '../data/products.ts';
 import { STORIES } from '../data/stories.ts';
 import { JOURNAL_ARTICLES } from '../data/journal.ts';
+import { WallsPreview } from '../components/home/WallsPreview.tsx';
+import { NarrativeSpine } from '../components/home/NarrativeSpine.tsx';
 
 // Register ScrollTrigger safely in browser environment
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
@@ -34,20 +36,23 @@ const getPathLength = (pathEl: SVGPathElement | null, defaultLength: number): nu
       const len = pathEl.getTotalLength();
       if (len > 0) return len;
     } catch {
-      // Fallback for mock/test environments
+      return defaultLength;
     }
   }
   return defaultLength;
 };
 
 export const HomePage: React.FC = () => {
-  const mainContainerRef = useRef<HTMLElement>(null);
-  const heroRef = useRef<HTMLElement>(null);
-  const signaturePathRef = useRef<SVGPathElement>(null);
-  const secondaryPathRef = useRef<SVGPathElement>(null);
-  const tertiaryPathRef = useRef<SVGPathElement>(null);
+  const prefersReduced = usePrefersReducedMotion();
 
-  const kickerRef = useRef<HTMLDivElement>(null);
+  // Root container ref for GSAP context scoping and cleanup
+  const mainContainerRef = useRef<HTMLElement>(null);
+
+  // Section Refs for ScrollTrigger Story Flow pinning/scrubbing
+  const heroRef = useRef<HTMLElement>(null);
+  const highlightsSectionRef = useRef<HTMLElement>(null);
+
+  // Hero Content Refs
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subheadRef = useRef<HTMLParagraphElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
@@ -55,20 +60,26 @@ export const HomePage: React.FC = () => {
   const metadataRef = useRef<HTMLDivElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
 
-  // Highlights / Story Flow refs
-  const highlightsSectionRef = useRef<HTMLElement>(null);
+  // SVG Silk Thread Path Refs (Hero layer)
+  const signaturePathRef = useRef<SVGPathElement>(null);
+  const secondaryPathRef = useRef<SVGPathElement>(null);
+  const tertiaryPathRef = useRef<SVGPathElement>(null);
+
+  // SVG Highlights Story-flow connector path ref
   const highlightsThreadRef = useRef<SVGPathElement>(null);
+
+  // Highlights Plinth Cards Refs
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  const prefersReduced = usePrefersReducedMotion();
-  const [isMotionActive, setIsMotionActive] = useState<boolean>(() => !prefersReduced);
+  // Motion Active state
+  const [isMotionActive, setIsMotionActive] = useState<boolean>(!prefersReduced);
 
-  // Sync state if OS preference changes at runtime
+  // Synchronize OS prefers-reduced-motion dynamically
   useEffect(() => {
     setIsMotionActive(!prefersReduced);
   }, [prefersReduced]);
 
-  // Synchronize document-level .motion-paused class with toggle state for global CSS animation settling
+  // Synchronize documentElement class for global CSS transition/animation suppression
   useEffect(() => {
     if (typeof document !== 'undefined') {
       if (!isMotionActive) {
@@ -115,27 +126,17 @@ export const HomePage: React.FC = () => {
         secondaryPathRef.current.style.transform = 'none';
       }
       if (tertiaryPathRef.current) {
-        tertiaryPathRef.current.style.opacity = '0.7';
+        tertiaryPathRef.current.style.opacity = '0.25';
         tertiaryPathRef.current.style.transform = 'none';
       }
       if (highlightsThreadRef.current) {
         highlightsThreadRef.current.style.strokeDashoffset = '0';
-        highlightsThreadRef.current.style.strokeDasharray = 'none';
         highlightsThreadRef.current.style.opacity = '0.85';
-        highlightsThreadRef.current.style.transform = 'none';
       }
-      [
-        kickerRef.current,
-        headlineRef.current,
-        subheadRef.current,
-        descRef.current,
-        actionsRef.current,
-        metadataRef.current,
-        visualRef.current
-      ].forEach(el => {
-        if (el) {
-          el.style.opacity = '1';
-          el.style.transform = 'none';
+      [headlineRef, subheadRef, descRef, actionsRef, metadataRef, visualRef].forEach(ref => {
+        if (ref.current) {
+          ref.current.style.opacity = '1';
+          ref.current.style.transform = 'none';
         }
       });
       cardsRef.current.forEach(card => {
@@ -147,265 +148,127 @@ export const HomePage: React.FC = () => {
       return;
     }
 
-    // Standard high-performance GSAP context scoped to mainContainerRef
+    // Motion Enabled: Build coordinated GSAP Context and timeline
     const ctx = gsap.context(() => {
-      const primaryLen = getPathLength(signaturePathRef.current, 1800);
-      const secondaryLen = getPathLength(secondaryPathRef.current, 1200);
-      const highlightsLen = getPathLength(highlightsThreadRef.current, 1250);
+      const sigLen = getPathLength(signaturePathRef.current, 2400);
+      const secLen = getPathLength(secondaryPathRef.current, 1950);
+      const highLen = getPathLength(highlightsThreadRef.current, 1300);
 
-      // 1. Initial State: Establish clean starting hero composition
-      gsap.set(signaturePathRef.current, {
-        strokeDasharray: primaryLen,
-        strokeDashoffset: primaryLen,
-        opacity: 0.95
-      });
-
-      if (secondaryPathRef.current) {
-        gsap.set(secondaryPathRef.current, {
-          strokeDasharray: secondaryLen,
-          strokeDashoffset: secondaryLen,
-          opacity: 0.65
+      // Initial Path Attributes
+      if (signaturePathRef.current) {
+        gsap.set(signaturePathRef.current, {
+          strokeDasharray: sigLen,
+          strokeDashoffset: sigLen,
+          opacity: 0.95
         });
       }
-
+      if (secondaryPathRef.current) {
+        gsap.set(secondaryPathRef.current, {
+          strokeDasharray: secLen,
+          strokeDashoffset: secLen,
+          opacity: 0
+        });
+      }
       if (tertiaryPathRef.current) {
         gsap.set(tertiaryPathRef.current, { opacity: 0 });
       }
-
       if (highlightsThreadRef.current) {
         gsap.set(highlightsThreadRef.current, {
-          strokeDasharray: highlightsLen,
-          strokeDashoffset: highlightsLen,
-          opacity: 0.85
+          strokeDasharray: highLen,
+          strokeDashoffset: highLen,
+          opacity: 0.35
         });
       }
 
-      gsap.set(
-        [
-          kickerRef.current,
-          subheadRef.current,
-          descRef.current,
-          actionsRef.current,
-          metadataRef.current
-        ],
-        {
-          opacity: 0,
-          y: 16
-        }
-      );
-
-      // Editorial headline unmasking start state
-      if (headlineRef.current) {
-        gsap.set(headlineRef.current, {
-          opacity: 0,
-          y: 40
-        });
-      }
-
-      gsap.set(visualRef.current, {
+      // Initial Content Styles
+      gsap.set([headlineRef.current, subheadRef.current, descRef.current, actionsRef.current, metadataRef.current], {
         opacity: 0,
-        y: 20
+        y: 18
       });
-
-      // =========================================================================
-      // A. HERO CINEMATIC CURTAIN REVEAL TIMELINE (~2.4s total)
-      // Filament -> Baseline trace -> Editorial unmasking -> Plinth illumination -> Settle
-      // =========================================================================
-      const heroTl = gsap.timeline({
-        defaults: { ease: 'power2.out' },
-        onComplete: () => {
-          // Settle complete: clear transforms for pixel-crisp subpixel text
-          gsap.set(
-            [
-              kickerRef.current,
-              headlineRef.current,
-              subheadRef.current,
-              descRef.current,
-              actionsRef.current,
-              metadataRef.current,
-              visualRef.current
-            ],
-            {
-              clearProps: 'transform'
-            }
-          );
-          ScrollTrigger.refresh();
+      if (visualRef.current) {
+        gsap.set(visualRef.current, { opacity: 0, scale: 0.985 });
+      }
+      cardsRef.current.forEach(card => {
+        if (card) {
+          gsap.set(card, { opacity: 0, y: 24 });
         }
       });
 
-      // 1. Filament Entrance & Baseline Trace (0s - 2.4s)
-      heroTl
-        .to(
-          signaturePathRef.current,
-          {
-            strokeDashoffset: 0,
-            duration: 2.4,
-            ease: 'power2.inOut'
-          },
-          0
-        )
-        // Chapter Kicker enters early
-        .to(
-          kickerRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6
-          },
-          0.1
-        )
-        // 2. Editorial Unmasking: Headline rises cleanly from the mask
-        .to(
-          headlineRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.0,
-            ease: 'power3.out'
-          },
-          0.35
-        )
-        // 3. Garment Plinth Illumination: Editorial visual softly resolves
-        .to(
-          visualRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.0,
-            ease: 'power2.out'
-          },
-          0.65
-        )
-        // 4. Subhead, Secondary Path & Description unfold
-        .to(
-          subheadRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7
-          },
-          0.75
-        )
-        .to(
-          secondaryPathRef.current,
-          {
-            strokeDashoffset: 0,
-            duration: 1.8,
-            ease: 'power2.out'
-          },
-          0.8
-        )
-        .to(
-          descRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7
-          },
-          0.95
-        )
-        // 5. Actions & Metadata resolve into final position
-        .to(
-          actionsRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7
-          },
-          1.15
-        )
-        .to(
-          metadataRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7
-          },
-          1.35
-        );
+      // Master Timeline for Chapter 01 Hero Entrance
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
+      // Step 1: Thread draws across the canvas
+      if (signaturePathRef.current) {
+        tl.to(signaturePathRef.current, {
+          strokeDashoffset: 0,
+          duration: 1.3,
+          ease: 'power3.inOut'
+        }, 0.1);
+      }
+      if (secondaryPathRef.current) {
+        tl.to(secondaryPathRef.current, {
+          strokeDashoffset: 0,
+          opacity: 0.65,
+          duration: 1.4,
+          ease: 'power2.inOut'
+        }, 0.3);
+      }
       if (tertiaryPathRef.current) {
-        heroTl.to(
-          tertiaryPathRef.current,
-          {
-            opacity: 0.7,
-            duration: 1.0
-          },
-          1.5
-        );
+        tl.to(tertiaryPathRef.current, {
+          opacity: 0.25,
+          duration: 1.0
+        }, 0.6);
       }
 
-      // =========================================================================
-      // B. SCROLL-LINKED THREAD HAND-OFF: Hero to Highlights
-      // =========================================================================
-      if (heroRef.current && signaturePathRef.current) {
-        ScrollTrigger.create({
-          trigger: heroRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.8,
-          invalidateOnRefresh: true,
-          animation: gsap.to(signaturePathRef.current, {
-            y: 80,
-            opacity: 0.45,
-            ease: 'none'
-          })
-        });
+      // Step 2: Editorial Content reveals in cascade
+      tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 0.75 }, 0.45)
+        .to(subheadRef.current, { opacity: 1, y: 0, duration: 0.65 }, 0.6)
+        .to(descRef.current, { opacity: 1, y: 0, duration: 0.65 }, 0.7)
+        .to(actionsRef.current, { opacity: 1, y: 0, duration: 0.65 }, 0.8)
+        .to(metadataRef.current, { opacity: 1, y: 0, duration: 0.65 }, 0.9);
 
-        if (secondaryPathRef.current) {
-          ScrollTrigger.create({
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.8,
-            invalidateOnRefresh: true,
-            animation: gsap.to(secondaryPathRef.current, {
-              y: 110,
-              opacity: 0.35,
-              ease: 'none'
-            })
-          });
-        }
+      // Step 3: Visual Frame appears and settles
+      if (visualRef.current) {
+        tl.to(visualRef.current, { opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out' }, 0.65);
       }
 
-      // Highlights Narrative Connector Thread Weave
+      // ScrollTrigger Story Flow Weave: Connects Hero to Folio Highlights Plinth
       if (highlightsSectionRef.current && highlightsThreadRef.current) {
         ScrollTrigger.create({
           trigger: highlightsSectionRef.current,
           start: 'top 85%',
-          end: 'top 25%',
+          end: 'top 30%',
           scrub: 0.8,
-          invalidateOnRefresh: true,
-          animation: gsap.to(highlightsThreadRef.current, {
-            strokeDashoffset: 0,
-            ease: 'none'
-          })
+          onUpdate: self => {
+            const progress = self.progress;
+            if (highlightsThreadRef.current) {
+              const offset = highLen * (1 - progress);
+              gsap.set(highlightsThreadRef.current, {
+                strokeDashoffset: offset,
+                opacity: 0.35 + (progress * 0.55)
+              });
+            }
+          }
         });
-      }
 
-      // Highlights Plinth Cards: Editorial settle on scroll entrance
-      const validCards = cardsRef.current.filter((c): c is HTMLDivElement => c !== null);
-      if (highlightsSectionRef.current && validCards.length > 0) {
-        const cardTimeline = gsap.timeline({
-          scrollTrigger: {
+        // Highlights Plinth Cards Staggered Reveal
+        const validCards = cardsRef.current.filter((c): c is HTMLDivElement => c !== null);
+        if (validCards.length > 0) {
+          ScrollTrigger.create({
             trigger: highlightsSectionRef.current,
-            start: 'top 80%',
-            end: 'top 35%',
-            scrub: 0.8,
-            invalidateOnRefresh: true
-          }
-        });
-
-        cardTimeline.fromTo(
-          validCards,
-          { y: 24, opacity: 0.75 },
-          {
-            y: 0,
-            opacity: 1,
-            stagger: 0.1,
-            ease: 'power1.out'
-          }
-        );
+            start: 'top 75%',
+            onEnter: () => {
+              gsap.to(validCards, {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                stagger: 0.15,
+                ease: 'power2.out',
+                overwrite: 'auto'
+              });
+            }
+          });
+        }
       }
     }, mainContainerRef);
 
@@ -418,18 +281,20 @@ export const HomePage: React.FC = () => {
     setIsMotionActive(prev => !prev);
   }, []);
 
-  const flagshipProduct = PRODUCTS[0];
+  // Stage 06 Data Binding: Bind ET-01 strictly via getProductById('et-01')
+  const heroProduct = getProductById('et-01');
   const leadStory = STORIES[0];
   const leadMonograph = JOURNAL_ARTICLES[0];
 
   return (
     <main id="main-content" ref={mainContainerRef} className="main-content">
       {/* =========================================================================
-           CHAPTER 01: HERO — The Unfolding & Living Weave
+           SCENE 1: HOME-HERO (The Unfolding & Living Weave)
            ========================================================================= */}
       <section
         id="hero"
         ref={heroRef}
+        data-testid="home-hero"
         className="position-relative w-100 min-vh-100 d-flex align-items-center bg-canvas overflow-hidden py-5"
         style={{ minHeight: '850px' }}
       >
@@ -469,19 +334,21 @@ export const HomePage: React.FC = () => {
               </filter>
             </defs>
 
-            {/* Signature Drawing Silk Paths */}
+            {/* Primary Filament */}
             <path
               ref={signaturePathRef}
               id="signatureThreadPath"
               data-testid="signature-thread-path"
-              className="thread-path"
-              d="M 98,0 C 120,70 85,150 140,220 C 195,290 320,240 280,390 C 240,540 80,480 110,610 C 140,740 370,760 510,720 C 660,680 720,530 840,480 C 960,430 1120,510 1250,460 C 1370,410 1430,300 1480,260"
+              d="M 98,0 C 130,120 180,240 240,320 C 320,430 480,480 620,440 C 760,400 840,280 940,310 C 1040,340 1100,460 1180,560 C 1260,660 1350,750 1440,820"
               stroke="url(#organicSilkFilament)"
-              strokeWidth="1.3"
+              strokeWidth="1.8"
               strokeLinecap="round"
+              strokeLinejoin="round"
               filter="url(#threadGlowSoft)"
               style={{ transition: 'none' }}
             />
+
+            {/* Harmonic Secondary Filament */}
             <path
               ref={secondaryPathRef}
               id="secondaryThreadPath"
@@ -491,10 +358,10 @@ export const HomePage: React.FC = () => {
               stroke="url(#organicSilkFilament)"
               strokeWidth="0.85"
               strokeDasharray="6 3"
-              strokeLinecap="round"
-              opacity="0.65"
               style={{ transition: 'none' }}
             />
+
+            {/* Whisper Tertiary Echo */}
             <path
               ref={tertiaryPathRef}
               id="tertiaryThreadPath"
@@ -503,46 +370,51 @@ export const HomePage: React.FC = () => {
               d="M 510,720 C 600,780 720,860 880,880 C 1040,900 1200,840 1320,930"
               stroke="url(#subtleEchoFilament)"
               strokeWidth="0.65"
-              strokeLinecap="round"
               style={{ transition: 'none' }}
             />
           </svg>
         </div>
 
-        <div className="page-container position-relative w-100" style={{ zIndex: 2 }}>
-          <div className="row align-items-center g-5">
-            {/* Narrative Typography Column */}
-            <div className="col-12 col-lg-6 pe-lg-4">
-              {/* Chapter Marker & Unfold Flag */}
-              <div ref={kickerRef} className="d-inline-flex align-items-center gap-2 gap-sm-3 mb-4 flex-wrap">
-                <span style={{ width: 32, height: 1, backgroundColor: 'var(--color-champagne-thread)' }} />
-                <span className="label-caps text-champagne">Chapter 01: The Spring Solstice Archive</span>
-                <span className="px-2 py-0.5 label-caps-wide bg-stone text-muted-editorial">Unfold</span>
-                {/* Animation Skip/Pause Control (Homepage Scope) */}
-                <button
-                  type="button"
-                  className="animation-toggle-btn ms-sm-2"
-                  aria-label="Toggle Thread Motion Animation (Homepage)"
-                  title="Toggle signature thread motion on this page"
-                  data-testid="motion-toggle-btn"
-                  onClick={handleToggleMotion}
-                >
-                  <span className="material-symbols-outlined" style={{ fontSize: '0.875rem' }}>
-                    {isMotionActive ? 'grain' : 'pause'}
-                  </span>
-                  <span>{isMotionActive ? 'Motion Active' : 'Motion Paused'}</span>
-                </button>
-              </div>
+        <div className="page-container position-relative z-2">
+          {/* Subtle Ambient Motion Control Trigger */}
+          <div className="d-flex justify-content-end mb-2">
+            <button
+              type="button"
+              className="motion-toggle-btn d-inline-flex align-items-center gap-2 px-3 py-1 bg-stone border-hairline rounded-1 body-sm"
+              onClick={handleToggleMotion}
+              aria-label={isMotionActive ? 'Pause ambient line animation' : 'Enable ambient line animation'}
+              aria-pressed={isMotionActive}
+              data-testid="motion-toggle-btn"
+            >
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  backgroundColor: isMotionActive ? 'var(--color-champagne-thread)' : 'var(--color-muted-editorial)',
+                  display: 'inline-block'
+                }}
+              />
+              <span className="label-caps" style={{ fontSize: '0.6875rem' }}>
+                {isMotionActive ? 'Motion Active' : 'Motion Paused'}
+              </span>
+            </button>
+          </div>
 
-              {/* Hero Headlines with Editorial Curtain Reveal Mask */}
+          <div className="row align-items-center g-5">
+            {/* Editorial Fashion Copy Column */}
+            <div className="col-12 col-lg-6 text-start">
               <div className="mb-4">
+                <span className="label-caps-wide text-champagne d-block mb-2" style={{ letterSpacing: '0.18em' }}>
+                  ATELIER MONOGRAPH · N° 01
+                </span>
                 <div className="headline-mask-wrapper">
                   <h1
                     ref={headlineRef}
                     className="display-hero text-oxblood mb-2 hero-curtain-headline"
                     data-testid="hero-headline"
                   >
-                    An heirloom,<br />
+                    An heirloom, <br />
                     <span className="fst-italic text-muted-editorial font-serif">not a trend.</span>
                   </h1>
                 </div>
@@ -562,26 +434,35 @@ export const HomePage: React.FC = () => {
                   <span>Explore the collection</span>
                   <span className="material-symbols-outlined fs-6 text-champagne-glow">arrow_forward</span>
                 </Link>
+                {/* Secondary CTA: Standardized to "Enter the Archive" linking /archive per Stage 06 §7.4 */}
                 <Link to="/archive" className="link-editorial ms-2" data-testid="hero-secondary-cta">
-                  <span>Discover the stories</span>
+                  <span>Enter the Archive</span>
                 </Link>
               </div>
 
-              {/* Archival Metadata Plinth */}
-              <div ref={metadataRef} className="pt-4 border-hairline-t row g-3 text-muted-editorial" style={{ maxWidth: 480 }} data-testid="hero-metadata">
-                <div className="col-4">
-                  <span className="label-caps text-champagne d-block">FIBER PURITY</span>
-                  <span className="body-sm text-on-surface fw-medium d-block pt-1">100% Unblended</span>
+              {/* Archival Metadata Plinth: Bound strictly to ET-01 fields; edition cell removed per Stage 06 §7.3 */}
+              {heroProduct && (
+                <div ref={metadataRef} className="pt-4 border-hairline-t row g-3 text-muted-editorial" style={{ maxWidth: 520 }} data-testid="hero-metadata">
+                  <div className="col-12 col-sm-4">
+                    <span className="label-caps text-champagne d-block">MATERIAL</span>
+                    <span className="body-sm text-on-surface fw-medium d-block pt-1" data-testid="hero-meta-material">
+                      {heroProduct.fiberPurity}
+                    </span>
+                  </div>
+                  <div className="col-12 col-sm-4">
+                    <span className="label-caps text-champagne d-block">CONSTRUCTION</span>
+                    <span className="body-sm text-on-surface fw-medium d-block pt-1" data-testid="hero-meta-construction">
+                      {heroProduct.weaveType}
+                    </span>
+                  </div>
+                  <div className="col-12 col-sm-4">
+                    <span className="label-caps text-champagne d-block">PIECE</span>
+                    <span className="body-sm text-on-surface fw-medium d-block pt-1" data-testid="hero-meta-piece">
+                      {heroProduct.category}
+                    </span>
+                  </div>
                 </div>
-                <div className="col-4">
-                  <span className="label-caps text-champagne d-block">CONSTRUCTION</span>
-                  <span className="body-sm text-on-surface fw-medium d-block pt-1">Pit-Loomed Jacquard</span>
-                </div>
-                <div className="col-4">
-                  <span className="label-caps text-champagne d-block">EDITION</span>
-                  <span className="body-sm text-on-surface fw-medium d-block pt-1">Numbered 01–64</span>
-                </div>
-              </div>
+              )}
             </div>
 
             {/* Editorial Fashion Visual Column */}
@@ -604,13 +485,13 @@ export const HomePage: React.FC = () => {
                   />
                   <img
                     src="/images/home/everthread-hero-01.webp"
-                    alt="Editorial high-fashion campaign photograph featuring model draped in layered mulberry silk and structured cashmere"
+                    alt="Editorial high-fashion campaign photograph featuring model draped in layered noble fibers"
                     className="w-100 h-100 object-fit-cover hero-editorial__image"
                     loading="eager"
                   />
                 </picture>
 
-                {/* Single Consolidated Loupe Badge Trigger */}
+                {/* Single Consolidated Loupe Badge Trigger: Caption strictly from ET-01 fiberPurity */}
                 <button
                   type="button"
                   className="loupe-badge-trigger position-absolute bottom-0 start-0 m-4 d-flex align-items-center gap-3 shadow-sm z-3"
@@ -634,7 +515,9 @@ export const HomePage: React.FC = () => {
                     <span className="material-symbols-outlined fs-6 text-champagne">loupe</span>
                   </div>
                   <div className="text-start">
-                    <p className="label-caps text-oxblood mb-0">Mulberry Silk &amp; Cashmere</p>
+                    <p className="label-caps text-oxblood mb-0" data-testid="hero-image-caption">
+                      {heroProduct ? heroProduct.fiberPurity : 'Atelier Natural Weave'}
+                    </p>
                     <span className="body-sm text-muted-editorial font-sans" style={{ fontSize: '0.75rem' }}>
                       A closer look at the weave
                     </span>
@@ -647,12 +530,13 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* =========================================================================
-           FOLIO PAGE 01: HIGHLIGHTS PLINTH GRID (Discovery, Lineage & Repertoire)
+           SCENE 2: HOME-INDEX (Chapter Index I–III, data-scene="H1")
            ========================================================================= */}
       <section
         id="highlights"
         ref={highlightsSectionRef}
-        data-testid="highlights-section"
+        data-testid="home-index"
+        data-scene="H1"
         className="py-5 bg-stone border-hairline-b position-relative"
       >
         <div className="page-container">
@@ -661,7 +545,7 @@ export const HomePage: React.FC = () => {
             <div className="d-inline-flex align-items-center gap-2">
               <span className="crease-diamond" />
               <span className="label-caps-wide text-champagne" style={{ letterSpacing: '0.24em' }}>
-                FOLIO PAGE 01 / UNFOLDING CHAPTER: DISCOVERY
+                FOLIO PAGE 01 / CHAPTER INDEX
               </span>
             </div>
             <div className="d-none d-sm-flex align-items-center gap-2 label-caps text-outline">
@@ -707,7 +591,7 @@ export const HomePage: React.FC = () => {
             </svg>
           </div>
 
-          {/* 3 Editorial Invitation Plinth Cards */}
+          {/* 3 Numbered Chapter Entries (H3 headings per Stage 06 §7.5) */}
           <div className="row g-4 text-start">
             <div
               ref={el => { cardsRef.current[0] = el; }}
@@ -716,10 +600,10 @@ export const HomePage: React.FC = () => {
             >
               <div className="p-4 bg-canvas border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
-                  <span className="label-caps text-champagne d-block mb-2">01 / Curated Guidance</span>
-                  <h2 className="title-md text-oxblood mb-2">Thread Compass</h2>
+                  <span className="label-caps text-champagne d-block mb-2">Chapter I / Guidance</span>
+                  <h3 className="title-md text-oxblood mb-2 font-serif">Thread Compass</h3>
                   <p className="body-sm text-muted-editorial mb-3">
-                    Tactile discovery matching noble fibers and drape silhouettes to your personal cadence.
+                    Tactile diagnostic matching noble fibers and drape silhouettes to your personal cadence.
                   </p>
                 </div>
                 <Link to="/compass" className="text-oxblood fw-medium body-sm d-inline-flex align-items-center gap-1">
@@ -735,8 +619,8 @@ export const HomePage: React.FC = () => {
             >
               <div className="p-4 bg-oxblood text-white border-champagne h-100 d-flex flex-column justify-content-between">
                 <div>
-                  <span className="label-caps text-champagne-glow d-block mb-2">02 / Lineage Documentation</span>
-                  <h2 className="title-md text-white mb-2">Cultural Archive &amp; Weave Library</h2>
+                  <span className="label-caps text-champagne-glow d-block mb-2">Chapter II / Lineage</span>
+                  <h3 className="title-md text-white mb-2 font-serif">Cultural Archive</h3>
                   <p className="body-sm text-white-50 mb-3">
                     Documenting endangered handloom disciplines from Varanasi pit looms to uncut radial draping.
                   </p>
@@ -754,14 +638,14 @@ export const HomePage: React.FC = () => {
             >
               <div className="p-4 bg-canvas border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
-                  <span className="label-caps text-champagne d-block mb-2">03 / Permanent Repertoire</span>
-                  <h2 className="title-md text-oxblood mb-2">The Permanent Capsule</h2>
+                  <span className="label-caps text-champagne d-block mb-2">Chapter III / Collections</span>
+                  <h3 className="title-md text-oxblood mb-2 font-serif">Curated Collections</h3>
                   <p className="body-sm text-muted-editorial mb-3">
-                    Numbered heirloom silhouettes exploring architectural tailoring and ancestral handloom disciplines.
+                    Two architectural volumes exploring contemporary luxury and living subcontinental heritage.
                   </p>
                 </div>
                 <Link to="/collections" className="text-oxblood fw-medium body-sm d-inline-flex align-items-center gap-1">
-                  View Silhouettes <span className="material-symbols-outlined fs-6">arrow_forward</span>
+                  View Collections <span className="material-symbols-outlined fs-6">arrow_forward</span>
                 </Link>
               </div>
             </div>
@@ -770,11 +654,11 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* =========================================================================
-           CHAPTER 02: THREAD COMPASS — Curated Tactile Diagnostic
+           SCENE 3: HOME-COMPASS (Single Compass Teaser per Stage 06 §7.6)
            ========================================================================= */}
       <section
         id="chapter-compass"
-        data-testid="chapter-compass-section"
+        data-testid="home-compass"
         className="section-chapter bg-canvas border-hairline-b position-relative overflow-hidden"
       >
         <div className="page-container">
@@ -789,9 +673,10 @@ export const HomePage: React.FC = () => {
           <div className="row align-items-center g-5">
             <div className="col-12 col-lg-6">
               <span className="label-caps text-champagne d-block mb-2">FIBER INTUITION</span>
+              {/* Only H2 with "Thread Compass" on the page */}
               <h2 className="display-editorial text-oxblood mb-3">The Thread Compass</h2>
               <p className="lead-editorial mb-4">
-                Curated fiber and silhouette guidance tuned to your seasonal climate and tactile sensitivity.
+                How do you wish the garment to hold space?
               </p>
               <p className="body-md text-muted-editorial mb-4">
                 Bypassing seasonal novelty, our diagnostic aligns human tactile preference with authentic handloom heritage. Discover whether your body seeks the crisp architectural drape of hand-twisted wild tussar or the weightless thermal embrace of high-altitude Changthangi pashmina.
@@ -845,7 +730,7 @@ export const HomePage: React.FC = () => {
                     <div className="col-6">
                       <span className="label-caps-wide text-champagne d-block mb-1">04 / THERMAL MEMORY</span>
                       <span className="title-md text-oxblood d-block">Botanical Retention</span>
-                      <span className="body-xs text-muted-editorial">Hollow core animal/wild silk fibers</span>
+                      <span className="body-xs text-muted-editorial">Hollow core natural fibers</span>
                     </div>
                   </div>
                 </div>
@@ -856,11 +741,11 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* =========================================================================
-           CHAPTER 03: CULTURAL ARCHIVE — Living Memory & Lineage
+           SCENE 4: HOME-CRAFT (The Living Loom & Technical Diagram Strip per Stage 06 §7.7)
            ========================================================================= */}
       <section
         id="chapter-archive"
-        data-testid="chapter-archive-section"
+        data-testid="home-craft"
         className="section-chapter bg-stone border-hairline-b position-relative overflow-hidden"
       >
         <div className="page-container">
@@ -875,7 +760,7 @@ export const HomePage: React.FC = () => {
           <div className="row align-items-center g-5">
             <div className="col-12 col-lg-5 order-2 order-lg-1">
               <span className="label-caps text-champagne d-block mb-2">{leadStory.chapter} · {leadStory.focus}</span>
-              <h2 className="display-editorial text-oxblood mb-2">{leadStory.title}</h2>
+              <h2 className="display-editorial text-oxblood mb-2">The Living Loom</h2>
               <p className="headline-sm text-on-surface fst-italic fw-light mb-3">{leadStory.subtitle}</p>
               <p className="body-md text-muted-editorial mb-4">
                 {leadStory.summary}
@@ -923,78 +808,33 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* =========================================================================
-           CHAPTER 04: THE PERMANENT CAPSULE — Numbered Heirloom Works
-           ========================================================================= */}
-      <section
-        id="chapter-capsule"
-        data-testid="chapter-capsule-section"
-        className="section-chapter bg-canvas border-hairline-b position-relative overflow-hidden"
-      >
-        <div className="page-container">
-          <div className="editorial-crease mb-5">
-            <div className="d-inline-flex align-items-center gap-2">
-              <span className="crease-diamond" />
-              <span className="label-caps-wide text-champagne">CHAPTER 04 / PERMANENT SILHOUETTES</span>
+          {/* Three Static Diagram Thumbnails Strip (REPO-DIAG-01..03 per Stage 06 §7.7) */}
+          <div className="mt-5 pt-4 border-hairline-t" data-testid="craft-diagrams-strip">
+            <div className="d-flex align-items-center gap-2 mb-3">
+              <span style={{ width: 16, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+              <span className="label-caps text-champagne">Weave Library Technical Diagrams</span>
             </div>
-            <span className="body-xs text-muted-editorial font-mono">ET-01 / 07</span>
-          </div>
-
-          <div className="row align-items-center g-5">
-            <div className="col-12 col-lg-6">
-              <div className="position-relative bg-stone border-hairline overflow-hidden ratio-folio">
-                <img
-                  src={flagshipProduct.image}
-                  alt={flagshipProduct.imageAlt}
-                  className="w-100 h-100 object-fit-cover"
-                />
-                <div
-                  className="position-absolute top-0 end-0 m-3 px-3 py-1 bg-canvas border-hairline"
-                >
-                  <span className="label-caps-wide text-oxblood">Archival Specimen · Limited Commission</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-12 col-lg-6">
-              <span className="label-caps text-champagne d-block mb-2">FLAGSHIP SILHOUETTE · {flagshipProduct.category}</span>
-              <h2 className="display-editorial text-oxblood mb-2">{flagshipProduct.title}</h2>
-              <p className="headline-sm text-on-surface fst-italic fw-light mb-3">{flagshipProduct.subtitle}</p>
-              <div className="mb-4">
-                <span className="title-lg text-oxblood font-serif">
-                  {flagshipProduct.currency}{flagshipProduct.price.toLocaleString('en-IN')}
-                </span>
-                <span className="body-xs text-muted-editorial ms-2">Bespoke atelier commission · Made to Order</span>
-              </div>
-              <p className="body-md text-muted-editorial mb-4">
-                {flagshipProduct.description}
-              </p>
-
-              <div className="row g-3 pb-4 mb-4 border-hairline-b">
-                <div className="col-6">
-                  <span className="label-caps text-champagne d-block" style={{ fontSize: '0.625rem' }}>TAILORING SILHOUETTE</span>
-                  <span className="body-sm text-oxblood fw-medium d-block pt-1">Structured Razor-Lapel Coat-Dress</span>
-                </div>
-                <div className="col-6">
-                  <span className="label-caps text-champagne d-block" style={{ fontSize: '0.625rem' }}>WEAVE ACCENT</span>
-                  <span className="body-sm text-oxblood fw-medium d-block pt-1">Asymmetric Handloom Brocade Facing</span>
-                </div>
-              </div>
-
-              <div className="d-flex align-items-center gap-3">
-                <Link
-                  to={`/product/${flagshipProduct.slug}`}
-                  className="btn-oxblood"
-                  data-testid="chapter-capsule-flagship-cta"
-                >
-                  <span>Examine Coat-Dress</span>
-                  <span className="material-symbols-outlined fs-6 text-champagne-glow">arrow_forward</span>
+            <div className="row g-3">
+              <div className="col-12 col-md-4">
+                <Link to="/archive" className="craft-diagram-thumb h-100" data-testid="diagram-thumb-warp-weft">
+                  <img src="/images/weave-library/diagrams/library-warp-weft-diagram-01.svg" alt="Warp and Weft Interlacing Structure Diagram" loading="lazy" />
+                  <span className="body-sm text-oxblood fw-medium text-center">Warp &amp; Weft Interlacing</span>
+                  <span className="body-xs text-muted-editorial text-center mt-1">Loom tension and cross-weave geometry</span>
                 </Link>
-                <Link to="/collections" className="link-editorial" data-testid="chapter-capsule-collection-cta">
-                  <span>Explore All 7 Capsule Works</span>
+              </div>
+              <div className="col-12 col-md-4">
+                <Link to="/archive" className="craft-diagram-thumb h-100" data-testid="diagram-thumb-vocab">
+                  <img src="/images/weave-library/diagrams/library-textile-vocabulary-01.svg" alt="Textile Anatomy and Terminology Diagram" loading="lazy" />
+                  <span className="body-sm text-oxblood fw-medium text-center">Textile Vocabulary</span>
+                  <span className="body-xs text-muted-editorial text-center mt-1">Selvedge, reed density, and yarn twist taxonomy</span>
+                </Link>
+              </div>
+              <div className="col-12 col-md-4">
+                <Link to="/archive" className="craft-diagram-thumb h-100" data-testid="diagram-thumb-technique">
+                  <img src="/images/weave-library/diagrams/library-technique-comparison-01.svg" alt="Handloom vs Machine Weave Technique Comparison Diagram" loading="lazy" />
+                  <span className="body-sm text-oxblood fw-medium text-center">Technique Comparison</span>
+                  <span className="body-xs text-muted-editorial text-center mt-1">Subterranean pit loom vs automated industrial weave</span>
                 </Link>
               </div>
             </div>
@@ -1003,117 +843,73 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* =========================================================================
-           CHAPTER 05: THE MAKING — Architectural Tailoring & Ancestral Discipline
+           SCENE 5: HOME-WALLS (Two-Wall Preview Doors, data-scene="H2" per Stage 06 §7.8)
            ========================================================================= */}
       <section
-        id="chapter-making"
-        data-testid="chapter-making-section"
-        className="section-chapter bg-oxblood text-white border-hairline-b position-relative overflow-hidden"
-      >
-        <div className="page-container">
-          <div className="d-flex align-items-center justify-content-between mb-5 pb-3 border-hairline-b" style={{ borderColor: 'rgba(223, 195, 150, 0.2)' }}>
-            <div className="d-inline-flex align-items-center gap-2">
-              <span className="crease-diamond" style={{ backgroundColor: 'var(--color-champagne-glow)' }} />
-              <span className="label-caps-wide text-champagne-glow">CHAPTER 05 / ARCHITECTURAL TAILORING</span>
-            </div>
-            <span className="body-xs text-white-50 font-mono">DISCIPLINE OVER SPEED</span>
-          </div>
-
-          <div className="row g-5 mb-5">
-            <div className="col-12 col-md-4">
-              <span className="label-caps text-champagne-glow d-block mb-2">01 / SUBTERRANEAN WEFT</span>
-              <h3 className="title-md text-white mb-2">Pit-Loomed Humidity</h3>
-              <p className="body-sm text-white-50">
-                Traditional subterranean pit looms utilize earth-regulated ambient humidity to maintain raw silk tensile elasticity, demonstrating how regional topography historically shaped architectural handlooms.
-              </p>
-            </div>
-            <div className="col-12 col-md-4">
-              <span className="label-caps text-champagne-glow d-block mb-2">02 / ZERO SYNTHETIC FUSING</span>
-              <h3 className="title-md text-white mb-2">Floating Canvases</h3>
-              <p className="body-sm text-white-50">
-                Bespoke tailoring traditions favor floating natural interfacings over chemical fusible adhesives, allowing structured garments to flex with human movement and breathe with ambient climate.
-              </p>
-            </div>
-            <div className="col-12 col-md-4">
-              <span className="label-caps text-champagne-glow d-block mb-2">03 / LIVING CULTURAL ARCHIVE</span>
-              <h3 className="title-md text-white mb-2">Honoring Artisan Lineage</h3>
-              <p className="body-sm text-white-50">
-                EverThread explores and documents ancestral weaving disciplines, advocating for public cultural recognition and the preservation of generational handcraft knowledge.
-              </p>
-            </div>
-          </div>
-
-          <div className="pt-3 border-hairline-t text-start" style={{ borderColor: 'rgba(223, 195, 150, 0.2)' }}>
-            <Link to="/the-house" className="text-champagne-glow fw-medium body-sm d-inline-flex align-items-center gap-2" data-testid="chapter-making-house-cta">
-              <span>Explore The Atelier Archive &amp; Craft Philosophy</span>
-              <span className="material-symbols-outlined fs-6">arrow_forward</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-           CHAPTER 06: THE EVERTHREAD PROMISE — Heirloom Covenant
-           ========================================================================= */}
-      <section
-        id="chapter-promise"
-        data-testid="chapter-promise-section"
-        className="section-chapter bg-stone border-hairline-b position-relative overflow-hidden"
+        id="home-walls"
+        data-testid="home-walls"
+        data-scene="H2"
+        className="section-chapter bg-canvas border-hairline-b position-relative overflow-hidden py-5"
       >
         <div className="page-container">
           <div className="editorial-crease mb-5">
             <div className="d-inline-flex align-items-center gap-2">
               <span className="crease-diamond" />
-              <span className="label-caps-wide text-champagne">CHAPTER 06 / HEIRLOOM COVENANT</span>
+              <span className="label-caps-wide text-champagne">CHAPTER 04 / CURATED REPERTOIRE</span>
             </div>
-            <span className="body-xs text-muted-editorial font-mono">PERMANENT STANDARDS</span>
+            <span className="body-xs text-muted-editorial font-mono">TWO VOLUMES</span>
           </div>
 
-          <div className="row g-4 text-start">
-            <div className="col-12 col-md-4">
-              <div className="p-4 p-lg-5 bg-canvas border-hairline h-100">
-                <span className="label-caps text-champagne d-block mb-2">COVENANT I</span>
-                <h3 className="title-md text-oxblood mb-2">Uncut Botanical Purity</h3>
-                <p className="body-sm text-muted-editorial mb-0">
-                  A commitment to championing natural noble fibers—such as raw tussar, mulberry silk, and fine wool—celebrating the tactile integrity of organic materials over synthetic fast fashion.
-                </p>
-              </div>
-            </div>
-            <div className="col-12 col-md-4">
-              <div className="p-4 p-lg-5 bg-canvas border-hairline h-100">
-                <span className="label-caps text-champagne d-block mb-2">COVENANT II</span>
-                <h3 className="title-md text-oxblood mb-2">Generational Inlay Margins</h3>
-                <p className="body-sm text-muted-editorial mb-0">
-                  Reflecting on the classic couture philosophy of generous internal allowances, prioritizing garments designed for adaptability, patient alterations, and lasting wear across generations.
-                </p>
-              </div>
-            </div>
-            <div className="col-12 col-md-4">
-              <div className="p-4 p-lg-5 bg-canvas border-hairline h-100">
-                <span className="label-caps text-champagne d-block mb-2">COVENANT III</span>
-                <h3 className="title-md text-oxblood mb-2">Documented Provenance</h3>
-                <p className="body-sm text-muted-editorial mb-0">
-                  Dedicated to documenting and preserving textile stories, illuminating the cultural histories, craft techniques, and living lineages behind enduring handloom traditions.
-                </p>
-              </div>
-            </div>
+          <div className="text-center mb-5" style={{ maxWidth: 680, margin: '0 auto' }}>
+            <h2 className="display-editorial text-oxblood mb-2 font-serif">
+              Two Curated Walls
+            </h2>
+            <p className="body-lg text-muted-editorial mb-0">
+              Two distinct architectural environments uniting contemporary tailoring and classical subcontinental textile arts.
+            </p>
           </div>
+
+          {/* Integrated WallsPreview Component (Door 1: AST-HOME-PLATE; Door 2: AST-HOME-CAMP-R1) */}
+          <WallsPreview />
         </div>
       </section>
 
       {/* =========================================================================
-           CHAPTER 07: THE GAZETTE — Critical Monograph Series
+           SCENE 6: HOME-MAKING & HOME-PROMISE (Claim-Free Composite, data-scene="H3" per Stage 06 §7.9)
+           ========================================================================= */}
+      <section
+        id="home-making"
+        data-testid="home-making"
+        data-scene="H3"
+        className="section-chapter bg-cream border-hairline-b position-relative overflow-hidden py-5"
+      >
+        <div className="page-container">
+          <div className="editorial-crease mb-5">
+            <div className="d-inline-flex align-items-center gap-2">
+              <span className="crease-diamond" />
+              <span className="label-caps-wide text-champagne">CHAPTER 05 / ARCHITECTURAL DISCIPLINE</span>
+            </div>
+            <span className="body-xs text-muted-editorial font-mono">CLAIM-FREE COVENANT</span>
+          </div>
+
+          {/* Integrated NarrativeSpine: 5-Stage Spine + 3 Verbatim Brand Lines */}
+          <NarrativeSpine />
+        </div>
+      </section>
+
+      {/* =========================================================================
+           SCENE 7: HOME-JOURNAL (The Gazette Monograph Series per Stage 06 §7.11)
            ========================================================================= */}
       <section
         id="chapter-gazette"
-        data-testid="chapter-gazette-section"
-        className="section-chapter bg-canvas position-relative overflow-hidden"
+        data-testid="home-journal"
+        className="section-chapter bg-canvas border-hairline-b position-relative overflow-hidden py-5"
       >
         <div className="page-container">
           <div className="editorial-crease mb-5">
             <div className="d-inline-flex align-items-center gap-2">
               <span className="crease-diamond" />
-              <span className="label-caps-wide text-champagne">CHAPTER 07 / CRITICAL MONOGRAPHS</span>
+              <span className="label-caps-wide text-champagne">CHAPTER 06 / MONOGRAPH SERIES</span>
             </div>
             <span className="body-xs text-muted-editorial font-mono">{leadMonograph.date}</span>
           </div>
@@ -1121,7 +917,7 @@ export const HomePage: React.FC = () => {
           <div className="row align-items-center g-5">
             <div className="col-12 col-lg-8">
               <span className="label-caps text-champagne d-block mb-2">{leadMonograph.category} · {leadMonograph.readTime}</span>
-              <h2 className="display-editorial text-oxblood mb-3">{leadMonograph.title}</h2>
+              <h2 className="display-editorial text-oxblood mb-3 font-serif">{leadMonograph.title}</h2>
               <p className="headline-sm text-on-surface fst-italic fw-light mb-3">{leadMonograph.subtitle}</p>
               <p className="body-md text-muted-editorial mb-4">
                 {leadMonograph.excerpt}
@@ -1155,6 +951,34 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* =========================================================================
+           SCENE 8: HOME-CLOSING (Deliberate House Closing Sequence per Stage 06 §7.11)
+           ========================================================================= */}
+      <section
+        id="home-closing"
+        data-testid="home-closing"
+        className="home-closing-scene py-5 text-center position-relative"
+      >
+        <div className="page-container py-4">
+          <div className="d-inline-flex align-items-center gap-2 mb-3">
+            <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+            <span className="label-caps-wide text-champagne">EverThread Atelier</span>
+            <span style={{ width: 24, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+          </div>
+          <h2 className="headline-lg text-oxblood font-serif mb-4 fst-italic">
+            “One thread. A world of stories.”
+          </h2>
+          <div className="d-flex justify-content-center align-items-center gap-4 flex-wrap">
+            <Link to="/archive" className="btn-oxblood py-2 px-4" data-testid="home-closing-archive-cta">
+              <span>Enter the Archive</span>
+            </Link>
+            <Link to="/collections" className="btn-outline-editorial py-2 px-4" data-testid="home-closing-collections-cta">
+              <span>Explore the collections</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Atelier Fabric Inspection Modal */}
       <AtelierLensModal
         isOpen={isLensOpen}
@@ -1162,8 +986,8 @@ export const HomePage: React.FC = () => {
         imageSrc="/images/home/everthread-textile-folds-01.webp"
         fallbackImageSrc="/images/home/everthread-hero-01.webp"
         title="Living Weave Detail"
-        subtitle="Hand-spun Mulberry Silk & Structured Cashmere"
-        caption="A closer look at the weave. High-resolution study of the raw silk fibers and structured weft geometry."
+        subtitle={heroProduct ? heroProduct.fiberPurity : 'Atelier Natural Weave'}
+        caption="A closer look at the weave. High-resolution study of raw noble fibers and structured weft geometry."
         zoom={3.5}
       />
     </main>
