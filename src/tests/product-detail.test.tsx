@@ -69,9 +69,9 @@ describe('Stage 3.3 Product Detail Implementation Tests', () => {
         isApparel: true
       },
       {
-        slug: 'ivory-raw-tussar-cocoon-trench',
+        slug: 'ivory-hand-spun-matka-silk-cocoon-trench',
         id: 'et-02',
-        title: 'Ivory Raw Tussar Cocoon Trench',
+        title: 'Ivory Hand-Spun Matka Silk Cocoon Trench',
         expectedPrice: '₹1,12,000',
         category: 'Outerwear',
         isApparel: true

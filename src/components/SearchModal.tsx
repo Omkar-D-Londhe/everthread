@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { PRODUCTS } from '../data/products.ts';
+import { ALL_PRODUCTS } from '../data/products.ts';
 import { WEAVE_LIBRARY, STORIES } from '../data/stories.ts';
 import { JOURNAL_ARTICLES } from '../data/journal.ts';
 import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+
+export const WEAVE_STORY_ROUTES: Record<string, string> = {
+  'weave-14': '/archive/the-art-of-the-drape',
+};
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -65,22 +69,29 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
 
   // Unified index search across all 4 house directories
   const results: SearchResultItem[] = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
+    const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+    if (tokens.length === 0) return [];
+
+    const matchesAllTokens = (haystack: string) =>
+      tokens.every(token => haystack.includes(token));
 
     const matches: SearchResultItem[] = [];
 
-    // 1. Products (7 Canonical Pieces)
-    PRODUCTS.forEach(p => {
-      const haystack = `${p.title} ${p.subtitle || ''} ${p.category} ${p.weaveType} ${p.fiberPurity} ${p.origin} ${p.description}`.toLowerCase();
-      if (haystack.includes(q)) {
+    // 1. Products (Canonical Pieces, listed only)
+    ALL_PRODUCTS.filter(p => !('isListed' in p) || p.isListed !== false).forEach(p => {
+      const weaveStr = 'weaveType' in p ? p.weaveType : '';
+      const fiberStr = 'fiberPurity' in p ? p.fiberPurity : '';
+      const originStr = 'origin' in p ? p.origin : '';
+      const tagsStr = (p.curatorTags || []).join(' ');
+      const haystack = `${p.title} ${p.subtitle || ''} ${p.category} ${weaveStr} ${fiberStr} ${originStr} ${p.description} ${tagsStr}`.toLowerCase();
+      if (matchesAllTokens(haystack)) {
         const asset = PRODUCT_ASSET_MAP[p.id];
         matches.push({
           id: `prod-${p.id}`,
           category: 'product',
           categoryLabel: 'Silhouettes & Repertoire',
           title: p.title,
-          subtitle: `${p.currency}${p.price.toLocaleString('en-IN')} • ${p.weaveType}`,
+          subtitle: `${p.currency}${p.price.toLocaleString('en-IN')}${weaveStr ? ` • ${weaveStr}` : ''}`,
           url: `/product/${p.slug}`,
           image: asset?.primary.src || p.image,
           badge: p.category
@@ -91,24 +102,33 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
     // 2. Cultural Archive Traditions (13 Living Weave Traditions)
     WEAVE_LIBRARY.forEach(w => {
       const haystack = `${w.title} ${w.region} ${w.fiber} ${w.distinction} ${w.structuralProfile} ${w.description}`.toLowerCase();
-      if (haystack.includes(q)) {
-        matches.push({
-          id: `weave-${w.id}`,
-          category: 'tradition',
-          categoryLabel: 'Living Weave Tradition',
-          title: w.title,
-          subtitle: `${w.region} • ${w.fiber}`,
-          url: `/archive?tradition=${w.traditionKey || w.slug}`,
-          image: w.image,
-          badge: w.distinction.toUpperCase()
-        });
+      if (matchesAllTokens(haystack)) {
+        let destinationUrl: string | undefined;
+        if (w.traditionKey) {
+          destinationUrl = `/archive?tradition=${w.traditionKey}`;
+        } else if (WEAVE_STORY_ROUTES[w.id]) {
+          destinationUrl = WEAVE_STORY_ROUTES[w.id];
+        }
+
+        if (destinationUrl) {
+          matches.push({
+            id: `weave-${w.id}`,
+            category: 'tradition',
+            categoryLabel: 'Living Weave Tradition',
+            title: w.title,
+            subtitle: `${w.region} • ${w.fiber}`,
+            url: destinationUrl,
+            image: w.image,
+            badge: w.distinction.toUpperCase()
+          });
+        }
       }
     });
 
     // 3. Archive Monograph Folios (4 Studies)
     STORIES.forEach(s => {
       const haystack = `${s.title} ${s.subtitle} ${s.chapter} ${s.folio} ${s.location} ${s.artisan} ${s.summary}`.toLowerCase();
-      if (haystack.includes(q)) {
+      if (matchesAllTokens(haystack)) {
         matches.push({
           id: `story-${s.id}`,
           category: 'story',
@@ -124,8 +144,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
 
     // 4. Journal Articles (Editorial Monograph Essays)
     JOURNAL_ARTICLES.forEach(j => {
-      const haystack = `${j.title} ${j.subtitle} ${j.category} ${j.author} ${j.excerpt} ${j.bodyParagraphs.join(' ')}`.toLowerCase();
-      if (haystack.includes(q)) {
+      const haystack = `${j.title} ${j.subtitle || ''} ${j.category} ${j.author} ${j.excerpt} ${j.bodyParagraphs.join(' ')}`.toLowerCase();
+      if (matchesAllTokens(haystack)) {
         matches.push({
           id: `journal-${j.id}`,
           category: 'journal',

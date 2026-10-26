@@ -358,7 +358,7 @@ export const HousePage: React.FC = () => {
                           className="form-select form-control-editorial w-100"
                         >
                           <option value="Oxblood Wool-Silk Signature Coat-Dress">Oxblood Wool-Silk Signature Coat-Dress</option>
-                          <option value="Ivory Raw Tussar Cocoon Trench">Ivory Raw Tussar Cocoon Trench</option>
+                          <option value="Ivory Hand-Spun Matka Silk Cocoon Trench">Ivory Hand-Spun Matka Silk Cocoon Trench</option>
                           <option value="Architectonic Zari Waistcoat">Architectonic Zari Waistcoat</option>
                           <option value="Angrakha Asymmetric Sheer Tunic">Angrakha Asymmetric Sheer Tunic</option>
                           <option value="Box-Calf Structured Frame Bag">Box-Calf Structured Frame Bag</option>

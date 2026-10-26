@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getProductBySlug, PRODUCTS } from '../data/products.ts';
-import { ProductColorVariant } from '../types/catalog.ts';
+import { getCatalogueProductBySlug, PRODUCTS } from '../data/products.ts';
+import { ProductColorVariant, isTraditional, Product } from '../types/catalog.ts';
 import { PRODUCT_ASSET_MAP, ResponsiveImage } from '../data/assetMap.ts';
 import { useCart } from '../context/CartContext.tsx';
 import { useSaved } from '../context/SavedContext.tsx';
@@ -12,7 +12,7 @@ import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 export const ProductDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const product = slug ? getProductBySlug(slug) : undefined;
+  const product = slug ? getCatalogueProductBySlug(slug) : undefined;
 
   const { addToBag } = useCart();
   const { isSaved, toggleSaved } = useSaved();
@@ -50,10 +50,12 @@ export const ProductDetailPage: React.FC = () => {
       setActiveImageIndex(0);
       setPrevImage(null);
       setSelectedColor(product.colors[0]);
-      if (product.category === 'Accessories') {
-        setSelectedSize(product.sizes[0] || 'One Size');
-      } else {
-        setSelectedSize(product.sizes[0] || 'II (M)');
+      if ('sizes' in product && Array.isArray((product as Product).sizes)) {
+        if (product.category === 'Accessories') {
+          setSelectedSize((product as Product).sizes[0] || 'One Size');
+        } else {
+          setSelectedSize((product as Product).sizes[0] || 'II (M)');
+        }
       }
       setQuantity(1);
       setValidationError(null);
@@ -116,6 +118,57 @@ export const ProductDetailPage: React.FC = () => {
               <h1 className="headline-md text-oxblood mb-3">Archival Specimen Not Found</h1>
               <p className="body-lg text-muted-editorial mb-4">
                 The requested silhouette identifier (<strong className="text-oxblood">{slug}</strong>) is not catalogued in our permanent collection.
+              </p>
+              <div className="d-flex justify-content-center gap-3 flex-wrap">
+                <Link to="/collections" className="btn-oxblood">
+                  Return to Curated Repertoire
+                </Link>
+                <Link to="/" className="btn-outline-editorial">
+                  Atelier Home
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  // If product is an unlisted traditional concept piece (Stage 02 PDP guard)
+  if (isTraditional(product) || ('isListed' in product && !product.isListed)) {
+    return (
+      <main id="main-content" className="main-content" role="status">
+        <div className="py-2 border-hairline-b bg-stone">
+          <div className="page-container">
+            <div className="d-flex align-items-center justify-content-between flex-wrap gap-2">
+              <nav aria-label="breadcrumb">
+                <ol className="breadcrumb mb-0 body-sm">
+                  <li className="breadcrumb-item"><Link to="/" className="text-muted-editorial">Home</Link></li>
+                  <li className="breadcrumb-item"><Link to="/collections" className="text-muted-editorial">Collections</Link></li>
+                  <li className="breadcrumb-item active text-oxblood" aria-current="page">{product.title}</li>
+                </ol>
+              </nav>
+              <span className="label-caps-wide text-muted-editorial" data-testid="archival-identifier">
+                Identifier: {product.id.toUpperCase()}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <section className="py-5 bg-canvas">
+          <div className="page-container text-center py-5">
+            <div className="p-5 bg-cream border-hairline mx-auto" style={{ maxWidth: 640 }} data-testid="product-not-available">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" className="text-champagne mb-3" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="3" y1="15" x2="21" y2="15"/>
+                <line x1="9" y1="3" x2="9" y2="21"/>
+                <line x1="15" y1="3" x2="15" y2="21"/>
+              </svg>
+              <span className="label-caps-wide text-champagne d-block mb-2">Curatorial Status</span>
+              <h1 className="headline-md text-oxblood mb-3">This piece is not currently available</h1>
+              <p className="body-lg text-muted-editorial mb-4">
+                This exploratory concept specification is currently undergoing archival documentation and is not available for purchase or allocation.
               </p>
               <div className="d-flex justify-content-center gap-3 flex-wrap">
                 <Link to="/collections" className="btn-oxblood">

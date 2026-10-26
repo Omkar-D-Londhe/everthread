@@ -7,6 +7,15 @@
 import { TraditionImageRole, TraditionRoleItem, TraditionAssetRecord } from '../types/catalog.ts';
 import assetCatalog from './assetCatalog.json';
 
+export type ImageProvenance =
+  | 'ai-concept-fashion'
+  | 'ai-interpretive-textile'
+  | 'technical-diagram'
+  | 'archive-photography'
+  | 'contemporary-editorial'
+  | 'concept-render'
+  | 'unknown';
+
 export interface ResponsiveImage {
   src: string;
   srcSet: string;
@@ -15,6 +24,8 @@ export interface ResponsiveImage {
   height: number;
   alt: string;
   label?: string;
+  provenance?: ImageProvenance;
+  creditText?: string;
 }
 
 export interface ProductAssetRecord {
@@ -116,8 +127,8 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
   },
   "et-02": {
     "id": "et-02",
-    "slug": "ivory-raw-tussar-cocoon-trench",
-    "title": "Ivory Raw Tussar Cocoon Trench",
+    "slug": "ivory-hand-spun-matka-silk-cocoon-trench",
+    "title": "Ivory Hand-Spun Matka Silk Cocoon Trench",
     "primary": {
       "src": "/images/products/ivory-tailored-coat/product-ivory-tailored-front-01.webp",
       "srcSet": "/images/products/ivory-tailored-coat/product-ivory-tailored-front-01.webp 1536w, /images/products/ivory-tailored-coat/product-ivory-tailored-front-01-800w.webp 800w, /images/products/ivory-tailored-coat/product-ivory-tailored-front-01-400w.webp 400w",
@@ -246,7 +257,7 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
       "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
       "width": 1024,
       "height": 1536,
-      "alt": "Pleated Indigo Chanderi Tunic \u2014 Editorial Silhouette",
+      "alt": "Angrakha Asymmetric Sheer Tunic \u2014 Editorial Silhouette",
       "label": "Editorial Silhouette"
     },
     "macro": {
@@ -255,7 +266,7 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
       "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
       "width": 1452,
       "height": 1083,
-      "alt": "Pleated Indigo Chanderi Tunic \u2014 Atelier Craft Detail",
+      "alt": "Angrakha Asymmetric Sheer Tunic \u2014 Atelier Craft Detail",
       "label": "Atelier Craft Detail"
     },
     "gallery": [
@@ -265,7 +276,7 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
         "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
         "width": 1024,
         "height": 1536,
-        "alt": "Pleated Indigo Chanderi Tunic \u2014 Editorial Silhouette",
+        "alt": "Angrakha Asymmetric Sheer Tunic \u2014 Editorial Silhouette",
         "label": "Editorial Silhouette"
       },
       {
@@ -274,7 +285,7 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
         "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
         "width": 1452,
         "height": 1083,
-        "alt": "Pleated Indigo Chanderi Tunic \u2014 Front Drape Architecture",
+        "alt": "Angrakha Asymmetric Sheer Tunic \u2014 Front Drape Architecture",
         "label": "Front Drape Architecture"
       },
       {
@@ -283,7 +294,7 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
         "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
         "width": 1452,
         "height": 1083,
-        "alt": "Pleated Indigo Chanderi Tunic \u2014 Back Construction",
+        "alt": "Angrakha Asymmetric Sheer Tunic \u2014 Back Construction",
         "label": "Back Construction"
       },
       {
@@ -292,7 +303,7 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
         "sizes": "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
         "width": 1452,
         "height": 1083,
-        "alt": "Pleated Indigo Chanderi Tunic \u2014 Atelier Craft Detail",
+        "alt": "Angrakha Asymmetric Sheer Tunic \u2014 Atelier Craft Detail",
         "label": "Atelier Craft Detail"
       }
     ]
