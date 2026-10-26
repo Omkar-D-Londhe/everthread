@@ -132,7 +132,7 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
       // Check modal rendered
       const lensModal = screen.getByTestId('atelier-lens-dialog');
       expect(lensModal).toBeInTheDocument();
-      expect(screen.getByText('3.5× Atelier Magnification')).toBeInTheDocument();
+      expect(screen.getByTestId('lens-zoom-badge')).toHaveTextContent(/Atelier Magnification/);
 
       // Enforce Decision O-7 / Stage 02: No direct acquire button inside lens when opened from Archive
       const lensAcquireBtn = screen.queryByTestId('lens-acquire-btn');

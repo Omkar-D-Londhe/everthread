@@ -398,5 +398,29 @@ describe('Stage 3.3 Product Detail Implementation Tests', () => {
       expect(plusBtn.querySelector('svg')).toBeInTheDocument();
       expect(plusBtn).not.toHaveTextContent('add');
     });
+
+    it('unifies active image source: selecting thumbnail updates both stage and Atelier Lens', () => {
+      renderProductDetail('oxblood-wool-silk-signature-coat-dress');
+
+      // Click second thumbnail
+      const thumb1 = screen.getByTestId('gallery-thumb-1');
+      fireEvent.click(thumb1);
+
+      // Active image on stage matches thumbnail 1
+      const activeStageImg = screen.getByTestId('gallery-main-image') as HTMLImageElement;
+      expect(activeStageImg.src).toContain('product-oxblood-signature-back-01.webp');
+
+      // Open Atelier Lens
+      const inspectBtn = screen.getByTestId('inspect-fabric-lens-btn');
+      fireEvent.click(inspectBtn);
+
+      // Atelier Lens dialog displays the EXACT active image, NOT the macro image
+      const lensDialog = screen.getByTestId('atelier-lens-dialog');
+      expect(lensDialog).toBeInTheDocument();
+
+      const lensImg = screen.getByTestId('atelier-lens-image') as HTMLImageElement;
+      expect(lensImg.src).toContain('product-oxblood-signature-back-01.webp');
+      expect(lensImg.alt).toContain('magnified view');
+    });
   });
 });
