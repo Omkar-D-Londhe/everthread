@@ -4,6 +4,7 @@ import { ALL_PRODUCTS } from '../data/products.ts';
 import { WEAVE_LIBRARY, STORIES } from '../data/stories.ts';
 import { JOURNAL_ARTICLES } from '../data/journal.ts';
 import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+import { useDialogFocus } from '../hooks/useDialogFocus.ts';
 
 export const WEAVE_STORY_ROUTES: Record<string, string> = {
   'weave-14': '/archive/the-art-of-the-drape',
@@ -41,31 +42,27 @@ const CURATED_SEARCH_SUGGESTIONS = [
 export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const modalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // Reset and auto-focus when opened
+  // Reset query and selected index on open
   useEffect(() => {
     if (isOpen) {
       setQuery('');
       setSelectedIndex(-1);
-      const timer = setTimeout(() => inputRef.current?.focus(), 50);
-      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  // Global keydown listeners
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        e.preventDefault();
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  // Shared dialog accessibility: focus trap, Escape dismissal, opener focus restoration
+  useDialogFocus({
+    isOpen,
+    onClose,
+    containerRef: modalRef,
+    initialFocusRef: inputRef,
+    restoreFocusSelector: 'button[aria-label*="Search" i]',
+  });
 
   // Unified index search across all 4 house directories
   const results: SearchResultItem[] = useMemo(() => {
@@ -193,11 +190,13 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
         data-testid="search-modal-backdrop"
       />
       <div
+        ref={modalRef}
         className="modal fade show d-block"
         tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label="Atelier Curatorial Search"
+        data-testid="curatorial-search-dialog"
         style={{ zIndex: 1055 }}
       >
         <div className="modal-dialog modal-lg modal-dialog-centered" style={{ maxWidth: 740 }}>

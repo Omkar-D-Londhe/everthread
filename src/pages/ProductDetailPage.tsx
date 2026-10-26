@@ -7,6 +7,7 @@ import { useCart } from '../context/CartContext.tsx';
 import { useSaved } from '../context/SavedContext.tsx';
 import { getStoryBySlug } from '../data/stories.ts';
 import { ProductCard } from '../components/ProductCard.tsx';
+import { ProductImageStage } from '../components/ProductImageStage.tsx';
 import { AtelierLensModal } from '../components/AtelierLensModal.tsx';
 import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
@@ -260,118 +261,51 @@ export const ProductDetailPage: React.FC = () => {
             {/* Left Column: Product Gallery */}
             <div className="col-12 col-lg-7">
               <div className="position-sticky" style={{ top: 'calc(var(--header-height) + 1.5rem)' }}>
-                {/* Main Showcase Image with Subtle Cross-Dissolve */}
-                {(() => {
-                  const isLandscape = (currentImage.width || 1024) > (currentImage.height || 1536);
-                  const isPrevLandscape = prevImage ? (prevImage.width || 1024) > (prevImage.height || 1536) : false;
-                  return (
-                    <div 
-                      className={`gallery-main-wrap ${isLandscape ? 'gallery-main-wrap--landscape' : ''}`} 
-                      data-testid="gallery-main-container"
-                    >
-                      {/* Outgoing previous image layer during cross-dissolve */}
-                      {prevImage && (
-                        <img
-                          src={prevImage.src}
-                          srcSet={prevImage.srcSet}
-                          sizes={prevImage.sizes || '(max-width: 768px) 100vw, 50vw'}
-                          alt=""
-                          width={prevImage.width || 1024}
-                          height={prevImage.height || 1536}
-                          className={`gallery-main-img gallery-main-img--prev ${isPrevLandscape ? 'gallery-main-img--contain' : ''}`}
-                          aria-hidden="true"
-                        />
-                      )}
+                {/* Responsive Portrait/Landscape Product Image Stage */}
+                <ProductImageStage
+                  image={currentImage}
+                  prevImage={prevImage}
+                  edition={product.edition}
+                  onAnimationEnd={() => setPrevImage(null)}
+                  onInspectClick={() => setIsLensOpen(true)}
+                />
 
-                      {/* Active current image layer */}
-                      <img
-                        src={currentImage.src}
-                        srcSet={currentImage.srcSet}
-                        sizes={currentImage.sizes || '(max-width: 768px) 100vw, 50vw'}
-                        alt={currentImage.alt || `${product.title} - ${currentImage.label || 'View'}`}
-                        width={currentImage.width || 1024}
-                        height={currentImage.height || 1536}
-                        className={`gallery-main-img gallery-main-img--active ${prevImage ? 'gallery-cross-dissolve' : ''} ${isLandscape ? 'gallery-main-img--contain' : ''}`}
-                        data-testid="gallery-main-image"
-                        loading="eager"
-                        onAnimationEnd={() => setPrevImage(null)}
-                      />
-
-                      {/* Allocation Status Badge */}
-                      <span className="edition-badge">
-                        {product.edition}
-                      </span>
-
-                      {/* Active Angle / View Tag */}
-                      {currentImage.label && (
-                        <span 
-                          className="position-absolute top-0 start-0 m-3 py-1 px-2 label-caps"
-                          style={{ backgroundColor: 'rgba(254, 249, 240, 0.9)', color: 'var(--color-primary)' }}
-                          data-testid="active-image-label"
-                        >
-                          {currentImage.label}
-                        </span>
-                      )}
-                    </div>
-                  );
-                })()}
-
-                {/* Thumbnails Navigation Strip */}
+                {/* Thumbnails Navigation Strip (Overflow-protected) */}
                 {galleryImages.length > 1 && (
-                  <div 
-                    className="d-flex gap-2 overflow-x-auto pt-3 pb-2" 
-                    role="tablist" 
-                    aria-label="Product Image Views"
-                    data-testid="gallery-thumbnails"
-                  >
-                    {galleryImages.map((img, idx) => {
-                      const isSelected = idx === activeImageIndex;
-                      return (
-                        <button
-                          key={`${img.src}-${idx}`}
-                          type="button"
-                          role="tab"
-                          aria-selected={isSelected}
-                          aria-label={`Select view ${idx + 1}: ${img.label || img.alt || `Angle ${idx + 1}`}`}
-                          className={`gallery-thumb-btn ${isSelected ? 'active' : ''}`}
-                          onClick={() => handleSelectImage(idx)}
-                          data-testid={`gallery-thumb-${idx}`}
-                        >
-                          <img
-                            src={img.src}
-                            alt={img.alt || `${product.title} thumbnail ${idx + 1}`}
-                            width={80}
-                            height={100}
-                            loading="lazy"
-                          />
-                        </button>
-                      );
-                    })}
+                  <div className="w-100 overflow-hidden" style={{ minWidth: 0, maxWidth: '100%' }}>
+                    <div 
+                      className="d-flex gap-2 overflow-x-auto pt-3 pb-2 w-100" 
+                      role="tablist" 
+                      aria-label="Product Image Views"
+                      data-testid="gallery-thumbnails"
+                      style={{ WebkitOverflowScrolling: 'touch' }}
+                    >
+                      {galleryImages.map((img, idx) => {
+                        const isSelected = idx === activeImageIndex;
+                        return (
+                          <button
+                            key={`${img.src}-${idx}`}
+                            type="button"
+                            role="tab"
+                            aria-selected={isSelected}
+                            aria-label={`Select view ${idx + 1}: ${img.label || img.alt || `Angle ${idx + 1}`}`}
+                            className={`gallery-thumb-btn ${isSelected ? 'active' : ''}`}
+                            onClick={() => handleSelectImage(idx)}
+                            data-testid={`gallery-thumb-${idx}`}
+                          >
+                            <img
+                              src={img.src}
+                              alt={img.alt || `${product.title} thumbnail ${idx + 1}`}
+                              width={80}
+                              height={100}
+                              loading="lazy"
+                            />
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
-
-                {/* Macro Loupe Archival Caption & Atelier Lens Trigger */}
-                <div className="pt-2 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
-                  <p className="body-sm text-muted-editorial fst-italic mb-0" style={{ fontSize: '0.75rem' }}>
-                    * Natural atelier light capture. {product.imageCredit || 'EverThread Atelier Archival Study'}.
-                  </p>
-                  <button
-                    type="button"
-                    className="btn-outline-editorial py-1 px-3 body-sm d-inline-flex align-items-center gap-2"
-                    onClick={() => setIsLensOpen(true)}
-                    data-testid="inspect-fabric-lens-btn"
-                    aria-haspopup="dialog"
-                    style={{ fontSize: '0.75rem' }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <circle cx="11" cy="11" r="8"/>
-                      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                      <line x1="11" y1="8" x2="11" y2="14"/>
-                      <line x1="8" y1="11" x2="14" y2="11"/>
-                    </svg>
-                    <span>Inspect with Atelier Lens (2.2×)</span>
-                  </button>
-                </div>
               </div>
             </div>
 
@@ -920,16 +854,20 @@ export const ProductDetailPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Atelier Fabric Inspection Lens Modal (Supports All 7 Silhouettes) */}
+      {/* Atelier Fabric Inspection Lens Modal (Supports All 7 Silhouettes with Active Image Binding) */}
       <AtelierLensModal
         isOpen={isLensOpen}
         onClose={() => setIsLensOpen(false)}
-        imageSrc={product.macroImage || currentImage.src}
+        imageSrc={currentImage.src}
+        imageAlt={currentImage.alt}
+        naturalWidth={currentImage.width}
+        naturalHeight={currentImage.height}
         fallbackImageSrc={currentImage.src}
         title={`${product.title} — Textile Architecture`}
         subtitle={`${product.fiberPurity} • ${product.weaveType}`}
         caption={`High-resolution atelier inspection of ${product.title}. Examined under natural light to reveal the ${product.warpDensity} structural density and authentic handloom surface geometry.`}
         zoom={3.5}
+        restoreFocusSelector='[data-testid="inspect-fabric-lens-btn"]'
       />
     </main>
   );

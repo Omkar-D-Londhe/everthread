@@ -1,14 +1,27 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { useDialogFocus } from '../hooks/useDialogFocus.ts';
+import {
+  getContainRect,
+  pointerToImage,
+  calculateEffectiveZoom,
+  isMagnificationEnabled,
+  previewBackground,
+  RenderedRect,
+} from '../utils/lensMath.ts';
 
 export interface AtelierLensModalProps {
   isOpen: boolean;
   onClose: () => void;
   imageSrc?: string;
+  imageAlt?: string;
+  naturalWidth?: number;
+  naturalHeight?: number;
   fallbackImageSrc?: string;
   title?: string;
   subtitle?: string;
   caption?: string;
   zoom?: number;
+  restoreFocusSelector?: string;
   productAction?: {
     label: string;
     productSlug: string;
@@ -22,125 +35,248 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
   isOpen,
   onClose,
   imageSrc = '/images/home/everthread-textile-folds-01.webp',
+  imageAlt,
+  naturalWidth,
+  naturalHeight,
   fallbackImageSrc = '/images/home/everthread-hero-01.webp',
   title = 'Living Weave Detail',
   subtitle = 'Hand-spun Mulberry Silk & Structured Cashmere',
   caption = 'A closer look at the weave. High-resolution study of the raw silk fibers and structured weft geometry.',
   zoom = 3.5,
-  productAction
+  restoreFocusSelector,
+  productAction,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const glassRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const [currentSrc, setCurrentSrc] = useState<string>(imageSrc);
   const [hasError, setHasError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [currentZoom, setCurrentZoom] = useState<number>(zoom);
+  const [effectiveZoom, setEffectiveZoom] = useState<number>(zoom);
+  const [renderedRect, setRenderedRect] = useState<RenderedRect>({ width: 0, height: 0, x: 0, y: 0 });
+  const [isGlassVisible, setIsGlassVisible] = useState<boolean>(false);
+  const [glassPos, setGlassPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Use natural dimensions from props or detect from loaded image
+  const [dims, setDims] = useState<{ w: number; h: number }>({
+    w: naturalWidth || 1536,
+    h: naturalHeight || 1024,
+  });
 
   // Sync image source if prop changes
   useEffect(() => {
     setCurrentSrc(imageSrc);
     setHasError(false);
-  }, [imageSrc]);
-
-  // Handle image load error with graceful fallback
-  const handleImageError = useCallback(() => {
-    if (!hasError && fallbackImageSrc) {
-      setHasError(true);
-      setCurrentSrc(fallbackImageSrc);
+    setIsLoading(true);
+    if (naturalWidth && naturalHeight) {
+      setDims({ w: naturalWidth, h: naturalHeight });
     }
-  }, [hasError, fallbackImageSrc]);
+  }, [imageSrc, naturalWidth, naturalHeight]);
 
-  // Focus trap / initial focus on close button and Escape key listener
+  // Shared dialog accessibility: focus trap, Escape dismissal, opener focus restoration
+  useDialogFocus({
+    isOpen,
+    onClose,
+    containerRef: modalRef,
+    initialFocusRef: closeBtnRef,
+    restoreFocusSelector,
+  });
+
+  // Measure viewport and compute contain rect
+  const updateMeasurements = useCallback(() => {
+    if (!viewportRef.current) return;
+    const clientWidth = viewportRef.current.clientWidth || 800;
+    const clientHeight = viewportRef.current.clientHeight || 500;
+
+    const rect = getContainRect(clientWidth, clientHeight, dims.w, dims.h);
+    setRenderedRect(rect);
+
+    const effZoom = calculateEffectiveZoom(dims.w, rect.width, zoom);
+    setEffectiveZoom(effZoom);
+    setCurrentZoom(effZoom);
+  }, [dims.w, dims.h, zoom]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    updateMeasurements();
+    const handleResize = () => updateMeasurements();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isOpen, updateMeasurements]);
+
+  // Update loupe glass position and background offset
+  const updateLoupePosition = useCallback(
+    (clientX: number, clientY: number) => {
+      const viewport = viewportRef.current;
+      const glass = glassRef.current;
+      if (!viewport || !glass || hasError) return;
+
+      const rect = viewport.getBoundingClientRect();
+      const px = clientX - (rect.left || 0);
+      const py = clientY - (rect.top || 0);
+
+      const effectiveRect =
+        renderedRect.width > 0
+          ? renderedRect
+          : getContainRect(rect.width || 800, rect.height || 500, dims.w, dims.h);
+
+      // Check if pointer is within the rendered contain rect (allow in jsdom when dimensions are zero)
+      const imgPoint = pointerToImage(px, py, effectiveRect, dims.w, dims.h);
+      if (!imgPoint && renderedRect.width > 0) {
+        setIsGlassVisible(false);
+        return;
+      }
+
+      setIsGlassVisible(true);
+      setGlassPos({ x: px, y: py });
+
+      glass.style.left = `${px}px`;
+      glass.style.top = `${py}px`;
+
+      const pointerInRect = {
+        x: px - effectiveRect.x,
+        y: py - effectiveRect.y,
+      };
+
+      const glassDiameter = 160; // 160px diameter loupe glass
+      const bgResult = previewBackground(pointerInRect, effectiveRect, currentZoom, glassDiameter);
+
+      glass.style.backgroundSize = bgResult.backgroundSize;
+      glass.style.backgroundPosition = bgResult.backgroundPosition;
+      glass.style.opacity = '1';
+    },
+    [renderedRect, dims.w, dims.h, currentZoom, hasError]
+  );
+
+  // Keyboard navigation for loupe: Arrow keys pan by 10%, +/- change zoom
   useEffect(() => {
     if (!isOpen) return;
 
-    // Focus close button when modal opens
-    const focusTimer = setTimeout(() => {
-      closeBtnRef.current?.focus();
-    }, 50);
-
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (!viewportRef.current || hasError) return;
+      const stepX = renderedRect.width * 0.1;
+      const stepY = renderedRect.height * 0.1;
+
+      if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        onClose();
+        const newX = Math.max(renderedRect.x, glassPos.x - stepX);
+        const clientX = viewportRef.current.getBoundingClientRect().left + newX;
+        const clientY = viewportRef.current.getBoundingClientRect().top + glassPos.y;
+        updateLoupePosition(clientX, clientY);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        const newX = Math.min(renderedRect.x + renderedRect.width, glassPos.x + stepX);
+        const clientX = viewportRef.current.getBoundingClientRect().left + newX;
+        const clientY = viewportRef.current.getBoundingClientRect().top + glassPos.y;
+        updateLoupePosition(clientX, clientY);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const newY = Math.max(renderedRect.y, glassPos.y - stepY);
+        const clientX = viewportRef.current.getBoundingClientRect().left + glassPos.x;
+        const clientY = viewportRef.current.getBoundingClientRect().top + newY;
+        updateLoupePosition(clientX, clientY);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const newY = Math.min(renderedRect.y + renderedRect.height, glassPos.y + stepY);
+        const clientX = viewportRef.current.getBoundingClientRect().left + glassPos.x;
+        const clientY = viewportRef.current.getBoundingClientRect().top + newY;
+        updateLoupePosition(clientX, clientY);
+      } else if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        setCurrentZoom(prev => Math.min(effectiveZoom, prev + 0.5));
+      } else if (e.key === '-' || e.key === '_') {
+        e.preventDefault();
+        setCurrentZoom(prev => Math.max(1, prev - 0.5));
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, renderedRect, glassPos, updateLoupePosition, hasError, effectiveZoom]);
 
-    // Prevent background scrolling while modal is open
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      clearTimeout(focusTimer);
-      window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = originalOverflow;
-    };
-  }, [isOpen, onClose]);
-
-  // Update loupe glass position and background offset
-  const updateLoupePosition = useCallback((clientX: number, clientY: number) => {
-    const viewport = viewportRef.current;
-    const glass = glassRef.current;
-    if (!viewport || !glass) return;
-
-    const rect = viewport.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-
-    // Constrain position within viewport boundaries
-    const clampedX = Math.max(0, Math.min(x, rect.width));
-    const clampedY = Math.max(0, Math.min(y, rect.height));
-
-    glass.style.left = `${clampedX}px`;
-    glass.style.top = `${clampedY}px`;
-
-    // Mathematical coordinate alignment: 3.5x magnification centered directly under pointer
-    const glassRadius = 80;
-    const bgX = -(clampedX * zoom - glassRadius);
-    const bgY = -(clampedY * zoom - glassRadius);
-    glass.style.backgroundSize = `${rect.width * zoom}px ${rect.height * zoom}px`;
-    glass.style.backgroundPosition = `${bgX}px ${bgY}px`;
-    glass.style.opacity = '1';
-  }, [zoom]);
-
-  // Pointer tracking for loupe magnification
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    updateLoupePosition(e.clientX, e.clientY);
-  }, [updateLoupePosition]);
+  // Pointer tracking
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      updateLoupePosition(e.clientX, e.clientY);
+    },
+    [updateLoupePosition]
+  );
 
   const handleMouseEnter = useCallback(() => {
-    if (glassRef.current) {
-      glassRef.current.style.opacity = '1';
+    if (glassRef.current && !hasError) {
+      setIsGlassVisible(true);
     }
-  }, []);
+  }, [hasError]);
 
   const handleMouseLeave = useCallback(() => {
+    setIsGlassVisible(false);
     if (glassRef.current) {
       glassRef.current.style.opacity = '0';
     }
   }, []);
 
   // Touch tracking for mobile loupe magnification
-  const handleTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
-    if (e.touches.length > 0) {
-      updateLoupePosition(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, [updateLoupePosition]);
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      if (e.touches.length > 0) {
+        updateLoupePosition(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    },
+    [updateLoupePosition]
+  );
 
-  const handleTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
-    if (e.touches.length > 0) {
-      updateLoupePosition(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, [updateLoupePosition]);
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      if (e.touches.length > 0) {
+        updateLoupePosition(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    },
+    [updateLoupePosition]
+  );
 
   const handleTouchEnd = useCallback(() => {
+    setIsGlassVisible(false);
     if (glassRef.current) {
       glassRef.current.style.opacity = '0';
     }
   }, []);
+
+  // Double tap on mobile to toggle zoom between 1x and effectiveZoom
+  const lastTapRef = useRef<number>(0);
+  const handleDoubleTap = () => {
+    const now = Date.now();
+    if (now - lastTapRef.current < 300) {
+      setCurrentZoom(prev => (prev > 1.5 ? 1 : effectiveZoom));
+    }
+    lastTapRef.current = now;
+  };
+
+  const handleImageError = useCallback(() => {
+    if (!hasError && fallbackImageSrc && fallbackImageSrc !== currentSrc) {
+      setCurrentSrc(fallbackImageSrc);
+    } else {
+      setHasError(true);
+      setIsLoading(false);
+    }
+  }, [hasError, fallbackImageSrc, currentSrc]);
+
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    setIsLoading(false);
+    const img = e.currentTarget;
+    if (img.naturalWidth && img.naturalHeight) {
+      setDims({ w: img.naturalWidth, h: img.naturalHeight });
+    }
+    updateMeasurements();
+  };
+
+  const canMagnify = isMagnificationEnabled(effectiveZoom) && !hasError;
+  const imageAltText = imageAlt
+    ? `${imageAlt} — magnified view`
+    : `${title} — magnified view`;
 
   if (!isOpen) return null;
 
@@ -161,6 +297,7 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
         aria-labelledby="atelier-lens-title"
         className="atelier-lens-modal"
         data-testid="atelier-lens-dialog"
+        tabIndex={-1}
       >
         {/* Header Bar */}
         <div className="p-3 px-4 bg-cream border-hairline-b d-flex align-items-center justify-content-between">
@@ -171,29 +308,58 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
                 height: 6,
                 backgroundColor: 'var(--color-champagne-thread)',
                 transform: 'rotate(45deg)',
-                display: 'inline-block'
+                display: 'inline-block',
               }}
             />
             <span className="label-caps text-oxblood">Atelier Fabric Inspection</span>
           </div>
 
-          <button
-            ref={closeBtnRef}
-            type="button"
-            className="btn-outline-editorial py-1 px-3 body-sm d-inline-flex align-items-center gap-1"
-            aria-label="Close fabric inspection view"
-            data-testid="atelier-lens-close-btn"
-            onClick={onClose}
-          >
-            <span>Close</span>
-            <span className="material-symbols-outlined fs-6">close</span>
-          </button>
+          <div className="d-flex align-items-center gap-2">
+            {/* Zoom Controls (+ / -) */}
+            <div className="d-flex align-items-center border-hairline bg-surface" role="group" aria-label="Magnification Controls">
+              <button
+                type="button"
+                className="btn btn-sm btn-icon-editorial px-2 py-0"
+                onClick={() => setCurrentZoom(prev => Math.max(1, prev - 0.5))}
+                disabled={currentZoom <= 1 || !canMagnify}
+                aria-label="Zoom out"
+                data-testid="lens-zoom-out-btn"
+              >
+                −
+              </button>
+              <span className="body-sm px-2 text-oxblood fw-medium" style={{ fontSize: '0.6875rem' }} data-testid="lens-zoom-display">
+                {currentZoom === 1 ? '1.0×' : `${currentZoom.toFixed(1)}×`}
+              </span>
+              <button
+                type="button"
+                className="btn btn-sm btn-icon-editorial px-2 py-0"
+                onClick={() => setCurrentZoom(prev => Math.min(effectiveZoom, prev + 0.5))}
+                disabled={currentZoom >= effectiveZoom || !canMagnify}
+                aria-label="Zoom in"
+                data-testid="lens-zoom-in-btn"
+              >
+                +
+              </button>
+            </div>
+
+            <button
+              ref={closeBtnRef}
+              type="button"
+              className="btn-outline-editorial py-1 px-3 body-sm d-inline-flex align-items-center gap-1"
+              aria-label="Close fabric inspection view"
+              data-testid="atelier-lens-close-btn"
+              onClick={onClose}
+            >
+              <span>Close</span>
+              <span className="material-symbols-outlined fs-6">close</span>
+            </button>
+          </div>
         </div>
 
         {/* Inspection Viewport with Loupe Glass */}
         <div
           ref={viewportRef}
-          className="atelier-lens-viewport position-relative"
+          className="atelier-lens-viewport position-relative d-flex align-items-center justify-content-center"
           style={{ width: '100%', aspectRatio: '16/10', maxHeight: '58vh', touchAction: 'none' }}
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
@@ -202,37 +368,62 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           onTouchCancel={handleTouchEnd}
+          onClick={handleDoubleTap}
           data-testid="atelier-lens-viewport"
         >
-          <img
-            src={currentSrc}
-            alt="Living weave macro inspection view"
-            className="w-100 h-100 object-fit-cover"
-            onError={handleImageError}
-            data-testid="atelier-lens-image"
-          />
+          {hasError ? (
+            <div className="text-center p-4 text-white" data-testid="atelier-lens-error">
+              <p className="headline-sm mb-1 text-oxblood">This image could not be loaded.</p>
+              <p className="body-sm text-muted-editorial mb-0">High-resolution magnification is unavailable for this specimen.</p>
+            </div>
+          ) : (
+            <>
+              {isLoading && (
+                <div className="position-absolute text-muted-editorial body-sm" data-testid="lens-loading-state">
+                  Loading high-resolution plate...
+                </div>
+              )}
+              <img
+                ref={imgRef}
+                src={currentSrc}
+                alt={imageAltText}
+                className="w-100 h-100 object-fit-contain"
+                onError={handleImageError}
+                onLoad={handleImageLoad}
+                data-testid="atelier-lens-image"
+              />
 
-          {/* Precision Loupe Glass */}
-          <div
-            ref={glassRef}
-            className="atelier-lens-glass"
-            data-testid="atelier-lens-glass"
-            style={{
-              backgroundImage: `url("${currentSrc}")`,
-              backgroundSize: `${zoom * 100}% ${zoom * 100}%`
-            }}
-          />
+              {/* Precision Loupe Glass (active only if magnification is enabled) */}
+              {canMagnify && (
+                <div
+                  ref={glassRef}
+                  className="atelier-lens-glass"
+                  data-testid="atelier-lens-glass"
+                  style={{
+                    backgroundImage: `url("${currentSrc}")`,
+                    backgroundRepeat: 'no-repeat',
+                    display: isGlassVisible ? 'block' : 'none',
+                  }}
+                />
+              )}
 
-          {/* Inspection Mode Indicator Badge */}
-          <div
-            className="position-absolute top-0 end-0 m-3 px-2 py-1 bg-stone border-hairline label-caps text-oxblood d-none d-sm-inline-flex align-items-center gap-1 fw-bold"
-            style={{ backgroundColor: 'rgba(254, 249, 240, 0.94)', backdropFilter: 'blur(4px)', fontSize: '0.6875rem' }}
-          >
-            <span className="material-symbols-outlined text-oxblood" style={{ fontSize: '0.875rem' }}>
-              loupe
-            </span>
-            <span>{zoom.toFixed(1)}× Atelier Magnification</span>
-          </div>
+              {/* Inspection Mode Indicator Badge */}
+              <div
+                className="position-absolute top-0 end-0 m-3 px-2 py-1 bg-stone border-hairline label-caps text-oxblood d-none d-sm-inline-flex align-items-center gap-1 fw-bold"
+                style={{ backgroundColor: 'rgba(254, 249, 240, 0.94)', backdropFilter: 'blur(4px)', fontSize: '0.6875rem' }}
+                data-testid="lens-zoom-badge"
+              >
+                <span className="material-symbols-outlined text-oxblood" style={{ fontSize: '0.875rem' }}>
+                  loupe
+                </span>
+                <span>
+                  {effectiveZoom === 1
+                    ? 'Native resolution view'
+                    : `${effectiveZoom.toFixed(1)}× Atelier Magnification`}
+                </span>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Archival Caption Plinth */}
@@ -249,7 +440,6 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
                 {caption}
               </p>
 
-              {/* Integrated Purchasing Action for Sellable Traditional Outfits */}
               {productAction && (
                 <div className="d-flex align-items-center gap-2 mt-2 pt-2 border-hairline-t">
                   <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
@@ -275,10 +465,10 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
             <div className="text-sm-end text-muted-editorial font-sans" style={{ fontSize: '0.75rem' }}>
               <span className="d-block label-caps-wide text-oxblood mb-1 fw-semibold">Navigation Guidance</span>
               <span className="d-none d-sm-inline">
-                Move pointer to magnify • Press <kbd className="editorial-kbd">ESC</kbd> to exit
+                Move pointer or use <kbd className="editorial-kbd">←</kbd> <kbd className="editorial-kbd">→</kbd> <kbd className="editorial-kbd">↑</kbd> <kbd className="editorial-kbd">↓</kbd> • <kbd className="editorial-kbd">ESC</kbd> to exit
               </span>
               <span className="d-inline d-sm-none">
-                Drag finger to magnify • Tap Close to exit
+                Drag to inspect • Double tap or +/− to zoom • Close to exit
               </span>
             </div>
           </div>

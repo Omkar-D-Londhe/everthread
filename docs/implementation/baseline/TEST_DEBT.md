@@ -25,3 +25,12 @@
 - In **Stage 01**, all 15 existing test files / 251 tests run and pass without modification.
 - Playwright characterization tests in `e2e/baseline.spec.ts` (78 tests) assert current baseline behavior only.
 - Test debt items listed above remain active in their current passing state until their respective owning stages (Stages 2, 4, 5, 7) implement the approved functional changes.
+
+---
+
+## 3. Documentation & Evidence Debt Register
+
+| Logged Stage | Scope / Document | Item / Discrepancy Description | Resolution / Target Stage |
+|---|---|---|---|
+| **Stage 02** | `docs/implementation/evidence/STAGE-02/RESULT.md` §6 | Discrepancy between RESULT.md prose (which quoted an earlier draft string mentioning bespoke wraps/House inquiry) and the actual source code `src/data/archiveRelations.ts` (which safely implemented the factual string: `'Pashmina is the ground fabric discussed in this folio.'`). | **Stage 09** (Claims Audit) or next documentation reconciliation pass. Do not treat provisional wording as owner-approved. |
+
