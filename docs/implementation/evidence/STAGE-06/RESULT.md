@@ -152,3 +152,36 @@ The audit tracker [`docs/implementation/01b_AUDIT_TRACKER.csv`](file:///c:/Users
 - `DEC D-08`: `IMPLEMENTED`, `PASS`, `CLOSED`.
 - `DEC D-11`: `IMPLEMENTED`, `PASS`, `CLOSED`.
 - Exact row count preserved: 484 total lines (header + 483 rows).
+
+---
+
+## 7. Final Visual Corrections & Mobile Acceptance Audit (Post-Review Addendum)
+
+Pursuant to the owner's review and final acceptance directives, the following targeted refinements were implemented and verified:
+
+1. **Mobile Hero Thread Repositioning (`HomePage.tsx`, `animations.css`):**
+   - Wrapped the SVG canvas layer in dedicated `.hero-thread-canvas-container`.
+   - On `@media (max-width: 991.98px)`, repositioned the container to `top: auto; bottom: 0; height: 520px;`.
+   - Browser measurement verification:
+     - Hero Metadata Plinth bottom: `Y = 866.65px`
+     - Thread Canvas Container top: `Y = 880.15px`
+     - Physical clearance: Thread begins strictly below all text, buttons, and specs, sweeping behind the visual plinth frame and exiting toward Scene 2.
+     - Zero collision with headline, subhead, description, CTAs, or metadata plinth.
+2. **ET-01 Data Integrity Verification (`products.ts`, `HomePage.tsx`, `AtelierLensModal.tsx`):**
+   - Verified that `heroProduct` is strictly bound to `et-01`.
+   - Corrected fallback modal subtitle in [`AtelierLensModal.tsx`](file:///c:/Users/omkar/OneDrive/Desktop/FE%20Case%20Study/src/components/AtelierLensModal.tsx) from stale `"Hand-spun Mulberry Silk & Structured Cashmere"` to authoritative `"70% Fine Merino Wool, 30% Wild Mulberry Silk"`.
+   - Confirmed zero occurrences of unverified edition, artisan-hour, or warp density claims in the hero view.
+3. **Responsive Visual Polish & Legibility (`main.css`):**
+   - Added `.text-sand { color: var(--color-surface-container, #f2ede4) !important; }` ensuring high-contrast white-sand typography over dark door imagery in [`WallsPreview.tsx`](file:///c:/Users/omkar/OneDrive/Desktop/FE%20Case%20Study/src/components/home/WallsPreview.tsx).
+   - Added responsive wrapping to `.editorial-crease` for narrow mobile screens (`<= 576px`), preventing step indicators from colliding with chapter labels.
+   - Added `scroll-margin-top: 80px` to section anchors, preventing sticky header collision during navigation.
+4. **Comprehensive Suite Verification:**
+   - Vitest Unit Suite: **293 / 293 tests passing** (19 files).
+   - Playwright E2E Suite: **24 / 24 tests passing** (`home.spec.ts` across desktop, tablet, and mobile).
+   - TypeScript Check: **0 errors**.
+   - Production Build: **Pass in 3.82s**.
+5. **High-Resolution Visual Artifacts Generated:**
+   - `updated_stage06_01_desktop_home_hero.png`: Desktop hero above the fold.
+   - `updated_stage06_03_mobile_home_hero.png`: Mobile hero at 390px showing pristine legibility.
+   - `mobile_01_scene_hero.png` through `mobile_08_scene_closing.png`: Individual readable mobile scene captures.
+

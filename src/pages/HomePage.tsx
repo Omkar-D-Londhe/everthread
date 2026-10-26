@@ -300,8 +300,7 @@ export const HomePage: React.FC = () => {
       >
         {/* Signature Champagne Silk Thread SVG Canvas Layer */}
         <div
-          className="position-absolute inset-0 w-100 h-100 pointer-events-none overflow-visible"
-          style={{ top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}
+          className="hero-thread-canvas-container pointer-events-none overflow-visible"
         >
           <svg
             aria-hidden="true"

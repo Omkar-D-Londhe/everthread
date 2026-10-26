@@ -212,6 +212,21 @@ button {
   border-bottom: 1px solid var(--color-hairline-champagne);
 }
 
+@media (max-width: 576px) {
+  .editorial-crease {
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+  }
+}
+
+.text-sand {
+  color: var(--color-surface-container, #f2ede4) !important;
+}
+
+section[id] {
+  scroll-margin-top: 80px;
+}
+
 .crease-diamond {
   width: 6px;
   height: 6px;

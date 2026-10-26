@@ -40,7 +40,7 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
   naturalHeight,
   fallbackImageSrc = '/images/home/everthread-hero-01.webp',
   title = 'Living Weave Detail',
-  subtitle = 'Hand-spun Mulberry Silk & Structured Cashmere',
+  subtitle = '70% Fine Merino Wool, 30% Wild Mulberry Silk',
   caption = 'A closer look at the weave. High-resolution study of the raw silk fibers and structured weft geometry.',
   zoom = 3.5,
   restoreFocusSelector,
