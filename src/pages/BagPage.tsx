@@ -18,11 +18,11 @@ export const BagPage: React.FC = () => {
     deps: [bagCount]
   });
 
-  const handleSaveForLater = (productId: string, index: number) => {
+  const handleSaveForLater = (productId: string, target: string | number) => {
     if (!isSaved(productId)) {
       toggleSaved(productId);
     }
-    removeFromBag(index);
+    removeFromBag(target);
   };
 
   return (
@@ -128,10 +128,10 @@ export const BagPage: React.FC = () => {
                             <div>
                               <div className="d-flex align-items-center justify-content-between gap-2 mb-1">
                                 <span className="label-caps text-champagne">
-                                  {product.category} • {product.weaveType}
+                                  {product.category}{'weaveType' in product && product.weaveType ? ` • ${product.weaveType}` : ''}
                                 </span>
                                 <span className="label-caps text-muted-editorial">
-                                  {product.edition}
+                                  {'edition' in product ? product.edition : ''}
                                 </span>
                               </div>
 
@@ -173,8 +173,13 @@ export const BagPage: React.FC = () => {
                                 <div className="quantity-control" data-testid={`quantity-control-${idx}`}>
                                   <button
                                     type="button"
-                                    className="qty-btn"
-                                    onClick={() => updateQuantity(idx, -1)}
+                                    className={`qty-btn ${item.quantity <= 1 ? 'opacity-50' : ''}`}
+                                    onClick={() => {
+                                      if (item.quantity > 1) {
+                                        updateQuantity(item.variantId || idx, -1);
+                                      }
+                                    }}
+                                    aria-disabled={item.quantity <= 1}
                                     aria-label={`Decrease quantity of ${product.title}`}
                                     data-testid={`qty-minus-${idx}`}
                                   >
@@ -192,7 +197,7 @@ export const BagPage: React.FC = () => {
                                   <button
                                     type="button"
                                     className="qty-btn"
-                                    onClick={() => updateQuantity(idx, 1)}
+                                    onClick={() => updateQuantity(item.variantId || idx, 1)}
                                     aria-label={`Increase quantity of ${product.title}`}
                                     data-testid={`qty-plus-${idx}`}
                                   >
@@ -220,7 +225,7 @@ export const BagPage: React.FC = () => {
                               <button
                                 type="button"
                                 className="btn-move-editorial"
-                                onClick={() => handleSaveForLater(product.id, idx)}
+                                onClick={() => handleSaveForLater(product.id, item.variantId || idx)}
                                 data-testid={`move-to-saved-${idx}`}
                                 aria-label={`Save ${product.title} for later`}
                               >
@@ -231,7 +236,7 @@ export const BagPage: React.FC = () => {
                               <button
                                 type="button"
                                 className="btn-remove-editorial"
-                                onClick={() => removeFromBag(idx)}
+                                onClick={() => removeFromBag(item.variantId || idx)}
                                 data-testid={`remove-item-${idx}`}
                                 aria-label={`Remove ${product.title} from bag`}
                               >

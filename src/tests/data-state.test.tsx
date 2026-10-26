@@ -242,9 +242,17 @@ describe('EverThread Stage 2: Shared State & Cart Calculations', () => {
     });
     expect(screen.getByTestId('bag-count').textContent).toBe('1');
 
-    // Decrement from 1 to 0 -> line item removed
+    // Decrement from 1 keeps line item at quantity 1 (does not delete)
     act(() => {
       screen.getByTestId('qty-minus-line0').click();
+    });
+    expect(screen.getByTestId('bag-count').textContent).toBe('1');
+    expect(screen.getByTestId('bag-lines').textContent).toBe('1');
+    expect(screen.getByTestId('subtotal').textContent).not.toBe('0');
+
+    // Remove explicitly removes line item
+    act(() => {
+      screen.getByTestId('remove-line0').click();
     });
     expect(screen.getByTestId('bag-count').textContent).toBe('0');
     expect(screen.getByTestId('bag-lines').textContent).toBe('0');

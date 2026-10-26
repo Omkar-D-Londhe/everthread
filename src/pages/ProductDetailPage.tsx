@@ -214,12 +214,23 @@ export const ProductDetailPage: React.FC = () => {
     }
     setValidationError(null);
 
-    addToBag({
+    const result = addToBag({
       productId: product.id,
       size: selectedSize || (product.sizes[0] || 'Standard'),
       color: selectedColor?.name || product.colors[0]?.name || 'Signature',
       quantity
     });
+
+    if (result && !result.ok) {
+      if (result.reason === 'not-listed') {
+        setValidationError('This piece is an exploratory concept and is not currently listed or available for order.');
+      } else if (result.reason === 'missing-size') {
+        setValidationError('Please select required sizes for all pieces before adding to your bag.');
+      } else {
+        setValidationError('Unable to add piece to bag.');
+      }
+      return;
+    }
 
     setAddedSuccess(true);
     setTimeout(() => setAddedSuccess(false), 5000);
@@ -265,10 +276,22 @@ export const ProductDetailPage: React.FC = () => {
                 <ProductImageStage
                   image={currentImage}
                   prevImage={prevImage}
-                  edition={product.edition}
+                  edition={'edition' in product ? product.edition : undefined}
                   onAnimationEnd={() => setPrevImage(null)}
                   onInspectClick={() => setIsLensOpen(true)}
                 />
+
+                {/* Honest Colourway Note (Decision O-10) */}
+                {product.colors && product.colors.length > 1 && selectedColor && selectedColor.name !== product.colors[0]?.name && (
+                  <div
+                    className="mt-2 py-1 px-3 bg-stone border-hairline body-sm text-muted-editorial font-sans d-flex align-items-center gap-2"
+                    aria-live="polite"
+                    data-testid="stage-color-note"
+                  >
+                    <span className="material-symbols-outlined fs-6 text-champagne">info</span>
+                    <span>Images show {product.colors[0].name}.</span>
+                  </div>
+                )}
 
                 {/* Thumbnails Navigation Strip (Overflow-protected) */}
                 {galleryImages.length > 1 && (

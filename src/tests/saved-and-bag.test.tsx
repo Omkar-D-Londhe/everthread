@@ -278,20 +278,22 @@ describe('EverThread Stage 3.5: Saved Pieces & Shopping Bag Suite', () => {
       expect(screen.getByTestId('bag-subtotal')).toHaveTextContent('₹1,08,000');
     });
 
-    it('decrements quantity and auto-removes item when quantity reaches zero', () => {
+    it('preserves line item and keeps quantity at 1 when attempting to decrement at quantity 1', () => {
       localStorage.setItem('everthread_bag_v2', JSON.stringify([
         { productId: 'et-05', size: 'One Size (Structured Mini Box)', color: 'Madder Oxblood', quantity: 1 }
       ]));
       renderWithAppShell('/bag');
 
       expect(screen.getByTestId('item-qty-0')).toHaveTextContent('1');
+      const minusBtn = screen.getByTestId('qty-minus-0');
+      expect(minusBtn).toHaveAttribute('aria-disabled', 'true');
 
-      // Decrement from 1 to 0
-      fireEvent.click(screen.getByTestId('qty-minus-0'));
+      // Decrement attempt at 1 does NOT delete the item
+      fireEvent.click(minusBtn);
 
-      // Line item removed, bag is now empty
-      expect(screen.queryByTestId('bag-item-0')).not.toBeInTheDocument();
-      expect(screen.getByTestId('empty-bag-state')).toBeInTheDocument();
+      // Line item remains, quantity stays at 1
+      expect(screen.getByTestId('item-qty-0')).toHaveTextContent('1');
+      expect(screen.queryByTestId('empty-bag-state')).not.toBeInTheDocument();
     });
 
     it('removes item directly when clicking the line item Remove action', () => {
