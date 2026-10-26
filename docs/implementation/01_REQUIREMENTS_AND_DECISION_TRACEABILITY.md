@@ -1,5 +1,7 @@
 # 01 — Requirements and Decision Traceability — Revision 2
 
+> **Notice:** Authoritative implementation, verification, and audit statuses live in `docs/implementation/01b_AUDIT_TRACKER.csv`. Owner-decision addenda are dated. Do not maintain duplicate statuses here.
+
 Sources (kept, not copied): `everthread_audit_report_v2.md`, `everthread_audit_reassessment_v3.md`, `everthread_master_findings_register.md` (F-01…F-33), `everthread_completeness_check.md` (F-34…F-46, DEC D-18…D-22), `everthread_decision_register.md`, `everthread_solution_proposal.md`, `everthread_requirements_matrix_v3.csv` (`CL-nnn` = acceptance-checklist line number; `V3-nn`), `everthread_phase1_*`, `everthread_motion_verification_v3.md`, the Implementation Brief, Roadmap §2.3 invariants, and the two experience reviews.
 Test IDs (`UT-`, `E2E-`, `MAN-`) are defined in `04_TEST_AND_ACCEPTANCE_PLAN.md`. Acceptance criteria are in the named stage file.
 
@@ -25,6 +27,9 @@ Test IDs (`UT-`, `E2E-`, `MAN-`) are defined in `04_TEST_AND_ACCEPTANCE_PLAN.md`
 | O-12 | B | Making/Promise: selected treatment, copy subject to claims audit | **DEFAULT APPLIED — OWNER CLARIFICATION REQUIRED** | Claim-free scene (narrative spine links + approved brand lines) | final copy blocks Stage 9 PASS | 6, 9 |
 | O-13 | B | Implement fully (no proposal-only downgrade); narrow verification gate for risky interaction | **CONFIRMED BY OWNER TEXT** | Stage 5 spike gate | — | 5 |
 | O-14 | A | Serial stage-by-stage approval | **CONFIRMED BY OWNER TEXT** | Roadmap §5 | — | all |
+
+### Dated Addendum: Owner Decision O-6-C (2026-10-26)
+Per Master Operating Prompt §5, the owner confirmed Option O-6-C: evaluate EVERY image individually against the product specification. Retain only images that accurately represent the intended product (the garments the specification says are included); replace mismatches. This decision does NOT approve any image and does NOT authorise changing the product specification. All affected images remain unapproved (registry status not APPROVED) until the owner reviews them. Replacements must be supplied by the owner. This supersedes the earlier package record of O-6 as "B/blocked".
 
 ## C. Settled decisions carried forward
 Home CTA "Enter the Archive" (F-26, Stage 6) · loader ≈2.3 s unchanged (F-14; test E2E-LOAD-01, Stage 10) · colourways names-only (O-10) · no Newest sort (F-17, deferred permanently until real dates) · minus at qty 1 never deletes (F-20, Stage 4) · legacy Archive and product routes redirect (F-40, Stage 2) · Playwright dev dependency (F-31, Stage 1) · GitHub Pages and simulated checkout (all) · Archive→ET (settled earlier): Banarasi→ET-01 (Kadwa-facing wording), Kota Doria→ET-04 (Chanderi wording only), Sozni→ET-07 informational only, Muga→none (F-05, Stage 2/7) — **Banarasi and Kota Doria entries are now in conflict with the latest brief (F-52, DEC D-25)** · Archive educational (all) · historical conflicting catalogue docs retained and marked superseded (F-22, Stage 11) · editions on hold (F-46) · claims need evidence (F-41) · ET-02 title resolved (F-32, Stage 2) · captions "Tradition — role" (F-12, Stage 7) · credit fields now, visible attribution deferred (F-42, Stage 2).
