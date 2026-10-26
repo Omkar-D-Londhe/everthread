@@ -26,7 +26,7 @@ export const WallThread: React.FC<WallThreadProps> = ({
     >
       <svg 
         className="wall-thread-svg" 
-        viewBox="0 0 1200 60" 
+        viewBox="0 0 1200 36" 
         preserveAspectRatio="none"
         fill="none"
         data-testid="wall-thread-svg"
@@ -38,13 +38,14 @@ export const WallThread: React.FC<WallThreadProps> = ({
             <stop offset="100%" stopColor="#DFC396" stopOpacity="0.8" />
           </linearGradient>
           <filter id="wallThreadGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
 
+        {/* Tactile gold thread running horizontally along the architectural plinth line */}
         <path
-          d="M 0 30 Q 300 10, 600 30 T 1200 30"
+          d="M 0 18 Q 300 8, 600 18 T 1200 18"
           stroke="url(#wallThreadGradient)"
           strokeWidth="2"
           strokeLinecap="round"

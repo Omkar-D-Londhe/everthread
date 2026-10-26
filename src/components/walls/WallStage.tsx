@@ -147,7 +147,6 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
     };
 
     track.addEventListener('scroll', handleScroll, { passive: true });
-    // 'scrollend' is supported in modern browsers
     track.addEventListener('scrollend', handleScrollEnd as EventListener);
 
     return () => {
@@ -193,56 +192,73 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
   const et01Asset = PRODUCT_ASSET_MAP['et-01']?.primary;
 
   return (
-    <div className="wall-stage-root bg-canvas border-hairline-b" data-testid="wall-stage">
-      <div className="page-container pt-4 pb-2">
-        {/* Stage Header Row: Brand Context & Accessible Tablist */}
-        <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
-          <div>
-            <span className="label-caps-wide text-champagne d-block mb-1">
-              Atelier Curated Walls
-            </span>
-            <span className="body-sm text-muted-editorial">
-              Two architectural perspectives on contemporary luxury and heritage lineage.
-            </span>
-          </div>
+    <div className="wall-stage-root" data-testid="wall-stage">
+      {/* Stage Header Row: Curatorial Brand Context & Segmented Tab Navigation */}
+      <div className="wall-stage-header bg-canvas py-3">
+        <div className="page-container">
+          <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div>
+              <div className="d-flex align-items-center gap-2 mb-1">
+                <span style={{ width: 16, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+                <span className="label-caps-wide text-champagne">Atelier Curated Walls</span>
+              </div>
+              <h1 className="h6 text-oxblood mb-0 font-serif" style={{ letterSpacing: '0.04em' }}>
+                EverThread Curatorial Repertoire
+              </h1>
+            </div>
 
-          <div 
-            className="wall-tabs-container d-inline-flex p-1 bg-stone border-hairline rounded-1"
-            role="tablist"
-            aria-label="Collection Walls"
-            data-testid="collection-wall-tabs"
-          >
-            <button
-              ref={tabContemporaryRef}
-              id="tab-contemporary"
-              role="tab"
-              type="button"
-              className={`wall-tab-btn ${activeTab === 'contemporary' ? 'active' : ''}`}
-              aria-selected={activeTab === 'contemporary'}
-              aria-controls="wall-products"
-              tabIndex={activeTab === 'contemporary' ? 0 : -1}
-              onClick={() => handleTabClick('contemporary')}
-              onKeyDown={e => handleTabKeyDown(e, 'contemporary')}
-              data-testid="wall-tab-contemporary"
+            <div 
+              className="wall-tabs-container"
+              role="tablist"
+              aria-label="Collection Walls"
+              data-testid="collection-wall-tabs"
             >
-              <span>Contemporary Collection</span>
-            </button>
+              <button
+                ref={tabContemporaryRef}
+                id="tab-contemporary"
+                role="tab"
+                type="button"
+                className={`wall-tab-btn ${activeTab === 'contemporary' ? 'active' : ''}`}
+                aria-selected={activeTab === 'contemporary'}
+                aria-controls="wall-products"
+                tabIndex={activeTab === 'contemporary' ? 0 : -1}
+                onClick={() => handleTabClick('contemporary')}
+                onKeyDown={e => handleTabKeyDown(e, 'contemporary')}
+                data-testid="wall-tab-contemporary"
+              >
+                <span 
+                  data-testid="tab-contemporary" 
+                  aria-selected={activeTab === 'contemporary'} 
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+                >
+                  <span>Contemporary Collection</span>
+                  <span className="wall-tab-badge">(7)</span>
+                </span>
+              </button>
 
-            <button
-              ref={tabLivingRef}
-              id="tab-living-inheritance"
-              role="tab"
-              type="button"
-              className={`wall-tab-btn ${activeTab === 'living-inheritance' ? 'active' : ''}`}
-              aria-selected={activeTab === 'living-inheritance'}
-              aria-controls="wall-products"
-              tabIndex={activeTab === 'living-inheritance' ? 0 : -1}
-              onClick={() => handleTabClick('living-inheritance')}
-              onKeyDown={e => handleTabKeyDown(e, 'living-inheritance')}
-              data-testid="wall-tab-living-inheritance"
-            >
-              <span>The Living Inheritance</span>
-            </button>
+              <button
+                ref={tabLivingRef}
+                id="tab-living-inheritance"
+                role="tab"
+                type="button"
+                className={`wall-tab-btn ${activeTab === 'living-inheritance' ? 'active' : ''}`}
+                aria-selected={activeTab === 'living-inheritance'}
+                aria-controls="wall-products"
+                tabIndex={activeTab === 'living-inheritance' ? 0 : -1}
+                onClick={() => handleTabClick('living-inheritance')}
+                onKeyDown={e => handleTabKeyDown(e, 'living-inheritance')}
+                data-testid="wall-tab-living-inheritance"
+              >
+                <span 
+                  data-testid="tab-living-inheritance" 
+                  aria-selected={activeTab === 'living-inheritance'} 
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+                >
+                  <span>The Living Inheritance</span>
+                  <span className="wall-tab-badge">(7)</span>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -255,31 +271,44 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
         data-testid="wall-stage-track"
       >
         <div className="wall-stage-panels-wrap">
-          {/* Visual Continuity Thread Layer */}
+          {/* Visual Continuity Thread Layer (Positioned firmly along bottom plinth line) */}
           <WallThread 
             progress={scrollProgress} 
             isSettled={isSettled} 
             isReducedMotion={isReducedMotion} 
           />
 
-          {/* Panel 1: Contemporary Collection */}
+          {/* Panel 1: Contemporary Collection (Atelier Aesthetic) */}
           <section
             ref={panelContemporaryRef}
             className={`wall-stage-panel wall-stage-panel--contemporary ${activeTab === 'contemporary' ? 'is-active' : ''}`}
             aria-label="Contemporary Collection Stage Banner"
             data-testid="wall-slide-contemporary"
           >
-            <div className="wall-panel-inner p-4 p-md-5 d-flex flex-column justify-content-between h-100">
-              <div className="row g-4 align-items-center h-100">
-                <div className="col-12 col-md-7">
-                  <span className="label-caps text-champagne d-block mb-2">Permanent Repertoire</span>
+            <div className="wall-panel-inner p-4 p-md-5">
+              <div className="row g-4 align-items-center flex-grow-1">
+                {/* Left Column: Typographic Hierarchy & Intentional Curatorial Details */}
+                <div className="col-12 col-lg-6 col-xl-5">
+                  <div className="d-flex align-items-center gap-2 mb-2">
+                    <span style={{ width: 14, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+                    <span className="label-caps text-champagne">Atelier Repertoire · Volume 01</span>
+                  </div>
+
                   <h2 className="headline-lg text-oxblood mb-2" data-testid="wall-title-contemporary">
                     Contemporary Collection
                   </h2>
-                  <p className="body-lg text-muted-editorial mb-4" style={{ maxWidth: 540 }}>
-                    Precision tailored silhouettes crafted with hand-loomed natural fibers.
+
+                  <p className="body-md text-muted-editorial mb-3" style={{ maxWidth: 480, lineHeight: 1.6 }}>
+                    Architectural tailoring crafted from hand-loomed natural fibers. Seven permanent silhouettes numbered and registered in the House Ledger.
                   </p>
-                  <div className="d-flex align-items-center gap-3">
+
+                  <div className="wall-curatorial-badges">
+                    <span className="wall-badge-pill">07 Heirlooms</span>
+                    <span className="wall-badge-pill wall-badge-pill--stone">Pure Botanical Fibers</span>
+                    <span className="wall-badge-pill wall-badge-pill--stone">Zero-Waste Draping</span>
+                  </div>
+
+                  <div className="d-flex align-items-center gap-3 pt-1">
                     <a 
                       href="#wall-products" 
                       className="btn-oxblood py-2 px-4 d-inline-flex align-items-center gap-2"
@@ -294,59 +323,90 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
                   </div>
                 </div>
 
-                <div className="col-12 col-md-5 d-none d-md-block text-end">
-                  {et01Asset ? (
-                    <div className="wall-hero-crop border-hairline overflow-hidden shadow-sm d-inline-block">
+                {/* Right Column: Layered Atelier Showcase Plinths */}
+                <div className="col-12 col-lg-6 col-xl-7">
+                  <div className="wall-atelier-showcase">
+                    {/* Background Architectural Plate */}
+                    <div className="wall-plate-backframe">
                       <img 
-                        src={et01Asset.src} 
-                        srcSet={et01Asset.srcSet} 
-                        alt="Contemporary tailored silhouette preview in atelier light"
-                        className="wall-panel-img"
-                        width={280}
-                        height={380}
+                        src="/images/home/contemporary-collection-plate.webp"
+                        srcSet="/images/home/contemporary-collection-plate-800w.webp 800w, /images/home/contemporary-collection-plate-1280w.webp 1280w"
+                        sizes="(max-width: 1200px) 280px, 320px"
+                        alt="Contemporary Atelier sculptural fabric drape"
                         loading="lazy"
                       />
                     </div>
-                  ) : (
-                    <div className="wall-panel-typographic p-4 bg-stone border-hairline text-center">
-                      <span className="label-caps-wide text-champagne d-block">Seven Core Silhouettes</span>
-                    </div>
-                  )}
+
+                    {/* Foreground Flagship Silhouettes Plinth */}
+                    {et01Asset && (
+                      <div className="wall-plinth-foreground">
+                        <img 
+                          src={et01Asset.src}
+                          srcSet={et01Asset.srcSet}
+                          alt="ET-01 Sculptural Mantle Coat in atelier natural light"
+                          loading="lazy"
+                        />
+                        <div className="wall-plinth-caption">
+                          ET-01 · Mantle Coat
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Edge Cue to Reveal Next Panel */}
-              <div className="wall-edge-cue text-end pt-3">
+              {/* Edge Navigation Cue to Wing 2 */}
+              <div className="wall-edge-cue">
+                <span className="body-xs text-muted-editorial font-serif">
+                  Gallery Wing 01 of 02
+                </span>
                 <button
                   type="button"
-                  className="btn-link text-champagne body-sm p-0 border-0 bg-transparent"
                   onClick={() => handleTabClick('living-inheritance')}
                   data-testid="cue-to-living-inheritance"
+                  aria-label="Navigate to The Living Inheritance wall"
                 >
-                  <span>The Living Inheritance →</span>
+                  <span>The Living Inheritance</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
                 </button>
               </div>
             </div>
           </section>
 
-          {/* Panel 2: The Living Inheritance */}
+          {/* Panel 2: The Living Inheritance (Museum Archive Aesthetic) */}
           <section
             ref={panelLivingRef}
             className={`wall-stage-panel wall-stage-panel--living ${activeTab === 'living-inheritance' ? 'is-active' : ''}`}
             aria-label="The Living Inheritance Stage Banner"
             data-testid="wall-slide-living-inheritance"
           >
-            <div className="wall-panel-inner p-4 p-md-5 d-flex flex-column justify-content-between h-100">
-              <div className="row g-4 align-items-center h-100">
-                <div className="col-12 col-md-7">
-                  <span className="label-caps text-champagne d-block mb-2">Heritage Concept Archive</span>
+            <div className="wall-panel-inner p-4 p-md-5">
+              <div className="row g-4 align-items-center flex-grow-1">
+                {/* Left Column: Exhibition Meta & Archival Narrative */}
+                <div className="col-12 col-lg-6 col-xl-5">
+                  <div className="d-flex align-items-center gap-2 mb-2">
+                    <span style={{ width: 14, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+                    <span className="label-caps text-champagne">Heritage Concept Archive · Volume 02</span>
+                  </div>
+
                   <h2 className="headline-lg text-oxblood mb-2" data-testid="wall-title-living">
                     The Living Inheritance
                   </h2>
-                  <p className="body-lg text-muted-editorial mb-4" style={{ maxWidth: 540 }}>
-                    Exploratory atelier concept pieces inspired by classical subcontinental textile arts.
+
+                  <p className="body-md text-muted-editorial mb-3" style={{ maxWidth: 480, lineHeight: 1.6 }}>
+                    Exploratory atelier concept studies inspired by classical subcontinental textile arts—translating ancient korvai geometries and kadwa brocades into modern drape.
                   </p>
-                  <div className="d-flex align-items-center gap-3">
+
+                  <div className="wall-curatorial-badges">
+                    <span className="wall-badge-pill">Curatorial Reserve</span>
+                    <span className="wall-badge-pill wall-badge-pill--stone">Protocol O-6 Integrity</span>
+                    <span className="wall-badge-pill wall-badge-pill--stone">Private Consultation</span>
+                  </div>
+
+                  <div className="d-flex align-items-center gap-3 pt-1">
                     <a 
                       href="#wall-products" 
                       className="btn-oxblood py-2 px-4 d-inline-flex align-items-center gap-2"
@@ -361,26 +421,67 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
                   </div>
                 </div>
 
-                <div className="col-12 col-md-5 d-none d-md-block text-end">
-                  <div className="wall-panel-typographic p-4 bg-stone border-hairline text-center d-inline-block" style={{ width: 280, height: 280 }}>
-                    <span className="label-caps-wide text-champagne d-block mb-3">Archival Inquiry</span>
-                    <p className="body-sm text-oxblood mb-0 fst-italic">
-                      “An exploratory inquiry bridging classical craft geometry with contemporary drape.”
-                    </p>
+                {/* Right Column: Museum Vitrine Showcase & Elevated Inquiry Card */}
+                <div className="col-12 col-lg-6 col-xl-7">
+                  <div className="wall-museum-showcase">
+                    {/* Primary Atmospheric Exhibition Plate */}
+                    <div className="wall-museum-vitrine">
+                      <img 
+                        src="/images/home/living-inheritance-campaign-r1.webp"
+                        srcSet="/images/home/living-inheritance-campaign-r1-800w.webp 800w, /images/home/living-inheritance-campaign-r1-1280w.webp 1280w"
+                        sizes="(max-width: 1200px) 280px, 320px"
+                        alt="Atelier loom and textile craft atmospheric plate"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Elevated Curatorial Inquiry Card */}
+                    <div className="wall-inquiry-elevation-card">
+                      <div className="wall-inquiry-seal">
+                        <span>◇</span>
+                        <span>Acquisition Protocol</span>
+                      </div>
+                      <p className="wall-inquiry-quote">
+                        “Prototypes in The Living Inheritance are held in curatorial documentation reserve. Bespoke viewings arranged via consultation.”
+                      </p>
+                      <a href="#wall-products" className="wall-inquiry-action">
+                        <span>View Curatorial Dossier</span>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                      </a>
+                    </div>
+
+                    {/* Micro Craft Detail Callout */}
+                    <div className="wall-detail-micro-accent">
+                      <img 
+                        src="/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-detail-400w.webp"
+                        alt="Kadwa zari gold needlework close-up"
+                        loading="lazy"
+                      />
+                      <span>Kadwa Zari Lineage</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Edge Cue to Return to Contemporary */}
-              <div className="wall-edge-cue text-start pt-3">
+              {/* Edge Navigation Cue back to Wing 1 */}
+              <div className="wall-edge-cue">
                 <button
                   type="button"
-                  className="btn-link text-champagne body-sm p-0 border-0 bg-transparent"
                   onClick={() => handleTabClick('contemporary')}
                   data-testid="cue-to-contemporary"
+                  aria-label="Return to Contemporary Collection wall"
                 >
-                  <span>← Contemporary Collection</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                  </svg>
+                  <span>Contemporary Collection</span>
                 </button>
+                <span className="body-xs text-muted-editorial font-serif">
+                  Gallery Wing 02 of 02
+                </span>
               </div>
             </div>
           </section>

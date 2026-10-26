@@ -1,4 +1,6 @@
-/* EverThread Stage 05: Collection Walls & Shared Stage Styles */
+/* EverThread Stage 05: Collection Walls & Shared Stage Styles
+ * Curated Gallery Redesign: Contemporary Atelier & The Living Inheritance Archive
+ */
 
 .collection-walls-layout {
   padding-top: var(--header-height, 4rem);
@@ -8,29 +10,46 @@
   position: relative;
   overflow: hidden;
   background-color: var(--color-canvas, #faf6f0);
+  border-bottom: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.08));
+}
+
+/* Header & Segmented Tab Navigation */
+.wall-stage-header {
+  border-bottom: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.08));
 }
 
 .wall-tabs-container {
-  gap: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(244, 240, 234, 0.85);
+  border: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.12));
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 4px;
 }
 
 .wall-tab-btn {
   background: transparent;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.125rem;
   font-family: var(--font-serif-secondary, "Cinzel", Georgia, serif);
   font-size: 0.8125rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-muted-editorial, #5a4f48);
-  border-radius: 2px;
+  border-radius: 9999px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   outline: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .wall-tab-btn:hover {
   color: var(--color-oxblood, #49232d);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .wall-tab-btn:focus-visible {
@@ -42,6 +61,14 @@
   background-color: var(--color-oxblood, #49232d);
   color: #ffffff;
   font-weight: 600;
+  box-shadow: 0 2px 6px rgba(73, 35, 45, 0.18);
+}
+
+.wall-tab-badge {
+  font-family: var(--font-sans, "Hanken Grotesk", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
 }
 
 /* Horizontal Native Scrolling Stage Track */
@@ -68,7 +95,7 @@
   box-sizing: border-box;
 }
 
-/* Panel Width Geometry: 88vw on Desktop/Tablet (~12% peek of adjacent panel) */
+/* Panel Width Geometry: 88vw on Desktop (~12% peek of adjacent wing) */
 .wall-stage-panel {
   flex: 0 0 88vw;
   width: 88vw;
@@ -76,54 +103,249 @@
   scroll-snap-stop: normal;
   box-sizing: border-box;
   position: relative;
-  min-height: 340px;
+  min-height: 440px;
 }
 
 .wall-panel-inner {
+  position: relative;
   background-color: var(--color-cream, #fef9f0);
-  border-right: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.08));
-}
-
-.wall-hero-crop {
-  max-width: 100%;
-  border-radius: 2px;
-}
-
-.wall-panel-img {
-  display: block;
-  object-fit: cover;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3/4;
-}
-
-.wall-panel-typographic {
+  border-right: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.1));
+  height: 100%;
+  padding-bottom: 3.5rem !important; /* reserve bottom space for the thread */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.wall-stage-panel--living .wall-panel-inner {
+  background: linear-gradient(135deg, #fef9f0 0%, #fbf6ec 100%);
+}
+
+/* Curatorial Metadata Badges */
+.wall-curatorial-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.wall-badge-pill {
+  display: inline-flex;
   align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans, "Hanken Grotesk", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-oxblood, #49232d);
+  background: rgba(180, 154, 112, 0.12);
+  border: 1px solid rgba(180, 154, 112, 0.3);
+  padding: 0.25rem 0.625rem;
   border-radius: 2px;
 }
 
-/* Visual Thread Layer */
+.wall-badge-pill--stone {
+  color: var(--color-espresso, #30231f);
+  background: rgba(48, 35, 31, 0.06);
+  border-color: rgba(48, 35, 31, 0.15);
+}
+
+/* Layered Atelier Showcase Plinths (Contemporary) */
+.wall-atelier-showcase {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 320px;
+}
+
+.wall-plate-backframe {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(48, 35, 31, 0.12);
+  box-shadow: 0 4px 16px rgba(48, 35, 31, 0.06);
+  background-color: #f5f0e6;
+}
+
+.wall-plate-backframe img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.wall-stage-panel.is-active .wall-plate-backframe img {
+  transform: scale(1.02);
+}
+
+.wall-plinth-foreground {
+  position: absolute;
+  right: 180px;
+  top: 10px;
+  width: 180px;
+  height: 260px;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid rgba(180, 154, 112, 0.4);
+  box-shadow: 0 8px 24px rgba(48, 35, 31, 0.14);
+  background: #ffffff;
+  z-index: 2;
+  transition: transform 0.4s ease;
+}
+
+.wall-plinth-foreground:hover {
+  transform: translateY(-4px);
+}
+
+.wall-plinth-foreground img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.wall-plinth-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(48, 35, 31, 0.85) 0%, rgba(48, 35, 31, 0) 100%);
+  color: #fef9f0;
+  padding: 1.25rem 0.5rem 0.35rem 0.5rem;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+/* Museum Archival Showcase & Elevated Inquiry Card (Living Inheritance) */
+.wall-museum-showcase {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 320px;
+}
+
+.wall-museum-vitrine {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(180, 154, 112, 0.35);
+  box-shadow: 0 6px 20px rgba(48, 35, 31, 0.08);
+  background: #ede6da;
+}
+
+.wall-museum-vitrine img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wall-inquiry-elevation-card {
+  position: absolute;
+  right: 170px;
+  top: 15px;
+  width: 220px;
+  padding: 1.25rem;
+  background: rgba(254, 249, 240, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(180, 154, 112, 0.5);
+  border-radius: 2px;
+  box-shadow: 0 10px 28px rgba(48, 35, 31, 0.12);
+  z-index: 2;
+}
+
+.wall-inquiry-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--color-champagne-thread, #b49a70);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.wall-inquiry-quote {
+  font-family: var(--font-serif-main, "Playfair Display", Georgia, serif);
+  font-style: italic;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--color-oxblood, #49232d);
+  margin-bottom: 0.75rem;
+}
+
+.wall-inquiry-action {
+  font-family: var(--font-sans, "Hanken Grotesk", sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-champagne-thread, #b49a70);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+
+/* Micro Detail Badge */
+.wall-detail-micro-accent {
+  position: absolute;
+  right: 20px;
+  bottom: -15px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid rgba(180, 154, 112, 0.35);
+  border-radius: 2px;
+  box-shadow: 0 4px 12px rgba(48, 35, 31, 0.06);
+  z-index: 3;
+}
+
+.wall-detail-micro-accent img {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 1px;
+}
+
+.wall-detail-micro-accent span {
+  font-size: 0.5625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted-editorial, #5a4f48);
+}
+
+/* VISUAL THREAD LAYER (Positioned firmly at bottom; never intersects text) */
 .wall-thread-container {
   position: absolute;
-  top: 50%;
+  bottom: 0;
   left: 0;
   width: 100%;
-  transform: translateY(-50%);
-  z-index: 2;
+  height: 36px;
+  z-index: 1;
   pointer-events: none;
 }
 
 .wall-thread-svg {
   width: 100%;
-  height: 60px;
+  height: 36px;
   display: block;
 }
 
 .wall-thread-settled .wall-thread-svg {
-  animation: wallThreadPulse 0.4s ease-out;
+  animation: wallThreadPulse 0.5s ease-out;
 }
 
 @keyframes wallThreadPulse {
@@ -131,34 +353,85 @@
     filter: drop-shadow(0 0 0 rgba(180, 154, 112, 0));
   }
   50% {
-    filter: drop-shadow(0 0 8px rgba(180, 154, 112, 0.8));
+    filter: drop-shadow(0 0 6px rgba(180, 154, 112, 0.9));
   }
   100% {
     filter: drop-shadow(0 0 0 rgba(180, 154, 112, 0));
   }
 }
 
-/* Edge Cues */
+/* Edge Navigation Cues & Peek Experience */
+.wall-edge-cue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(48, 35, 31, 0.06);
+  position: relative;
+  z-index: 2;
+}
+
 .wall-edge-cue button {
   font-family: var(--font-serif-secondary, "Cinzel", Georgia, serif);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   font-size: 0.75rem;
   font-weight: 600;
+  color: var(--color-champagne-thread, #b49a70);
+  background: transparent;
+  border: none;
   cursor: pointer;
-  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2px;
 }
 
 .wall-edge-cue button:hover {
   color: var(--color-oxblood, #49232d);
+  background: rgba(180, 154, 112, 0.1);
 }
 
-/* Responsive Overrides (Mobile 390px) */
+/* Curatorial Reserve Dossier Banner (Living Inheritance Wall) */
+.curatorial-reserve-dossier {
+  background: #fef9f0;
+  border: 1px solid rgba(180, 154, 112, 0.35);
+  border-radius: 3px;
+  padding: 3rem 2rem;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(48, 35, 31, 0.04);
+}
+
+.curatorial-reserve-dossier::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border: 1px solid rgba(180, 154, 112, 0.15);
+  pointer-events: none;
+}
+
+.curatorial-pillar-item {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(48, 35, 31, 0.08);
+  border-radius: 2px;
+}
+
+/* Responsive Overrides (Mobile ~390px Viewport) */
 @media (max-width: 768px) {
   .wall-stage-panel {
     flex: 0 0 92vw;
     width: 92vw;
-    min-height: 300px;
+    min-height: 520px;
+  }
+
+  .wall-panel-inner {
+    padding: 1.25rem 1rem 3.5rem 1rem !important;
   }
 
   .wall-tabs-container {
@@ -169,8 +442,110 @@
   .wall-tab-btn {
     flex: 1 1 50%;
     text-align: center;
-    padding: 0.5rem 0.5rem;
-    font-size: 0.75rem;
+    justify-content: center;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.6875rem;
+  }
+
+  /* Mobile Atelier Showcase: Side-by-side compact plinths */
+  .wall-atelier-showcase {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0.625rem;
+    min-height: auto;
+    margin-top: 1.25rem;
+  }
+
+  .wall-plate-backframe {
+    position: relative;
+    width: 60%;
+    height: 140px;
+  }
+
+  .wall-plinth-foreground {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 40%;
+    height: 140px;
+    flex-shrink: 0;
+  }
+
+  .wall-plinth-caption {
+    font-size: 0.5rem;
+    padding: 0.5rem 0.25rem 0.25rem;
+  }
+
+  /* Mobile Museum Showcase: Stacked vitrine and protocol card */
+  .wall-museum-showcase {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.625rem;
+    min-height: auto;
+    margin-top: 1.25rem;
+  }
+
+  .wall-museum-vitrine {
+    position: relative;
+    width: 100%;
+    height: 130px;
+  }
+
+  .wall-inquiry-elevation-card {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .wall-inquiry-quote {
+    font-size: 0.6875rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .wall-detail-micro-accent {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: flex-start;
+    margin-top: 0.25rem;
+  }
+
+  .wall-curatorial-badges {
+    margin-bottom: 0.75rem;
+    gap: 0.35rem;
+  }
+
+  .wall-badge-pill {
+    font-size: 0.625rem;
+    padding: 0.2rem 0.45rem;
+  }
+
+  .wall-edge-cue {
+    padding-top: 0.75rem;
+  }
+}
+
+/* Tablet (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .wall-stage-panel {
+    flex: 0 0 90vw;
+    width: 90vw;
+  }
+
+  .wall-plinth-foreground {
+    right: 120px;
+    width: 150px;
+    height: 220px;
+  }
+
+  .wall-inquiry-elevation-card {
+    right: 110px;
+    width: 180px;
+    padding: 1rem;
   }
 }
 

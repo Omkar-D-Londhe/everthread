@@ -216,25 +216,56 @@ export const LivingInheritanceWall: React.FC<LivingInheritanceWallProps> = ({
         <div className="page-container">
           {listedProducts.length === 0 ? (
             /* Curatorial Invariant Notice: TR products are currently unlisted */
-            <div className="p-5 bg-cream border-hairline text-center my-4" data-testid="curatorial-reserve-notice">
-              <div className="d-inline-flex align-items-center gap-2 mb-3">
-                <span style={{ width: 16, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
-                <span className="label-caps text-champagne">Archival Reserve Inquiry</span>
-                <span style={{ width: 16, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
-              </div>
-              <h2 className="headline-md text-oxblood mb-2">
-                Seven Exploratory Concept Silhouettes in Curatorial Reserve
-              </h2>
-              <p className="body-md text-muted-editorial mx-auto mb-4" style={{ maxWidth: 640 }}>
-                The Living Inheritance (TR-01 through TR-07) represents exploratory concept studies. In strict compliance with House authenticity standards (O-6-C and O-11), pieces remain in archival documentation reserve until visual assets and craft provenance records are approved.
-              </p>
-              <div className="d-flex justify-content-center gap-3 flex-wrap">
-                <Link to="/collections" className="btn-oxblood">
-                  Explore Contemporary Repertoire
-                </Link>
-                <Link to="/archive" className="btn-outline-editorial">
-                  Consult Cultural Archive
-                </Link>
+            <div className="curatorial-reserve-dossier text-center my-4" data-testid="curatorial-reserve-notice">
+              <div data-testid="living-inheritance-curatorial-state" style={{ display: 'contents' }}>
+                <div className="d-inline-flex align-items-center gap-2 mb-3">
+                  <span style={{ width: 16, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+                  <span className="label-caps text-champagne">Archival Reserve Inquiry · Protocol O-6</span>
+                  <span style={{ width: 16, height: 1, backgroundColor: 'var(--color-champagne-thread)' }}></span>
+                </div>
+                <h2 className="headline-md text-oxblood mb-2 font-serif">
+                  Seven Exploratory Concept Silhouettes in Curatorial Reserve
+                </h2>
+                <p className="body-md text-muted-editorial mx-auto mb-4" style={{ maxWidth: 640 }}>
+                  The Living Inheritance (TR-01 through TR-07) represents exploratory concept studies. In strict compliance with House authenticity standards (O-6-C and O-11), pieces remain in archival documentation reserve until visual assets and craft provenance records are approved.
+                </p>
+
+                {/* Three Provenance Safeguard Pillars */}
+                <div className="row g-3 justify-content-center mb-4 text-start" style={{ maxWidth: 780, margin: '0 auto' }}>
+                  <div className="col-12 col-md-4">
+                    <div className="curatorial-pillar-item">
+                      <span className="label-caps-wide text-champagne d-block mb-1">01 · Provenance</span>
+                      <p className="body-xs text-oxblood mb-0">
+                        Zero unverified geographic or artisan claims permitted prior to verified documentation.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-4">
+                    <div className="curatorial-pillar-item">
+                      <span className="label-caps-wide text-champagne d-block mb-1">02 · Craft Lineage</span>
+                      <p className="body-xs text-oxblood mb-0">
+                        Korvai borders, kadwa brocades, and double-ikat resist techniques documented as living disciplines.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-4">
+                    <div className="curatorial-pillar-item">
+                      <span className="label-caps-wide text-champagne d-block mb-1">03 · Reserve Access</span>
+                      <p className="body-xs text-oxblood mb-0">
+                        Pieces remain non-purchasable prototypes. Allocation by private curatorial consultation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="d-flex justify-content-center gap-3 flex-wrap">
+                  <Link to="/collections" className="btn-oxblood">
+                    Explore Contemporary Repertoire
+                  </Link>
+                  <Link to="/archive" className="btn-outline-editorial">
+                    Consult Cultural Archive
+                  </Link>
+                </div>
               </div>
             </div>
           ) : isCustomFilteredOrSorted ? (

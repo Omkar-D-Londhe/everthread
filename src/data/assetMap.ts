@@ -500,6 +500,527 @@ export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
       }
     ]
   }
+
+};
+
+export const TRADITIONAL_PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
+"tr-01": {
+    id: "tr-01",
+    slug: "banaras-afterlight-sculpted-brocade-mantle-coat",
+    title: "Banaras Afterlight — Sculpted Brocade Mantle Coat",
+    primary: {
+      src: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-primary.webp",
+      srcSet: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-primary.webp 1122w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-primary-800w.webp 800w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-primary-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Banaras Afterlight — Sculpted Brocade Mantle Coat — Primary View",
+      label: "Primary View"
+    },
+    macro: {
+      src: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-detail.webp",
+      srcSet: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-detail.webp 1122w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-detail-800w.webp 800w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-detail-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Banaras Afterlight — Sculpted Brocade Mantle Coat — Kadwa Brocade Detail",
+      label: "Kadwa Brocade Detail"
+    },
+    gallery: [
+      {
+        src: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-primary.webp",
+        srcSet: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-primary.webp 1122w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-primary-800w.webp 800w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-primary-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Banaras Afterlight — Sculpted Brocade Mantle Coat — Primary Front View",
+        label: "Primary View"
+      },
+      {
+        src: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-detail.webp",
+        srcSet: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-detail.webp 1122w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-detail-800w.webp 800w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-detail-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Banaras Afterlight — Classical Kadwa Floral Brocade Close-Up",
+        label: "Brocade Weave Detail"
+      },
+      {
+        src: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-three-quarter.webp",
+        srcSet: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-three-quarter.webp 1122w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-three-quarter-800w.webp 800w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-three-quarter-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Banaras Afterlight — Three-Quarter Profile View",
+        label: "Profile Drape"
+      },
+      {
+        src: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-editorial-seated.webp",
+        srcSet: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-editorial-seated.webp 1122w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-editorial-seated-800w.webp 800w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-editorial-seated-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Banaras Afterlight — Seated Architectural Composition",
+        label: "Curatorial Seated Still"
+      },
+      {
+        src: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-back.webp",
+        srcSet: "/images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-back.webp 1122w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-back-800w.webp 800w, /images/products/tr-01-banaras-afterlight/tr-01-banaras-afterlight-back-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Banaras Afterlight — Tailored Mantle Coat Rear View",
+        label: "Back View"
+      }
+    ]
+  },
+  "tr-02": {
+    id: "tr-02",
+    slug: "mayura-axis-sculpted-drape-gown",
+    title: "Mayura Axis — Sculpted Drape Gown",
+    primary: {
+      src: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-primary.webp",
+      srcSet: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-primary.webp 1122w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-primary-800w.webp 800w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-primary-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Mayura Axis — Sculpted Drape Gown — Primary View",
+      label: "Primary View"
+    },
+    macro: {
+      src: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-detail.webp",
+      srcSet: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-detail.webp 1122w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-detail-800w.webp 800w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-detail-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Mayura Axis — Sculpted Drape Gown — Paithani Tapestry Border Detail",
+      label: "Paithani Tapestry Border Detail"
+    },
+    gallery: [
+      {
+        src: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-primary.webp",
+        srcSet: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-primary.webp 1122w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-primary-800w.webp 800w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-primary-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Mayura Axis — Sculpted Drape Gown — Primary View",
+        label: "Primary View"
+      },
+      {
+        src: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-detail.webp",
+        srcSet: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-detail.webp 1122w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-detail-800w.webp 800w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-detail-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Mayura Axis — Paithani Interlocking Tapestry Peacock Weave",
+        label: "Peacock Border Detail"
+      },
+      {
+        src: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-three-quarter.webp",
+        srcSet: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-three-quarter.webp 1122w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-three-quarter-800w.webp 800w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-three-quarter-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Mayura Axis — Asymmetric Drape Three-Quarter View",
+        label: "Drape Profile"
+      },
+      {
+        src: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-editorial-seated.webp",
+        srcSet: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-editorial-seated.webp 1122w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-editorial-seated-800w.webp 800w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-editorial-seated-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Mayura Axis — Seated Studio Composition",
+        label: "Editorial Silhouette"
+      },
+      {
+        src: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-back.webp",
+        srcSet: "/images/products/tr-02-mayura-axis/tr-02-mayura-axis-back.webp 1122w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-back-800w.webp 800w, /images/products/tr-02-mayura-axis/tr-02-mayura-axis-back-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Mayura Axis — Rear Gown Line with Gold Border",
+        label: "Back View"
+      }
+    ]
+  },
+  "tr-03": {
+    id: "tr-03",
+    slug: "patola-geometry-reversible-jacket-and-trouser-set",
+    title: "Patola Geometry — Reversible Jacket & Trouser Set",
+    primary: {
+      src: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-primary.webp",
+      srcSet: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-primary.webp 1122w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-primary-800w.webp 800w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-primary-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Patola Geometry — Reversible Jacket & Trouser Set — Primary View",
+      label: "Primary View"
+    },
+    macro: {
+      src: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-detail.webp",
+      srcSet: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-detail.webp 1374w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-detail-800w.webp 800w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-detail-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1374,
+      height: 1145,
+      alt: "Patola Geometry — Reversible Jacket & Trouser Set — Double-Ikat Grid Detail",
+      label: "Double-Ikat Grid Detail"
+    },
+    gallery: [
+      {
+        src: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-primary.webp",
+        srcSet: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-primary.webp 1122w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-primary-800w.webp 800w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-primary-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Patola Geometry — Reversible Jacket & Trouser Set — Primary View",
+        label: "Primary View"
+      },
+      {
+        src: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-detail.webp",
+        srcSet: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-detail.webp 1374w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-detail-800w.webp 800w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-detail-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1374,
+        height: 1145,
+        alt: "Patola Geometry — Patan Double-Ikat Silk Weave Close-Up",
+        label: "Double-Ikat Geometric Detail"
+      },
+      {
+        src: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-three-quarter.webp",
+        srcSet: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-three-quarter.webp 1122w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-three-quarter-800w.webp 800w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-three-quarter-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Patola Geometry — Three-Quarter Angle",
+        label: "Profile View"
+      },
+      {
+        src: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-reversible.webp",
+        srcSet: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-reversible.webp 1122w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-reversible-800w.webp 800w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-reversible-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Patola Geometry — Geometric Double-Ikat Study",
+        label: "Reversible Study — Geometric Weave Detail"
+      },
+      {
+        src: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-editorial-seated.webp",
+        srcSet: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-editorial-seated.webp 1122w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-editorial-seated-800w.webp 800w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-editorial-seated-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Patola Geometry — Seated Architectural Composition",
+        label: "Editorial Seated"
+      },
+      {
+        src: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-back.webp",
+        srcSet: "/images/products/tr-03-patola-geometry/tr-03-patola-geometry-back.webp 1122w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-back-800w.webp 800w, /images/products/tr-03-patola-geometry/tr-03-patola-geometry-back-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Patola Geometry — Tailored Jacket Rear View",
+        label: "Back View"
+      }
+    ]
+  },
+  "tr-04": {
+    id: "tr-04",
+    slug: "temple-grid-longline-tunic-and-trouser-set",
+    title: "Temple Grid — Longline Tunic & Trouser Set",
+    primary: {
+      src: "/images/products/tr-04-temple-grid/tr-04-temple-grid-primary.webp",
+      srcSet: "/images/products/tr-04-temple-grid/tr-04-temple-grid-primary.webp 1122w, /images/products/tr-04-temple-grid/tr-04-temple-grid-primary-800w.webp 800w, /images/products/tr-04-temple-grid/tr-04-temple-grid-primary-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Temple Grid — Longline Tunic & Trouser Set — Primary View",
+      label: "Primary View"
+    },
+    macro: {
+      src: "/images/products/tr-04-temple-grid/tr-04-temple-grid-detail.webp",
+      srcSet: "/images/products/tr-04-temple-grid/tr-04-temple-grid-detail.webp 1122w, /images/products/tr-04-temple-grid/tr-04-temple-grid-detail-800w.webp 800w, /images/products/tr-04-temple-grid/tr-04-temple-grid-detail-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Temple Grid — Longline Tunic & Trouser Set — Korvai Temple Border Detail",
+      label: "Korvai Temple Border Detail"
+    },
+    gallery: [
+      {
+        src: "/images/products/tr-04-temple-grid/tr-04-temple-grid-primary.webp",
+        srcSet: "/images/products/tr-04-temple-grid/tr-04-temple-grid-primary.webp 1122w, /images/products/tr-04-temple-grid/tr-04-temple-grid-primary-800w.webp 800w, /images/products/tr-04-temple-grid/tr-04-temple-grid-primary-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Temple Grid — Longline Tunic & Trouser Set — Primary View",
+        label: "Primary View"
+      },
+      {
+        src: "/images/products/tr-04-temple-grid/tr-04-temple-grid-detail.webp",
+        srcSet: "/images/products/tr-04-temple-grid/tr-04-temple-grid-detail.webp 1122w, /images/products/tr-04-temple-grid/tr-04-temple-grid-detail-800w.webp 800w, /images/products/tr-04-temple-grid/tr-04-temple-grid-detail-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Temple Grid — Kanchipuram Interlocking Korvai Temple Border",
+        label: "Korvai Border Detail"
+      },
+      {
+        src: "/images/products/tr-04-temple-grid/tr-04-temple-grid-three-quarter.webp",
+        srcSet: "/images/products/tr-04-temple-grid/tr-04-temple-grid-three-quarter.webp 1122w, /images/products/tr-04-temple-grid/tr-04-temple-grid-three-quarter-800w.webp 800w, /images/products/tr-04-temple-grid/tr-04-temple-grid-three-quarter-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Temple Grid — Three-Quarter View",
+        label: "Profile View"
+      },
+      {
+        src: "/images/products/tr-04-temple-grid/tr-04-temple-grid-editorial-seated.webp",
+        srcSet: "/images/products/tr-04-temple-grid/tr-04-temple-grid-editorial-seated.webp 1122w, /images/products/tr-04-temple-grid/tr-04-temple-grid-editorial-seated-800w.webp 800w, /images/products/tr-04-temple-grid/tr-04-temple-grid-editorial-seated-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Temple Grid — Seated Composition",
+        label: "Curatorial Seated Still"
+      },
+      {
+        src: "/images/products/tr-04-temple-grid/tr-04-temple-grid-back.webp",
+        srcSet: "/images/products/tr-04-temple-grid/tr-04-temple-grid-back.webp 1122w, /images/products/tr-04-temple-grid/tr-04-temple-grid-back-800w.webp 800w, /images/products/tr-04-temple-grid/tr-04-temple-grid-back-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Temple Grid — Longline Tunic Rear View",
+        label: "Back View"
+      }
+    ]
+  },
+  "tr-05": {
+    id: "tr-05",
+    slug: "moonveil-sheer-embroidered-overlay",
+    title: "Moonveil — Sheer Embroidered Overlay",
+    primary: {
+      src: "/images/products/tr-05-moonveil/tr-05-moonveil-primary.webp",
+      srcSet: "/images/products/tr-05-moonveil/tr-05-moonveil-primary.webp 1122w, /images/products/tr-05-moonveil/tr-05-moonveil-primary-800w.webp 800w, /images/products/tr-05-moonveil/tr-05-moonveil-primary-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Moonveil — Sheer Embroidered Overlay — Primary View",
+      label: "Primary View"
+    },
+    macro: {
+      src: "/images/products/tr-05-moonveil/tr-05-moonveil-detail.webp",
+      srcSet: "/images/products/tr-05-moonveil/tr-05-moonveil-detail.webp 1122w, /images/products/tr-05-moonveil/tr-05-moonveil-detail-800w.webp 800w, /images/products/tr-05-moonveil/tr-05-moonveil-detail-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Moonveil — Sheer Embroidered Overlay — Chikankari Shadow-Work Detail",
+      label: "Chikankari Shadow-Work Detail"
+    },
+    gallery: [
+      {
+        src: "/images/products/tr-05-moonveil/tr-05-moonveil-primary.webp",
+        srcSet: "/images/products/tr-05-moonveil/tr-05-moonveil-primary.webp 1122w, /images/products/tr-05-moonveil/tr-05-moonveil-primary-800w.webp 800w, /images/products/tr-05-moonveil/tr-05-moonveil-primary-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Moonveil — Sheer Embroidered Overlay — Primary View",
+        label: "Primary View"
+      },
+      {
+        src: "/images/products/tr-05-moonveil/tr-05-moonveil-detail.webp",
+        srcSet: "/images/products/tr-05-moonveil/tr-05-moonveil-detail.webp 1122w, /images/products/tr-05-moonveil/tr-05-moonveil-detail-800w.webp 800w, /images/products/tr-05-moonveil/tr-05-moonveil-detail-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Moonveil — Delicate Bakhiya Shadow-Work on Sheer Mulmul",
+        label: "Chikankari Embroidery Detail"
+      },
+      {
+        src: "/images/products/tr-05-moonveil/tr-05-moonveil-overlay-slip-detail.webp",
+        srcSet: "/images/products/tr-05-moonveil/tr-05-moonveil-overlay-slip-detail.webp 1122w, /images/products/tr-05-moonveil/tr-05-moonveil-overlay-slip-detail-800w.webp 800w, /images/products/tr-05-moonveil/tr-05-moonveil-overlay-slip-detail-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Moonveil — Sheer Overlay with Silk Slip Layering",
+        label: "Overlay & Slip Layering"
+      },
+      {
+        src: "/images/products/tr-05-moonveil/tr-05-moonveil-three-quarter.webp",
+        srcSet: "/images/products/tr-05-moonveil/tr-05-moonveil-three-quarter.webp 1122w, /images/products/tr-05-moonveil/tr-05-moonveil-three-quarter-800w.webp 800w, /images/products/tr-05-moonveil/tr-05-moonveil-three-quarter-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Moonveil — Three-Quarter Angle",
+        label: "Profile View"
+      },
+      {
+        src: "/images/products/tr-05-moonveil/tr-05-moonveil-editorial-seated.webp",
+        srcSet: "/images/products/tr-05-moonveil/tr-05-moonveil-editorial-seated.webp 1122w, /images/products/tr-05-moonveil/tr-05-moonveil-editorial-seated-800w.webp 800w, /images/products/tr-05-moonveil/tr-05-moonveil-editorial-seated-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Moonveil — Seated Architectural Composition",
+        label: "Editorial Seated"
+      },
+      {
+        src: "/images/products/tr-05-moonveil/tr-05-moonveil-back.webp",
+        srcSet: "/images/products/tr-05-moonveil/tr-05-moonveil-back.webp 1122w, /images/products/tr-05-moonveil/tr-05-moonveil-back-800w.webp 800w, /images/products/tr-05-moonveil/tr-05-moonveil-back-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Moonveil — Embroidered Back View",
+        label: "Back View"
+      }
+    ]
+  },
+  "tr-06": {
+    id: "tr-06",
+    slug: "indigo-orbit-geometric-overshirt-and-trouser-co-ord",
+    title: "Indigo Orbit — Geometric Overshirt & Trouser Co-ord",
+    primary: {
+      src: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-primary.webp",
+      srcSet: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-primary.webp 1127w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-primary-800w.webp 800w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-primary-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1127,
+      height: 1396,
+      alt: "Indigo Orbit — Geometric Overshirt & Trouser Co-ord — Primary View",
+      label: "Primary View"
+    },
+    macro: {
+      src: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-detail.webp",
+      srcSet: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-detail.webp 1127w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-detail-800w.webp 800w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-detail-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1127,
+      height: 1396,
+      alt: "Indigo Orbit — Geometric Overshirt & Trouser Co-ord — Ajrakh Resist-Block Detail",
+      label: "Ajrakh Resist-Block Detail"
+    },
+    gallery: [
+      {
+        src: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-primary.webp",
+        srcSet: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-primary.webp 1127w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-primary-800w.webp 800w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-primary-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1127,
+        height: 1396,
+        alt: "Indigo Orbit — Overshirt & Trouser Co-ord — Primary View",
+        label: "Primary View"
+      },
+      {
+        src: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-detail.webp",
+        srcSet: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-detail.webp 1127w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-detail-800w.webp 800w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-detail-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1127,
+        height: 1396,
+        alt: "Indigo Orbit — Natural Indigo Resist Block-Print Motif",
+        label: "Ajrakh Star-Grid Detail"
+      },
+      {
+        src: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-signature-detail.webp",
+        srcSet: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-signature-detail.webp 1127w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-signature-detail-800w.webp 800w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-signature-detail-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1127,
+        height: 1396,
+        alt: "Indigo Orbit — Hand-Carved Teak Block Print Alignment",
+        label: "Teak Block Print Craft"
+      },
+      {
+        src: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-three-quarter.webp",
+        srcSet: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-three-quarter.webp 1127w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-three-quarter-800w.webp 800w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-three-quarter-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1127,
+        height: 1396,
+        alt: "Indigo Orbit — Three-Quarter Angle",
+        label: "Profile View"
+      },
+      {
+        src: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-editorial-seated.webp",
+        srcSet: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-editorial-seated.webp 1127w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-editorial-seated-800w.webp 800w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-editorial-seated-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1127,
+        height: 1396,
+        alt: "Indigo Orbit — Relaxed Trouser Drape",
+        label: "Editorial Seated"
+      },
+      {
+        src: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-back.webp",
+        srcSet: "/images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-back.webp 1127w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-back-800w.webp 800w, /images/products/tr-06-indigo-orbit/tr-06-indigo-orbit-back-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1127,
+        height: 1396,
+        alt: "Indigo Orbit — Back Panel Line",
+        label: "Back View"
+      }
+    ]
+  },
+  "tr-07": {
+    id: "tr-07",
+    slug: "tidal-bind-sculpted-cape-dress",
+    title: "Tidal Bind — Sculpted Cape Dress",
+    primary: {
+      src: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-primary.webp",
+      srcSet: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-primary.webp 1122w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-primary-800w.webp 800w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-primary-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Tidal Bind — Sculpted Cape Dress — Primary View",
+      label: "Primary View"
+    },
+    macro: {
+      src: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-detail.webp",
+      srcSet: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-detail.webp 1122w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-detail-800w.webp 800w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-detail-400w.webp 400w",
+      sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+      width: 1122,
+      height: 1402,
+      alt: "Tidal Bind — Sculpted Cape Dress — Bandhani Micro-Resist Detail",
+      label: "Bandhani Micro-Resist Detail"
+    },
+    gallery: [
+      {
+        src: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-primary.webp",
+        srcSet: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-primary.webp 1122w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-primary-800w.webp 800w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-primary-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Tidal Bind — Sculpted Cape Dress — Primary View",
+        label: "Primary View"
+      },
+      {
+        src: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-detail.webp",
+        srcSet: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-detail.webp 1122w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-detail-800w.webp 800w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-detail-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Tidal Bind — Fine Bandhani Micro-Resist Dyeing on Silk",
+        label: "Bandhani Knot Detail"
+      },
+      {
+        src: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-three-quarter.webp",
+        srcSet: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-three-quarter.webp 1122w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-three-quarter-800w.webp 800w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-three-quarter-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Tidal Bind — Sculpted Cape Silhouette Profile",
+        label: "Cape Profile"
+      },
+      {
+        src: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-editorial-seated.webp",
+        srcSet: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-editorial-seated.webp 1122w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-editorial-seated-800w.webp 800w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-editorial-seated-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Tidal Bind — Seated Architectural Composition",
+        label: "Editorial Seated"
+      },
+      {
+        src: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-back.webp",
+        srcSet: "/images/products/tr-07-tidal-bind/tr-07-tidal-bind-back.webp 1122w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-back-800w.webp 800w, /images/products/tr-07-tidal-bind/tr-07-tidal-bind-back-400w.webp 400w",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+        width: 1122,
+        height: 1402,
+        alt: "Tidal Bind — Cape Dress Rear Line",
+        label: "Back View"
+      }
+    ]
+  }
 };
 
 export const DIAGRAM_ASSETS: Record<string, DiagramAsset> = {

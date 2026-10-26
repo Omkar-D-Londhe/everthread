@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getCatalogueProductBySlug, PRODUCTS } from '../data/products.ts';
 import { ProductColorVariant, isTraditional, Product } from '../types/catalog.ts';
-import { PRODUCT_ASSET_MAP, ResponsiveImage } from '../data/assetMap.ts';
+import { PRODUCT_ASSET_MAP, TRADITIONAL_PRODUCT_ASSET_MAP, ResponsiveImage } from '../data/assetMap.ts';
 import { useCart } from '../context/CartContext.tsx';
 import { useSaved } from '../context/SavedContext.tsx';
 import { getStoryBySlug } from '../data/stories.ts';
@@ -68,8 +68,9 @@ export const ProductDetailPage: React.FC = () => {
   const handleSelectImage = (idx: number) => {
     if (idx === activeImageIndex) return;
     if (product) {
-      const currentGallery = PRODUCT_ASSET_MAP[product.id]?.gallery || [PRODUCT_ASSET_MAP[product.id]?.primary];
-      const currentImg = currentGallery[activeImageIndex] || PRODUCT_ASSET_MAP[product.id]?.primary;
+      const record = PRODUCT_ASSET_MAP[product.id] || TRADITIONAL_PRODUCT_ASSET_MAP[product.id];
+      const currentGallery = record?.gallery || [record?.primary];
+      const currentImg = currentGallery[activeImageIndex] || record?.primary;
       if (currentImg) {
         setPrevImage(currentImg);
       }
@@ -187,7 +188,7 @@ export const ProductDetailPage: React.FC = () => {
   }
 
   // Gallery resolution from asset map
-  const assetRecord = PRODUCT_ASSET_MAP[product.id];
+  const assetRecord = PRODUCT_ASSET_MAP[product.id] || TRADITIONAL_PRODUCT_ASSET_MAP[product.id];
   const galleryImages: ResponsiveImage[] = assetRecord?.gallery && assetRecord.gallery.length > 0
     ? assetRecord.gallery
     : product.gallery && product.gallery.length > 0
