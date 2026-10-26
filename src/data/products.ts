@@ -1,5 +1,6 @@
-import { Product } from '../types/catalog.ts';
+import { Product, CatalogueProduct } from '../types/catalog.ts';
 import { PRODUCT_ASSET_MAP } from './assetMap.ts';
+import { TRADITIONAL_PRODUCTS } from './traditionalProducts.ts';
 
 export const PRODUCTS: Product[] = [
   {
@@ -52,8 +53,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'et-02',
-    slug: 'ivory-raw-tussar-cocoon-trench',
-    title: 'Ivory Raw Tussar Cocoon Trench',
+    slug: 'ivory-hand-spun-matka-silk-cocoon-trench',
+    title: 'Ivory Hand-Spun Matka Silk Cocoon Trench',
     subtitle: 'Hand-Spun Changthangi Matka Silk with Minimalist Cocoon Collar',
     category: 'Outerwear',
     edition: 'Edition of 15',
@@ -76,7 +77,7 @@ export const PRODUCTS: Product[] = [
     curatorTags: ['material-silk', 'form-structured', 'atelier-hands'],
     image: PRODUCT_ASSET_MAP['et-02'].primary.src,
     macroImage: PRODUCT_ASSET_MAP['et-02'].macro?.src || PRODUCT_ASSET_MAP['et-02'].primary.src,
-    imageAlt: 'Structured drape of the Ivory Raw Tussar Cocoon Trench in soft gallery light',
+    imageAlt: 'Structured drape of the Ivory Hand-Spun Matka Silk Cocoon Trench in soft gallery light',
     macroImageAlt: 'Macro loupe showing textured slubs of 100% hand-spun raw silk at 95 TPI',
     imageCredit: 'EverThread Atelier Archival Study',
     gallery: PRODUCT_ASSET_MAP['et-02'].gallery,
@@ -328,25 +329,83 @@ export const PRODUCTS: Product[] = [
   }
 ];
 
-// Utility lookups with full backward-compatibility for legacy slugs
+export const CONTEMPORARY_PRODUCTS: Product[] = PRODUCTS;
+export const ALL_PRODUCTS: CatalogueProduct[] = [...PRODUCTS, ...TRADITIONAL_PRODUCTS];
+
+const normalize = (val: string): string => (val ? val.trim().toLowerCase() : '');
+
+const matchesETLegacySlug = (norm: string, productId: string): boolean => {
+  if (productId === 'et-01') {
+    return norm === 'the-sylvan-mulberry-silk-trench';
+  }
+  if (productId === 'et-02') {
+    return (
+      norm === 'ivory-raw-tussar-cocoon-trench' ||
+      norm === 'the-drape-collar-pashmina-overcoat' ||
+      norm === 'ivory-structured-raw-silk-coat'
+    );
+  }
+  if (productId === 'et-03') {
+    return norm === 'the-architectonic-zari-waistcoat';
+  }
+  if (productId === 'et-04') {
+    return norm === 'the-pleated-indigo-chanderi-tunic';
+  }
+  if (productId === 'et-05') {
+    return (
+      norm === 'the-madder-dyed-bias-robe' ||
+      norm === 'oxblood-structured-box-calf-leather-bag'
+    );
+  }
+  if (productId === 'et-06') {
+    return (
+      norm === 'the-kadwa-brocade-ceremony-cape' ||
+      norm === 'handspun-mulberry-silk-scarf-burgundy'
+    );
+  }
+  if (productId === 'et-07') {
+    return (
+      norm === 'fine-pashmina-zari-reversible-stole-ivory' ||
+      norm === 'fine-pashmina-and-zari-reversible-stole-in-ivory'
+    );
+  }
+  return false;
+};
+
+// Utility lookups with full backward-compatibility for legacy slugs and case-insensitivity
 export const getProductById = (id: string): Product | undefined => {
-  return PRODUCTS.find(p => p.id === id);
+  const norm = normalize(id);
+  return PRODUCTS.find(p => normalize(p.id) === norm);
 };
 
 export const getProductBySlug = (slug: string): Product | undefined => {
+  const norm = normalize(slug);
   return PRODUCTS.find(
-    p => p.slug === slug || 
-         p.id === slug ||
-         (slug === 'the-sylvan-mulberry-silk-trench' && p.id === 'et-01') ||
-         (slug === 'the-drape-collar-pashmina-overcoat' && p.id === 'et-02') ||
-         (slug === 'ivory-structured-raw-silk-coat' && p.id === 'et-02') ||
-         (slug === 'the-architectonic-zari-waistcoat' && p.id === 'et-03') ||
-         (slug === 'the-pleated-indigo-chanderi-tunic' && p.id === 'et-04') ||
-         (slug === 'the-madder-dyed-bias-robe' && p.id === 'et-05') ||
-         (slug === 'oxblood-structured-box-calf-leather-bag' && p.id === 'et-05') ||
-         (slug === 'the-kadwa-brocade-ceremony-cape' && p.id === 'et-06') ||
-         (slug === 'handspun-mulberry-silk-scarf-burgundy' && p.id === 'et-06') ||
-         (slug === 'fine-pashmina-zari-reversible-stole-ivory' && p.id === 'et-07') ||
-         (slug === 'fine-pashmina-and-zari-reversible-stole-in-ivory' && p.id === 'et-07')
+    p =>
+      normalize(p.slug) === norm ||
+      normalize(p.id) === norm ||
+      matchesETLegacySlug(norm, p.id)
   );
+};
+
+export const getCatalogueProductById = (id: string): CatalogueProduct | undefined => {
+  const norm = normalize(id);
+  return ALL_PRODUCTS.find(p => normalize(p.id) === norm);
+};
+
+export const getCatalogueProductBySlug = (slug: string): CatalogueProduct | undefined => {
+  const norm = normalize(slug);
+  return ALL_PRODUCTS.find(
+    p =>
+      normalize(p.slug) === norm ||
+      normalize(p.id) === norm ||
+      matchesETLegacySlug(norm, p.id)
+  );
+};
+
+export const getListedProductBySlug = (slug: string): CatalogueProduct | undefined => {
+  const prod = getCatalogueProductBySlug(slug);
+  if (!prod) return undefined;
+  if ('isListed' in prod && prod.isListed === false) return undefined;
+  return prod;
 };

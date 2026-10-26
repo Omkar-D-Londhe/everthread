@@ -42,7 +42,7 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
   });
 
   describe('2. Tradition Exhibition Modal Commerce & Lineage Mappings', () => {
-    it('accurately maps Chanderi tradition to et-04 (Angrakha Asymmetric Sheer Tunic, ₹32,000)', () => {
+    it('enforces Decision O-7 / DEC D-25: blocks Kota Doria / Chanderi piece links pending candidate resolution', () => {
       render(
         <MemoryRouter>
           <CartProvider>
@@ -55,15 +55,15 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
         </MemoryRouter>
       );
 
-      const commerceCard = screen.getByTestId('exhibition-commerce-card');
-      expect(commerceCard).toBeInTheDocument();
-      expect(commerceCard.textContent).toContain('Angrakha Asymmetric Sheer Tunic');
-      expect(commerceCard.textContent).toContain('₹32,000');
-      // Must NOT be the Ivory Silk Coat (et-02)
-      expect(commerceCard.textContent).not.toContain('Ivory Raw Tussar Cocoon Trench');
+      // Blocked per DEC D-25 — no unapproved commerce card or acquire button
+      expect(screen.queryByTestId('exhibition-commerce-card')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('archive-acquire-btn')).not.toBeInTheDocument();
+      const notice = screen.getByTestId('exhibition-curatorial-notice');
+      expect(notice).toBeInTheDocument();
+      expect(notice.textContent).toContain('Curatorial Archival Record');
     });
 
-    it('accurately maps Pashmina tradition to et-07 (High-Altitude Hand-Spun Pashmina Stole, ₹38,000)', () => {
+    it('enforces Decision O-7: maps Pashmina / Kashmiri Sozni to info-only archival context without Acquire button', () => {
       render(
         <MemoryRouter>
           <CartProvider>
@@ -76,12 +76,11 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
         </MemoryRouter>
       );
 
-      const commerceCard = screen.getByTestId('exhibition-commerce-card');
-      expect(commerceCard).toBeInTheDocument();
-      expect(commerceCard.textContent).toContain('High-Altitude Hand-Spun Pashmina Stole');
-      expect(commerceCard.textContent).toContain('₹38,000');
-      // Must NOT be the Chanderi Tunic (et-04)
-      expect(commerceCard.textContent).not.toContain('Angrakha Asymmetric Sheer Tunic');
+      // Info-only context per Decision O-7
+      const infoNotice = screen.getByTestId('exhibition-info-notice');
+      expect(infoNotice).toBeInTheDocument();
+      expect(infoNotice.textContent).toContain('Pashmina is the ground fabric discussed in this folio.');
+      expect(screen.queryByTestId('archive-acquire-btn')).not.toBeInTheDocument();
     });
 
     it('displays Curatorial Archival Record notice for educational non-sellable traditions (e.g. Ajrakh)', () => {
@@ -109,7 +108,7 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
   });
 
   describe('3. Atelier Lens Modal on Traditional Outfits', () => {
-    it('opens 3.5× Atelier Lens on traditional outfit inspection and allows direct acquisition', () => {
+    it('opens 3.5× Atelier Lens on traditional outfit inspection without direct acquisition in Archive', () => {
       render(
         <MemoryRouter>
           <CartProvider>
@@ -135,18 +134,9 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
       expect(lensModal).toBeInTheDocument();
       expect(screen.getByText('3.5× Atelier Magnification')).toBeInTheDocument();
 
-      // Check direct acquire button inside lens
-      const lensAcquireBtn = screen.getByTestId('lens-acquire-btn');
-      expect(lensAcquireBtn).toBeInTheDocument();
-      expect(lensAcquireBtn.textContent).toContain('Acquire Piece (₹68,500)');
-
-      // Click acquire inside lens
-      fireEvent.click(lensAcquireBtn);
-
-      // Toast confirms addition
-      const toast = screen.getByTestId('archive-bag-toast');
-      expect(toast).toBeInTheDocument();
-      expect(toast.textContent).toContain('Piece added to your bespoke bag');
+      // Enforce Decision O-7 / Stage 02: No direct acquire button inside lens when opened from Archive
+      const lensAcquireBtn = screen.queryByTestId('lens-acquire-btn');
+      expect(lensAcquireBtn).not.toBeInTheDocument();
     });
   });
 });

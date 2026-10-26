@@ -18,7 +18,7 @@ describe('Stage 3.1: Asset Deployment & Product Image Binding', () => {
     expect(getProductById('et-01')?.title).toBe('Oxblood Wool-Silk Signature Coat-Dress');
     expect(getProductById('et-01')?.price).toBe(68500);
 
-    expect(getProductById('et-02')?.title).toBe('Ivory Raw Tussar Cocoon Trench');
+    expect(getProductById('et-02')?.title).toBe('Ivory Hand-Spun Matka Silk Cocoon Trench');
     expect(getProductById('et-02')?.price).toBe(112000);
 
     expect(getProductById('et-03')?.title).toBe('Architectonic Zari Waistcoat');

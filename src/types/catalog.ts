@@ -12,7 +12,13 @@ export interface ProductColorVariant {
   hex: string;
 }
 
-export type ProductCategory = 'Outerwear' | 'Waistcoats' | 'Tunics & Drapes' | 'Accessories';
+export type ProductCategory =
+  | 'Outerwear'
+  | 'Waistcoats'
+  | 'Tunics & Drapes'
+  | 'Accessories'
+  | 'Gowns & Drapes'
+  | 'Sets & Co-ords';
 
 export interface ContentIntegrityFlags {
   isEditionFictional: boolean;
@@ -22,7 +28,7 @@ export interface ContentIntegrityFlags {
   unsupportedClaims: string[];
 }
 
-export interface Product {
+export interface ProductBase {
   id: string;
   slug: string;
   title: string;
@@ -30,28 +36,74 @@ export interface Product {
   category: ProductCategory;
   price: number; // Integer in INR (₹)
   currency: string;
+  description: string;
+  colors: ProductColorVariant[];
+  curatorTags?: string[];
+  image: string;
+  macroImage?: string;
+  imageAlt: string;
+  macroImageAlt?: string;
+  imageCredit?: string;
+  gallery?: ResponsiveImage[];
+  relatedStorySlugs?: string[];
+  careInstructions?: string[];
+  contentFlags?: ContentIntegrityFlags;
+  provenance?: string;
+  creditText?: string;
+}
+
+export interface Product extends ProductBase {
+  collection?: 'contemporary';
   status: 'Made to Order' | 'Atelier Masterwork' | 'Limited Reserve';
   statusDisclaimer: string;
   leadTime: string;
   edition: string;
-  description: string;
   fiberPurity: string;
   weaveType: string;
   origin: string;
   warpDensity: string;
   artisanHours: string;
-  colors: ProductColorVariant[];
   sizes: string[];
   curatorTags: string[];
-  image: string;
   macroImage: string;
-  imageAlt: string;
   macroImageAlt: string;
-  imageCredit?: string;
-  gallery?: ResponsiveImage[];
-  relatedStorySlugs?: string[];
   careInstructions: string[];
   contentFlags: ContentIntegrityFlags;
+}
+
+export interface TraditionalPiece {
+  key: string;
+  label: string;
+  sizes: string[];
+}
+
+export interface TraditionalMaterial {
+  part: string;
+  composition: string;
+}
+
+export interface TraditionalInspiration {
+  traditionKey: string;
+  label: string;
+}
+
+export interface TraditionalProduct extends ProductBase {
+  collection: 'traditional';
+  pieces: TraditionalPiece[];
+  includes: string[];
+  materials: TraditionalMaterial[];
+  story: string;
+  inspiration: TraditionalInspiration;
+  statusText: string;
+  conceptNotice: string;
+  isListed: boolean;
+  isPurchasable?: boolean;
+}
+
+export type CatalogueProduct = Product | TraditionalProduct;
+
+export function isTraditional(p: CatalogueProduct): p is TraditionalProduct {
+  return (p as TraditionalProduct).collection === 'traditional';
 }
 
 export interface ArchiveDraftingSpec {

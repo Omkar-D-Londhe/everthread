@@ -1,14 +1,22 @@
 import React, { useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { getStoryBySlug, STORIES } from '../data/stories.ts';
 import { getProductBySlug } from '../data/products.ts';
 import { Product } from '../types/catalog.ts';
 import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { LoomThreadPathIllustration } from '../components/archive/ArchiveIllustrations.tsx';
 import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
+import { LEGACY_ARCHIVE_ROUTES } from '../data/legacyRoutes.ts';
 
 export const ArchiveStoryPage: React.FC = () => {
   const { storySlug } = useParams<{ storySlug: string }>();
+
+  // Backward compatibility: redirect legacy tradition slugs to canonical /archive?tradition=key
+  if (storySlug && LEGACY_ARCHIVE_ROUTES[storySlug]) {
+    const canonicalKey = LEGACY_ARCHIVE_ROUTES[storySlug];
+    return <Navigate to={`/archive?tradition=${canonicalKey}`} replace />;
+  }
+
   const story = storySlug ? getStoryBySlug(storySlug) : undefined;
 
   // Handle Invalid / Non-Existent Story Slug

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { TraditionExhibitionModal } from '../components/TraditionExhibitionModal.tsx';
@@ -29,7 +29,7 @@ describe('Archive Commerce & Right-Side Guidance Suite', () => {
     expect(guidance.textContent).toContain('Scroll Down To Examine Plates');
   });
 
-  it('links verified cultural tradition (Banarasi Brocade) to associated silhouette with bag flow', () => {
+  it('enforces Decision O-7 / DEC D-25: removes Acquire to Bag and blocks unapproved commerce links for Banarasi', () => {
     render(
       <MemoryRouter>
         <CartProvider>
@@ -42,18 +42,18 @@ describe('Archive Commerce & Right-Side Guidance Suite', () => {
       </MemoryRouter>
     );
 
-    const commerceCard = screen.getByTestId('exhibition-commerce-card');
-    expect(commerceCard).toBeInTheDocument();
-    expect(commerceCard.textContent).toContain('Oxblood Wool-Silk Signature Coat-Dress');
-    expect(commerceCard.textContent).toContain('Repertoire Lineage');
+    // Unsafe Acquire button is deleted per Stage 02 requirements
+    const acquireBtn = screen.queryByTestId('archive-acquire-btn');
+    expect(acquireBtn).not.toBeInTheDocument();
 
-    // Click Acquire to Bag
-    const acquireBtn = screen.getByTestId('archive-acquire-btn');
-    fireEvent.click(acquireBtn);
+    // Banarasi is blocked pending DEC D-25 / F-52 resolution
+    const commerceCard = screen.queryByTestId('exhibition-commerce-card');
+    expect(commerceCard).not.toBeInTheDocument();
 
-    const toast = screen.getByTestId('archive-bag-toast');
-    expect(toast).toBeInTheDocument();
-    expect(toast.textContent).toContain('Piece added to your bespoke bag');
+    // Curatorial notice is rendered instead
+    const notice = screen.getByTestId('exhibition-curatorial-notice');
+    expect(notice).toBeInTheDocument();
+    expect(notice.textContent).toContain('Curatorial Archival Record');
   });
 
   it('renders restrained SVG textile illustrations without cluttering the exhibition', () => {
