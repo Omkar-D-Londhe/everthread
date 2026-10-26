@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { BagItem, CartContextType } from '../types/index.ts';
-import { Product } from '../types/catalog.ts';
-import { getProductById } from '../data/products.ts';
+import { BagItem, CartContextType, AddToBagResult } from '../types/index.ts';
+import { CatalogueProduct } from '../types/catalog.ts';
+import { getCatalogueProductById } from '../data/products.ts';
 
 const STORAGE_KEY_BAG = 'everthread_bag_v2';
 
@@ -17,7 +17,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return parsed
           .filter(item => {
             if (!item || typeof item !== 'object') return false;
-            const hasValidId = typeof item.productId === 'string' && !!getProductById(item.productId);
+            const hasValidId = typeof item.productId === 'string' && !!getCatalogueProductById(item.productId);
             const hasValidQty = typeof item.quantity === 'number' && Number.isInteger(item.quantity) && item.quantity > 0;
             const hasValidSize = typeof item.size === 'string' && item.size.trim().length > 0;
             const hasValidColor = typeof item.color === 'string' && item.color.trim().length > 0;
@@ -53,7 +53,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
               parsed
                 .filter(item => {
                   if (!item || typeof item !== 'object') return false;
-                  const hasValidId = typeof item.productId === 'string' && !!getProductById(item.productId);
+                  const hasValidId = typeof item.productId === 'string' && !!getCatalogueProductById(item.productId);
                   const hasValidQty = typeof item.quantity === 'number' && Number.isInteger(item.quantity) && item.quantity > 0;
                   const hasValidSize = typeof item.size === 'string' && item.size.trim().length > 0;
                   const hasValidColor = typeof item.color === 'string' && item.color.trim().length > 0;
@@ -79,7 +79,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Derived subtotal: strictly looked up from catalogue to prevent stale/tampered storage values
   const subtotal = bag.reduce((acc, item) => {
-    const prod = getProductById(item.productId);
+    const prod = getCatalogueProductById(item.productId);
     return acc + (prod ? prod.price * (item.quantity || 1) : 0);
   }, 0);
 
@@ -88,22 +88,63 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return '₹' + amount.toLocaleString('en-IN');
   };
 
-  const getItemProduct = (productId: string): Product | undefined => {
-    return getProductById(productId);
+  const getItemProduct = (productId: string): CatalogueProduct | undefined => {
+    return getCatalogueProductById(productId);
   };
 
-  const addToBag = (item: Omit<BagItem, 'quantity'> & { quantity?: number }) => {
-    const prod = getProductById(item.productId);
-    if (!prod) return; // Do not add unknown products
+  const addToBag = (item: Omit<BagItem, 'quantity'> & { quantity?: number }): AddToBagResult => {
+    const prod = getCatalogueProductById(item.productId);
+    if (!prod) {
+      return { ok: false, reason: 'unknown-product' };
+    }
+    if ('isListed' in prod && prod.isListed === false) {
+      return { ok: false, reason: 'not-listed' };
+    }
+
+    // Size validation:
+    if ('pieces' in prod && Array.isArray(prod.pieces) && prod.pieces.length > 0) {
+      if (!item.sizes) {
+        return { ok: false, reason: 'missing-size' };
+      }
+      for (const piece of prod.pieces) {
+        if (!item.sizes[piece.key] || item.sizes[piece.key].trim().length === 0) {
+          return { ok: false, reason: 'missing-size' };
+        }
+      }
+    } else if ('sizes' in prod && Array.isArray(prod.sizes) && prod.sizes.length > 0) {
+      if (!item.size || item.size.trim().length === 0) {
+        return { ok: false, reason: 'missing-size' };
+      }
+    }
 
     const qtyToAdd = item.quantity && Number.isInteger(item.quantity) && item.quantity > 0 ? item.quantity : 1;
     const selectedColor = item.color || (prod.colors[0] ? prod.colors[0].name : 'Signature');
-    const selectedSize = item.size || (prod.sizes[0] ? prod.sizes[0] : 'Standard');
-    const itemVariantId = item.variantId || `${item.productId}-${selectedColor}-${selectedSize}`;
+
+    // Build human-readable size string and sizeKey
+    let humanSize = item.size;
+    let sizeKey = item.size;
+    if (item.sizes && Object.keys(item.sizes).length > 0) {
+      if ('pieces' in prod && Array.isArray(prod.pieces) && prod.pieces.length > 0) {
+        humanSize = prod.pieces
+          .map(p => `${p.label} ${item.sizes![p.key] || ''}`)
+          .join(' · ');
+        sizeKey = prod.pieces
+          .map(p => `${p.key}_${item.sizes![p.key] || ''}`)
+          .join('_');
+      } else {
+        humanSize = Object.entries(item.sizes).map(([k, v]) => `${k} ${v}`).join(' · ');
+        sizeKey = Object.entries(item.sizes).sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => `${k}_${v}`).join('_');
+      }
+    } else if (!humanSize) {
+      humanSize = 'Standard';
+      sizeKey = 'Standard';
+    }
+
+    const itemVariantId = item.variantId || `${item.productId}-${selectedColor}-${sizeKey}`;
 
     setBag(prev => {
       const existingIdx = prev.findIndex(
-        p => p.productId === item.productId && p.size === selectedSize && p.color === selectedColor
+        p => p.variantId === itemVariantId || (p.productId === item.productId && p.color === selectedColor && p.size === humanSize)
       );
       if (existingIdx > -1) {
         const next = [...prev];
@@ -118,12 +159,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         {
           productId: item.productId,
           variantId: itemVariantId,
-          size: selectedSize,
+          size: humanSize,
+          sizes: item.sizes,
           color: selectedColor,
           quantity: qtyToAdd
         }
       ];
     });
+
+    return { ok: true };
   };
 
   const removeFromBag = (target: number | string) => {
@@ -143,8 +187,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (index < 0 || index >= prev.length) return prev;
       const current = prev[index];
       const newQty = current.quantity + delta;
-      if (newQty <= 0) {
-        return prev.filter((_, i) => i !== index);
+      // Decrement at quantity 1 never deletes; only explicit Remove deletes
+      if (newQty < 1) {
+        return prev;
       }
       const next = [...prev];
       next[index] = { ...current, quantity: newQty };

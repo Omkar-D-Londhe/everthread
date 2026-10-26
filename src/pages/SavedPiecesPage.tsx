@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSaved } from '../context/SavedContext.tsx';
 import { useCart } from '../context/CartContext.tsx';
 import { getProductById } from '../data/products.ts';
@@ -14,7 +14,9 @@ interface SavedCardItemProps {
 }
 
 const SavedCardItem: React.FC<SavedCardItemProps> = ({ product, onRemove, onMoveToBag }) => {
+  const navigate = useNavigate();
   const isApparel = product.category !== 'Accessories';
+  const isTraditionalProduct = (product as unknown as { collection?: string }).collection === 'traditional';
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes[0] || 'Standard');
   const [selectedColor, setSelectedColor] = useState<string>(product.colors[0]?.name || 'Signature');
   const [feedback, setFeedback] = useState<string | null>(null);
@@ -23,6 +25,10 @@ const SavedCardItem: React.FC<SavedCardItemProps> = ({ product, onRemove, onMove
   const primaryImage = assetRecord?.primary;
 
   const handleMove = () => {
+    if (isTraditionalProduct) {
+      navigate(`/product/${product.slug}`);
+      return;
+    }
     onMoveToBag({
       productId: product.id,
       size: selectedSize,

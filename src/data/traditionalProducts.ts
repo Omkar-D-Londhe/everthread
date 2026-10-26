@@ -372,3 +372,63 @@ export const TRADITIONAL_PRODUCTS: TraditionalProduct[] = [
     }
   }
 ];
+
+export interface ValidationGateResult {
+  isListed: boolean;
+  reasons: string[];
+}
+
+/**
+ * Gate validator for The Living Inheritance traditional concept products (TR-01 through TR-07).
+ * Enforces Decision O-6-C, O-9, O-11, and Stage 04 exit criteria.
+ */
+export function validateTraditionalProduct(
+  p: TraditionalProduct,
+  approvedAssetIds: Set<string> = new Set()
+): ValidationGateResult {
+  const reasons: string[] = [];
+
+  // 1. Forbidden fields check (no fabricated claims)
+  const forbiddenFields = ['edition', 'artisanHours', 'warpDensity', 'origin', 'leadTime'];
+  for (const field of forbiddenFields) {
+    if (field in p && (p as unknown as Record<string, unknown>)[field] !== undefined) {
+      reasons.push(`Forbidden field '${field}' is present on traditional product`);
+    }
+  }
+
+  // 2. Provenance and alt text check
+  if (!p.provenance || p.provenance.trim().length === 0) {
+    reasons.push('Provenance attribute is missing or empty');
+  }
+  if (!p.imageAlt || p.imageAlt.trim().length === 0) {
+    reasons.push('Primary image alt text is missing or empty');
+  }
+
+  // 3. Piece & includes check
+  if (!Array.isArray(p.pieces) || p.pieces.length === 0) {
+    reasons.push('No pieces defined for traditional product');
+  }
+  if (!Array.isArray(p.includes) || p.includes.length === 0) {
+    reasons.push('No includes defined for traditional product');
+  }
+
+  // 4. Asset approval gate (UT-ASSET-01):
+  // Every traditional product requires approved visual assets in the registry.
+  const requiredRoles = ['primary', 'three-quarter', 'back', 'seated', 'detail'];
+  if (p.id === 'tr-03') requiredRoles.push('reversible');
+  if (p.id === 'tr-05') requiredRoles.push('overlay-slip-detail');
+  if (p.id === 'tr-06') requiredRoles.push('signature-detail');
+
+  for (const role of requiredRoles) {
+    const assetKey = `${p.id.toUpperCase()}-${role.toUpperCase()}`;
+    if (!approvedAssetIds.has(assetKey)) {
+      reasons.push(`Required view '${role}' (${assetKey}) is not approved in asset registry`);
+    }
+  }
+
+  const isListed = reasons.length === 0;
+  return {
+    isListed,
+    reasons
+  };
+}
