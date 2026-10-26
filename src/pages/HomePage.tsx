@@ -9,6 +9,8 @@ import { STORIES } from '../data/stories.ts';
 import { JOURNAL_ARTICLES } from '../data/journal.ts';
 import { WallsPreview } from '../components/home/WallsPreview.tsx';
 import { NarrativeSpine } from '../components/home/NarrativeSpine.tsx';
+import { SceneFold } from '../components/motion/SceneFold.tsx';
+import { StrandThread } from '../components/motion/StrandThread.tsx';
 
 // Register ScrollTrigger safely in browser environment
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
@@ -531,27 +533,28 @@ export const HomePage: React.FC = () => {
       {/* =========================================================================
            SCENE 2: HOME-INDEX (Chapter Index I–III, data-scene="H1")
            ========================================================================= */}
-      <section
-        id="highlights"
-        ref={highlightsSectionRef}
-        data-testid="home-index"
-        data-scene="H1"
-        className="py-5 bg-stone border-hairline-b position-relative"
-      >
-        <div className="page-container">
-          {/* Archival Crease Header */}
-          <div className="editorial-crease mb-4">
-            <div className="d-inline-flex align-items-center gap-2">
-              <span className="crease-diamond" />
-              <span className="label-caps-wide text-champagne" style={{ letterSpacing: '0.24em' }}>
-                FOLIO PAGE 01 / CHAPTER INDEX
-              </span>
+      <SceneFold sceneId="H1">
+        <section
+          id="highlights"
+          ref={highlightsSectionRef}
+          data-testid="home-index"
+          data-scene="H1"
+          className="py-5 bg-stone border-hairline-b position-relative"
+        >
+          <div className="page-container">
+            {/* Archival Crease Header */}
+            <div className="editorial-crease mb-4">
+              <div className="d-inline-flex align-items-center gap-2">
+                <span className="crease-diamond" />
+                <span className="label-caps-wide text-champagne" style={{ letterSpacing: '0.24em' }}>
+                  FOLIO PAGE 01 / CHAPTER INDEX
+                </span>
+              </div>
+              <div className="d-none d-sm-flex align-items-center gap-2 label-caps text-outline">
+                <span className="text-oxblood fw-medium">FOLIO COMPASS</span>
+                <span className="material-symbols-outlined fs-6 text-champagne">unfold_more</span>
+              </div>
             </div>
-            <div className="d-none d-sm-flex align-items-center gap-2 label-caps text-outline">
-              <span className="text-oxblood fw-medium">FOLIO COMPASS</span>
-              <span className="material-symbols-outlined fs-6 text-champagne">unfold_more</span>
-            </div>
-          </div>
 
           {/* Narrative Weft Connector Thread SVG Canvas */}
           <div
@@ -840,61 +843,74 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+      </SceneFold>
 
       {/* =========================================================================
            SCENE 5: HOME-WALLS (Two-Wall Preview Doors, data-scene="H2" per Stage 06 §7.8)
            ========================================================================= */}
-      <section
-        id="home-walls"
-        data-testid="home-walls"
-        data-scene="H2"
-        className="section-chapter bg-canvas border-hairline-b position-relative overflow-hidden py-5"
-      >
-        <div className="page-container">
-          <div className="editorial-crease mb-5">
-            <div className="d-inline-flex align-items-center gap-2">
-              <span className="crease-diamond" />
-              <span className="label-caps-wide text-champagne">CHAPTER 04 / CURATED REPERTOIRE</span>
+      <SceneFold sceneId="H2">
+        <section
+          id="home-walls"
+          data-testid="home-walls"
+          data-scene="H2"
+          className="section-chapter bg-canvas border-hairline-b position-relative overflow-hidden py-5"
+        >
+          <div className="page-container">
+            {/* Thread Continuity Placement 3: Wall stage crossing */}
+            <StrandThread
+              variant="crossing"
+              width="100%"
+              height={24}
+              className="mb-4 d-block"
+            />
+
+            <div className="editorial-crease mb-5">
+              <div className="d-inline-flex align-items-center gap-2">
+                <span className="crease-diamond" />
+                <span className="label-caps-wide text-champagne">CHAPTER 04 / CURATED REPERTOIRE</span>
+              </div>
+              <span className="body-xs text-muted-editorial font-mono">TWO VOLUMES</span>
             </div>
-            <span className="body-xs text-muted-editorial font-mono">TWO VOLUMES</span>
-          </div>
 
-          <div className="text-center mb-5" style={{ maxWidth: 680, margin: '0 auto' }}>
-            <h2 className="display-editorial text-oxblood mb-2 font-serif">
-              Two Curated Walls
-            </h2>
-            <p className="body-lg text-muted-editorial mb-0">
-              Two distinct architectural environments uniting contemporary tailoring and classical subcontinental textile arts.
-            </p>
-          </div>
+            <div className="text-center mb-5" style={{ maxWidth: 680, margin: '0 auto' }}>
+              <h2 className="display-editorial text-oxblood mb-2 font-serif">
+                Two Curated Walls
+              </h2>
+              <p className="body-lg text-muted-editorial mb-0">
+                Two distinct architectural environments uniting contemporary tailoring and classical subcontinental textile arts.
+              </p>
+            </div>
 
-          {/* Integrated WallsPreview Component (Door 1: AST-HOME-PLATE; Door 2: AST-HOME-CAMP-R1) */}
-          <WallsPreview />
-        </div>
-      </section>
+            {/* Integrated WallsPreview Component (Door 1: AST-HOME-PLATE; Door 2: AST-HOME-CAMP-R1) */}
+            <WallsPreview />
+          </div>
+        </section>
+      </SceneFold>
 
       {/* =========================================================================
            SCENE 6: HOME-MAKING & HOME-PROMISE (Claim-Free Composite, data-scene="H3" per Stage 06 §7.9)
            ========================================================================= */}
-      <section
-        id="home-making"
-        data-testid="home-making"
-        data-scene="H3"
-        className="section-chapter bg-cream border-hairline-b position-relative overflow-hidden py-5"
-      >
-        <div className="page-container">
-          <div className="editorial-crease mb-5">
-            <div className="d-inline-flex align-items-center gap-2">
-              <span className="crease-diamond" />
-              <span className="label-caps-wide text-champagne">CHAPTER 05 / ARCHITECTURAL DISCIPLINE</span>
+      <SceneFold sceneId="H3">
+        <section
+          id="home-making"
+          data-testid="home-making"
+          data-scene="H3"
+          className="section-chapter bg-cream border-hairline-b position-relative overflow-hidden py-5"
+        >
+          <div className="page-container">
+            <div className="editorial-crease mb-5">
+              <div className="d-inline-flex align-items-center gap-2">
+                <span className="crease-diamond" />
+                <span className="label-caps-wide text-champagne">CHAPTER 05 / ARCHITECTURAL DISCIPLINE</span>
+              </div>
+              <span className="body-xs text-muted-editorial font-mono">CLAIM-FREE COVENANT</span>
             </div>
-            <span className="body-xs text-muted-editorial font-mono">CLAIM-FREE COVENANT</span>
-          </div>
 
-          {/* Integrated NarrativeSpine: 5-Stage Spine + 3 Verbatim Brand Lines */}
-          <NarrativeSpine />
-        </div>
-      </section>
+            {/* Integrated NarrativeSpine: 5-Stage Spine + 3 Verbatim Brand Lines */}
+            <NarrativeSpine />
+          </div>
+        </section>
+      </SceneFold>
 
       {/* =========================================================================
            SCENE 7: HOME-JOURNAL (The Gazette Monograph Series per Stage 06 §7.11)

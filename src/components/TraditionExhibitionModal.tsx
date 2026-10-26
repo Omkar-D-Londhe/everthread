@@ -6,6 +6,7 @@ import { getCatalogueProductById } from '../data/products.ts';
 import { ARCHIVE_RELATED_PIECES, TRADITION_INSPIRED_DESIGNS, PROVISIONAL_RELATED_TEXTS } from '../data/archiveRelations.ts';
 import { useDialogFocus } from '../hooks/useDialogFocus.ts';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.ts';
+import { useExhibitionOpening } from '../hooks/useExhibitionOpening.ts';
 import { WeaveGridIllustration } from './archive/ArchiveIllustrations.tsx';
 import { AtelierLensModal } from './AtelierLensModal.tsx';
 
@@ -169,6 +170,13 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
     onClose,
     containerRef: modalRef,
     initialFocusRef: closeButtonRef
+  });
+
+  // Stage 08 Five-Step Exhibition Opening Choreography per V3-06 / F-04
+  const { interruptAndComplete } = useExhibitionOpening({
+    isOpen,
+    modalRef,
+    activeRole
   });
 
   // Derive current tradition record
@@ -385,7 +393,10 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
               type="button"
               ref={closeButtonRef}
               className="btn-icon-editorial close-btn flex-shrink-0"
-              onClick={onClose}
+              onClick={() => {
+                interruptAndComplete();
+                onClose();
+              }}
               aria-label="Close exhibition folio"
               data-testid="close-exhibition-btn"
             >
@@ -651,7 +662,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
         </div>
 
         {/* Mobile Horizontal Thumbnail Selector Strip */}
-        <div className="exhibition-mobile-strip d-md-none" aria-label="Mobile plate selector">
+        <div className="exhibition-mobile-strip d-md-none" aria-label="Mobile plate selector" data-step="views">
           <div className="exhibition-mobile-strip__track">
             {TRADITION_ROLES.map((roleKey, idx) => {
               const roleItem = currentRecord.roles[roleKey];

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
+import { SceneFold } from '../components/motion/SceneFold.tsx';
 
 interface AppointmentForm {
   name: string;
@@ -192,7 +193,8 @@ export const HousePage: React.FC = () => {
       </section>
 
       {/* Global Ateliers Section */}
-      <section className="py-5 bg-canvas border-hairline-b editorial-section" id="ateliers">
+      <SceneFold sceneId="U1">
+        <section className="py-5 bg-canvas border-hairline-b editorial-section" id="ateliers" data-scene="U1">
         <div className="page-container">
           <div className="text-center mx-auto mb-5" style={{ maxWidth: 700 }}>
             <span className="label-caps text-champagne d-block mb-2">DEMONSTRATION SANCTUARIES</span>
@@ -268,9 +270,11 @@ export const HousePage: React.FC = () => {
           </div>
         </div>
       </section>
+      </SceneFold>
 
       {/* Private Salon Appointment Request Simulation */}
-      <section className="py-5 bg-stone border-hairline-b" id="appointments">
+      <SceneFold sceneId="U2">
+        <section className="py-5 bg-stone border-hairline-b" id="appointments" data-scene="U2">
         <div className="page-container">
           <div className="row justify-content-center">
             <div className="col-12 col-lg-8">
@@ -393,6 +397,7 @@ export const HousePage: React.FC = () => {
           </div>
         </div>
       </section>
+      </SceneFold>
 
       {/* Transparency Disclosure */}
       <section className="py-4 bg-cream border-hairline-t">

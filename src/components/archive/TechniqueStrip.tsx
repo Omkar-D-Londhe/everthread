@@ -1,6 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { DIAGRAM_ASSETS, TECHNIQUE_STRIP_DIAGRAM_IDS, DiagramAsset } from '../../data/assetMap.ts';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion.ts';
+
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  if (typeof window.matchMedia !== 'function') {
+    window.matchMedia = (query: string) =>
+      ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: () => {},
+        removeListener: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => false
+      }) as unknown as MediaQueryList;
+  }
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface TechniqueStripProps {
   activeDiagramId?: string;
@@ -11,8 +31,65 @@ export const TechniqueStrip: React.FC<TechniqueStripProps> = ({
   activeDiagramId,
   onSelectDiagram
 }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const prefersReduced = usePrefersReducedMotion();
+
   // Track image error states per diagram: 'none' -> 'svg-failed' (fallback to PNG) -> 'all-failed' (fallback to title text)
   const [imageErrorMap, setImageErrorMap] = useState<Record<string, 'svg-failed' | 'all-failed'>>({});
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || prefersReduced) {
+      if (trackRef.current) {
+        trackRef.current.style.transform = '';
+      }
+      return;
+    }
+
+    const sectionEl = sectionRef.current;
+    const trackEl = trackRef.current;
+    if (!sectionEl || !trackEl) return;
+
+    if (window.innerWidth < 1024) {
+      trackEl.style.transform = '';
+      return;
+    }
+
+    const totalShift = Math.max(0, trackEl.scrollWidth - trackEl.clientWidth);
+    if (totalShift <= 0) return;
+
+    if (typeof window !== 'undefined') {
+      window.__scrollTriggerCount = (window.__scrollTriggerCount || 0) + 1;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        trackEl,
+        { x: 0 },
+        {
+          x: -totalShift,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionEl,
+            start: 'top 85%',
+            end: 'bottom 15%',
+            scrub: true,
+            invalidateOnRefresh: true
+          }
+        }
+      );
+    }, sectionRef);
+
+    return () => {
+      ctx.revert();
+      if (typeof window !== 'undefined') {
+        window.__scrollTriggerCount = Math.max(0, (window.__scrollTriggerCount || 0) - 1);
+      }
+      if (trackRef.current) {
+        trackRef.current.style.transform = '';
+      }
+    };
+  }, [prefersReduced]);
 
   const handleImageError = (id: string) => {
     setImageErrorMap(prev => {
@@ -30,6 +107,7 @@ export const TechniqueStrip: React.FC<TechniqueStripProps> = ({
 
   return (
     <section
+      ref={sectionRef}
       className="py-5 bg-stone border-hairline-b technique-strip-section"
       data-testid="technique-strip"
       aria-label="Archival Technique Drafting Strip"
@@ -51,6 +129,7 @@ export const TechniqueStrip: React.FC<TechniqueStripProps> = ({
 
         {/* Horizontally scrollable snap strip */}
         <div
+          ref={trackRef}
           className="technique-strip-track"
           data-testid="technique-strip-track"
           tabIndex={0}

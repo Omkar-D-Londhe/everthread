@@ -9,6 +9,8 @@ import { DisciplineGroup } from '../components/archive/DisciplineGroup.tsx';
 import { getDisciplineGroups } from '../data/archiveDisciplines.ts';
 import { PalluBorderIllustration, ArchitecturalThreadDivider } from '../components/archive/ArchiveIllustrations.tsx';
 import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
+import { SceneFold } from '../components/motion/SceneFold.tsx';
+import { StrandThread } from '../components/motion/StrandThread.tsx';
 
 type WeaveFilter = 'all' | 'weaving' | 'embroidery' | 'dyeing' | 'draping';
 
@@ -137,7 +139,8 @@ export const ArchivePage: React.FC = () => {
       </section>
 
       {/* Exhibition Folio Chapters Section */}
-      <section id="folios" className="py-5 border-hairline-b" data-scene="A1">
+      <SceneFold sceneId="A1">
+        <section id="folios" className="py-5 border-hairline-b" data-scene="A1">
         <div className="page-container">
           <div className="d-flex align-items-center justify-content-between mb-4 pb-2 border-hairline-b">
             <div>
@@ -249,6 +252,7 @@ export const ArchivePage: React.FC = () => {
           </div>
         </div>
       </section>
+      </SceneFold>
 
       {/* Editorial Transition Divider */}
       <div className="py-2 bg-canvas" data-scene="A2">
@@ -261,8 +265,19 @@ export const ArchivePage: React.FC = () => {
         onSelectDiagram={handleSelectDiagram}
       />
 
+      {/* Thread Continuity Placement 4: Archive strip -> first discipline heading */}
+      <div className="page-container py-2">
+        <StrandThread
+          variant="curve"
+          width="100%"
+          height={28}
+          className="my-2 d-block"
+        />
+      </div>
+
       {/* Embedded Weave Library Section */}
-      <section id="weave-library" className="py-5 bg-cream border-hairline-b" data-testid="weave-library-section">
+      <SceneFold sceneId="A2">
+        <section id="weave-library" className="py-5 bg-cream border-hairline-b" data-scene="A2" data-testid="weave-library-section">
         <div className="page-container">
           <div className="text-center mx-auto mb-5" style={{ maxWidth: 720 }}>
             <div className="d-flex align-items-center justify-content-center gap-2 mb-2">
@@ -373,6 +388,7 @@ export const ArchivePage: React.FC = () => {
           </div>
         </div>
       </section>
+      </SceneFold>
 
       {/* Editorial Transparency Footer */}
       <section className="py-4 bg-stone border-hairline-t">

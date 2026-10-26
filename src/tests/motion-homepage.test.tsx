@@ -714,4 +714,67 @@ describe('EverThread Stage 5.1: Approved Homepage & SVG Thread Entrance Suite', 
       expect(maskWrapper).toContainElement(curtainHeadline as HTMLElement | null);
     });
   });
+
+  /* -------------------------------------------------------------------------
+     8. Stage 08 Canonical Motion System: Fold Boundaries & Thread Continuity
+     ------------------------------------------------------------------------- */
+  describe('8. Stage 08 Canonical Motion System: Fold Boundaries & Thread Continuity', () => {
+    it('verifies canonical fold boundaries H1, H2, and H3 are rendered with SceneFold wrappers', () => {
+      const { container } = renderHomePage();
+
+      const foldH1 = container.querySelector('[data-scene-fold="H1"]');
+      expect(foldH1).toBeInTheDocument();
+      expect(foldH1?.querySelector('#highlights')).toBeInTheDocument();
+
+      const foldH2 = container.querySelector('[data-scene-fold="H2"]');
+      expect(foldH2).toBeInTheDocument();
+      expect(foldH2?.querySelector('#home-walls')).toBeInTheDocument();
+
+      const foldH3 = container.querySelector('[data-scene-fold="H3"]');
+      expect(foldH3).toBeInTheDocument();
+      expect(foldH3?.querySelector('#home-making')).toBeInTheDocument();
+    });
+
+    it('verifies StrandThread crossing is rendered at Scene H2 (Wall Stage Crossing)', () => {
+      renderHomePage();
+      const wallsSection = screen.getByTestId('home-walls');
+      const strandThread = wallsSection.querySelector('[data-testid="strand-thread-crossing"]');
+      expect(strandThread).toBeInTheDocument();
+      expect(strandThread?.querySelector('path')).toBeInTheDocument();
+    });
+
+    it('verifies keyboard focusin completes SceneFold immediately for accessibility', () => {
+      const { container } = renderHomePage();
+      const foldH1 = container.querySelector('[data-scene-fold="H1"]');
+      expect(foldH1).toBeInTheDocument();
+
+      const innerLink = foldH1?.querySelector('a');
+      if (innerLink) {
+        fireEvent.focusIn(innerLink);
+        expect(foldH1).toHaveClass('is-complete');
+      }
+    });
+
+    it('verifies reduced motion suppresses fold panels completely', () => {
+      window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+        matches: query.includes('prefers-reduced-motion'),
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn()
+      }));
+
+      const { container } = renderHomePage();
+      const foldPanels = container.querySelectorAll('.scene-fold__panels');
+      expect(foldPanels.length).toBe(0);
+
+      // Verify content remains fully present and interactive
+      expect(screen.getByTestId('home-index')).toBeInTheDocument();
+      expect(screen.getByTestId('home-walls')).toBeInTheDocument();
+      expect(screen.getByTestId('home-making')).toBeInTheDocument();
+    });
+  });
 });

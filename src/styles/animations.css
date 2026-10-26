@@ -36,37 +36,84 @@
 }
 
 /* ==========================================================================
-   Fabric-Inspired Panel & Folio Folding
+   Stage 08: Architectural Scene Fold Overlay & Transition Foundation
+   Specification: 03_MOTION_AND_TRAVERSAL_SPECIFICATION.md §2 & §9
    ========================================================================== */
-.fabric-fold-container {
-  perspective: 1200px;
-  transform-style: preserve-3d;
-}
-
-.fabric-panel {
-  transform-origin: top center;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
-  will-change: transform, opacity;
-}
-
-.fabric-panel.folded-up {
-  transform: rotateX(15deg) translateY(-20px);
-  opacity: 0.3;
-}
-
-.fabric-crease {
+.scene-fold {
   position: relative;
+  width: 100%;
 }
 
-.fabric-crease::before {
-  content: '';
+.scene-fold__content {
+  position: relative;
+  width: 100%;
+}
+
+/* Decorative architectural fold panels overlay (aria-hidden="true", pointer-events: none) */
+.scene-fold__panels {
+  display: none; /* Hidden by default until GSAP attaches and marks js-fold-ready */
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* Enabled only after GSAP confirms initialized and not reduced motion */
+.scene-fold.js-fold-ready .scene-fold__panels {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Complete state: completely removed from layout */
+.scene-fold.is-complete .scene-fold__panels,
+.scene-fold[data-fold-complete="true"] .scene-fold__panels {
+  display: none !important;
+}
+
+/* Individual horizontal fabric bands */
+.scene-fold__band {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  transform-origin: top center;
+  backface-visibility: hidden;
+  background-color: var(--color-canvas, #FBF8F3);
+  box-shadow: 0 4px 16px rgba(48, 35, 31, 0.04);
+}
+
+.scene-fold__band::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(180, 154, 112, 0.6), transparent);
-  box-shadow: 0 1px 2px rgba(48, 35, 31, 0.05);
+  background: linear-gradient(90deg, transparent, rgba(180, 154, 112, 0.45), transparent);
+}
+
+.scene-fold__band.is-animating {
+  will-change: transform, opacity;
+}
+
+/* Reduced motion guarantee: never display 3D panels */
+@media (prefers-reduced-motion: reduce) {
+  .scene-fold__panels {
+    display: none !important;
+  }
+}
+
+/* Strand Thread Pulsing Animation */
+.strand-thread-pulse svg path {
+  filter: drop-shadow(0 0 6px rgba(180, 154, 112, 0.8));
+  transition: filter 0.4s ease;
 }
 
 /* Vertical Weave Slide Transition */
