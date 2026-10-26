@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CatalogueProduct } from '../types/catalog.ts';
-import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+import { PRODUCT_ASSET_MAP, TRADITIONAL_PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { useSaved } from '../context/SavedContext.tsx';
 
 interface ProductCardProps {
@@ -22,7 +22,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const effectiveVariant = isFlagship ? 'flagship' : variant;
   const { isSaved, toggleSaved } = useSaved();
   const saved = isSaved(product.id);
-  const assetRecord = PRODUCT_ASSET_MAP[product.id];
+  const assetRecord = PRODUCT_ASSET_MAP[product.id] || TRADITIONAL_PRODUCT_ASSET_MAP[product.id];
   const primaryImage = assetRecord?.primary;
 
   const handleToggleSave = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -145,7 +145,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   TAILORING FORM
                 </span>
                 <span className="body-sm text-oxblood fw-medium d-block pt-1">
-                  {'weaveType' in product ? product.weaveType : product.category}
+                  {'weaveType' in product ? product.weaveType : product.inspiration?.label || product.category}
                 </span>
               </div>
               <div className="col-6">
@@ -259,7 +259,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Craft Lineage & Category Label */}
         <div className="label-caps text-champagne mb-1">
-          {product.category} • {'weaveType' in product ? product.weaveType : product.category}
+          {product.category} • {'weaveType' in product ? product.weaveType : product.inspiration?.label || product.category}
         </div>
 
         {/* Product Title Linked */}

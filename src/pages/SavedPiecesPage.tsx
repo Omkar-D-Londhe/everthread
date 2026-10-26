@@ -2,13 +2,13 @@ import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSaved } from '../context/SavedContext.tsx';
 import { useCart } from '../context/CartContext.tsx';
-import { getProductById } from '../data/products.ts';
-import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
-import { Product } from '../types/catalog.ts';
+import { getCatalogueProductById } from '../data/products.ts';
+import { PRODUCT_ASSET_MAP, TRADITIONAL_PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+import { CatalogueProduct, isTraditional, Product } from '../types/catalog.ts';
 import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 interface SavedCardItemProps {
-  product: Product;
+  product: CatalogueProduct;
   onRemove: (id: string) => void;
   onMoveToBag: (item: { productId: string; size: string; color: string }) => void;
 }
@@ -16,12 +16,12 @@ interface SavedCardItemProps {
 const SavedCardItem: React.FC<SavedCardItemProps> = ({ product, onRemove, onMoveToBag }) => {
   const navigate = useNavigate();
   const isApparel = product.category !== 'Accessories';
-  const isTraditionalProduct = (product as unknown as { collection?: string }).collection === 'traditional';
-  const [selectedSize, setSelectedSize] = useState<string>(product.sizes[0] || 'Standard');
+  const isTraditionalProduct = isTraditional(product);
+  const [selectedSize, setSelectedSize] = useState<string>('sizes' in product && product.sizes[0] ? product.sizes[0] : 'Standard');
   const [selectedColor, setSelectedColor] = useState<string>(product.colors[0]?.name || 'Signature');
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  const assetRecord = PRODUCT_ASSET_MAP[product.id];
+  const assetRecord = PRODUCT_ASSET_MAP[product.id] || TRADITIONAL_PRODUCT_ASSET_MAP[product.id];
   const primaryImage = assetRecord?.primary;
 
   const handleMove = () => {
@@ -56,13 +56,13 @@ const SavedCardItem: React.FC<SavedCardItemProps> = ({ product, onRemove, onMove
             height={primaryImage?.height || 1200}
           />
         </Link>
-        <span className="edition-badge">{product.edition}</span>
+        {'edition' in product && <span className="edition-badge">{product.edition}</span>}
       </div>
 
       {/* Card Details */}
       <div className="p-3 d-flex flex-column flex-grow-1">
         <div className="label-caps text-champagne mb-1">
-          {product.category} • {product.weaveType}
+          {product.category} • {'weaveType' in product ? product.weaveType : product.inspiration?.label || product.category}
         </div>
 
         <h3 className="headline-sm text-oxblood mb-2" style={{ fontSize: '1.25rem' }}>
@@ -105,7 +105,16 @@ const SavedCardItem: React.FC<SavedCardItemProps> = ({ product, onRemove, onMove
           </div>
 
           {/* Size / Dimension Selection */}
-          {isApparel ? (
+          {isTraditionalProduct ? (
+            <div>
+              <span className="label-caps text-muted-editorial d-block mb-1">
+                Ensemble Specification
+              </span>
+              <p className="body-sm text-oxblood mb-1" style={{ fontSize: '0.75rem' }}>
+                Bespoke sizing per piece
+              </p>
+            </div>
+          ) : isApparel ? (
             <div>
               <span className="label-caps text-muted-editorial d-block mb-1">
                 Size: <strong className="text-oxblood">{selectedSize}</strong>
@@ -114,7 +123,7 @@ const SavedCardItem: React.FC<SavedCardItemProps> = ({ product, onRemove, onMove
                 className="d-flex flex-wrap gap-1"
                 data-testid={`saved-size-select-${product.id}`}
               >
-                {product.sizes.map(sz => (
+                {(product as Product).sizes.map(sz => (
                   <button
                     key={sz}
                     type="button"
@@ -135,7 +144,7 @@ const SavedCardItem: React.FC<SavedCardItemProps> = ({ product, onRemove, onMove
                 className="badge bg-stone text-oxblood border-hairline py-1 px-2 body-sm fw-normal"
                 data-testid={`saved-dim-spec-${product.id}`}
               >
-                {product.sizes[0] || 'Atelier Specification'}
+                {('sizes' in product && (product as Product).sizes[0]) || 'Atelier Specification'}
               </span>
             </div>
           )}
@@ -198,9 +207,9 @@ export const SavedPiecesPage: React.FC = () => {
   });
 
   // Resolve valid products from the canonical catalogue
-  const savedProducts: Product[] = saved
-    .map(id => getProductById(id))
-    .filter((p): p is Product => !!p);
+  const savedProducts: CatalogueProduct[] = saved
+    .map(id => getCatalogueProductById(id))
+    .filter((p): p is CatalogueProduct => !!p);
 
   const handleRemove = (productId: string) => {
     toggleSaved(productId);

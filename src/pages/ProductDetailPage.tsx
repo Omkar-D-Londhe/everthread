@@ -23,6 +23,7 @@ export const ProductDetailPage: React.FC = () => {
   const [prevImage, setPrevImage] = useState<ResponsiveImage | null>(null);
   const [selectedColor, setSelectedColor] = useState<ProductColorVariant | undefined>(undefined);
   const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedPieceSizes, setSelectedPieceSizes] = useState<Record<string, string>>({});
   const [quantity, setQuantity] = useState<number>(1);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [addedSuccess, setAddedSuccess] = useState<boolean>(false);
@@ -57,6 +58,15 @@ export const ProductDetailPage: React.FC = () => {
         } else {
           setSelectedSize((product as Product).sizes[0] || 'II (M)');
         }
+      }
+      if ('pieces' in product && Array.isArray(product.pieces)) {
+        const initialPieceSizes: Record<string, string> = {};
+        product.pieces.forEach(piece => {
+          if (piece.sizes && piece.sizes.length > 0) {
+            initialPieceSizes[piece.key] = piece.sizes[0];
+          }
+        });
+        setSelectedPieceSizes(initialPieceSizes);
       }
       setQuantity(1);
       setValidationError(null);
@@ -136,8 +146,8 @@ export const ProductDetailPage: React.FC = () => {
     );
   }
 
-  // If product is an unlisted traditional concept piece (Stage 02 PDP guard)
-  if (isTraditional(product) || ('isListed' in product && !product.isListed)) {
+  // If product is unlisted (Stage 02 PDP guard)
+  if ('isListed' in product && !product.isListed) {
     return (
       <main id="main-content" className="main-content" role="status">
         <div className="py-2 border-hairline-b bg-stone">
@@ -209,7 +219,17 @@ export const ProductDetailPage: React.FC = () => {
 
   // Add to Bag handler
   const handleAddToBag = () => {
-    if (isApparel && !selectedSize) {
+    let sizesPayload: Record<string, string> | undefined = undefined;
+
+    if (isTraditional(product)) {
+      for (const piece of product.pieces) {
+        if (!selectedPieceSizes[piece.key]) {
+          setValidationError(`Please select a bespoke size for ${piece.label}.`);
+          return;
+        }
+      }
+      sizesPayload = selectedPieceSizes;
+    } else if (isApparel && !selectedSize) {
       setValidationError('Please select a bespoke size before adding to your bag.');
       return;
     }
@@ -217,7 +237,10 @@ export const ProductDetailPage: React.FC = () => {
 
     const result = addToBag({
       productId: product.id,
-      size: selectedSize || (product.sizes[0] || 'Standard'),
+      size: isTraditional(product)
+        ? Object.values(selectedPieceSizes).join(' / ')
+        : (selectedSize || (('sizes' in product && (product as Product).sizes[0]) || 'Standard')),
+      sizes: sizesPayload,
       color: selectedColor?.name || product.colors[0]?.name || 'Signature',
       quantity
     });
@@ -339,7 +362,7 @@ export const ProductDetailPage: React.FC = () => {
               <div className="d-flex align-items-center gap-2 mb-2 flex-wrap editorial-enter">
                 <span className="label-caps text-champagne">{product.category}</span>
                 <span className="text-champagne">•</span>
-                <span className="label-caps text-muted-editorial">{product.status}</span>
+                <span className="label-caps text-muted-editorial">{'status' in product ? product.status : product.statusText}</span>
                 <span className="text-champagne">•</span>
                 <span className="badge badge-sand text-oxblood body-sm px-2 py-0" style={{ fontSize: '0.625rem', letterSpacing: '0.05em' }}>
                   Editorial Demonstration
@@ -415,8 +438,64 @@ export const ProductDetailPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* Variant 2: Size Selector (Apparel Only) or Dimension Note (Accessories) */}
-              {isApparel ? (
+              {/* Variant 2: Size Selector */}
+              {isTraditional(product) ? (
+                <div className="mb-4" data-testid="traditional-pieces-selector">
+                  <span className="label-caps text-oxblood d-block mb-2">
+                    Ensemble Components &amp; Bespoke Sizing
+                  </span>
+                  {product.pieces.map(piece => {
+                    const currentSize = selectedPieceSizes[piece.key] || piece.sizes[0];
+                    const hasMultipleSizes = piece.sizes.length > 1;
+                    return (
+                      <div key={piece.key} className="mb-3 p-3 bg-stone border-hairline" data-testid={`piece-selector-${piece.key}`}>
+                        <div className="d-flex align-items-center justify-content-between mb-2">
+                          <span className="label-caps text-oxblood">
+                            {piece.label}: <strong className="text-oxblood fw-bold">{currentSize}</strong>
+                          </span>
+                          {hasMultipleSizes && (
+                            <span className="label-caps-wide text-muted-editorial" style={{ fontSize: '0.625rem' }}>
+                              Select Size
+                            </span>
+                          )}
+                        </div>
+                        {hasMultipleSizes ? (
+                          <div 
+                            className="d-flex flex-wrap gap-2" 
+                            role="radiogroup" 
+                            aria-label={`${piece.label} Size`}
+                            data-testid={`size-selector-${piece.key}`}
+                          >
+                            {piece.sizes.map(size => {
+                              const isSelected = (selectedPieceSizes[piece.key] || piece.sizes[0]) === size;
+                              return (
+                                <button
+                                  key={size}
+                                  type="button"
+                                  role="radio"
+                                  aria-checked={isSelected}
+                                  className={`variant-option-btn ${isSelected ? 'active' : ''}`}
+                                  onClick={() => {
+                                    setSelectedPieceSizes(prev => ({ ...prev, [piece.key]: size }));
+                                    setValidationError(null);
+                                  }}
+                                  data-testid={`size-option-${piece.key}-${size.replace(/[^a-zA-Z0-9]/g, '-')}`}
+                                >
+                                  {size}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <p className="body-sm text-oxblood mb-0 fw-medium">
+                            {piece.sizes[0]}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : isApparel ? (
                 <div className="mb-4">
                   <div className="d-flex align-items-center justify-content-between mb-2">
                     <span className="label-caps text-oxblood">
@@ -440,7 +519,7 @@ export const ProductDetailPage: React.FC = () => {
                     aria-label="Bespoke Garment Sizes"
                     data-testid="size-selector"
                   >
-                    {product.sizes.map(size => {
+                    {(product as Product).sizes.map(size => {
                       const isSelected = selectedSize === size;
                       return (
                         <button
@@ -497,7 +576,7 @@ export const ProductDetailPage: React.FC = () => {
                 <div className="mb-4 p-3 bg-stone border-hairline" data-testid="accessory-dimension-spec">
                   <span className="label-caps text-champagne d-block mb-1">Architectural Dimension Specification</span>
                   <p className="body-md text-oxblood mb-0 fw-medium">
-                    {product.sizes[0] || 'One Size Atelier Specification'}
+                    {('sizes' in product && (product as Product).sizes[0]) || 'One Size Atelier Specification'}
                   </p>
                 </div>
               )}
@@ -543,7 +622,11 @@ export const ProductDetailPage: React.FC = () => {
                     Production Lead Time
                   </span>
                   <span className="body-sm text-oxblood fw-medium">
-                    {product.leadTime} <span className="text-muted-editorial fst-italic body-sm">(Simulated)</span>
+                    {'leadTime' in product ? (
+                      <>{product.leadTime} <span className="text-muted-editorial fst-italic body-sm">(Simulated)</span></>
+                    ) : (
+                      <>Bespoke Atelier Commission <span className="text-muted-editorial fst-italic body-sm">(Schedule confirmed upon inquiry)</span></>
+                    )}
                   </span>
                 </div>
               </div>
@@ -646,25 +729,50 @@ export const ProductDetailPage: React.FC = () => {
                   </button>
                   {openAccordions.specs && (
                     <div id="accordion-body-specs" className="accordion-editorial-body body-sm" data-testid="accordion-content-specs">
-                      <div className="spec-grid mb-3">
-                        <span className="text-muted-editorial">Fiber Composition:</span>
-                        <strong className="text-on-surface">{product.fiberPurity}</strong>
+                      {isTraditional(product) ? (
+                        <>
+                          <div className="spec-grid mb-3">
+                            <span className="text-muted-editorial">Cultural Inspiration:</span>
+                            <strong className="text-on-surface">{product.inspiration.label}</strong>
 
-                        <span className="text-muted-editorial">Weave Technique:</span>
-                        <strong className="text-on-surface">{product.weaveType}</strong>
+                            <span className="text-muted-editorial">Ensemble Garments:</span>
+                            <strong className="text-on-surface">{product.includes.join(', ')}</strong>
 
-                        <span className="text-muted-editorial">Cultural Origin / Lineage:</span>
-                        <strong className="text-on-surface">{product.origin}</strong>
+                            <span className="text-muted-editorial">Material Architecture:</span>
+                            <strong className="text-on-surface">
+                              {product.materials.map(m => `${m.part}: ${m.composition}`).join('; ')}
+                            </strong>
 
-                        <span className="text-muted-editorial">Warp Density:</span>
-                        <strong className="text-on-surface">{product.warpDensity}</strong>
+                            <span className="text-muted-editorial">Curatorial Status:</span>
+                            <strong className="text-on-surface">{product.statusText}</strong>
+                          </div>
+                          <p className="body-sm text-muted-editorial mb-0 fst-italic" style={{ fontSize: '0.75rem' }}>
+                            {product.conceptNotice}
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <div className="spec-grid mb-3">
+                            <span className="text-muted-editorial">Fiber Composition:</span>
+                            <strong className="text-on-surface">{(product as Product).fiberPurity}</strong>
 
-                        <span className="text-muted-editorial">Estimated Labor Benchmark:</span>
-                        <strong className="text-on-surface">{product.artisanHours}</strong>
-                      </div>
-                      <p className="body-sm text-muted-editorial mb-0 fst-italic" style={{ fontSize: '0.75rem' }}>
-                        * Warp density and labor figures are curated craft benchmarks illustrating handloom complexity, not audited payroll or laboratory certification records.
-                      </p>
+                            <span className="text-muted-editorial">Weave Technique:</span>
+                            <strong className="text-on-surface">{(product as Product).weaveType}</strong>
+
+                            <span className="text-muted-editorial">Cultural Origin / Lineage:</span>
+                            <strong className="text-on-surface">{(product as Product).origin}</strong>
+
+                            <span className="text-muted-editorial">Warp Density:</span>
+                            <strong className="text-on-surface">{(product as Product).warpDensity}</strong>
+
+                            <span className="text-muted-editorial">Estimated Labor Benchmark:</span>
+                            <strong className="text-on-surface">{(product as Product).artisanHours}</strong>
+                          </div>
+                          <p className="body-sm text-muted-editorial mb-0 fst-italic" style={{ fontSize: '0.75rem' }}>
+                            * Warp density and labor figures are curated craft benchmarks illustrating handloom complexity, not audited payroll or laboratory certification records.
+                          </p>
+                        </>
+                      )}
                     </div>
                   )}
                 </div>
@@ -701,7 +809,11 @@ export const ProductDetailPage: React.FC = () => {
                         General Heirloom Conservation Guidance: The following recommendations reflect standard archival care practices for noble natural fibers. Provided as general educational advice for garment longevity.
                       </p>
                       <ul className="mb-0 ps-3">
-                        {product.careInstructions.map((instruction, index) => (
+                        {(product.careInstructions || [
+                          'Professional archival dry cleaning recommended.',
+                          'Store flat folded with acid-free tissue paper.',
+                          'Avoid direct sunlight and humidity exposure.'
+                        ]).map((instruction, index) => (
                           <li key={index} className="mb-2 text-on-surface">
                             {instruction}
                           </li>
@@ -745,9 +857,11 @@ export const ProductDetailPage: React.FC = () => {
                           EverThread is an editorial frontend case study. Edition limits, bespoke allocation queues, and checkout flows are simulated for demonstration.
                         </p>
                       </div>
-                      <p className="mb-2"><strong>Registered Edition:</strong> {product.edition} <span className="text-muted-editorial fst-italic">(Demonstration constraint)</span></p>
-                      <p className="mb-2"><strong>Estimated Atelier Lead Time:</strong> {product.leadTime} <span className="text-muted-editorial fst-italic">(Simulated scheduling)</span></p>
-                      <p className="text-muted-editorial mb-0"><strong>Allocation Terms:</strong> {product.statusDisclaimer}</p>
+                      {'edition' in product && (
+                        <p className="mb-2"><strong>Registered Edition:</strong> {product.edition} <span className="text-muted-editorial fst-italic">(Demonstration constraint)</span></p>
+                      )}
+                      <p className="mb-2"><strong>Estimated Atelier Lead Time:</strong> {'leadTime' in product ? product.leadTime : 'Bespoke Atelier Commission'} <span className="text-muted-editorial fst-italic">(Simulated scheduling)</span></p>
+                      <p className="text-muted-editorial mb-0"><strong>Allocation Terms:</strong> {'statusDisclaimer' in product ? product.statusDisclaimer : product.conceptNotice}</p>
                     </div>
                   )}
                 </div>
@@ -794,7 +908,10 @@ export const ProductDetailPage: React.FC = () => {
                       </div>
                       <span className="label-caps text-oxblood d-block mb-2">Editorial Disclosures for this Silhouette</span>
                       <ul className="mb-0 ps-3">
-                        {product.contentFlags.unsupportedClaims.map((claim, idx) => (
+                        {(product.contentFlags?.unsupportedClaims || [
+                          'Garment imagery depicts approved atelier textile craftsmanship.',
+                          'Sizing and allocation are managed through EverThread bespoke demonstration protocols.'
+                        ]).map((claim, idx) => (
                           <li key={idx} className="mb-2 text-muted-editorial">
                             {claim}
                           </li>
@@ -888,8 +1005,8 @@ export const ProductDetailPage: React.FC = () => {
         naturalHeight={currentImage.height}
         fallbackImageSrc={currentImage.src}
         title={`${product.title} — Textile Architecture`}
-        subtitle={`${product.fiberPurity} • ${product.weaveType}`}
-        caption={`High-resolution atelier inspection of ${product.title}. Examined under natural light to reveal the ${product.warpDensity} structural density and authentic handloom surface geometry.`}
+        subtitle={'fiberPurity' in product ? `${product.fiberPurity} • ${product.weaveType}` : `${product.inspiration.label} • ${product.materials[0]?.composition || ''}`}
+        caption={'warpDensity' in product ? `High-resolution atelier inspection of ${product.title}. Examined under natural light to reveal the ${product.warpDensity} structural density and authentic handloom surface geometry.` : `High-resolution atelier inspection of ${product.title}. Examined under natural light to reveal authentic handloom textile surface geometry.`}
         zoom={3.5}
         restoreFocusSelector='[data-testid="inspect-fabric-lens-btn"]'
       />

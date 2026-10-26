@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ALL_PRODUCTS } from '../data/products.ts';
 import { WEAVE_LIBRARY, STORIES } from '../data/stories.ts';
 import { JOURNAL_ARTICLES } from '../data/journal.ts';
-import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+import { PRODUCT_ASSET_MAP, TRADITIONAL_PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { useDialogFocus } from '../hooks/useDialogFocus.ts';
 
 export const WEAVE_STORY_ROUTES: Record<string, string> = {
@@ -79,16 +79,19 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
       const weaveStr = 'weaveType' in p ? p.weaveType : '';
       const fiberStr = 'fiberPurity' in p ? p.fiberPurity : '';
       const originStr = 'origin' in p ? p.origin : '';
+      const materialsStr = 'materials' in p && Array.isArray(p.materials) ? p.materials.map(m => `${m.part} ${m.composition}`).join(' ') : '';
+      const inspirationStr = 'inspiration' in p && p.inspiration ? p.inspiration.label : '';
       const tagsStr = (p.curatorTags || []).join(' ');
-      const haystack = `${p.title} ${p.subtitle || ''} ${p.category} ${weaveStr} ${fiberStr} ${originStr} ${p.description} ${tagsStr}`.toLowerCase();
+      const haystack = `${p.title} ${p.subtitle || ''} ${p.category} ${weaveStr} ${fiberStr} ${originStr} ${materialsStr} ${inspirationStr} ${p.description} ${tagsStr}`.toLowerCase();
       if (matchesAllTokens(haystack)) {
-        const asset = PRODUCT_ASSET_MAP[p.id];
+        const asset = PRODUCT_ASSET_MAP[p.id] || TRADITIONAL_PRODUCT_ASSET_MAP[p.id];
+        const detailStr = weaveStr || inspirationStr || '';
         matches.push({
           id: `prod-${p.id}`,
           category: 'product',
           categoryLabel: 'Silhouettes & Repertoire',
           title: p.title,
-          subtitle: `${p.currency}${p.price.toLocaleString('en-IN')}${weaveStr ? ` • ${weaveStr}` : ''}`,
+          subtitle: `${p.currency}${p.price.toLocaleString('en-IN')}${detailStr ? ` • ${detailStr}` : ''}`,
           url: `/product/${p.slug}`,
           image: asset?.primary.src || p.image,
           badge: p.category

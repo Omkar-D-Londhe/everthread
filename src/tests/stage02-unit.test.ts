@@ -88,9 +88,10 @@ describe('Stage 02 Unit Test Suite', () => {
       // Catalogue product lookups
       expect(getCatalogueProductBySlug('banaras-afterlight-sculpted-brocade-mantle-coat')?.id).toBe('tr-01');
 
-      // Listed product lookup filters out unlisted TR products
+      // Listed product lookup
       expect(getListedProductBySlug('ivory-hand-spun-matka-silk-cocoon-trench')?.id).toBe('et-02');
-      expect(getListedProductBySlug('banaras-afterlight-sculpted-brocade-mantle-coat')).toBeUndefined();
+      expect(getListedProductBySlug('banaras-afterlight-sculpted-brocade-mantle-coat')?.id).toBe('tr-01');
+      expect(getListedProductBySlug('nonexistent-archival-specimen')).toBeUndefined();
     });
   });
 
@@ -131,12 +132,12 @@ describe('Stage 02 Unit Test Suite', () => {
       });
     });
 
-    it('enforces concept notices, unlisted status, and honest description for TR-06', () => {
+    it('enforces concept notices, listed commercial status, and honest description for TR-06', () => {
       TRADITIONAL_PRODUCTS.forEach(tr => {
         expect(tr.statusText).toBe(TR_STATUS_TEXT);
         expect(tr.conceptNotice).toBe(CONCEPT_NOTICE_TEXT);
-        expect(tr.isListed).toBe(false);
-        expect(tr.isPurchasable).toBe(false);
+        expect(tr.isListed).toBe(true);
+        expect(tr.isPurchasable).toBe(true);
         expect(tr.contentFlags?.isAtelierConcept).toBe(true);
         expect(tr.provenance).toBe('ai-concept-fashion');
       });

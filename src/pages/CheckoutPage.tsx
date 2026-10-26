@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext.tsx';
-import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+import { PRODUCT_ASSET_MAP, TRADITIONAL_PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { BagItem } from '../types/index.ts';
 import { Product } from '../types/catalog.ts';
 import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
@@ -762,7 +762,7 @@ export const CheckoutPage: React.FC = () => {
                   {bag.map((item, idx) => {
                     const product = getItemProduct(item.productId);
                     if (!product) return null;
-                    const assetRecord = PRODUCT_ASSET_MAP[product.id];
+                    const assetRecord = PRODUCT_ASSET_MAP[product.id] || TRADITIONAL_PRODUCT_ASSET_MAP[product.id];
                     const primaryImage = assetRecord?.primary;
                     const isApparel = product.category !== 'Accessories';
                     const lineTotal = product.price * item.quantity;

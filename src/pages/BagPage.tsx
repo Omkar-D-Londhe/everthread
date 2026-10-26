@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext.tsx';
 import { useSaved } from '../context/SavedContext.tsx';
-import { PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
+import { PRODUCT_ASSET_MAP, TRADITIONAL_PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 export const BagPage: React.FC = () => {
@@ -95,7 +95,7 @@ export const BagPage: React.FC = () => {
                     const product = getItemProduct(item.productId);
                     if (!product) return null; // Gracefully skip unresolvable items
 
-                    const assetRecord = PRODUCT_ASSET_MAP[product.id];
+                    const assetRecord = PRODUCT_ASSET_MAP[product.id] || TRADITIONAL_PRODUCT_ASSET_MAP[product.id];
                     const primaryImage = assetRecord?.primary;
                     const isApparel = product.category !== 'Accessories';
                     const lineTotal = product.price * item.quantity;

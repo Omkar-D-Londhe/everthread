@@ -25,18 +25,16 @@ describe('Stage 05: Collection Walls & WallStage Suite', () => {
     });
 
     it('returns empty array when all traditional products are unlisted', () => {
-      // In the real catalogue, all 7 TR products are currently unlisted (pending owner asset approval)
-      const moments = getListedWallMoments(TRADITIONAL_PRODUCTS);
+      const mockUnlisted: TraditionalProduct[] = TRADITIONAL_PRODUCTS.map(p => ({
+        ...p,
+        isListed: false
+      }));
+      const moments = getListedWallMoments(mockUnlisted);
       expect(moments).toEqual([]);
     });
 
-    it('populates moments accurately when mock listed traditional products are supplied', () => {
-      const mockListedProducts: TraditionalProduct[] = TRADITIONAL_PRODUCTS.map(p => ({
-        ...p,
-        isListed: true
-      }));
-
-      const moments = getListedWallMoments(mockListedProducts);
+    it('populates all 3 moments accurately when traditional products are listed', () => {
+      const moments = getListedWallMoments(TRADITIONAL_PRODUCTS);
       expect(moments).toHaveLength(3);
       expect(moments[0].products).toHaveLength(2); // tr-01, tr-02
       expect(moments[1].products).toHaveLength(2); // tr-03, tr-04
@@ -95,11 +93,16 @@ describe('Stage 05: Collection Walls & WallStage Suite', () => {
 
   describe('3. LivingInheritanceWall Curatorial State & Listed Moments', () => {
     it('renders curatorial reserve notice when all traditional products are unlisted', () => {
+      const mockUnlisted: TraditionalProduct[] = TRADITIONAL_PRODUCTS.map(p => ({
+        ...p,
+        isListed: false
+      }));
+
       render(
         <MemoryRouter>
           <CartProvider>
             <SavedProvider>
-              <LivingInheritanceWall />
+              <LivingInheritanceWall productsOverride={mockUnlisted} />
             </SavedProvider>
           </CartProvider>
         </MemoryRouter>
@@ -109,17 +112,12 @@ describe('Stage 05: Collection Walls & WallStage Suite', () => {
       expect(screen.getByTestId('tr-product-count-indicator')).toHaveTextContent('Showing 0 listed concept pieces');
     });
 
-    it('renders populated moments when mock listed products are provided', () => {
-      const mockListed: TraditionalProduct[] = TRADITIONAL_PRODUCTS.map(p => ({
-        ...p,
-        isListed: true
-      }));
-
+    it('renders populated moments when listed products are provided', () => {
       render(
         <MemoryRouter>
           <CartProvider>
             <SavedProvider>
-              <LivingInheritanceWall productsOverride={mockListed} />
+              <LivingInheritanceWall />
             </SavedProvider>
           </CartProvider>
         </MemoryRouter>
