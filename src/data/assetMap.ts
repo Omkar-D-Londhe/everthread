@@ -43,6 +43,8 @@ export interface DiagramAsset {
   svg: string;
   fallbackPng: string;
   description?: string;
+  provenance?: ImageProvenance;
+  creditText?: string;
 }
 
 export const PRODUCT_ASSET_MAP: Record<string, ProductAssetRecord> = {
@@ -1371,3 +1373,22 @@ export const getAllTraditionAssets = (): TraditionAssetRecord[] => {
   }
   return list;
 };
+
+
+export const TECHNIQUE_STRIP_DIAGRAM_IDS = [
+  'library-warp-weft-diagram-01',
+  'library-textile-vocabulary-01',
+  'library-technique-comparison-01',
+  'library-embroidery-weaving-comparison-01',
+  'library-resist-dyeing-process-01',
+  'library-double-ikat-process-01',
+  'library-block-printing-process-01',
+  'library-garment-construction-01',
+  'library-textile-to-garment-sequence-01',
+] as const;
+
+export function getPlateCaption(record: TraditionAssetRecord, role: TraditionImageRole): string {
+  const roleItem = record.roles[role];
+  const roleLabel = roleItem?.label || role;
+  return `${record.title} — ${roleLabel}`;
+}

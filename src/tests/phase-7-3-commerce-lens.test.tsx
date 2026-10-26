@@ -42,7 +42,7 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
   });
 
   describe('2. Tradition Exhibition Modal Commerce & Lineage Mappings', () => {
-    it('enforces Decision O-7 / DEC D-25: blocks Kota Doria / Chanderi piece links pending candidate resolution', () => {
+    it('enforces Decision O-7 / Stage 07: renders Kota Doria related piece link to ET-04 without acquire button', () => {
       render(
         <MemoryRouter>
           <CartProvider>
@@ -55,12 +55,11 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
         </MemoryRouter>
       );
 
-      // Blocked per DEC D-25 — no unapproved commerce card or acquire button
       expect(screen.queryByTestId('exhibition-commerce-card')).not.toBeInTheDocument();
       expect(screen.queryByTestId('archive-acquire-btn')).not.toBeInTheDocument();
-      const notice = screen.getByTestId('exhibition-curatorial-notice');
-      expect(notice).toBeInTheDocument();
-      expect(notice.textContent).toContain('Curatorial Archival Record');
+      const related = screen.getAllByTestId('exhibition-related-piece')[0];
+      expect(related).toBeInTheDocument();
+      expect(related.textContent).toContain('View related piece →');
     });
 
     it('enforces Decision O-7: maps Pashmina / Kashmiri Sozni to info-only archival context without Acquire button', () => {
@@ -77,19 +76,19 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
       );
 
       // Info-only context per Decision O-7
-      const infoNotice = screen.getByTestId('exhibition-info-notice');
+      const infoNotice = screen.getAllByTestId('exhibition-info-notice')[0];
       expect(infoNotice).toBeInTheDocument();
       expect(infoNotice.textContent).toContain('Pashmina is the ground fabric discussed in this folio.');
       expect(screen.queryByTestId('archive-acquire-btn')).not.toBeInTheDocument();
     });
 
-    it('displays Curatorial Archival Record notice for educational non-sellable traditions (e.g. Ajrakh)', () => {
+    it('displays Curatorial Archival Record notice for educational non-sellable traditions (e.g. Bagru or Muga Silk)', () => {
       render(
         <MemoryRouter>
           <CartProvider>
             <TraditionExhibitionModal
               isOpen={true}
-              traditionKeyOrSlug="ajrakh"
+              traditionKeyOrSlug="bagru"
               onClose={vi.fn()}
             />
           </CartProvider>
@@ -97,7 +96,7 @@ describe('Phase 7.3: Commerce Corrections & Traditional Atelier Lens Suite', () 
       );
 
       // Should show curatorial notice
-      const notice = screen.getByTestId('exhibition-curatorial-notice');
+      const notice = screen.getAllByTestId('exhibition-curatorial-notice')[0];
       expect(notice).toBeInTheDocument();
       expect(notice.textContent).toContain('Curatorial Archival Record');
       expect(notice.textContent).toContain('Educational Document');

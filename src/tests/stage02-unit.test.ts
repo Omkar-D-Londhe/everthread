@@ -217,14 +217,16 @@ describe('Stage 02 Unit Test Suite', () => {
   });
 
   describe('UT-ARCH-01: Archive Lineage & Related-Piece Restrictions (Decision O-7 / DEC D-25)', () => {
-    it('enforces Sozni info-only, Muga none, and Banarasi & Kota Doria blocked', () => {
+    it('enforces Sozni info-only, Muga none, and Banarasi & Kota Doria ET related pieces (Stage 07 §7.7)', () => {
       expect(ARCHIVE_RELATED_PIECES['kashmiri-sozni'].kind).toBe('info');
       expect(ARCHIVE_RELATED_PIECES['kashmiri-sozni'].text).toBe(PROVISIONAL_RELATED_TEXTS.et07Info);
 
       expect(ARCHIVE_RELATED_PIECES['muga-silk'].kind).toBe('none');
 
-      expect(ARCHIVE_RELATED_PIECES['banarasi-brocade'].kind).toBe('blocked');
-      expect(ARCHIVE_RELATED_PIECES['kota-doria'].kind).toBe('blocked');
+      expect(ARCHIVE_RELATED_PIECES['banarasi-brocade'].kind).toBe('piece');
+      expect(ARCHIVE_RELATED_PIECES['banarasi-brocade'].productId).toBe('et-01');
+      expect(ARCHIVE_RELATED_PIECES['kota-doria'].kind).toBe('piece');
+      expect(ARCHIVE_RELATED_PIECES['kota-doria'].productId).toBe('et-04');
     });
 
     it('maps 6 TR inspiration designs and omits Banarasi pending DEC D-25', () => {

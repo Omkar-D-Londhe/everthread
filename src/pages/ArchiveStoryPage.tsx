@@ -76,7 +76,7 @@ export const ArchiveStoryPage: React.FC = () => {
   });
 
   return (
-    <main id="main-content" className="main-content bg-canvas" data-testid="archive-story-page" ref={mainRef}>
+    <main id="main-content" className="main-content bg-canvas" data-testid="archive-story-page" ref={mainRef} style={{ overflowX: 'hidden' }}>
       {/* Editorial Breadcrumb Plinth */}
       <div className="py-2 border-hairline-b bg-stone">
         <div className="page-container">
@@ -118,7 +118,7 @@ export const ArchiveStoryPage: React.FC = () => {
       {/* Main Exhibition Article Body */}
       <section className="py-5 editorial-section">
         <div className="page-container">
-          <div className="row g-5">
+          <div className="row g-4 g-lg-5">
             {/* Left Main Article Column */}
             <div className="col-12 col-lg-8">
               {/* Primary Specimen Visual */}
@@ -196,17 +196,27 @@ export const ArchiveStoryPage: React.FC = () => {
                 </div>
               )}
 
-              {/* Continuous Navigation Stepper */}
-              <div className="pt-4 border-hairline-t d-flex justify-content-between align-items-center gap-3">
+              {/* Continuous Navigation Stepper (F-10: mobile wrap without 390px overflow) */}
+              <div className="pt-4 border-hairline-t d-flex flex-column flex-sm-row justify-content-between align-items-stretch align-items-sm-center gap-3">
                 {prevStory ? (
-                  <Link to={`/archive/${prevStory.slug}`} className="btn-outline-editorial text-start" data-testid="prev-story-link">
+                  <Link
+                    to={`/archive/${prevStory.slug}`}
+                    className="btn-outline-editorial text-start text-decoration-none"
+                    style={{ maxWidth: '100%', whiteSpace: 'normal', wordBreak: 'break-word' }}
+                    data-testid="prev-story-link"
+                  >
                     <span className="label-caps-wide text-muted-editorial d-block" style={{ fontSize: '0.625rem' }}>Previous Folio</span>
                     <span className="fw-medium">← {prevStory.title}</span>
                   </Link>
                 ) : <div />}
 
                 {nextStory ? (
-                  <Link to={`/archive/${nextStory.slug}`} className="btn-outline-editorial text-end" data-testid="next-story-link">
+                  <Link
+                    to={`/archive/${nextStory.slug}`}
+                    className="btn-outline-editorial text-end text-decoration-none"
+                    style={{ maxWidth: '100%', whiteSpace: 'normal', wordBreak: 'break-word' }}
+                    data-testid="next-story-link"
+                  >
                     <span className="label-caps-wide text-muted-editorial d-block" style={{ fontSize: '0.625rem' }}>Next Folio</span>
                     <span className="fw-medium">{nextStory.title} →</span>
                   </Link>

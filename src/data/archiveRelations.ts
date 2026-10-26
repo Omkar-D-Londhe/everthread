@@ -26,14 +26,14 @@ export const PROVISIONAL_RELATED_TEXTS = {
 };
 
 export const ARCHIVE_RELATED_PIECES: Record<string, ArchiveRelatedPieceEntry> = {
-  // Held / Blocked per Decision O-7 / DEC D-25 pending owner resolution of F-52
+  // Active per Stage 07 §7.7 (Decision O-7, F-05, F-52 resolution)
   'banarasi-brocade': {
-    kind: 'blocked',
+    kind: 'piece',
     productId: 'et-01',
     text: PROVISIONAL_RELATED_TEXTS.et01,
   },
   'kota-doria': {
-    kind: 'blocked',
+    kind: 'piece',
     productId: 'et-04',
     text: PROVISIONAL_RELATED_TEXTS.et04,
   },

@@ -2,15 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { STORIES, WEAVE_LIBRARY } from '../data/stories.ts';
 import { DIAGRAM_ASSETS } from '../data/assetMap.ts';
-import { WeaveLibraryItem, TraditionImageRole } from '../types/catalog.ts';
+import { TraditionImageRole } from '../types/catalog.ts';
 import { TraditionExhibitionModal } from '../components/TraditionExhibitionModal.tsx';
+import { TechniqueStrip } from '../components/archive/TechniqueStrip.tsx';
+import { DisciplineGroup } from '../components/archive/DisciplineGroup.tsx';
+import { getDisciplineGroups } from '../data/archiveDisciplines.ts';
 import { PalluBorderIllustration, ArchitecturalThreadDivider } from '../components/archive/ArchiveIllustrations.tsx';
 import { useEditorialScroll } from '../hooks/useEditorialScroll.ts';
 
 type WeaveFilter = 'all' | 'weaving' | 'embroidery' | 'dyeing' | 'draping';
 
 export const ArchivePage: React.FC = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [weaveFilter, setWeaveFilter] = useState<WeaveFilter>('all');
   const [activeDiagramId, setActiveDiagramId] = useState<string>('library-warp-weft-diagram-01');
   const [selectedExhibitionTradition, setSelectedExhibitionTradition] = useState<string | null>(null);
@@ -30,15 +33,24 @@ export const ArchivePage: React.FC = () => {
   useEffect(() => {
     const traditionParam = searchParams.get('tradition');
     const roleParam = searchParams.get('role') as TraditionImageRole | null;
-    const diagramParam = searchParams.get('diagram') === 'true';
+    const diagramParam = searchParams.get('diagram');
 
     if (traditionParam) {
       setSelectedExhibitionTradition(traditionParam);
       if (roleParam) {
         setInitialRole(roleParam);
       }
-      setInitialDiagramOpen(diagramParam);
+      setInitialDiagramOpen(diagramParam === 'true');
       setIsExhibitionOpen(true);
+    } else if (diagramParam && DIAGRAM_ASSETS[diagramParam]) {
+      setActiveDiagramId(diagramParam);
+      const timer = setTimeout(() => {
+        const viewerEl = document.getElementById('diagram-viewer');
+        if (viewerEl) {
+          viewerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [searchParams]);
 
@@ -51,6 +63,23 @@ export const ArchivePage: React.FC = () => {
 
   const handleCloseExhibition = () => {
     setIsExhibitionOpen(false);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete('tradition');
+    newParams.delete('role');
+    if (newParams.get('diagram') === 'true') {
+      newParams.delete('diagram');
+    }
+    setSearchParams(newParams, { replace: true });
+  };
+
+  const handleSelectDiagram = (id: string) => {
+    if (DIAGRAM_ASSETS[id]) {
+      setActiveDiagramId(id);
+      const viewerEl = document.getElementById('diagram-viewer');
+      if (viewerEl) {
+        viewerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
   };
 
   const handleSelectTradition = (keyOrSlug: string) => {
@@ -58,10 +87,8 @@ export const ArchivePage: React.FC = () => {
     setInitialRole('model-01');
   };
 
-  // Filter weave library items based on craft distinction
-  const filteredWeaves: WeaveLibraryItem[] = weaveFilter === 'all'
-    ? WEAVE_LIBRARY
-    : WEAVE_LIBRARY.filter(item => item.distinction === weaveFilter);
+  // Group items by craft discipline with asymmetric layout presets (Stage 07 §7.2-7.3)
+  const disciplineGroups = getDisciplineGroups(WEAVE_LIBRARY, weaveFilter);
 
   const activeDiagram = DIAGRAM_ASSETS[activeDiagramId] || DIAGRAM_ASSETS['library-warp-weft-diagram-01'];
   const diagramKeys = Object.keys(DIAGRAM_ASSETS);
@@ -110,7 +137,7 @@ export const ArchivePage: React.FC = () => {
       </section>
 
       {/* Exhibition Folio Chapters Section */}
-      <section id="folios" className="py-5 border-hairline-b">
+      <section id="folios" className="py-5 border-hairline-b" data-scene="A1">
         <div className="page-container">
           <div className="d-flex align-items-center justify-content-between mb-4 pb-2 border-hairline-b">
             <div>
@@ -224,9 +251,15 @@ export const ArchivePage: React.FC = () => {
       </section>
 
       {/* Editorial Transition Divider */}
-      <div className="py-2 bg-canvas">
+      <div className="py-2 bg-canvas" data-scene="A2">
         <ArchitecturalThreadDivider />
       </div>
+
+      {/* Archival Technique Strip (9 Canonical Diagrams per Stage 07 N-06 / O-5) */}
+      <TechniqueStrip
+        activeDiagramId={activeDiagramId}
+        onSelectDiagram={handleSelectDiagram}
+      />
 
       {/* Embedded Weave Library Section */}
       <section id="weave-library" className="py-5 bg-cream border-hairline-b" data-testid="weave-library-section">
@@ -262,120 +295,20 @@ export const ArchivePage: React.FC = () => {
             ))}
           </div>
 
-          {/* Filtered Library Grid */}
-          <div className="row g-4 mb-5" data-testid="weave-library-grid">
-            {filteredWeaves.map(item => (
-              <div key={item.id} className="col-12 col-md-6 col-lg-4 editorial-card">
-                <article className="p-4 bg-canvas border-hairline h-100 d-flex flex-column justify-content-between" data-testid={`weave-card-${item.slug}`}>
-                  <div>
-                    {item.image && (
-                      <div className="mb-3 overflow-hidden border-hairline position-relative" style={{ aspectRatio: '16/10', backgroundColor: 'var(--color-surface)' }}>
-                        <img
-                          src={item.image}
-                          alt={item.imageAlt || item.title}
-                          className="w-100 h-100 object-fit-cover"
-                          loading="lazy"
-                          width={400}
-                          height={250}
-                        />
-                        {item.traditionKey ? (
-                          <button
-                            type="button"
-                            className="position-absolute bottom-0 end-0 m-2 px-2 py-1 bg-surface border-hairline label-caps text-oxblood body-sm d-flex align-items-center gap-1"
-                            style={{ fontSize: '0.625rem', backdropFilter: 'blur(4px)', cursor: 'pointer' }}
-                            onClick={() => handleOpenExhibition(item.traditionKey || item.slug)}
-                            aria-label={`Open 6-plate gallery for ${item.title}`}
-                          >
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                              <rect x="3" y="3" width="18" height="18" rx="1"></rect>
-                              <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                              <polyline points="21 15 16 10 5 21"></polyline>
-                            </svg>
-                            <span>6 Plates</span>
-                          </button>
-                        ) : (
-                          <Link
-                            to="/archive/the-art-of-the-drape"
-                            className="position-absolute bottom-0 end-0 m-2 px-2 py-1 bg-surface border-hairline label-caps text-oxblood body-sm d-flex align-items-center gap-1 text-decoration-none"
-                            style={{ fontSize: '0.625rem', backdropFilter: 'blur(4px)', cursor: 'pointer' }}
-                            aria-label="Read Folio 1.2: The Art of the Drape"
-                            data-testid="weave-14-badge-link"
-                          >
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                            </svg>
-                            <span>Folio 1.2</span>
-                          </Link>
-                        )}
-                      </div>
-                    )}
-
-                    <div className="d-flex justify-content-between align-items-center mb-2">
-                      <span className={`weave-distinction-badge weave-distinction-${item.distinction}`}>
-                        {item.distinction}
-                      </span>
-                      <span className="label-caps text-muted-editorial" style={{ fontSize: '0.6875rem' }}>
-                        {item.region}
-                      </span>
-                    </div>
-
-                    <h3 className="headline-sm text-oxblood mb-2" style={{ fontSize: '1.25rem' }}>
-                      {item.title}
-                    </h3>
-
-                    <p className="body-sm text-muted-editorial mb-3">
-                      {item.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-hairline-t body-sm">
-                    <div className="mb-1">
-                      <strong className="text-oxblood fw-medium">Fiber:</strong> <span className="text-muted-editorial">{item.fiber}</span>
-                    </div>
-                    <div className="mb-1">
-                      <strong className="text-oxblood fw-medium">Loom Sett / Structure:</strong> <span className="text-muted-editorial">{item.warpDensity}</span>
-                    </div>
-                    <div>
-                      <strong className="text-oxblood fw-medium">Profile:</strong> <span className="text-muted-editorial">{item.structuralProfile}</span>
-                    </div>
-                    {item.traditionKey ? (
-                      <button
-                        type="button"
-                        className="btn-outline-editorial w-100 py-2 mt-3 d-flex align-items-center justify-content-center gap-2"
-                        onClick={() => handleOpenExhibition(item.traditionKey || item.slug)}
-                        data-testid={`open-exhibition-${item.slug}`}
-                        aria-haspopup="dialog"
-                        aria-label={`Examine 6-plate exhibition folio for ${item.title}`}
-                      >
-                        <span>Examine 6-Plate Folio</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                          <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
-                      </button>
-                    ) : (
-                      <Link
-                        to="/archive/the-art-of-the-drape"
-                        className="btn-outline-editorial w-100 py-2 mt-3 d-flex align-items-center justify-content-center gap-2 text-decoration-none"
-                        data-testid={`read-monograph-${item.slug}`}
-                        aria-label={`Read foundational monograph for ${item.title}`}
-                      >
-                        <span>Read Foundational Folio 1.2</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                          <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                      </Link>
-                    )}
-                  </div>
-                </article>
-              </div>
+          {/* Filtered Discipline Groups Grid with Asymmetric Layouts (Stage 07 §7.3) */}
+          <div data-testid="weave-library-grid">
+            {disciplineGroups.map(({ group, items }) => (
+              <DisciplineGroup
+                key={group.id}
+                group={group}
+                items={items}
+                onOpenExhibition={handleOpenExhibition}
+              />
             ))}
           </div>
 
           {/* Interactive Technical Diagram Visualizer */}
-          <div className="diagram-viewer-panel" data-testid="diagram-viewer">
+          <div id="diagram-viewer" className="diagram-viewer-panel" data-testid="diagram-viewer">
             <div className="row g-4 align-items-center">
               <div className="col-12 col-lg-4">
                 <span className="label-caps text-champagne d-block mb-1">Archival Drafting Sequence</span>

@@ -669,9 +669,9 @@ describe('EverThread Stage 5.1: Approved Homepage & SVG Thread Entrance Suite', 
       const craftSection = screen.getByTestId('home-craft');
       expect(craftSection).toBeInTheDocument();
       expect(within(craftSection).getByText('The Living Loom')).toBeInTheDocument();
-      expect(screen.getByTestId('diagram-thumb-warp-weft')).toHaveAttribute('href', '/archive');
-      expect(screen.getByTestId('diagram-thumb-vocab')).toHaveAttribute('href', '/archive');
-      expect(screen.getByTestId('diagram-thumb-technique')).toHaveAttribute('href', '/archive');
+      expect(screen.getByTestId('diagram-thumb-warp-weft')).toHaveAttribute('href', '/archive?diagram=library-warp-weft-diagram-01');
+      expect(screen.getByTestId('diagram-thumb-vocab')).toHaveAttribute('href', '/archive?diagram=library-textile-vocabulary-01');
+      expect(screen.getByTestId('diagram-thumb-technique')).toHaveAttribute('href', '/archive?diagram=library-technique-comparison-01');
 
       // Scene 5: home-walls (H2 Walls Preview)
       const wallsSection = screen.getByTestId('home-walls');

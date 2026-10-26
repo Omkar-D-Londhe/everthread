@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useInRouterContext } from 'react-router-dom';
 import { TraditionImageRole, TraditionAssetRecord } from '../types/catalog.ts';
-import { getTraditionAssets, getAllTraditionAssets, DIAGRAM_ASSETS } from '../data/assetMap.ts';
+import { getTraditionAssets, getAllTraditionAssets, DIAGRAM_ASSETS, getPlateCaption } from '../data/assetMap.ts';
 import { getCatalogueProductById } from '../data/products.ts';
-import { ARCHIVE_RELATED_PIECES } from '../data/archiveRelations.ts';
+import { ARCHIVE_RELATED_PIECES, TRADITION_INSPIRED_DESIGNS, PROVISIONAL_RELATED_TEXTS } from '../data/archiveRelations.ts';
+import { useDialogFocus } from '../hooks/useDialogFocus.ts';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.ts';
 import { WeaveGridIllustration } from './archive/ArchiveIllustrations.tsx';
 import { AtelierLensModal } from './AtelierLensModal.tsx';
@@ -23,28 +24,42 @@ const SafeLink: React.FC<{
   return <a href={to} {...props}>{children}</a>;
 };
 
-// Curatorial related piece component per Decision O-7 / Stage 02
-const RelatedPiece: React.FC<{ traditionKey: string; onClose: () => void }> = ({ traditionKey, onClose }) => {
+// Curatorial related piece component per Decision O-7 / Stage 02 / Stage 07 §7.7
+const RelatedPiece: React.FC<{ traditionKey: string; traditionTitle: string; onClose: () => void }> = ({ traditionKey, traditionTitle, onClose }) => {
   const entry = ARCHIVE_RELATED_PIECES[traditionKey];
-  if (!entry || entry.kind === 'none' || entry.kind === 'blocked') {
-    return (
-      <div className="p-3 mx-3 mb-3 bg-stone border-hairline" data-testid="exhibition-curatorial-notice">
-        <div className="d-flex align-items-center justify-content-between mb-1">
-          <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
-            Curatorial Archival Record
-          </span>
-          <span className="badge badge-sand text-oxblood" style={{ fontSize: '0.5625rem' }}>
-            Educational Document
-          </span>
+
+  // 1. Check direct ET product relationship (e.g. Banarasi -> ET-01, Kota Doria -> ET-04)
+  if (entry && entry.kind === 'piece' && entry.productId) {
+    const product = getCatalogueProductById(entry.productId);
+    const isListed = product && (!('isListed' in product) || product.isListed);
+    if (product && isListed) {
+      return (
+        <div className="p-3 mx-3 mb-3 bg-stone border-hairline" data-testid="exhibition-related-piece">
+          <div className="d-flex align-items-center justify-content-between mb-1">
+            <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
+              Related Silhouette
+            </span>
+          </div>
+          {entry.text && (
+            <p className="body-sm text-espresso mb-2" style={{ fontSize: '0.75rem' }}>
+              {entry.text}
+            </p>
+          )}
+          <SafeLink
+            to={`/product/${product.slug}`}
+            onClick={onClose}
+            className="body-sm text-oxblood text-decoration-underline fw-medium d-inline-block"
+            style={{ fontSize: '0.75rem' }}
+          >
+            View related piece →
+          </SafeLink>
         </div>
-        <p className="body-sm text-espresso mb-0" style={{ fontSize: '0.75rem' }}>
-          Documented exclusively for textile preservation and technical guild study. Not currently commissioned in the commercial repertoire.
-        </p>
-      </div>
-    );
+      );
+    }
   }
 
-  if (entry.kind === 'info') {
+  // 2. Check archival context info notice (e.g. Kashmiri Sozni ground fabric)
+  if (entry && entry.kind === 'info') {
     return (
       <div className="p-3 mx-3 mb-3 bg-stone border-hairline" data-testid="exhibition-info-notice">
         <div className="d-flex align-items-center justify-content-between mb-1">
@@ -62,37 +77,54 @@ const RelatedPiece: React.FC<{ traditionKey: string; onClose: () => void }> = ({
     );
   }
 
-  if (entry.kind === 'piece' && entry.productId) {
-    const product = getCatalogueProductById(entry.productId);
-    const isListed = product && (!('isListed' in product) || product.isListed);
-    if (!product || !isListed) {
-      return null;
-    }
-    return (
-      <div className="p-3 mx-3 mb-3 bg-stone border-hairline" data-testid="exhibition-related-piece">
-        <div className="d-flex align-items-center justify-content-between mb-1">
-          <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
-            Related Silhouette
-          </span>
-        </div>
-        {entry.text && (
+  // 3. Check TR inspiration relationship (e.g. paithani-silk -> tr-02, patan-patola -> tr-03, etc.)
+  const trProductId = TRADITION_INSPIRED_DESIGNS[traditionKey];
+  if (trProductId) {
+    const trProduct = getCatalogueProductById(trProductId);
+    const isListed = trProduct && (!('isListed' in trProduct) || trProduct.isListed);
+    if (trProduct && isListed) {
+      return (
+        <div className="p-3 mx-3 mb-3 bg-stone border-hairline" data-testid="exhibition-inspired-piece">
+          <div className="d-flex align-items-center justify-content-between mb-1">
+            <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
+              Repertoire Inspiration
+            </span>
+            <span className="badge badge-sand text-oxblood" style={{ fontSize: '0.5625rem' }}>
+              Living Inheritance
+            </span>
+          </div>
           <p className="body-sm text-espresso mb-2" style={{ fontSize: '0.75rem' }}>
-            {entry.text}
+            {PROVISIONAL_RELATED_TEXTS.traditionalInspiration(traditionTitle)}
           </p>
-        )}
-        <SafeLink
-          to={`/product/${product.slug}`}
-          onClick={onClose}
-          className="body-sm text-oxblood text-decoration-underline fw-medium d-inline-block"
-          style={{ fontSize: '0.75rem' }}
-        >
-          View related piece →
-        </SafeLink>
-      </div>
-    );
+          <SafeLink
+            to={`/product/${trProduct.slug}`}
+            onClick={onClose}
+            className="body-sm text-oxblood text-decoration-underline fw-medium d-inline-block"
+            style={{ fontSize: '0.75rem' }}
+          >
+            View design inspired by this tradition →
+          </SafeLink>
+        </div>
+      );
+    }
   }
 
-  return null;
+  // 4. Default educational record notice
+  return (
+    <div className="p-3 mx-3 mb-3 bg-stone border-hairline" data-testid="exhibition-curatorial-notice">
+      <div className="d-flex align-items-center justify-content-between mb-1">
+        <span className="label-caps-wide text-oxblood fw-bold" style={{ fontSize: '0.625rem' }}>
+          Curatorial Archival Record
+        </span>
+        <span className="badge badge-sand text-oxblood" style={{ fontSize: '0.5625rem' }}>
+          Educational Document
+        </span>
+      </div>
+      <p className="body-sm text-espresso mb-0" style={{ fontSize: '0.75rem' }}>
+        Documented exclusively for textile preservation and technical guild study. Not currently commissioned in the commercial repertoire.
+      </p>
+    </div>
+  );
 };
 
 export interface TraditionExhibitionModalProps {
@@ -130,7 +162,14 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
 
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const lastActiveElementRef = useRef<HTMLElement | null>(null);
+
+  // Stage 07 Accessibility & Dialog Focus Trap per F-08
+  useDialogFocus({
+    isOpen,
+    onClose,
+    containerRef: modalRef,
+    initialFocusRef: closeButtonRef
+  });
 
   // Derive current tradition record
   const currentRecord: TraditionAssetRecord | undefined = traditionKeyOrSlug
@@ -166,33 +205,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
     return () => clearTimeout(timer);
   }, [isOpen, activeRole, traditionKeyOrSlug, prefersReducedMotion]);
 
-  // Save last active element and focus close button on open; restore focus on close
-  useEffect(() => {
-    if (isOpen) {
-      lastActiveElementRef.current = document.activeElement as HTMLElement | null;
-      const timer = setTimeout(() => {
-        closeButtonRef.current?.focus();
-      }, 50);
-      return () => clearTimeout(timer);
-    } else {
-      if (lastActiveElementRef.current && typeof lastActiveElementRef.current.focus === 'function') {
-        lastActiveElementRef.current.focus();
-      }
-    }
-  }, [isOpen]);
-
-  // Body and HTML scroll lock
-  useEffect(() => {
-    if (!isOpen) return;
-    const originalBodyOverflow = document.body.style.overflow;
-    const originalHtmlOverflow = document.documentElement.style.overflow;
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = originalBodyOverflow;
-      document.documentElement.style.overflow = originalHtmlOverflow;
-    };
-  }, [isOpen]);
+  // Focus trap, Escape key handling, and background scroll locking are managed by useDialogFocus (F-08)
 
   // Navigation: Next / Prev Image role within tradition
   const currentRoleIndex = TRADITION_ROLES.indexOf(activeRole);
@@ -288,7 +301,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
 
   return (
     <div
-      className="exhibition-backdrop"
+      className="exhibition-backdrop" data-step="cover"
       role="dialog"
       aria-modal="true"
       aria-labelledby="exhibition-title"
@@ -296,7 +309,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
       onKeyDown={handleKeyDown}
       data-testid="tradition-exhibition-modal"
     >
-      <div className="exhibition-dialog">
+      <div className="exhibition-dialog" data-step="surface">
         {/* Header Bar */}
         <header className="exhibition-header">
           <div className="exhibition-header__meta">
@@ -392,7 +405,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
             <div className="exhibition-stage" data-testid="exhibition-stage">
               {/* Champagne Thread Motif */}
               <svg
-                className="exhibition-thread-svg"
+                className="exhibition-thread-svg" data-step="thread"
                 viewBox="0 0 1000 600"
                 preserveAspectRatio="none"
                 fill="none"
@@ -413,7 +426,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
 
               {/* Stage Image with contain-fit to preserve landscape models and details */}
               {activeItem && !imageError ? (
-                <picture className="exhibition-stage-picture">
+                <picture className="exhibition-stage-picture" data-step="main-image">
                   <source
                     srcSet={activeItem.srcSet}
                     sizes="(max-width: 768px) 95vw, (max-width: 1200px) 75vw, 75vw"
@@ -421,7 +434,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
                   />
                   <img
                     src={activeItem.src}
-                    alt={activeItem.alt}
+                    alt={getPlateCaption(currentRecord, activeRole)}
                     width={activeItem.width}
                     height={activeItem.height}
                     className="exhibition-stage-image"
@@ -502,14 +515,14 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
                   className="exhibition-stage-caption__desc body-sm text-espresso mb-0"
                   data-testid="active-plate-description"
                 >
-                  {activeItem?.alt || activeItem?.purpose || 'Archival textile documentation plate.'}
+                  {getPlateCaption(currentRecord, activeRole)}
                 </p>
               </div>
             </div>
           </div>
 
           {/* Asymmetrical Supporting Views / Desktop Selector Column */}
-          <aside className="exhibition-supporting-col" aria-label="Supporting textile plates">
+          <aside className="exhibition-supporting-col" aria-label="Supporting textile plates" data-step="views">
             <div className="exhibition-supporting-header">
               <div className="d-flex align-items-center justify-content-between mb-1">
                 <span className="label-caps text-oxblood fw-bold" style={{ fontSize: '0.6875rem' }}>
@@ -573,7 +586,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
             </div>
 
             {/* Cultural Archive Lineage & Related Piece per Decision O-7 */}
-            <RelatedPiece traditionKey={currentRecord.traditionKey} onClose={onClose} />
+            <RelatedPiece traditionKey={currentRecord.traditionKey} traditionTitle={currentRecord.title} onClose={onClose} />
 
             {/* Restrained Architectural SVG Textile Illustration */}
             <div className="p-3 mx-3 mb-3 text-center d-flex flex-column align-items-center" aria-hidden="true">
@@ -668,6 +681,11 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
                 </button>
               );
             })}
+          </div>
+
+          {/* Mobile Related Piece Notice */}
+          <div className="px-2 pt-2 border-hairline-t bg-stone">
+            <RelatedPiece traditionKey={currentRecord.traditionKey} traditionTitle={currentRecord.title} onClose={onClose} />
           </div>
         </div>
 

@@ -816,21 +816,21 @@ export const HomePage: React.FC = () => {
             </div>
             <div className="row g-3">
               <div className="col-12 col-md-4">
-                <Link to="/archive" className="craft-diagram-thumb h-100" data-testid="diagram-thumb-warp-weft">
+                <Link to="/archive?diagram=library-warp-weft-diagram-01" className="craft-diagram-thumb h-100" data-testid="diagram-thumb-warp-weft">
                   <img src="/images/weave-library/diagrams/library-warp-weft-diagram-01.svg" alt="Warp and Weft Interlacing Structure Diagram" loading="lazy" />
                   <span className="body-sm text-oxblood fw-medium text-center">Warp &amp; Weft Interlacing</span>
                   <span className="body-xs text-muted-editorial text-center mt-1">Loom tension and cross-weave geometry</span>
                 </Link>
               </div>
               <div className="col-12 col-md-4">
-                <Link to="/archive" className="craft-diagram-thumb h-100" data-testid="diagram-thumb-vocab">
+                <Link to="/archive?diagram=library-textile-vocabulary-01" className="craft-diagram-thumb h-100" data-testid="diagram-thumb-vocab">
                   <img src="/images/weave-library/diagrams/library-textile-vocabulary-01.svg" alt="Textile Anatomy and Terminology Diagram" loading="lazy" />
                   <span className="body-sm text-oxblood fw-medium text-center">Textile Vocabulary</span>
                   <span className="body-xs text-muted-editorial text-center mt-1">Selvedge, reed density, and yarn twist taxonomy</span>
                 </Link>
               </div>
               <div className="col-12 col-md-4">
-                <Link to="/archive" className="craft-diagram-thumb h-100" data-testid="diagram-thumb-technique">
+                <Link to="/archive?diagram=library-technique-comparison-01" className="craft-diagram-thumb h-100" data-testid="diagram-thumb-technique">
                   <img src="/images/weave-library/diagrams/library-technique-comparison-01.svg" alt="Handloom vs Machine Weave Technique Comparison Diagram" loading="lazy" />
                   <span className="body-sm text-oxblood fw-medium text-center">Technique Comparison</span>
                   <span className="body-xs text-muted-editorial text-center mt-1">Subterranean pit loom vs automated industrial weave</span>

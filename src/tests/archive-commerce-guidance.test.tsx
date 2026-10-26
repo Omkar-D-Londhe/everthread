@@ -29,7 +29,7 @@ describe('Archive Commerce & Right-Side Guidance Suite', () => {
     expect(guidance.textContent).toContain('Scroll Down To Examine Plates');
   });
 
-  it('enforces Decision O-7 / DEC D-25: removes Acquire to Bag and blocks unapproved commerce links for Banarasi', () => {
+  it('enforces Decision O-7 / Stage 07: removes Acquire to Bag and renders approved related piece link for Banarasi without purchase buttons', () => {
     render(
       <MemoryRouter>
         <CartProvider>
@@ -42,18 +42,18 @@ describe('Archive Commerce & Right-Side Guidance Suite', () => {
       </MemoryRouter>
     );
 
-    // Unsafe Acquire button is deleted per Stage 02 requirements
+    // Unsafe Acquire button is deleted per Stage 02 / Stage 07 requirements
     const acquireBtn = screen.queryByTestId('archive-acquire-btn');
     expect(acquireBtn).not.toBeInTheDocument();
 
-    // Banarasi is blocked pending DEC D-25 / F-52 resolution
     const commerceCard = screen.queryByTestId('exhibition-commerce-card');
     expect(commerceCard).not.toBeInTheDocument();
 
-    // Curatorial notice is rendered instead
-    const notice = screen.getByTestId('exhibition-curatorial-notice');
-    expect(notice).toBeInTheDocument();
-    expect(notice.textContent).toContain('Curatorial Archival Record');
+    // Approved educational related piece is rendered
+    const relatedPiece = screen.getAllByTestId('exhibition-related-piece')[0];
+    expect(relatedPiece).toBeInTheDocument();
+    expect(relatedPiece.textContent).toContain('Related Silhouette');
+    expect(relatedPiece.textContent).toContain('View related piece →');
   });
 
   it('renders restrained SVG textile illustrations without cluttering the exhibition', () => {

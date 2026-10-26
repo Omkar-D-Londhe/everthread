@@ -1,0 +1,548 @@
+[
+  {
+    "traditionId": "ajrakh",
+    "traditionTitle": "Kutch Ajrakh Double-Sided Resist",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Kutch Ajrakh Double-Sided Resist — Model / Garment"
+  },
+  {
+    "traditionId": "ajrakh",
+    "traditionTitle": "Kutch Ajrakh Double-Sided Resist",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Kutch Ajrakh Double-Sided Resist — Alternate View"
+  },
+  {
+    "traditionId": "ajrakh",
+    "traditionTitle": "Kutch Ajrakh Double-Sided Resist",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Kutch Ajrakh Double-Sided Resist — Drape & Movement"
+  },
+  {
+    "traditionId": "ajrakh",
+    "traditionTitle": "Kutch Ajrakh Double-Sided Resist",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Kutch Ajrakh Double-Sided Resist — Textile Still Life"
+  },
+  {
+    "traditionId": "ajrakh",
+    "traditionTitle": "Kutch Ajrakh Double-Sided Resist",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Kutch Ajrakh Double-Sided Resist — Weave Detail"
+  },
+  {
+    "traditionId": "ajrakh",
+    "traditionTitle": "Kutch Ajrakh Double-Sided Resist",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Kutch Ajrakh Double-Sided Resist — Process & Making"
+  },
+  {
+    "traditionId": "bagru",
+    "traditionTitle": "Bagru Natural Madder & Dabu Resist",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Bagru Natural Madder & Dabu Resist — Model / Garment"
+  },
+  {
+    "traditionId": "bagru",
+    "traditionTitle": "Bagru Natural Madder & Dabu Resist",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Bagru Natural Madder & Dabu Resist — Alternate View"
+  },
+  {
+    "traditionId": "bagru",
+    "traditionTitle": "Bagru Natural Madder & Dabu Resist",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Bagru Natural Madder & Dabu Resist — Drape & Movement"
+  },
+  {
+    "traditionId": "bagru",
+    "traditionTitle": "Bagru Natural Madder & Dabu Resist",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Bagru Natural Madder & Dabu Resist — Textile Still Life"
+  },
+  {
+    "traditionId": "bagru",
+    "traditionTitle": "Bagru Natural Madder & Dabu Resist",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Bagru Natural Madder & Dabu Resist — Weave Detail"
+  },
+  {
+    "traditionId": "bagru",
+    "traditionTitle": "Bagru Natural Madder & Dabu Resist",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Bagru Natural Madder & Dabu Resist — Process & Making"
+  },
+  {
+    "traditionId": "banarasi-brocade",
+    "traditionTitle": "Varanasi Kadwa Jacquard",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Varanasi Kadwa Jacquard — Model / Garment"
+  },
+  {
+    "traditionId": "banarasi-brocade",
+    "traditionTitle": "Varanasi Kadwa Jacquard",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Varanasi Kadwa Jacquard — Alternate View"
+  },
+  {
+    "traditionId": "banarasi-brocade",
+    "traditionTitle": "Varanasi Kadwa Jacquard",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Varanasi Kadwa Jacquard — Drape & Movement"
+  },
+  {
+    "traditionId": "banarasi-brocade",
+    "traditionTitle": "Varanasi Kadwa Jacquard",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Varanasi Kadwa Jacquard — Textile Still Life"
+  },
+  {
+    "traditionId": "banarasi-brocade",
+    "traditionTitle": "Varanasi Kadwa Jacquard",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Varanasi Kadwa Jacquard — Weave Detail"
+  },
+  {
+    "traditionId": "banarasi-brocade",
+    "traditionTitle": "Varanasi Kadwa Jacquard",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Varanasi Kadwa Jacquard — Process & Making"
+  },
+  {
+    "traditionId": "bandhani",
+    "traditionTitle": "Kutch & Jamnagar Bandhani",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Kutch & Jamnagar Bandhani — Model / Garment"
+  },
+  {
+    "traditionId": "bandhani",
+    "traditionTitle": "Kutch & Jamnagar Bandhani",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Kutch & Jamnagar Bandhani — Alternate View"
+  },
+  {
+    "traditionId": "bandhani",
+    "traditionTitle": "Kutch & Jamnagar Bandhani",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Kutch & Jamnagar Bandhani — Drape & Movement"
+  },
+  {
+    "traditionId": "bandhani",
+    "traditionTitle": "Kutch & Jamnagar Bandhani",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Kutch & Jamnagar Bandhani — Textile Still Life"
+  },
+  {
+    "traditionId": "bandhani",
+    "traditionTitle": "Kutch & Jamnagar Bandhani",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Kutch & Jamnagar Bandhani — Weave Detail"
+  },
+  {
+    "traditionId": "bandhani",
+    "traditionTitle": "Kutch & Jamnagar Bandhani",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Kutch & Jamnagar Bandhani — Process & Making"
+  },
+  {
+    "traditionId": "chikankari",
+    "traditionTitle": "Lucknow Chikankari Needlework",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Lucknow Chikankari Needlework — Model / Garment"
+  },
+  {
+    "traditionId": "chikankari",
+    "traditionTitle": "Lucknow Chikankari Needlework",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Lucknow Chikankari Needlework — Alternate View"
+  },
+  {
+    "traditionId": "chikankari",
+    "traditionTitle": "Lucknow Chikankari Needlework",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Lucknow Chikankari Needlework — Drape & Movement"
+  },
+  {
+    "traditionId": "chikankari",
+    "traditionTitle": "Lucknow Chikankari Needlework",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Lucknow Chikankari Needlework — Textile Still Life"
+  },
+  {
+    "traditionId": "chikankari",
+    "traditionTitle": "Lucknow Chikankari Needlework",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Lucknow Chikankari Needlework — Weave Detail"
+  },
+  {
+    "traditionId": "chikankari",
+    "traditionTitle": "Lucknow Chikankari Needlework",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Lucknow Chikankari Needlework — Process & Making"
+  },
+  {
+    "traditionId": "kanchipuram-silk",
+    "traditionTitle": "Kanchipuram Korvai Temple Silk",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Kanchipuram Korvai Temple Silk — Model / Garment"
+  },
+  {
+    "traditionId": "kanchipuram-silk",
+    "traditionTitle": "Kanchipuram Korvai Temple Silk",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Kanchipuram Korvai Temple Silk — Alternate View"
+  },
+  {
+    "traditionId": "kanchipuram-silk",
+    "traditionTitle": "Kanchipuram Korvai Temple Silk",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Kanchipuram Korvai Temple Silk — Drape & Movement"
+  },
+  {
+    "traditionId": "kanchipuram-silk",
+    "traditionTitle": "Kanchipuram Korvai Temple Silk",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Kanchipuram Korvai Temple Silk — Textile Still Life"
+  },
+  {
+    "traditionId": "kanchipuram-silk",
+    "traditionTitle": "Kanchipuram Korvai Temple Silk",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Kanchipuram Korvai Temple Silk — Weave Detail"
+  },
+  {
+    "traditionId": "kanchipuram-silk",
+    "traditionTitle": "Kanchipuram Korvai Temple Silk",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Kanchipuram Korvai Temple Silk — Process & Making"
+  },
+  {
+    "traditionId": "kashmiri-sozni",
+    "traditionTitle": "Kashmiri Sozni on Changthangi Pashmina",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Kashmiri Sozni on Changthangi Pashmina — Model / Garment"
+  },
+  {
+    "traditionId": "kashmiri-sozni",
+    "traditionTitle": "Kashmiri Sozni on Changthangi Pashmina",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Kashmiri Sozni on Changthangi Pashmina — Alternate View"
+  },
+  {
+    "traditionId": "kashmiri-sozni",
+    "traditionTitle": "Kashmiri Sozni on Changthangi Pashmina",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Kashmiri Sozni on Changthangi Pashmina — Drape & Movement"
+  },
+  {
+    "traditionId": "kashmiri-sozni",
+    "traditionTitle": "Kashmiri Sozni on Changthangi Pashmina",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Kashmiri Sozni on Changthangi Pashmina — Textile Still Life"
+  },
+  {
+    "traditionId": "kashmiri-sozni",
+    "traditionTitle": "Kashmiri Sozni on Changthangi Pashmina",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Kashmiri Sozni on Changthangi Pashmina — Weave Detail"
+  },
+  {
+    "traditionId": "kashmiri-sozni",
+    "traditionTitle": "Kashmiri Sozni on Changthangi Pashmina",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Kashmiri Sozni on Changthangi Pashmina — Process & Making"
+  },
+  {
+    "traditionId": "kota-doria",
+    "traditionTitle": "Chanderi & Kota Doria Sheer Weave",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Chanderi & Kota Doria Sheer Weave — Model / Garment"
+  },
+  {
+    "traditionId": "kota-doria",
+    "traditionTitle": "Chanderi & Kota Doria Sheer Weave",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Chanderi & Kota Doria Sheer Weave — Alternate View"
+  },
+  {
+    "traditionId": "kota-doria",
+    "traditionTitle": "Chanderi & Kota Doria Sheer Weave",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Chanderi & Kota Doria Sheer Weave — Drape & Movement"
+  },
+  {
+    "traditionId": "kota-doria",
+    "traditionTitle": "Chanderi & Kota Doria Sheer Weave",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Chanderi & Kota Doria Sheer Weave — Textile Still Life"
+  },
+  {
+    "traditionId": "kota-doria",
+    "traditionTitle": "Chanderi & Kota Doria Sheer Weave",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Chanderi & Kota Doria Sheer Weave — Weave Detail"
+  },
+  {
+    "traditionId": "kota-doria",
+    "traditionTitle": "Chanderi & Kota Doria Sheer Weave",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Chanderi & Kota Doria Sheer Weave — Process & Making"
+  },
+  {
+    "traditionId": "muga-silk",
+    "traditionTitle": "Assam Muga Wild Silk Twill",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Assam Muga Wild Silk Twill — Model / Garment"
+  },
+  {
+    "traditionId": "muga-silk",
+    "traditionTitle": "Assam Muga Wild Silk Twill",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Assam Muga Wild Silk Twill — Alternate View"
+  },
+  {
+    "traditionId": "muga-silk",
+    "traditionTitle": "Assam Muga Wild Silk Twill",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Assam Muga Wild Silk Twill — Drape & Movement"
+  },
+  {
+    "traditionId": "muga-silk",
+    "traditionTitle": "Assam Muga Wild Silk Twill",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Assam Muga Wild Silk Twill — Textile Still Life"
+  },
+  {
+    "traditionId": "muga-silk",
+    "traditionTitle": "Assam Muga Wild Silk Twill",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Assam Muga Wild Silk Twill — Weave Detail"
+  },
+  {
+    "traditionId": "muga-silk",
+    "traditionTitle": "Assam Muga Wild Silk Twill",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Assam Muga Wild Silk Twill — Process & Making"
+  },
+  {
+    "traditionId": "paithani-silk",
+    "traditionTitle": "Paithani Tapestry Silk",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Paithani Tapestry Silk — Model / Garment"
+  },
+  {
+    "traditionId": "paithani-silk",
+    "traditionTitle": "Paithani Tapestry Silk",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Paithani Tapestry Silk — Alternate View"
+  },
+  {
+    "traditionId": "paithani-silk",
+    "traditionTitle": "Paithani Tapestry Silk",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Paithani Tapestry Silk — Drape & Movement"
+  },
+  {
+    "traditionId": "paithani-silk",
+    "traditionTitle": "Paithani Tapestry Silk",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Paithani Tapestry Silk — Textile Still Life"
+  },
+  {
+    "traditionId": "paithani-silk",
+    "traditionTitle": "Paithani Tapestry Silk",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Paithani Tapestry Silk — Weave Detail"
+  },
+  {
+    "traditionId": "paithani-silk",
+    "traditionTitle": "Paithani Tapestry Silk",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Paithani Tapestry Silk — Process & Making"
+  },
+  {
+    "traditionId": "patan-patola",
+    "traditionTitle": "Patan Patola Double-Ikat",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Patan Patola Double-Ikat — Model / Garment"
+  },
+  {
+    "traditionId": "patan-patola",
+    "traditionTitle": "Patan Patola Double-Ikat",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Patan Patola Double-Ikat — Alternate View"
+  },
+  {
+    "traditionId": "patan-patola",
+    "traditionTitle": "Patan Patola Double-Ikat",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Patan Patola Double-Ikat — Drape & Movement"
+  },
+  {
+    "traditionId": "patan-patola",
+    "traditionTitle": "Patan Patola Double-Ikat",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Patan Patola Double-Ikat — Textile Still Life"
+  },
+  {
+    "traditionId": "patan-patola",
+    "traditionTitle": "Patan Patola Double-Ikat",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Patan Patola Double-Ikat — Weave Detail"
+  },
+  {
+    "traditionId": "patan-patola",
+    "traditionTitle": "Patan Patola Double-Ikat",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Patan Patola Double-Ikat — Process & Making"
+  },
+  {
+    "traditionId": "pochampally-ikat",
+    "traditionTitle": "Pochampally Tie-Dye Ikat",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Pochampally Tie-Dye Ikat — Model / Garment"
+  },
+  {
+    "traditionId": "pochampally-ikat",
+    "traditionTitle": "Pochampally Tie-Dye Ikat",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Pochampally Tie-Dye Ikat — Alternate View"
+  },
+  {
+    "traditionId": "pochampally-ikat",
+    "traditionTitle": "Pochampally Tie-Dye Ikat",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Pochampally Tie-Dye Ikat — Drape & Movement"
+  },
+  {
+    "traditionId": "pochampally-ikat",
+    "traditionTitle": "Pochampally Tie-Dye Ikat",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Pochampally Tie-Dye Ikat — Textile Still Life"
+  },
+  {
+    "traditionId": "pochampally-ikat",
+    "traditionTitle": "Pochampally Tie-Dye Ikat",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Pochampally Tie-Dye Ikat — Weave Detail"
+  },
+  {
+    "traditionId": "pochampally-ikat",
+    "traditionTitle": "Pochampally Tie-Dye Ikat",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Pochampally Tie-Dye Ikat — Process & Making"
+  },
+  {
+    "traditionId": "sambalpuri-ikat",
+    "traditionTitle": "Sambalpuri Bandha Curvilinear Ikat",
+    "role": "model-01",
+    "roleLabel": "Model / Garment",
+    "caption": "Sambalpuri Bandha Curvilinear Ikat — Model / Garment"
+  },
+  {
+    "traditionId": "sambalpuri-ikat",
+    "traditionTitle": "Sambalpuri Bandha Curvilinear Ikat",
+    "role": "model-02",
+    "roleLabel": "Alternate View",
+    "caption": "Sambalpuri Bandha Curvilinear Ikat — Alternate View"
+  },
+  {
+    "traditionId": "sambalpuri-ikat",
+    "traditionTitle": "Sambalpuri Bandha Curvilinear Ikat",
+    "role": "drape-03",
+    "roleLabel": "Drape & Movement",
+    "caption": "Sambalpuri Bandha Curvilinear Ikat — Drape & Movement"
+  },
+  {
+    "traditionId": "sambalpuri-ikat",
+    "traditionTitle": "Sambalpuri Bandha Curvilinear Ikat",
+    "role": "stilllife-04",
+    "roleLabel": "Textile Still Life",
+    "caption": "Sambalpuri Bandha Curvilinear Ikat — Textile Still Life"
+  },
+  {
+    "traditionId": "sambalpuri-ikat",
+    "traditionTitle": "Sambalpuri Bandha Curvilinear Ikat",
+    "role": "macro-05",
+    "roleLabel": "Weave Detail",
+    "caption": "Sambalpuri Bandha Curvilinear Ikat — Weave Detail"
+  },
+  {
+    "traditionId": "sambalpuri-ikat",
+    "traditionTitle": "Sambalpuri Bandha Curvilinear Ikat",
+    "role": "process-06",
+    "roleLabel": "Process & Making",
+    "caption": "Sambalpuri Bandha Curvilinear Ikat — Process & Making"
+  }
+]
