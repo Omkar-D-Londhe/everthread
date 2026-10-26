@@ -9,38 +9,43 @@ def update_stage_01_tracker():
         'F-25': {
             'implementation_status': 'IMPLEMENTED',
             'verification_status': 'PASS',
+            'awaiting_owner_approval': 'TRUE',
             'evidence_paths': 'docs/implementation/baseline/BASELINE.md §3',
             'outstanding_work': 'Confirmed NOT FOUND. Blocker B-1 remains open for Stage 8.',
             'last_updated': 'STAGE-01 2026-10-26',
-            'notes': 'Search executed across filesystem and git history; Phase 6.0 docs not found.'
+            'notes': 'Search executed across filesystem and git history; Phase 6.0 docs not found. Blocker B-1 active.'
         },
         'F-31': {
             'implementation_status': 'IMPLEMENTED',
             'verification_status': 'PASS',
+            'awaiting_owner_approval': 'FALSE',
             'evidence_paths': 'playwright.config.ts; e2e/pagesServer.mjs; e2e/baseline.spec.ts',
             'outstanding_work': 'None for Stage 1; Playwright runs on 3 viewports.',
             'last_updated': 'STAGE-01 2026-10-26',
-            'notes': 'Playwright installed and verified; 78/78 baseline tests passed.'
+            'notes': 'Playwright installed and verified; 78/78 baseline tests passed across 3 viewports.'
         },
         'F-38': {
             'implementation_status': 'PARTIALLY IMPLEMENTED',
-            'verification_status': 'PASS',
+            'verification_status': 'NOT VERIFIED',
+            'awaiting_owner_approval': 'FALSE',
             'evidence_paths': 'docs/implementation/baseline/ASSET_VERIFICATION.md',
             'outstanding_work': 'Stage 7 human review of Archive plates and terminology remains.',
             'last_updated': 'STAGE-01 2026-10-26',
-            'notes': 'Stage 1 asset manifest verification complete (40 PNGs verified, 0 approved).'
+            'notes': 'Stage 1 asset manifest verification complete (40 PNGs verified, 0 approved). Stage 7 plate review pending.'
         },
         'F-41': {
             'implementation_status': 'PARTIALLY IMPLEMENTED',
-            'verification_status': 'PASS',
+            'verification_status': 'NOT VERIFIED',
+            'awaiting_owner_approval': 'FALSE',
             'evidence_paths': 'docs/implementation/baseline/CLAIMS_INVENTORY.md',
             'outstanding_work': 'Stages 6 and 9 copy updates and owner approvals.',
             'last_updated': 'STAGE-01 2026-10-26',
-            'notes': 'Stage 1 claims baseline inventory complete.'
+            'notes': 'Stage 1 claims baseline inventory complete. Stages 6 & 9 copy remediation and approvals pending.'
         },
         'F-44': {
             'implementation_status': 'IMPLEMENTED',
             'verification_status': 'PASS',
+            'awaiting_owner_approval': 'FALSE',
             'evidence_paths': 'docs/implementation/baseline/TEST_DEBT.md',
             'outstanding_work': 'Owning stages (2, 4, 5, 7) will correct tests during implementation.',
             'last_updated': 'STAGE-01 2026-10-26',
@@ -49,14 +54,16 @@ def update_stage_01_tracker():
         'F-45': {
             'implementation_status': 'IMPLEMENTED',
             'verification_status': 'PASS',
+            'awaiting_owner_approval': 'FALSE',
             'evidence_paths': 'docs/implementation/01b_AUDIT_TRACKER.csv; docs/implementation/tools/*',
-            'outstanding_work': 'Ongoing tracking across stages.',
+            'outstanding_work': 'Ongoing tracking across stages until final Stage 11 closure.',
             'last_updated': 'STAGE-01 2026-10-26',
             'notes': 'Authoritative tracker established with 483 rows and exact summary arithmetic.'
         },
         'DEC D-17': {
             'implementation_status': 'IMPLEMENTED',
             'verification_status': 'PASS',
+            'awaiting_owner_approval': 'FALSE',
             'evidence_paths': 'docs/implementation/evidence/STAGE-01/RESULT.md',
             'outstanding_work': 'None; Stage 1 completed.',
             'last_updated': 'STAGE-01 2026-10-26',
@@ -65,6 +72,7 @@ def update_stage_01_tracker():
         'O-14': {
             'implementation_status': 'IMPLEMENTED',
             'verification_status': 'PASS',
+            'awaiting_owner_approval': 'FALSE',
             'evidence_paths': 'docs/implementation/evidence/STAGE-01/RESULT.md',
             'outstanding_work': 'Serial stage approval protocol active.',
             'last_updated': 'STAGE-01 2026-10-26',
@@ -91,7 +99,7 @@ def update_stage_01_tracker():
         writer.writeheader()
         writer.writerows(rows)
 
-    print("Updated 01b_AUDIT_TRACKER.csv for Stage 1 items.")
+    print("Updated 01b_AUDIT_TRACKER.csv with reconciled Stage 1 bookkeeping.")
 
 if __name__ == '__main__':
     update_stage_01_tracker()
