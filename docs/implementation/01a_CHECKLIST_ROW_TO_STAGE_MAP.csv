@@ -1,0 +1,370 @@
+Row ID,Requirement (truncated),v3 status,Stage(s),Group
+CL-018,Existing products remain correctly identified throughout the site.,PARTIAL,11,§1 goals
+CL-019,"Every approved cultural garment intended for sale can be discovered, inspected, added to the bag, and carried ",NEEDS APPROVAL,11,§1 goals
+CL-020,"The Bag always shows the exact item, image, price, size/variant (if applicable), quantity, and subtotal select",PARTIAL,11,§1 goals
+CL-021,"Atelier Lens works on eligible products in both the main collection and the Cultural Collection, including app",PARTIAL,11,§1 goals
+CL-022,"Scroll and page-transition motion is perceptible, polished, consistent with the brand, and accessible.",NOT VERIFIED,11,§1 goals
+CL-023,Archive guidance and keyboard instructions are readable and visually well placed on desktop and mobile.,PARTIAL,11,§1 goals
+CL-024,"Search results are genuine and navigate to the correct product, tradition, story, or journal entry.",PARTIAL,11,§1 goals
+CL-025,"The loader is fast, visually correct, and retains the approved hand-and-thread concept.",PARTIAL,11,§1 goals
+CL-026,"The visual language remains premium, editorial, restrained, and culturally respectful.",NOT VERIFIED,11,§1 goals
+CL-027,"All relevant tests, type checks, production build, route checks, and commerce acceptance tests pass.",PARTIAL,11,§1 goals
+CL-028,"Changes are committed and pushed to the correct GitHub repository, and the deployed version is verified.",BLOCKED,11,§1 goals
+CL-029,A final report records evidence for each requirement and clearly lists anything blocked or awaiting a decision,NOT VERIFIED,11,§1 goals
+CL-037,Open a cultural garment from the Cultural Collection or Archive.,PARTIAL,"4,10",§2.1 Bag identity
+CL-038,"Record its exact name, stable product ID, image, price, and any selected variant.",NOT VERIFIED,"4,10",§2.1 Bag identity
+CL-039,Add that item to the Bag.,PARTIAL,"4,10",§2.1 Bag identity
+CL-040,"Confirm the Bag contains that exact garment, not a different item or a default/fallback product.",NEEDS APPROVAL,"4,10",§2.1 Bag identity
+CL-041,"Confirm the Bag image, name, price, product link, quantity, and subtotal all refer to the same product ID.",PASS,"4,10",§2.1 Bag identity
+CL-042,Repeat with at least two different cultural garments to detect ID collisions or stale state.,PARTIAL,"4,10",§2.1 Bag identity
+CL-043,Test adding a cultural garment and a regular collection product in the same Bag.,PARTIAL,"4,10",§2.1 Bag identity
+CL-044,Test increasing/decreasing quantity and removing an item without affecting another item.,PASS,"4,10",§2.1 Bag identity
+CL-045,"Find and remove any hard-coded fallback product ID, mismatched array index, stale selected-product state, slug",SOURCE RISK,"4,10",§2.1 Bag identity
+CL-051,A dedicated **Cultural Collection** shopping experience exists and is distinct from the educational Archive.,NEEDS APPROVAL,"2,4,5",§2.2 cultural scope
+CL-052,"Every garment marked as sellable has a real, explicit product record.",NEEDS APPROVAL,"2,4,5",§2.2 cultural scope
+CL-053,"Each sellable record has a stable unique ID, approved display name, accurate price, image/gallery, tradition/c",NEEDS APPROVAL,"2,4,5",§2.2 cultural scope
+CL-054,Cultural garments use the same reliable Bag and simulated checkout flow as the regular collection.,NEEDS APPROVAL,"2,4,5",§2.2 cultural scope
+CL-055,"A customer can open a cultural product detail page, review its information, choose supported options, add it t",FAIL,"2,4,5",§2.2 cultural scope
+CL-056,"Educational textile photographs, motifs, weave diagrams, or archive-only references are not automatically trea",PARTIAL,"2,4,5",§2.2 cultural scope
+CL-057,"Do not invent product names, prices, sizes, stock status, product images, or cultural associations. If approva",SOURCE VERIFIED,"2,4,5",§2.2 cultural scope
+CL-063,Reproduce the Lens issue on a regular collection product and on an eligible cultural garment.,PARTIAL,3,§2.3 Lens
+CL-064,"Verify that Lens uses the image belonging to the currently selected product and image—not a previous product, ",FAIL,3,§2.3 Lens
+CL-065,"Ensure the zoom source is sufficiently high resolution and the zoom factor is visibly useful, aiming for appro",PARTIAL,3,§2.3 Lens
+CL-066,Support pointer movement on desktop.,PARTIAL,3,§2.3 Lens
+CL-067,Support touch interaction on mobile without trapping page scrolling unnecessarily.,NOT VERIFIED,3,§2.3 Lens
+CL-068,"Provide a keyboard-accessible way to open, use, and close the Lens where feasible.",PARTIAL,3,§2.3 Lens
+CL-069,"Ensure the Lens opens and closes reliably, resets correctly when the selected image changes, and does not leav",PARTIAL,3,§2.3 Lens
+CL-070,"Check image loading, loading states, unavailable images, responsive layout, and modal/overlay stacking.",NOT VERIFIED,3,§2.3 Lens
+CL-071,"If an image does not have a suitable high-resolution source, handle that honestly rather than pretending that ",SOURCE RISK,3,§2.3 Lens
+CL-077,"Inspect the actual live experience and reproduce the routes where motion is absent, imperceptible, inconsisten",PARTIAL,"8,10",§2.4 motion
+CL-078,Confirm that motion is visibly perceptible at normal scrolling speed without becoming distracting.,NOT VERIFIED,"8,10",§2.4 motion
+CL-079,"Check page entry, section reveals, image/text choreography, sticky sections, and route transitions where appro",PARTIAL,"8,10",§2.4 motion
+CL-080,Ensure content never remains invisible because an animation failed to initialize.,PARTIAL,"8,10",§2.4 motion
+CL-081,Respect reduced-motion preferences and provide a sensible non-animated fallback.,PASS,"8,10",§2.4 motion
+CL-082,"Avoid excessive animation, motion sickness, long delays, or effects that obstruct reading and shopping.",PARTIAL,"8,10",§2.4 motion
+CL-088,Make keyboard hints and interaction instructions readable against their background.,PARTIAL,7,§2.5 Archive instructions
+CL-089,Give instructions a clear visual hierarchy and place them where users naturally look.,PARTIAL,7,§2.5 Archive instructions
+CL-090,"Keep instructions neat, concise, and uncluttered on desktop, tablet, and mobile.",PARTIAL,7,§2.5 Archive instructions
+CL-091,Ensure mobile users are not shown keyboard-only directions as if they must have a keyboard.,PASS,7,§2.5 Archive instructions
+CL-092,Provide touch alternatives for relevant interactions.,PARTIAL,7,§2.5 Archive instructions
+CL-093,"Check contrast, wrapping, spacing, overlap, and clipping at narrow widths.",PARTIAL,7,§2.5 Archive instructions
+CL-099,"Inspect the search result previously described as **“Pleated Indigo Chanderi Tunic — ₹32,000.”**",PASS,2,§2.6 search/legacy name
+CL-100,Confirm whether it exists in the canonical product data as an approved sellable product.,PASS,2,§2.6 search/legacy name
+CL-101,"If it does not exist, remove the fabricated/stale result and fix the search index/source.",PARTIAL,2,§2.6 search/legacy name
+CL-102,"Do not silently map the result to a different product based on a similar price, textile, image, or array posit",PARTIAL,2,§2.6 search/legacy name
+CL-103,"Confirm each search result’s label, image, category, price (when applicable), and destination match its real r",PARTIAL,2,§2.6 search/legacy name
+CL-109,Preserve the approved **“The Thread Between Fingers”** loader concept: watercolor hand image with the SVG thre,PASS,10,§2.7 loader (verify unchanged)
+CL-110,Inspect the actual first-load behavior and identify the resource or rendering bottleneck.,PASS,10,§2.7 loader (verify unchanged)
+CL-111,Use an appropriately optimized WebP/other supported image and retain a robust fallback.,SOURCE VERIFIED,10,§2.7 loader (verify unchanged)
+CL-112,Preload only the genuinely critical loader asset where appropriate.,SOURCE VERIFIED,10,§2.7 loader (verify unchanged)
+CL-113,Keep the SVG thread visible and correctly layered.,PASS,10,§2.7 loader (verify unchanged)
+CL-114,Avoid unnecessarily delaying entry into the site; handle loading and failure gracefully.,NEEDS APPROVAL,10,§2.7 loader (verify unchanged)
+CL-115,"Check desktop/mobile layout, image cropping, and reduced-motion behavior.",PARTIAL,10,§2.7 loader (verify unchanged)
+CL-137,"Keep each product’s ID, slug, price, name, image assets, detail page, and Bag entry aligned.",PARTIAL,2,§3 catalogue
+CL-138,Do not substitute products based on matching array positions.,SOURCE VERIFIED,2,§3 catalogue
+CL-139,Do not overwrite canonical records with archive tradition data.,SOURCE VERIFIED,2,§3 catalogue
+CL-140,Do not change the deterministic Curator’s Compass matcher without explicit approval.,NOT VERIFIED,2,§3 catalogue
+CL-141,Preserve existing Saved and Bag contexts unless a verified defect requires a focused correction.,PASS,2,§3 catalogue
+CL-142,Check any Phase 7.2 changes that may have introduced inconsistent names or prices. A previously reported Archi,PASS,2,§3 catalogue
+CL-152,"Create a clear, maintainable data model for approved sellable cultural garments.",NEEDS APPROVAL,2,§4.1 data
+CL-153,"Use a stable, unique ID for each sellable cultural garment. IDs must not collide with `ET-01` through `ET-07` ",NEEDS APPROVAL,2,§4.1 data
+CL-154,"Keep product records separate from educational tradition records, image roles, weave diagrams, archive stories",NEEDS APPROVAL,2,§4.1 data
+CL-155,Include only fields that are actually known and supported; distinguish unknown details from confirmed details.,NEEDS APPROVAL,2,§4.1 data
+CL-156,Record the relevant textile tradition only when the association is verified.,NEEDS APPROVAL,2,§4.1 data
+CL-157,"Keep prices and product descriptions consistent across cards, detail pages, Bag, checkout, and search.",NEEDS APPROVAL,2,§4.1 data
+CL-158,"Avoid false claims about artisan, region, material, technique, availability, or provenance.",NEEDS APPROVAL,2,§4.1 data
+CL-159,"Where the project lacks approved cultural products or prices, produce a clearly identified list of required us",PASS,2,§4.1 data
+CL-163,Add a dedicated Cultural Collection route or section using the project’s established routing conventions.,NEEDS APPROVAL,5,§4.2 collection
+CL-164,"Explain the relationship between cultural heritage, textile traditions, and the pieces actually offered for sa",NEEDS APPROVAL,5,§4.2 collection
+CL-165,Include a polished editorial introduction and a clear route into shopping.,NEEDS APPROVAL,5,§4.2 collection
+CL-166,"Provide product cards with the correct product image, name, price, tradition/category label, and product-detai",NEEDS APPROVAL,5,§4.2 collection
+CL-167,Provide a clear **View Details** action.,NEEDS APPROVAL,5,§4.2 collection
+CL-168,"Provide **Add to Bag** only for products with complete, approved sellable records.",NEEDS APPROVAL,5,§4.2 collection
+CL-169,Provide Atelier Lens for eligible images/products.,NEEDS APPROVAL,5,§4.2 collection
+CL-170,"Show appropriate loading, empty, and error states.",NEEDS APPROVAL,5,§4.2 collection
+CL-171,"If filtering/sorting is implemented, make it functional and ensure it does not mix educational records with se",BLOCKED,5,§4.2 collection
+CL-172,Do not show disabled-looking controls that appear interactive but do nothing.,BLOCKED,5,§4.2 collection
+CL-173,"Keep the visual language consistent with the existing editorial design: warm ivory `#FEF9F0`, deep oxblood `#4",BLOCKED,5,§4.2 collection
+CL-177,Each sellable cultural garment opens the correct detail page.,NEEDS APPROVAL,4,§4.3 product pages
+CL-178,"Display the correct name, price, images, tradition information, and supported garment details.",NEEDS APPROVAL,4,§4.3 product pages
+CL-179,Keep editorial/cultural context accurate and distinct from verified product facts.,BLOCKED,4,§4.3 product pages
+CL-180,Support gallery navigation and Atelier Lens where eligible.,BLOCKED,4,§4.3 product pages
+CL-181,Show only real supported size/colour/variant selectors. If a selector has no real variant data or no working e,BLOCKED,4,§4.3 product pages
+CL-182,Keep Add to Bag tied to the exact selected product record and any supported variant.,NEEDS APPROVAL,4,§4.3 product pages
+CL-183,Provide a clear return path to the Cultural Collection.,NEEDS APPROVAL,4,§4.3 product pages
+CL-184,"Reuse the existing product-detail architecture where sensible instead of creating a parallel, inconsistent com",BLOCKED,4,§4.3 product pages
+CL-188,Preserve the Archive as an educational exhibition.,PARTIAL,"2,7",§4.4 Archive bridges
+CL-189,"Where an archive tradition or story has a verified relationship to a sellable product, provide a clear link to",NEEDS APPROVAL,"2,7",§4.4 Archive bridges
+CL-190,"Where no sellable product is mapped, do not imply that a garment is available to purchase.",PASS,"2,7",§4.4 Archive bridges
+CL-191,Clearly distinguish **Explore the Tradition** from **Shop This Piece**.,PARTIAL,"2,7",§4.4 Archive bridges
+CL-192,Ensure a click from Archive opens the intended product and the same product ID reaches the Bag.,PARTIAL,"2,7",§4.4 Archive bridges
+CL-193,Do not map every tradition to an arbitrary existing product merely to populate the page.,NEEDS APPROVAL,"2,7",§4.4 Archive bridges
+CL-201,"Add-to-Bag actions from regular collection, Cultural Collection, product details, and any verified Archive com",PARTIAL,4,§5.1 Bag
+CL-202,"Every Bag line item is keyed by stable product ID and, when relevant, a real variant ID.",PASS,4,§5.1 Bag
+CL-203,"The correct image, name, unit price, product link, variant, quantity, and line total are displayed.",PARTIAL,4,§5.1 Bag
+CL-204,Quantity increases/decreases update the correct line item only.,PASS,4,§5.1 Bag
+CL-205,Quantity cannot fall below the supported minimum.,PARTIAL,4,§5.1 Bag
+CL-206,Remove deletes only the intended item.,PASS,4,§5.1 Bag
+CL-207,"Subtotal updates accurately after add, remove, or quantity changes.",PASS,4,§5.1 Bag
+CL-208,Duplicate additions follow one consistent behavior: either increment the same product/variant quantity or crea,PASS,4,§5.1 Bag
+CL-209,Regular and cultural items can coexist without identity collisions.,NEEDS APPROVAL,4,§5.1 Bag
+CL-210,Empty Bag state is polished and has a working route back to shopping.,PARTIAL,4,§5.1 Bag
+CL-211,"Bag state remains consistent while navigating between routes; if persistence is already part of the project, v",PASS,4,§5.1 Bag
+CL-215,Checkout is clearly described as simulated/demo checkout; do not imply that a real payment is processed.,PASS,"4,10",§5.2 checkout
+CL-216,The order summary matches the Bag exactly.,PASS,"4,10",§5.2 checkout
+CL-217,"Product names, images where shown, variants, quantities, unit prices, line totals, and subtotal are accurate.",PARTIAL,"4,10",§5.2 checkout
+CL-218,Validation errors are clear and associated with the relevant fields.,PASS,"4,10",§5.2 checkout
+CL-219,Back navigation does not silently corrupt the Bag.,PASS,"4,10",§5.2 checkout
+CL-220,Success/confirmation state is only shown after the simulated submission completes.,PASS,"4,10",§5.2 checkout
+CL-221,Empty Bag cannot proceed as though an order exists.,PARTIAL,"4,10",§5.2 checkout
+CL-222,No real payment credentials should be collected or sent anywhere.,PASS,"4,10",§5.2 checkout
+CL-226,Save/unsave works for the correct product.,PARTIAL,4,§5.3 Saved
+CL-227,Saved item identity and images match the product catalogue.,PARTIAL,4,§5.3 Saved
+CL-228,Saved items can link to the correct detail page.,PASS,4,§5.3 Saved
+CL-229,"If adding to Bag from Saved is supported, it must use the exact selected product ID.",SOURCE VERIFIED,4,§5.3 Saved
+CL-230,Empty Saved state is clear and helpful.,PASS,4,§5.3 Saved
+CL-236,Works on all seven canonical regular products where suitable source imagery exists.,PARTIAL,"3,4",§6 Lens
+CL-237,Works on every approved sellable cultural garment with suitable source imagery.,NEEDS APPROVAL,"3,4",§6 Lens
+CL-238,Uses the active product’s active image.,FAIL,"3,4",§6 Lens
+CL-239,"Does not accidentally use an archive image, the previous product’s image, or a fixed first-product image.",PARTIAL,"3,4",§6 Lens
+CL-240,"Zoom is visibly useful, targeting approximately 3×–5× when the source supports it.",PASS,"3,4",§6 Lens
+CL-241,Zoom stays within sensible boundaries and does not expose blank/unloaded areas unnecessarily.,NOT VERIFIED,"3,4",§6 Lens
+CL-242,Pointer tracking feels smooth and correctly maps pointer position to image position.,SOURCE RISK,"3,4",§6 Lens
+CL-243,Touch support is usable on mobile and does not create an inescapable overlay.,PARTIAL,"3,4",§6 Lens
+CL-244,"Keyboard access is supported where practical, with clear focus indicators and a reliable close action.",PARTIAL,"3,4",§6 Lens
+CL-245,Closing Lens restores normal page interaction.,PASS,"3,4",§6 Lens
+CL-246,Switching gallery images updates the Lens source.,FAIL,"3,4",§6 Lens
+CL-247,Lens responds correctly to route changes and component unmounts.,NOT VERIFIED,"3,4",§6 Lens
+CL-248,Missing/high-resolution assets are handled gracefully.,NOT VERIFIED,"3,4",§6 Lens
+CL-249,"Tests cover correct source selection, interaction, close behavior, and at least one cultural product.",PARTIAL,"3,4",§6 Lens
+CL-263,A visible but restrained page-entry transition where appropriate.,NOT VERIFIED,8,§7 motion principles
+CL-264,Section reveals that are noticeable at normal scroll speed.,NOT VERIFIED,8,§7 motion principles
+CL-265,"Consistent easing, timing, and visual rhythm.",NOT VERIFIED,8,§7 motion principles
+CL-266,Text and imagery can enter in a considered sequence without delaying essential content.,PARTIAL,8,§7 motion principles
+CL-267,"No flicker, unexpected layout shift, repeated triggers, or permanently hidden content.",PARTIAL,8,§7 motion principles
+CL-268,No scroll hijacking or forced horizontal navigation that harms usability.,SOURCE VERIFIED,8,§7 motion principles
+CL-269,Avoid running expensive effects continuously when they are not needed.,NOT VERIFIED,8,§7 motion principles
+CL-270,Mobile motion is adapted for viewport size and performance.,NOT VERIFIED,8,§7 motion principles
+CL-271,`prefers-reduced-motion` is respected.,PASS,8,§7 motion principles
+CL-272,"Motion does not interfere with focus, reading, adding to Bag, search, or modal interactions.",PARTIAL,8,§7 motion principles
+CL-273,Re-entering a route and navigating backward/forward does not break animation state.,NOT VERIFIED,8,§7 motion principles
+CL-277,"Hero title, thread illustration, and primary action enter in a clear sequence.",NOT VERIFIED,"8,10",§7 route motion
+CL-278,Thread animation is smooth and does not delay access to the site.,PARTIAL,"8,10",§7 route motion
+CL-279,Editorial sections reveal on scroll.,NOT VERIFIED,"8,10",§7 route motion
+CL-280,Product/story imagery uses restrained parallax or depth only where it improves the composition.,NOT VERIFIED,"8,10",§7 route motion
+CL-281,Curator’s Compass bento cards and lower-page sections reveal cleanly.,NOT VERIFIED,"8,10",§7 route motion
+CL-282,The final Atelier CTA and footer enter without abrupt jumps.,NOT VERIFIED,"8,10",§7 route motion
+CL-286,Collection introduction and product grid enter cleanly.,NOT VERIFIED,"8,10",§7 route motion
+CL-287,Product cards reveal in a staggered but restrained sequence.,NOT VERIFIED,"8,10",§7 route motion
+CL-288,Hover/focus states are clear and usable.,NOT VERIFIED,"8,10",§7 route motion
+CL-289,"Grid reflow, filters, or sorting (if present) do not replay broken animations or leave cards hidden.",PASS,"8,10",§7 route motion
+CL-290,Adding to Bag remains immediate and unaffected by motion.,PARTIAL,"8,10",§7 route motion
+CL-294,Product image and details enter with a clear visual hierarchy.,NOT VERIFIED,"8,10",§7 route motion
+CL-295,Gallery transitions are smooth and do not show the wrong image.,PASS,"8,10",§7 route motion
+CL-296,Image cross-dissolve remains intact if already implemented and verified.,NOT VERIFIED,"8,10",§7 route motion
+CL-297,Accordions animate without clipping their contents.,NOT VERIFIED,"8,10",§7 route motion
+CL-298,Variant changes (if supported) update product state correctly.,PARTIAL,"8,10",§7 route motion
+CL-299,Add-to-Bag feedback is visible but does not block shopping.,NOT VERIFIED,"8,10",§7 route motion
+CL-303,Intro and question/options transitions are perceptible.,NOT VERIFIED,"8,10",§7 route motion
+CL-304,Active option/slide changes have clear slide/fade behavior.,NOT VERIFIED,"8,10",§7 route motion
+CL-305,Champagne thread progress indicator animates smoothly.,NOT VERIFIED,"8,10",§7 route motion
+CL-306,Results and matched product appear in a deliberate sequence.,NOT VERIFIED,"8,10",§7 route motion
+CL-307,Deterministic matcher logic and result correctness remain unchanged.,NOT VERIFIED,"8,10",§7 route motion
+CL-308,No animation changes the selected answer or product identity.,NOT VERIFIED,"8,10",§7 route motion
+CL-312,Archive title and exhibition introduction enter cleanly.,NOT VERIFIED,"8,10",§7 route motion
+CL-313,Tradition cards and diagrams reveal as users move through the page.,NOT VERIFIED,"8,10",§7 route motion
+CL-314,Sticky/scroll-led sections behave correctly where implemented.,NOT VERIFIED,"8,10",§7 route motion
+CL-315,Instructions remain visible/readable and do not collide with cards.,NOT VERIFIED,"8,10",§7 route motion
+CL-316,Educational content is never hidden behind an animation failure.,PASS,"8,10",§7 route motion
+CL-320,Modal entrance/exit is smooth and brief.,NOT VERIFIED,"8,10",§7 route motion
+CL-321,"Image, caption, and supporting information are coordinated without being hard to read.",NOT VERIFIED,"8,10",§7 route motion
+CL-322,Image navigation and keyboard/touch controls work throughout the transition.,PARTIAL,"8,10",§7 route motion
+CL-323,"Instructions are legible, well placed, and responsive.",PARTIAL,"8,10",§7 route motion
+CL-324,Focus is managed sensibly while open and restored when closed.,NOT VERIFIED,"8,10",§7 route motion
+CL-325,The modal does not remain in the DOM as an invisible interaction-blocking overlay after closing.,PASS,"8,10",§7 route motion
+CL-329,Story title and hero enter cleanly.,NOT VERIFIED,"8,10",§7 route motion
+CL-330,Text blocks and diagrams reveal without making reading feel slow.,NOT VERIFIED,"8,10",§7 route motion
+CL-331,Related tradition/exhibition cross-links remain functional.,NOT VERIFIED,"8,10",§7 route motion
+CL-332,Existing `weave-14` and Folio 1.1 navigation decisions remain intact.,PARTIAL,"8,10",§7 route motion
+CL-336,Editorial story sections enter with a clear hierarchy.,NOT VERIFIED,"8,10",§7 route motion
+CL-337,"Large imagery and text use restrained, coordinated reveals.",NOT VERIFIED,"8,10",§7 route motion
+CL-338,"Values, craft narrative, and Atelier CTA remain readable and navigable.",NOT VERIFIED,"8,10",§7 route motion
+CL-342,Article cards reveal cleanly.,NOT VERIFIED,"8,10",§7 route motion
+CL-343,"Filters/tabs, if present, work and do not leave content invisible.",NOT VERIFIED,"8,10",§7 route motion
+CL-344,Card image and title navigation go to the correct article.,PASS,"8,10",§7 route motion
+CL-348,"Article title, metadata, hero image, and body appear in a readable sequence.",NOT VERIFIED,"8,10",§7 route motion
+CL-349,Long-form reading is not interrupted by excessive animation.,NOT VERIFIED,"8,10",§7 route motion
+CL-350,Related links remain usable.,NOT VERIFIED,"8,10",§7 route motion
+CL-354,Saved items reveal without delaying interaction.,NOT VERIFIED,"8,10",§7 route motion
+CL-355,Save/unsave and product links remain reliable.,PASS,"8,10",§7 route motion
+CL-356,Empty state is visible and usable.,PASS,"8,10",§7 route motion
+CL-360,Bag lines enter subtly and predictably.,NOT VERIFIED,"8,10",§7 route motion
+CL-361,Quantity/remove/subtotal interactions remain immediate and correct.,PASS,"8,10",§7 route motion
+CL-362,Motion never causes a line item to be associated with a different product.,PASS,"8,10",§7 route motion
+CL-363,Empty state and checkout CTA remain visible.,NOT VERIFIED,"8,10",§7 route motion
+CL-367,Checkout form and summary appear in a calm sequence.,NOT VERIFIED,"8,10",§7 route motion
+CL-368,Validation and confirmation states are clear.,PASS,"8,10",§7 route motion
+CL-369,No animation hides an error or falsely suggests that payment has completed.,PASS,"8,10",§7 route motion
+CL-373,Page entry is consistent with the rest of the site.,NOT VERIFIED,"8,10",§7 route motion
+CL-374,"Main recovery links are visible, keyboard-accessible, and functional.",PARTIAL,"8,10",§7 route motion
+CL-378,"Use the reference only as inspiration for polished, energetic, seamless transitions—not as a request to copy i",NOT VERIFIED,"8,10",§7 route motion
+CL-379,Apply transitions selectively where they fit EverThread’s premium editorial identity.,NOT VERIFIED,"8,10",§7 route motion
+CL-380,"Prioritize clear direction, continuity, and responsiveness over flashy effects.",NOT VERIFIED,"8,10",§7 route motion
+CL-381,"Do not sacrifice accessibility, page speed, reduced-motion support, or product interaction.",PARTIAL,"8,10",§7 route motion
+CL-387,Search opens and closes reliably from its trigger.,PARTIAL,2,§8 search
+CL-388,Keyboard focus moves into search when opened and returns sensibly when closed.,PARTIAL,2,§8 search
+CL-389,"Search supports the actual data available in the project: canonical products, approved sellable cultural produ",PARTIAL,2,§8 search
+CL-390,Results are sourced from the real data models—not hand-written fake results or mismatched indexes.,PASS,2,§8 search
+CL-391,"Result type is clear (product, tradition, story, or article).",PASS,2,§8 search
+CL-392,Product results show accurate names and prices where applicable.,PASS,2,§8 search
+CL-393,Search result images correspond to the result.,NOT VERIFIED,2,§8 search
+CL-394,Selecting a result navigates to its correct destination.,PARTIAL,2,§8 search
+CL-395,"No dead links, stale slugs, fabricated products, or incorrect prices.",FAIL,2,§8 search
+CL-396,Empty/no-match state is helpful.,PASS,2,§8 search
+CL-397,"Search input, result list, and close behavior work with keyboard and touch.",PARTIAL,2,§8 search
+CL-398,Search remains usable on mobile and does not overflow the viewport.,PASS,2,§8 search
+CL-399,Verify the Chanderi search result specifically and remove it if it is not backed by approved product data.,PASS,2,§8 search
+CL-409,All 13 established traditions are present and navigable.,PASS,7,§9 Archive data
+CL-410,"Each tradition’s name, story, captions, and imagery match its own record.",PARTIAL,7,§9 Archive data
+CL-411,Each of the six image roles points to the intended asset.,SOURCE VERIFIED,7,§9 Archive data
+CL-412,No tradition image or caption is accidentally reused for a different tradition because of array-index assumpti,SOURCE VERIFIED,7,§9 Archive data
+CL-413,Existing diagrams retain their intended mapping and SVG/PNG fallback.,SOURCE VERIFIED,7,§9 Archive data
+CL-414,`DIAGRAM_ASSETS` in `src/data/assetMap.ts` remains aligned with the correct tradition/diagram.,NOT VERIFIED,7,§9 Archive data
+CL-415,Existing story records in `src/data/stories.ts` remain consistent with their route slugs and links.,PARTIAL,7,§9 Archive data
+CL-416,The educational Archive remains distinct from the Cultural Collection’s sellable products.,PARTIAL,7,§9 Archive data
+CL-420,Cards open the intended tradition exhibition.,PARTIAL,7,§9 exhibition
+CL-421,Keyboard and touch navigation work.,PARTIAL,7,§9 exhibition
+CL-422,"Instructions are visible, high contrast, and responsive.",PARTIAL,7,§9 exhibition
+CL-423,Image captions/descriptions remain visible on mobile and provide context.,PARTIAL,7,§9 exhibition
+CL-424,The exhibition modal opens/closes reliably and handles focus sensibly.,PARTIAL,7,§9 exhibition
+CL-425,The monograph and exhibition cross-links work.,PASS,7,§9 exhibition
+CL-426,`weave-14` (“Uncut Radial Bias Draping”) continues to link to `/archive/the-art-of-the-drape`.,PARTIAL,7,§9 exhibition
+CL-427,Folio 1.1 (“The Living Loom”) continues to link to `/archive?tradition=banarasi-brocade`.,PASS,7,§9 exhibition
+CL-428,No educational image is given a misleading Add-to-Bag button unless it is explicitly connected to a verified p,PARTIAL,7,§9 exhibition
+CL-432,Keyboard guidance has sufficient contrast against the actual background.,PARTIAL,7,§9 guidance/illustration
+CL-433,Instruction placement is neat and does not obscure the exhibition image.,PASS,7,§9 guidance/illustration
+CL-434,"Desktop, tablet, and mobile layouts are checked.",PARTIAL,7,§9 guidance/illustration
+CL-435,Touch-specific hints are shown where appropriate.,PARTIAL,7,§9 guidance/illustration
+CL-436,SVG illustrations are added only where they fill a genuine visual gap or explain a concept.,NOT VERIFIED,7,§9 guidance/illustration
+CL-437,"New illustrations are accurate, restrained, and stylistically consistent.",NOT VERIFIED,7,§9 guidance/illustration
+CL-438,Do not add decoration just to fill space or make the Archive visually noisy.,NOT VERIFIED,7,§9 guidance/illustration
+CL-444,"Core brand language: **“An heirloom, not a trend.”**, **“Every thread carries a story.”**, **“One thread. A wo",SOURCE VERIFIED,10,§10 brand
+CL-445,Narrative spine: **Thread → Textile → Craft → Garment → Story**.,NOT VERIFIED,10,§10 brand
+CL-446,Signature motion: **Initiate → Glide → Settle**.,FAIL,10,§10 brand
+CL-447,"Palette: Warm Ivory `#FEF9F0`, Deep Oxblood `#49232D`, Espresso `#30231F`, Champagne `#B49A70`.",SOURCE VERIFIED,10,§10 brand
+CL-448,Typography: Playfair Display headlines; Hanken Grotesk body and UI.,SOURCE VERIFIED,10,§10 brand
+CL-449,"Premium, editorial, cinematic, culturally respectful art direction.",NOT VERIFIED,10,§10 brand
+CL-450,"Square-corner geometry, generous whitespace, restrained shadows and decoration.",NOT VERIFIED,10,§10 brand
+CL-451,Preserve the approved “The Thread Between Fingers” loader with watercolor hand and SVG thread.,PASS,10,§10 brand
+CL-452,Preserve the six-image exhibition and the established Archive diagrams and tradition IDs.,PASS,10,§10 brand
+CL-453,Preserve the deterministic Curator’s Compass matcher.,NOT VERIFIED,10,§10 brand
+CL-454,Preserve the existing Saved and Bag architecture except where a verified defect requires a focused fix.,PASS,10,§10 brand
+CL-455,Keep the existing brand concept; do not redesign the site from scratch.,NOT VERIFIED,10,§10 brand
+CL-456,"Avoid adding backend, authentication, CMS, real payments, or unrelated scope. Checkout remains simulated unles",PASS,10,§10 brand
+CL-460,"Inspect whether any color selector is present and whether it corresponds to real, supported variants.",PASS,4,§10 colour selectors
+CL-461,"If it is nonfunctional and there are no real variants, remove it.",NEEDS APPROVAL,4,§10 colour selectors
+CL-462,"If genuine variant data exists, make selection update the displayed product/image and the exact Bag variant.",NEEDS APPROVAL,4,§10 colour selectors
+CL-463,Do not preserve a fake selector merely because a previous report said it was retained.,NEEDS APPROVAL,4,§10 colour selectors
+CL-473,`/`,PASS,10,§11 routes
+CL-474,`/collections`,PASS,10,§11 routes
+CL-475,`/product/:slug`,PASS,10,§11 routes
+CL-476,`/compass`,PASS,10,§11 routes
+CL-477,`/archive`,PASS,10,§11 routes
+CL-478,`/archive/:storySlug`,PASS,10,§11 routes
+CL-479,`/the-house`,PASS,10,§11 routes
+CL-480,`/journal`,PASS,10,§11 routes
+CL-481,`/journal/:articleSlug`,PASS,10,§11 routes
+CL-482,`/saved`,PASS,10,§11 routes
+CL-483,`/bag`,PASS,10,§11 routes
+CL-484,`/checkout`,PASS,10,§11 routes
+CL-485,Branded 404 route,PASS,10,§11 routes
+CL-489,Preserve the configured Vite base path `/everthread/`.,PASS,"2,10",§11 technical
+CL-490,Preserve React Router basename behavior based on `import.meta.env.BASE_URL`.,PASS,"2,10",§11 technical
+CL-491,Preserve the GitHub Pages SPA fallback/404 path restoration.,PARTIAL,"2,10",§11 technical
+CL-492,Confirm static assets resolve under the deployed subpath.,PARTIAL,"2,10",§11 technical
+CL-493,Check direct navigation and refresh on nested routes.,PARTIAL,"2,10",§11 technical
+CL-494,Check query parameters and hashes survive fallback routing where intended.,PASS,"2,10",§11 technical
+CL-495,Check manifest/icon paths.,SOURCE VERIFIED,"2,10",§11 technical
+CL-496,Keep React keys stable and unique.,SOURCE VERIFIED,"2,10",§11 technical
+CL-497,"Clean up GSAP timelines, ScrollTriggers, event listeners, and observers.",SOURCE VERIFIED,"2,10",§11 technical
+CL-498,Avoid unnecessary dependencies and large assets.,PARTIAL,"2,10",§11 technical
+CL-499,Keep existing code structure and conventions unless a focused change is needed.,SOURCE VERIFIED,"2,10",§11 technical
+CL-500,Do not claim a browser or live-site inspection unless it was actually performed.,PASS,"2,10",§11 technical
+CL-506,Semantic headings and controls are used.,PARTIAL,10,§12 a11y/responsive
+CL-507,All interactive controls have clear accessible names.,NOT VERIFIED,10,§12 a11y/responsive
+CL-508,Keyboard focus is visible.,PARTIAL,10,§12 a11y/responsive
+CL-509,Modals manage focus and close reliably.,PARTIAL,10,§12 a11y/responsive
+CL-510,Image alternatives are meaningful where images carry content; decorative images are appropriately hidden from ,PARTIAL,10,§12 a11y/responsive
+CL-511,"Text contrast is sufficient, especially for Archive instructions and captions.",NOT VERIFIED,10,§12 a11y/responsive
+CL-512,Reduced-motion preferences are respected.,PASS,10,§12 a11y/responsive
+CL-513,"Pointer, keyboard, and touch paths are tested for important interactions.",PARTIAL,10,§12 a11y/responsive
+CL-514,"Layouts are checked at representative desktop, tablet, and mobile widths.",PARTIAL,10,§12 a11y/responsive
+CL-515,"No clipped text, overlapping controls, horizontal overflow, or inaccessible off-screen content.",FAIL,10,§12 a11y/responsive
+CL-516,"Loading, empty, error, and success states are designed—not left as raw or confusing output.",PARTIAL,10,§12 a11y/responsive
+CL-517,Buttons do what their labels promise; no inert or misleading controls.,PARTIAL,10,§12 a11y/responsive
+CL-518,Motion does not cause focus loss or block interaction.,NOT VERIFIED,10,§12 a11y/responsive
+CL-519,Performance is checked on image-heavy pages and the loader.,PARTIAL,10,§12 a11y/responsive
+CL-534,Run the project’s existing test suite.,PASS,"1,10",§13 testing
+CL-535,Add/update regression tests for the wrong-item-in-Bag defect.,NOT VERIFIED,"1,10",§13 testing
+CL-536,Test identity consistency across regular and cultural products.,NOT VERIFIED,"1,10",§13 testing
+CL-537,"Test quantity, remove, subtotal, and mixed-cart behavior.",PARTIAL,"1,10",§13 testing
+CL-538,Test checkout summary against Bag contents.,NOT VERIFIED,"1,10",§13 testing
+CL-539,Test Lens source selection and open/close behavior.,NOT VERIFIED,"1,10",§13 testing
+CL-540,Test search against the canonical and approved product/story/tradition data.,NOT VERIFIED,"1,10",§13 testing
+CL-541,Test route/link validity where feasible.,NOT VERIFIED,"1,10",§13 testing
+CL-542,Run TypeScript checks.,PASS,"1,10",§13 testing
+CL-543,Run the production build.,PASS,"1,10",§13 testing
+CL-544,Address failures caused by the changes; document pre-existing failures separately.,NOT VERIFIED,"1,10",§13 testing
+CL-548,Test all key routes directly and through in-site navigation.,PARTIAL,"1,10",§13 testing
+CL-549,"Test add-to-Bag from regular collection, cultural collection, and product detail.",PARTIAL,"1,10",§13 testing
+CL-550,Test mixed Bag with at least one regular product and two cultural products.,BLOCKED,"1,10",§13 testing
+CL-551,Verify every displayed line item against the exact selected product ID.,PASS,"1,10",§13 testing
+CL-552,Test Lens on a regular product and a cultural product on desktop and mobile.,PARTIAL,"1,10",§13 testing
+CL-553,Scroll through each major page and verify that motion is perceptible.,PARTIAL,"1,10",§13 testing
+CL-554,Test Archive instructions and captions at all three viewport sizes.,PARTIAL,"1,10",§13 testing
+CL-555,"Test search results, including the questionable Chanderi result.",PASS,"1,10",§13 testing
+CL-556,Test loader on a cold/first load and check failure fallback.,PARTIAL,"1,10",§13 testing
+CL-557,Test reduced-motion behavior.,PASS,"1,10",§13 testing
+CL-558,Test GitHub Pages nested-route refresh and static assets under `/everthread/`.,PARTIAL,"1,10",§13 testing
+CL-559,Record screenshots or other evidence for important UI fixes where feasible.,PASS,"1,10",§13 testing
+CL-581,Inspect Git status before editing.,PASS,"roadmap,11",§14 Git/deploy
+CL-582,Do not overwrite or discard unrelated user changes.,NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-583,Keep changes focused and preserve working features.,NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-584,"Run tests, type check, and production build after edits.",NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-585,Verify the Vite base path and generated asset paths.,NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-586,Review the exact files changed.,NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-587,Commit changes with a descriptive message.,NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-588,Push to the intended branch/repository only after verification.,NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-589,Confirm the push actually succeeded.,NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-590,Check the GitHub Actions deployment workflow status.,PARTIAL,"roadmap,11",§14 Git/deploy
+CL-591,Verify the live deployment and key nested routes after deployment.,BLOCKED,"roadmap,11",§14 Git/deploy
+CL-592,Do not claim deployment is live merely because a push was attempted.,NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-593,"If Git push or deployment fails, report the exact failure and stop short of claiming success.",NOT VERIFIED,"roadmap,11",§14 Git/deploy
+CL-675,No regular or cultural product is replaced by the wrong Bag item.,PARTIAL,11,§17 final acceptance
+CL-676,Every approved sellable cultural garment is orderable end to end.,NEEDS APPROVAL,11,§17 final acceptance
+CL-677,Archive-only educational assets are not falsely presented as products.,PARTIAL,11,§17 final acceptance
+CL-678,"Cultural Collection has a polished, dedicated shopping experience.",NEEDS APPROVAL,11,§17 final acceptance
+CL-679,Atelier Lens works on all eligible regular and cultural products.,PARTIAL,11,§17 final acceptance
+CL-680,Scroll and transition effects are visibly perceptible and accessible on all relevant routes.,NOT VERIFIED,11,§17 final acceptance
+CL-681,"Archive instructions are clear, readable, and responsive.",PARTIAL,11,§17 final acceptance
+CL-682,Search returns only genuine records and opens the correct destination.,PARTIAL,11,§17 final acceptance
+CL-683,The loader is optimized and visually faithful to the approved design.,PARTIAL,11,§17 final acceptance
+CL-684,"Product names, IDs, prices, images, and variants remain consistent.",PARTIAL,11,§17 final acceptance
+CL-685,"Canonical catalogue, Compass matcher, Saved/Bag architecture, Archive IDs, diagrams, and story links are prese",PARTIAL,11,§17 final acceptance
+CL-686,"Automated tests, TypeScript check, and production build pass—or failures are documented honestly.",PASS,11,§17 final acceptance
+CL-687,"GitHub push and deployment are confirmed, not assumed.",BLOCKED,11,§17 final acceptance
+CL-688,The final report contains evidence and identifies all unresolved decisions.,NOT VERIFIED,11,§17 final acceptance
+V3-01,Story Flow: Initiate (deliberate scroll/click) → Glide (architectural panels fold/roll to reveal a scene) → Se,FAIL,8,V3
+V3-02,"Story Flow strongest on Home, Archive, The House; commerce pages remain conventional",PARTIAL,8,V3
+V3-03,"Story Flow motion interruptible, keyboard-accessible, reduced-motion-friendly, mobile-appropriate, never traps",PARTIAL,8,V3
+V3-04,Defined destination frame/alignment where the scene settles,FAIL,8,V3
+V3-05,"Signature thread is the narrative spine, not generic decoration; context may change per page",PARTIAL,"6,8",V3
+V3-06,"Exhibition opening choreography: cover anchors, surface settles, main image reveals, five views fan/stack/sett",SOURCE RISK,"7,8",V3
+V3-07,Homepage journey: Hero → Thread Compass → Cultural Archive → Permanent Capsule → The Making → Promise → Journa,SOURCE VERIFIED,6,V3
+V3-08,Collections asymmetric editorial layout with flagship coat-dress treatment,SOURCE VERIFIED,5,V3
+V3-09,No unsupported or inconsistent edition/composition claims,FAIL,6,V3
+V3-10,Icons not rendered as literal names / no fragile external icon dependency,SOURCE RISK,10,V3
+V3-11,"Availability of Phase 6.0 documents (experience redesign audit, cinematic motion storyboard)",BLOCKED,"1,8",V3
+V3-12,Archive commerce history is consistent across reports,SOURCE VERIFIED,11,V3
+V3-13,Production build healthy,PASS,10,V3
+V3-14,Live deployment verified,BLOCKED,"10,11",V3

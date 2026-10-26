@@ -1,0 +1,41 @@
+Requirement ID,Feature / route,Approved expected behavior,Existing test coverage,Previous evidence,Current verification,Result,Missing coverage,Next action
+CL-473..485,All 13 routes direct load,Each route renders with h1 at 3 widths,Vitest route smoke (jsdom),v2 route sweep,"Reused v2 [browser, local] + 24-link crawl run now: 0 broken",PASS,Live host not tested,Open live URLs
+CL-491..494,"GH Pages 404 fallback, query, hash","Refresh/deep link restores path, ?query, #hash",None,v2 emulation,Reused; hash and ?tradition verified in emulation,PARTIAL,Real Pages host,Live check in Stage 5
+—,Browser back/forward,History works across routes,None,none,"Run now: collections→archive→house, back, back, forward correct",PASS,Back/forward with modals/filters,Add E2E
+CL-395,Search destinations,Every result opens a real destination,search.test (5),v2 found 1 dead,"Run now: 28 destinations, 1 dead (/archive?tradition=radial-bias-draping)",FAIL,—,F-09 fix + test
+—,Internal link integrity,No broken internal links,None,none,"Run now: 24 unique internal links on 12 routes, 0 broken",PASS,Links inside modals,Include in E2E
+CL-485,Branded 404 + legacy slugs,404 has return links; legacy slugs resolve,foundation (5),v2,Reused; legacy slugs resolve; /product/ET-01 (upper) not found,PARTIAL,Case-insensitive IDs,F-27
+CL-137,Catalogue ET-01..07 identity,Exact names/prices/slugs,"data-state (12), asset-binding (8)",v2 source,Reused [source],PASS,Images per product visually,Visual review
+CL-295,PDP gallery selection,"Main image tracks thumbnail, 280 ms dissolve",product-detail (20),v2,Reused 6/6 [browser]; dissolve not watched,PARTIAL,Flash/blank frames,Recording
+CL-064,Atelier Lens source,Lens shows active gallery image,"phase-7-3 (5), product-detail",v2,Reused: 5/6 wrong on ET-01 [browser]; source unchanged,FAIL,Other 6 products,F-06 test
+CL-066,Lens zoom alignment,"Loupe aligned to pointer, no stretch",None,v2 computed,Reused [measured],FAIL,Visual landmark test,F-07 test
+CL-244,Lens/Exhibition focus,"Dialog traps focus, Esc closes, focus restored",None,v2 (Lens),Run now: Exhibition focus escapes after 14 Tabs; Esc then fails to close; Lens escapes after 5 Tabs,FAIL,Screen reader,F-08
+CL-243,Lens touch,Drag magnifies without trapping scroll,None,v2 open/close only,Not run (no touch-drag harness),NOT TESTED,Touch drag,Device test
+CL-460..463,Colourways,Approved colourways represented honestly,product-detail,v2,"Reused: name/Bag variant change, image does not",NEEDS APPROVAL,Colourway assets,Decision D-07
+V3-08,Collections layout,Asymmetric 7/5 layout + flagship,collections (35 incl. Phase 6.3),v3 source,Reused; 7 cards render,PARTIAL,Visual review,Screenshot review
+Brief §8,Collections filters,Category/material/colour/craft/price,collections (35),v2,"Run now: facet groups present (Facet Curation, Fibre, Colour, Craft, Price)",PASS,Combination UI at 390 px,Mobile drawer test
+Brief §8,Collections sorting,Featured/newest/price asc/desc,collections,none,"Run now: options = Featured, Price low→high, high→low; no 'newest'",PARTIAL,—,Decision D-12
+Brief §8,Thread Compass determinism,"Attribute-grounded, deterministic, explained",compass (24 unit/UI),v2 steps render,Existing unit tests only; my browser run did not capture results (selectors) — inconclusive,NOT TESTED,"Browser flow, results, reverse nav, reset",Targeted E2E in Stage 2
+CL-409,Archive: 13 traditions open,All exhibitions open with images,"tradition-exhibition (19), editorial-archive (17)",v2,Reused 13/13 [browser],PASS,Visual correctness of 78 plates,Human image review
+F-03,Archive overview presentation,"Curated exhibition, not generic grid",editorial-archive (DOM),none,Screenshot review: 14 equal tiles in 3 columns + diagram block,FAIL,Human design review,Decision D-03
+V3-06,Exhibition 5-step opening,Cover anchors→settle→main→fan/stack→thread,tradition-exhibition (DOM only),v3 source: only fade keyframes,Reused source finding,FAIL,Recording,Stage 3/4
+CL-410/423,Plate captions,Approved editorial captions,None,v2/v3,Reused: filename-like alt shown,FAIL,Approved copy,Decision D-09
+CL-413,Diagrams (9) + fallbacks,SVG + PNG fallback,asset-binding,v2 static,"Reused: 9 entries, files exist; fallback not exercised",PARTIAL,Fallback behaviour,Break-SVG test
+D-01,Archive→product purchase,"Only approved, accurate associations","archive-commerce-guidance (3), phase-7-3 (5)",v2/v3,Reused: Muga→ET-02 etc. in Bag [browser]; tests assert the mapping as correct,FAIL,Approved mapping list,Decision D-04
+CL-425..427,weave-14 / Folio 1.1 links,Preserve approved links,editorial-archive,v2,Reused: both present,PASS,—,Keep in regression
+CL-415,Story routes,Slugs match records,editorial-archive,v2,Reused 4/4,PASS,—,—
+CL-101,ET-04 alt text,Current names only,asset-binding,v2,Reused: legacy name in 5 alts,FAIL,—,F-11
+CL-202..208,Bag identity/qty/remove/subtotal,Correct and persistent,"saved-and-bag (19), data-state",v2,Reused [browser],PASS,Combined archive+PDP cart,Add test
+CL-205,Bag minus at 1,Defined behaviour,saved-and-bag,v2,Reused: removes line silently,PARTIAL,Decision,Decision D-13
+CL-229,Saved move-to-Bag,Exact ID/variant added,saved-and-bag,v2 source,Not clicked,NOT TESTED,Browser,Add E2E
+CL-215..222,Checkout (simulated),"Validation, summary, confirmation, no card data",checkout (13),v2,Reused [browser],PASS,Double-click completion in browser,Covered by unit test
+CL-515,Mobile overflow,No unintended overflow,None,v2 measured,Reused: 4 routes,FAIL,Tablet,F-10
+—,A11y DOM baseline,"h1, main, skip link, lang, unique ids, labelled controls","checkout a11y section, compass a11y",none,"Run now (9 routes): all have 1 h1, main, skip link, lang=en, 0 duplicate ids; newsletter email input unlabelled on every page",PARTIAL,"Screen reader, contrast, touch targets",axe-style manual checks
+CL-508,Focus indicator contrast,≥3:1,None,v2 computed,Reused: 2.57:1,FAIL,—,F-29
+CL-271,Reduced motion,"Content visible, minimal motion","motion-homepage (41, jsdom)",v2,Reused 13 routes,PASS,Story Flow equivalent,With F-01
+V3-01,Story Flow fold/roll,Panel scene transition,motion-homepage cannot test visuals,v3,Reused: 0 3D/clip/perspective on 3 routes×3 widths,FAIL,Recording,Stage 4
+V3-05,Thread continuity,Spine across routes,motion-homepage (DOM),v3 source,Reused,PARTIAL,Recording,Stage 4
+CL-114,Loader,Approved artwork/timing,thread-loader (7),v2/v3,Reused: 2.3–2.6 s; conflicting specs,NEEDS APPROVAL,—,Decision D-06
+V3-10,Icon/font fallback,No literal icon text on font failure,phase 6.4 icon test (jsdom),v3 screenshot,Reused,PARTIAL,Live font load,F-20
+CL-534..543,Tests/tsc/build,Pass,251 tests,v2,"Reused (same commit, clean tree)",PASS,Re-run at each gate,Stage gates
+V3-14,Live deployment,Site reachable and correct,None,v3,Re-tried: host unresolvable; Actions run 10 success,BLOCKED,Everything live,User check
