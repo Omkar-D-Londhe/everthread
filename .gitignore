@@ -58,6 +58,8 @@ pnpm-debug.log*
 
 # Historical legacy archive (raw assets, prototypes, QA screenshots, audit data)
 /_legacy_archive/
+/legacy_archive/
+legacy_archive/
 /Images/
 /archive/
 /css/
