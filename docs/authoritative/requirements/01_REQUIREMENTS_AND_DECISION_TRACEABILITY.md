@@ -54,7 +54,7 @@ Home CTA "Enter the Archive" (F-26, Stage 6) · loader ≈2.3 s unchanged (F-14;
 | D-15 | Superseded by approved related-piece pattern (no Acquire) → Stage 2 |
 | D-16 | Approved: supersession notices → Stage 11 |
 | D-17 | Approved → Stage 1 |
-| D-18 | **On hold** (editions) → F-46 |
+| D-18 | Resolved by Owner Risk Acceptance (2026-10-27) → Contemporary ET edition claims accepted as-is for assessment; zero TR edition numbers |
 | D-19 | Approved: legacy slugs resolve → Stage 2 |
 | D-20 | Fields now, visible credit text deferred → Stage 2 |
 | D-21 | **Pending owner**: approve replacement copy → B-5, Stage 9 |
@@ -71,7 +71,7 @@ Status key: **Impl** implement; **Verify** confirm only; **Hold** blocked by an 
 | F-01 | Story Flow fold missing | Impl | 8 | `HomePage.tsx`, `ArchivePage.tsx`, `HousePage.tsx`, `useEditorialScroll.ts`, `animations.css` (unused `.fabric-*`) | E2E-MOTION-01…04 | V3-01…04, CL-446 |
 | F-02 | Home journey/thread continuity | Impl | 6 (structure), 8 (motion) | `HomePage.tsx` | E2E-HOME-01, MOTION | V3-05, V3-07 |
 | F-03 | Archive overview uniform grid | Impl | 7 | `ArchivePage.tsx`, styles | E2E-ARCH-01 | — |
-| F-04 | Exhibition 5-step opening | Impl | 7 (hooks), 8 (choreography) | `TraditionExhibitionModal.tsx` | E2E-MOTION-01, ARCH-02 | V3-06 |
+| F-04 | Exhibition 5-step opening | Closed (owner accepted) | 7 (hooks), 8 (choreography) | `TraditionExhibitionModal.tsx` | E2E-MOTION-01, ARCH-02, E2E-MOTION-05 | V3-06 |
 | F-05 | Archive Acquire mapping unsafe → replace by approved related-piece pattern | Impl (partial hold) | 2 (remove Acquire, data), 7 (UI) | `TraditionExhibitionModal.tsx` L27+, `archive-commerce-guidance.test.tsx`, `phase-7-3…test.tsx` | UT-ARCH-01, E2E-ARCH-03 | DEF D-01; Banarasi/Kota entries held by F-52 |
 | F-06 | Lens ignores gallery selection | Impl | 3 | `ProductDetailPage.tsx` L874, `AtelierLensModal.tsx` | E2E-LENS-01 | DEF D-03 |
 | F-07 | Lens alignment, upscaling, alt | Impl | 3 | `AtelierLensModal.tsx` | UT-LENS-01, E2E-LENS-02 | DEF D-04 |
@@ -84,14 +84,14 @@ Status key: **Impl** implement; **Verify** confirm only; **Hold** blocked by an 
 | F-14 | Loader timing | Closed (keep) | 10 verify | `ThreadLoader.tsx` L60 (1900 ms), `App.tsx` | E2E-LOAD-01 | DEF D-05 |
 | F-15 | Colourways | Impl (behaviour) | 4 | PDP, products data | E2E-CART-04 | DEF D-11 |
 | F-16 | Cultural vs Traditional collection | Closed: separate collection | 2, 4, 5 | routes, data | E2E-WALL-01 | DEF D-02 |
-| F-17 | Newest sort | Closed (deferred) | 5 (negative check) | — | UT-COLL-01 | — |
+| F-17 | Newest sort | Closed (deferred by owner) | 5 (negative check) | — | UT-COLL-01 | — |
 | F-18 | Gallery/Compass/accordion transitions unverified | Verify | 3 (gallery), 10 (Compass, accordions) | PDP, `CompassPage.tsx` | E2E-A11Y, MAN-REC | CL-296…308 |
 | F-19 | Compass browser verification | Verify | 10 | `CompassPage.tsx`, `compassMatcher.ts` | E2E-COMP-01 | CL-140/307 |
 | F-20 | Bag index API; unknown IDs; minus at 1 | Impl | 4 | `CartContext.tsx`, `BagPage.tsx` | UT-CART-01, E2E-CART-03 | DEF D-10 |
 | F-21 | Icon font fallback | Impl | 10 | components using Material Symbols, `index.html` | E2E-DEPLOY-01 (fonts blocked) | V3-10 |
 | F-22 | Documentation contradictions | Impl | 11 | `docs/` | MAN-DOCS | DEF D-15, V3-12 |
 | F-23 | Chunk size, asset weight | Verify | 10 | `vite.config.ts` | MAN-BUILD | DEF D-16 |
-| F-24 | Live deployment | Hold (owner) | 10, 11 | — | MAN-LIVE | V3-14 |
+| F-24 | Live deployment | Closed (accepted limitation / live verification deferred by owner) | 10, 11 | `e2e/pagesServer.mjs` | MAN-LIVE | V3-14 |
 | F-25 | Phase 6.0 documents missing | Hold | 1 record, 8 | — | MAN-OWNER | V3-11 |
 | F-26 | CTA "Enter the Archive" | Impl | 6 | `HomePage.tsx` | E2E-HOME-01 | — |
 | F-27 | Uppercase product IDs | Impl | 2 | `products.ts` lookup | E2E-ROUTE-04 | DEF D-14 |
@@ -109,11 +109,11 @@ Status key: **Impl** implement; **Verify** confirm only; **Hold** blocked by an 
 | F-39 | Search phrase matching | Impl | 2 | `SearchModal.tsx` | UT-SEARCH-01 | DEF D-07 |
 | F-40 | Legacy slugs `/archive/<legacy>` | Impl | 2 | `App.tsx`, `ArchivePage.tsx` | E2E-ROUTE-04 | — |
 | F-41 | Claims audit beyond Archive | Impl | 1 (inventory), 6, 9 | Home, House, Journal, PDP copy | MAN-CLAIMS | — |
-| F-42 | Credits incomplete | Impl (fields) | 2; visible text deferred | data types | UT-DATA-02 | — |
+| F-42 | Credits incomplete | Closed (deferred by owner) | 2; visible text deferred | data types | UT-DATA-02 | — |
 | F-43 | Phase 6.0 homepage critiques | Verify | 6, 8 | `HomePage.tsx` | MAN-REC | — |
 | F-44 | Test debt | Impl | 1 list; each stage | tests | MAN-GATE | — |
 | F-45 | Process rows (Git, deploy, report) | Impl | roadmap §5; 11 | — | MAN-GATE, MAN-LIVE | CL-029, 582–593 |
-| F-46 | Editions conflict | Hold (DEC D-18) | 9 verify | `products.ts` | MAN-CLAIMS | — |
+| F-46 | Editions conflict | Closed (accepted risk by owner) | 9 verify | `products.ts` | MAN-CLAIMS | — |
 | F-47 | TR gallery mismatches: TR-01 trousers + inner top in all 5 views; TR-03 inner top in 5 of 6; TR-07 champagne skirt in all 5; TR-05 seated legwear ambiguous | Hold (owner) | 1 (verify), 4 (gate) | `02_…` §4, `traditionalProducts.ts` | UT-DATA-02, MAN-VIS | O-6 |
 | F-48 | `living-inheritance-collection-campaign.png` is pixel-identical to the rejected panorama (baked thread, non-catalogue figures) | Hold (owner) | 5, 6 | `AST-HOME-CAMP` | MAN-VIS | — |
 | F-49 | TR-05 primary and three-quarter near-duplicate | Hold (owner) | 4 | `AST-TR05-3Q` | UT-DATA-02 | — |

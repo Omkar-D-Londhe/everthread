@@ -96,3 +96,39 @@ Owner signs off the handover. Project status is "complete" only when every closu
 | 3 | Final gate and Playwright results attached and green. | _to be filled by Antigravity_ | _path_ |
 | 4 | Handover lists limitations and unresolved items by real IDs. | _to be filled by Antigravity_ | _path_ |
 | 5 | Live status recorded as VERIFIED only with the owner's confirmation. | _to be filled by Antigravity_ | _path_ |
+
+---
+
+## 19. Owner Acceptance & Governance Finalization Addendum (2026-10-27)
+
+Per explicit owner review and acceptance on 2026-10-27, all remaining governance items are formally settled as follows:
+
+1. **`F-04` (Exhibition 5-Step Opening Choreography):**
+   - **Status:** `CLOSED / RESOLVED BY OWNER ACCEPTANCE`.
+   - **Verification:** Automated timing ($\le 1.2\text{s}$) and interruptibility verified in `E2E-MOTION-05` (3/3 passed); visual acceptance confirmed by owner.
+
+2. **`F-24` / `B-7` / `V3-14` (Live Deployment Verification):**
+   - **Status:** `RESOLVED BY OWNER DECISION (ACCEPTED LIMITATION / DEFERRED VERIFICATION)`.
+   - **Verification:** Production static bundle build (`vite build` exit 0 in 4.78s) and static server emulation verified passing. Full manual 8-route live audit (`MAN-LIVE`) deferred as an accepted limitation for assessment handover without asserting unverified live status.
+
+3. **`DEC D-18` / `F-46` (Edition Claims Policy):**
+   - **Status:** `RESOLVED BY OWNER DECISION (ACCEPTED RISK)`.
+   - **Verification:** Contemporary ET edition claims ("Edition of 12") retained as-is for assessment submission without representing them as independently fact-verified. Traditional (TR) products carry zero edition numbers.
+
+4. **`O-6-C` (Existing Image Only Policy):**
+   - **Status:** `RESOLVED BY OWNER DECISION`.
+   - **Verification:** Retain best-fitting existing assets for TR-01, TR-03, and TR-07. No new image generation authorized.
+
+5. **`F-17` (Newest Sort):**
+   - **Status:** `RESOLVED BY OWNER DECISION (DEFERRED)`.
+   - **Verification:** Negative check verified in `UT-COLL-01`.
+
+6. **`F-42` (Visible Credit Text):**
+   - **Status:** `RESOLVED BY OWNER DECISION (DEFERRED)`.
+   - **Verification:** Catalog metadata fields implemented and verified in `UT-DATA-02`; front-end visible overlay deferred.
+
+7. **`F-14` (ThreadLoader Timing Invariance):**
+   - **Status:** `CLOSED & PRESERVED`.
+   - **Verification:** Strictly invariant at 1900ms active / 400ms fade; verified in `E2E-LOAD-01`.
+
+**Result:** Zero outstanding owner decisions or unresolved implementation requests remain for Stage 11 handover.

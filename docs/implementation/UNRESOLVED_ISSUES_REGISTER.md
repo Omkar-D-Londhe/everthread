@@ -63,11 +63,13 @@ The following anchor items are updated to reflect verified outcomes from Stage 0
 
 ### 3. `F-04` — Exhibition 5-Step Opening Choreography
 - **Item Type:** `FINDING`
-- **Current Status:** `IMPLEMENTED | PASS | OPEN`
-- **Owner Ruling Status:** **PENDING MANUAL OWNER REVIEW**
-- **Responsible Stage:** Stage 08 / Stage 10
-- **Stage Gating:** Does **NOT** block Stage 09 or Stage 10.
-- **Remaining Work:** Retained strictly as `OPEN`. Technical execution and timing tests (`E2E-MOTION-05`) are verified in code, but final closure requires the owner to manually inspect the screen recording of the 5-step opening choreography.
+- **Current Status:** `IMPLEMENTED | PASS | CLOSED`
+- **Owner Ruling Status:** **VERIFIED & ACCEPTED BY OWNER (2026-10-27)**
+- **Responsible Stage:** Stage 08 / Stage 10 / Stage 11
+- **Stage Gating:** Fully satisfied and closed.
+- **Implemented Work:** 5-step opening choreography implemented with `data-step` hooks (`cover`, `surface`, `main-image`, `views`, `thread`) coordinated by `useExhibitionOpening.ts`. Sequence settles within $\le 1.2\text{s}$ and is smoothly interruptible by pressing `Escape`.
+- **Evidence Paths & Test References:** `src/components/TraditionExhibitionModal.tsx`, `src/hooks/useExhibitionOpening.ts`, `e2e/motion.spec.ts` (`E2E-MOTION-05` — 3/3 passed across desktop, tablet, and mobile), `docs/implementation/evidence/STAGE-08/RESULT.md`.
+- **Remaining Work:** None. Explicit owner visual acceptance granted on 2026-10-27.
 
 ### 4. `CL-446` — Signature Motion: Initiate → Glide → Settle
 - **Item Type:** `CHECKLIST_ROW`
@@ -118,16 +120,22 @@ The following anchor items are updated to reflect verified outcomes from Stage 0
 | **`V3-11`** | Cohesive editorial voice across all brand touchpoints | Stage 09 | CLOSED | Stage 09 | Implemented and verified in Stage 09 per B-5 claim reframing. |
 | **`V3-12`** | Search, filter, and archive discovery ergonomics | Stage 10 | CLOSED | Stage 10 | Verified cross-filter performance, deep-linking, and technique strip integration in Stage 10. |
 | **`V3-13`** | Production build healthy & bundle verification | Stage 10/11 | CLOSED | Stage 10/11 | Production build passes cleanly (`vite build` exit 0 in 4.23s); chunk sizes recorded. |
-| **`V3-14`** | Live deployment verified (GitHub Pages) | Stage 11 | BLOCKED / UNVERIFIED | Deployment | Requires owner merge to `main` and manual verification of 8 live routes (`MAN-LIVE`). |
+| **`V3-14`** | Live deployment verified (GitHub Pages) | Stage 11 | RESOLVED BY OWNER DECISION (ACCEPTED LIMITATION) | None | Closed as accepted limitation by Owner Decision 2026-10-27; local production build (`vite build` exit 0) and static server pass; live 8-route MAN-LIVE verification deferred for assessment submission. |
 
 ---
 
 ## 6. Open Checklist Rows & Handover State
 
-With Stage 11 complete:
+With Stage 11 complete and Owner Acceptance granted:
 * **Stage 09 (Editorial & Narrative):** 42 rows verified and closed.
 * **Stage 10 (Interactive Polish & Synthesis):** 118 rows verified and closed (moving thread calibration, CL-446 signature moment, F-10 zero overflow sweep, F-19 Compass browser tests, F-21 icon fallbacks, F-29 Deep Oxblood focus rings, F-30 newsletter label, F-14 loader invariance).
 * **Stage 11 (Audit Closure, Supersession & Handover):** 134 rows reconciled and closed in `docs/CLOSURE_MATRIX.md`; supersession index `docs/SUPERSEDED.md` created; `docs/HANDOVER.md` delivered.
 * **Outstanding Owner-Gated Actions:**
-  1. `F-04` (Exhibition 5-step opening): Technical tests pass; awaits owner manual video review.
-  2. `F-24` / `V3-14` (Live GitHub Pages verification): Awaits owner merge to `main` and live route verification.
+  1. `F-04` (Exhibition 5-step opening): **CLOSED** — Owner explicit acceptance granted on 2026-10-27; automated tests (`E2E-MOTION-05`) pass.
+  2. `F-24` / `B-7` / `V3-14` (Live GitHub Pages deployment): **RESOLVED BY OWNER DECISION** — Closed as accepted limitation / deferred live verification by Owner Decision 2026-10-27. Local production build and static server pass cleanly; live domain 8-route audit deferred for assessment handover.
+  3. `DEC D-18` / `F-46` (Edition Claims Risk Acceptance): **RESOLVED BY OWNER DECISION** — Explicit assessment-specific risk acceptance recorded. Contemporary edition claims retained as-is without representing them as factually verified. TR products carry zero edition numbers.
+  4. `O-6-C` (Existing Image Only Policy): **RESOLVED BY OWNER DECISION** — Best-fitting existing images retained for TR-01, TR-03, TR-07. No new image generation. Obvious mismatches documented honestly.
+  5. `F-17` (Newest Sort): **RESOLVED BY OWNER DECISION** — Deferral confirmed; negative check verified in UT-COLL-01.
+  6. `F-42` (Visible Credit Text): **RESOLVED BY OWNER DECISION** — Deferral confirmed; data model fields implemented and verified in UT-DATA-02.
+  7. `ThreadLoader` Timing Invariance: **CLOSED & PRESERVED** — 1900ms active / 400ms fade verified in E2E-LOAD-01.
+* **Zero Outstanding Owner Decisions Remaining:** All governance items are formally settled and reconciled.

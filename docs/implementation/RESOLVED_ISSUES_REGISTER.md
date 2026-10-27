@@ -94,9 +94,9 @@ This register adheres strictly to the following qualification principles:
   - Code: `src/hooks/useExhibitionOpening.ts`, `src/components/archive/TraditionExhibitionModal.tsx`
   - Tests: `e2e/motion.spec.ts` (`E2E-MOTION-05`)
   - Evidence: `docs/implementation/evidence/STAGE-08/RESULT.md`, artifact `05_desktop_exhibition_5step_opening.png`
-- **Verification Level:** `implemented`, `unit-tested`, `E2E-tested`, `evidence-inspected`.
-- **Resolving Commit:** `8a61e4d` (Stage 08).
-- **Caveats / Deferred Work:** Technical execution verified; formal aesthetic signoff tracked under `F-04` (kept OPEN).
+- **Verification Level:** `implemented`, `unit-tested`, `E2E-tested`, `evidence-inspected`, `owner-accepted`.
+- **Resolving Commit:** `8a61e4d` (Stage 08) / Stage 11 Owner Acceptance.
+- **Caveats / Deferred Work:** None. Owner visual acceptance confirmed on 2026-10-27; automated timing & interruptibility verified via `E2E-MOTION-05` (3/3 passed).
 
 #### 7. `V3-07` — Homepage Narrative Journey
 - **Original Finding / Need:** Rebuild homepage journey in canonical sequence: Hero → Thread Compass → Cultural Archive → Permanent Capsule → The Making → Promise → Journal/Footer.
@@ -416,10 +416,10 @@ The following 11 checklist verification items (`CHECKLIST_ROW`) are closed in th
 
 ---
 
-## 4. Cross-Reference: Settled Governance Decisions (10 items)
+## 4. Cross-Reference: Settled Governance Decisions & Owner Acceptances
 
 * `O-4`: Canonical motion parameters approved by owner (Section 9 register).
-* `O-6`: TR product images confirmed approved by owner for commercial presentation.
+* `O-6` / `O-6-C`: Existing-Image-Only Policy confirmed by owner. Best-fitting existing imagery retained for TR-01, TR-03, and TR-07; no new image generation authorized.
 * `B-3`: Thread Compass recommendation matrix and consultation flow approved by owner.
 * `B-4`: Concept disclosure canonical wording and 3 D-21 placements approved and verified in Stage 09.
 * `B-5`: Claim-by-claim factual dispositions approved and verified in Stage 09 (Global Ateliers reframed as design studies, Inlays as engineering spec, Journal curatorial safeguards preserved).
@@ -428,3 +428,9 @@ The following 11 checklist verification items (`CHECKLIST_ROW`) are closed in th
 * `O-12`: Making/Promise conservative craft-homage approach implemented and verified across Home (Stage 06) and House (Stage 09).
 * `DEC D-08`: ET-01 product record confirmed as source of truth for hero metadata.
 * `DEC D-11`: Homepage editorial narrative progression approved.
+* `F-04` / `V3-06`: Exhibition 5-step opening choreography granted explicit visual owner acceptance (2026-10-27); timing and interruptibility verified in `E2E-MOTION-05`.
+* `DEC D-18` / `F-46`: Edition claims assessment-specific risk acceptance granted by owner (2026-10-27). Contemporary ET edition claims ("Edition of 12") accepted as-is for assessment submission without asserting independent factual verification. TR products carry zero edition numbers.
+* `F-24` / `B-7` / `V3-14`: Live GitHub Pages deployment closed as an accepted limitation / deferred live route verification by owner decision (2026-10-27). Production static build (`vite build` exit 0) and static server emulation pass cleanly; live 8-route MAN-LIVE audit deferred for assessment submission.
+* `F-17`: Newest sort permanently deferred by owner decision; negative check verified in UT-COLL-01.
+* `F-42`: Visible credit text overlay deferred by owner decision; catalog metadata fields implemented and verified in UT-DATA-02.
+* `F-14`: ThreadLoader timing confirmed strictly invariant (1900ms active / 400ms fade) and verified in `E2E-LOAD-01`.
