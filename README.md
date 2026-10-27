@@ -2,6 +2,8 @@
 
 > *"An heirloom, not a trend. Every thread carries a story."*
 
+**Live Production Deployment:** 👉 **[https://omkar-d-londhe.github.io/everthread/](https://omkar-d-londhe.github.io/everthread/)**
+
 EverThread is an editorial luxury fashion web application that bridges historic Indian textile traditions with contemporary garment architecture. Designed as a digital atelier, the platform invites patrons to discover artisanal provenance, explore curated garment collections, consult an interactive lifestyle recommendation engine, and inspect heritage weaving techniques through high-resolution cultural archives.
 
 ---
@@ -15,13 +17,22 @@ EverThread combines high-clarity ecommerce functionality with the editorial rhyt
 - **Two Collection Walls (`/collections` & `/collections/the-living-inheritance`):**
   - **The Contemporary Collection (`/collections`):** Seven canonical heirloom pieces (`ET-01` through `ET-07`) featuring pure handloom Matka silk, Pashmina wool, and Mulberry silks with concrete USD pricing and commercial sizing.
   - **The Living Inheritance Wall (`/collections/the-living-inheritance`):** Seven traditional pieces (`TR-01` through `TR-07`) showcasing archival craft traditions (Banarasi brocade, Jamdani, Patola, Kanchipuram, Chanderi, Ajrakh, and Bandhani).
+  - **Overlapping Editorial Card Composition:** Editorial layered depth composition where the active collection stands dominant in the foreground while the inactive collection card is tucked behind and slightly above with restrained drop shadows. Clicking the exposed card sliver or switching tabs automatically reverses the depth hierarchy and route synchronization.
   - **Collection-Switching Motion:** Native horizontal scroll-snap stage track with a calibrated dynamic SVG thread connecting the collections, visible next-wall peek, and labelled tab navigation.
-- **Portrait-Aware Product Detail Page (`/product/:productId`):** High-density portrait imagery, interactive swatch selection, multi-piece set sizing, specification accordions, and the **Atelier Loupe Lens** (hover loupe on desktop, tap modal on mobile).
+- **Portrait-Aware Product Detail Page (`/product/:productId`):** High-density portrait imagery, interactive swatch selection, multi-piece set sizing, specification accordions, and the **Atelier Loupe Lens**:
+  - Precision circular gold bezel loupe ($D=240\text{px}$ on desktop stage, $D=200\text{px}$ in modal).
+  - Boundary-clamped glass math preventing the loupe circle from spilling outside image bounds or covering surrounding CTAs.
+  - 1:1 reticle tracking right to outer boundary pixels for seamless corner and border hem inspection.
 - **Curator's Compass (`/compass`):** A 3-step guided lifestyle consultation stepper (Fabric & Fiber → Silhouette & Occasion → Regional Palette) driven by a deterministic recommendation engine (`compassMatcher.ts`) recommending exclusively Contemporary pieces.
-- **Cultural Archive & Exhibition Modal (`/archive` & `/archive?tradition=:slug`):** Discipline-grouped asymmetric layout covering 13 Indian textile traditions, a 9-diagram horizontal technique strip with deep-linking, deep living-loom stories (`/archive/:traditionKey`), and an immersive 6-plate textile exhibition modal with technical weave diagrams.
+- **Cultural Archive & Exhibition Modal (`/archive` & `/archive?tradition=:slug`):**
+  - Discipline-grouped asymmetric layout covering 13 Indian textile traditions.
+  - **Technique Strip:** Continuous hands-free linear glide ($45\text{px/s}$) powered by a high-precision subpixel accumulator with pause/resume toggle, pointer hover pause, and keyboard focus protection.
+  - Deep living-loom stories (`/archive/:traditionKey`).
+  - Immersive 6-plate textile exhibition modal with 5-step opening choreography (`F-04` verified $\le 1.2\text{s}$ and interruptible) and technical weave diagrams.
+- **Curatorial Search (`SearchModal`):** Instant multi-faceted search indexing contemporary and traditional products, weave traditions, and technique schematics. Action buttons wrap responsively at 1440px, 1024px, 768px, and 390px with zero horizontal page overflow.
 - **The House (`/house`):** A 6-section brand philosophy journey: Hero, Foundational Creed, Material Integrity, Conceptual Design Studies (Paris, New Delhi, Kyoto, Milan), Bespoke Concierge, and Transparency Notice.
 - **Curatorial Monographs & Journal (`/journal` & `/journal/:articleId`):** Academic curatorial essays, historical monograph profiles, and scholarly bibliography sources.
-- **Commerce Flow (`/saved`, `/bag`, `/checkout`):** LocalStorage-backed Saved Pieces wishlist, shopping bag with composite variant keys and quantity controls, and a demo concierge checkout with empty-bag redirection defense.
+- **Commerce Flow (`/saved`, `/bag`, `/checkout`):** LocalStorage-backed Saved Pieces wishlist and shopping bag with full support for both contemporary (`et-*`) and traditional (`tr-*`) catalog items, isolated storage, composite variant keys, and a demo concierge checkout with empty-bag redirection defense.
 
 ### Catalog Boundaries & Concept Product Disclosure
 The application enforces strict architectural separation between two product domains:
@@ -154,7 +165,7 @@ npx tsc --noEmit
 EverThread uses Vitest with jsdom and `@testing-library/react`:
 
 ```bash
-# Run the full Vitest suite (355 tests)
+# Run the full Vitest suite (381 tests)
 npm test
 
 # Run a single targeted test suite (e.g. collection walls)
@@ -163,8 +174,8 @@ npx vitest run src/tests/walls.test.tsx
 # Run tests in interactive watch mode
 npx vitest
 ```
-- **Full Suite Coverage:** **24 test files, 355 / 355 tests passing** (0 failed, 0 skipped).
-- **Test Categories:** Data schemas, cart models, product stages, Loupe lens math, search algorithms, tradition exhibitions, editorial claims, motion folds, thread continuity, and collection walls.
+- **Full Suite Coverage:** **26 test files, 381 / 381 tests passing** (0 failed, 0 skipped).
+- **Test Categories:** Data schemas, cart models, product stages, Loupe lens math, search algorithms, tradition exhibitions, editorial claims, motion folds, thread continuity, technique strip glide, and collection walls.
 
 ### 7.3 End-to-End Browser Tests (Playwright)
 
@@ -174,16 +185,20 @@ If running browser tests for the first time, install the required Chromium brows
 npx playwright install chromium
 ```
 
-#### Verified Stage Acceptance Tests
-Run the dedicated Stage 10/11 acceptance suite and Curator's Compass browser suite:
+#### Verified Browser Acceptance Tests
+Run the dedicated Stage 10/11 acceptance, UI interaction refinement, and Curator's Compass browser suites:
 
 ```bash
-npx playwright test e2e/stage10-acceptance.spec.ts e2e/compass.spec.ts
+npx playwright test e2e/stage10-acceptance.spec.ts e2e/compass.spec.ts e2e/ui-interaction-refinements.spec.ts e2e/wall-overlapping-cards.spec.ts e2e/archive-atelier-lens.spec.ts e2e/targeted-ui-fixes.spec.ts
 ```
 
-- **Total Tests:** **21 tests passing** across Desktop (`1440px`), Tablet (`1024px`), and Mobile (`390px`).
 - **Verifications:**
   - `E2E-WALL-THREAD`: Collection-switching moving thread visibility, easing, and reduced-motion instant snap.
+  - `E2E-WALL-CARDS`: Editorial overlapping cards depth reversal, peek sliver pointer hit-testing, and tab synchronization.
+  - `E2E-UI-STRIP`: Technique Strip continuous linear glide ($45\text{px/s}$ hands-free progress), pause/resume toggle, and hover pause.
+  - `E2E-UI-LENS`: Atelier Loupe boundary clamping, containment math, and edge/corner reticle tracking.
+  - `E2E-UI-SEARCH`: Curatorial Search action button responsive wrapping without horizontal document overflow at 1440px, 1024px, 768px, and 390px.
+  - `E2E-UI-BAG`: Wishlist and bag storage isolation across both `ET-*` and `TR-*` catalog entries.
   - `E2E-RESP-01`: Responsive layout overflow sweep from 320px to 1440px with `overflow-x: visible` unmasked (0 overflowing elements).
   - `E2E-A11Y-03`: Focus ring contrast ratio ≥ 3:1 using Deep Oxblood (`#49232D`, 12.8:1 on ivory) and Warm Ivory on dark surfaces.
   - `E2E-A11Y-NEWSLETTER`: Accessible form labeling and ARIA attributes in footer.
@@ -191,8 +206,8 @@ npx playwright test e2e/stage10-acceptance.spec.ts e2e/compass.spec.ts
   - `E2E-LOAD-01`: ThreadLoader timing invariance (strictly 1900 ms active / 400 ms fade).
   - `E2E-COMP-01`: Curator's Compass determinism, step navigation, and strict zero-TR recommendation boundary.
 
-#### Note on Full Legacy Playwright Suite (`npm run test:e2e`)
-Running `npm run test:e2e` executes all 12 spec files in `e2e/`. Note that legacy tests written during early development (`stage02.spec.ts`, `stage04.spec.ts`, `stage05.spec.ts`) contain historical assertions expecting Traditional products to be unlisted (`isListed: false`). These tests fail because TR products were subsequently made commercially purchasable concept pieces (`isListed: true`) under approved **Owner Decisions B-4 and O-7**.
+#### Note on Legacy Development Suites
+Legacy exploratory tests written during early prototyping (`stage02.spec.ts`, `stage04.spec.ts`, `stage05.spec.ts`) contain historical assertions expecting Traditional products to be unlisted (`isListed: false`). These are superseded by approved **Owner Decisions B-4 and O-7**, which established TR products as purchasable concept pieces (`isListed: true`).
 
 ---
 
@@ -212,6 +227,7 @@ Running `npm run test:e2e` executes all 12 spec files in `e2e/`. Note that legac
 
 ```text
 everthread/
+├── .github/                     # GitHub Actions CI/CD workflows (deploy.yml for GitHub Pages)
 ├── index.html                   # HTML shell with font-loading and icon fallback defense
 ├── vite.config.ts               # Vite bundler configuration with /everthread/ base and path rewrites
 ├── tsconfig.json                # Strict TypeScript configuration
@@ -235,38 +251,48 @@ everthread/
 │   ├── pages/                   # Route views (HomePage, Collections, PDP, Compass, House, Archive)
 │   │   └── collections/         # ContemporaryWall, LivingInheritanceWall, CollectionWallsLayout
 │   ├── styles/                  # Luxury CSS architecture (main.css, walls.css, animations.css)
-│   └── tests/                   # Vitest unit and integration suites (355 tests)
+│   └── tests/                   # Vitest unit and integration suites (381 tests across 26 files)
 ├── e2e/                         # Playwright E2E browser test suites
 │   ├── stage10-acceptance.spec.ts # Stage 10/11 accessibility, motion, and overflow audit
-│   └── compass.spec.ts          # Curator's Compass determinism & zero-TR test suite
-└── docs/                        # Specifications, registers, and audit deliverables
-    ├── CLOSURE_MATRIX.md        # Authoritative closure matrix reconciling all 483 tracked items
-    ├── SUPERSEDED.md            # Supersession register indexing 15 historical documents
-    ├── HANDOVER.md              # Complete architectural and operational handover documentation
-    ├── authoritative/           # Revision 2 specifications, asset manifests, and traceability
-    └── implementation/          # Audit trackers (01b_AUDIT_TRACKER.csv) and issue registers
+│   ├── compass.spec.ts          # Curator's Compass determinism & zero-TR test suite
+│   ├── ui-interaction-refinements.spec.ts # Strip glide, Loupe boundary, Search buttons, Bag isolation
+│   └── wall-overlapping-cards.spec.ts    # Layered depth cards, tab sync, sliver interaction
+├── docs/                        # Specifications, registers, and audit deliverables
+│   ├── README.md                # Documentation navigation guide and authority hierarchy
+│   ├── MASTER_RESOURCE_INDEX.md # Complete project and resource index
+│   ├── authoritative/           # Tier 1 & Tier 2 specifications, asset manifests, and traceability
+│   └── implementation/          # Audit trackers (01b_AUDIT_TRACKER.csv mirrors) and issue registers
+└── legacy_archive/              # (Local disk only, gitignored) Archived working drafts & intermediate handoffs
 ```
 
 ---
 
-## 10. Current Status, Limitations, and Gated Actions
+## 10. Current Status, Limitations, and Completed Governance Closures
 
-EverThread has completed all planned development stages through **Stage 11 — Audit Closure, Documentation Supersession, and Handover**.
+EverThread has completed all planned development stages through **Stage 11 — Audit Closure, Documentation Supersession, and Handover**, followed by formal owner acceptance and audit tracker finalization. **Zero open owner decisions remain.**
 
-### Gated Items Awaiting Owner Action
+### Authoritative Governance Closures & Dispositions
 1. **`F-04` (Exhibition 5-Step Opening Choreography):**
-   - **Current Status:** `OPEN | PENDING MANUAL OWNER REVIEW`
-   - **Technical Fact:** Implemented and tested in code (`useExhibitionOpening.ts`, `E2E-MOTION-05` passing). Formally retained as **OPEN** awaiting manual owner inspection of screen recordings or browser playback.
-2. **`F-24` / `B-7` (Live GitHub Pages Deployment):**
-   - **Current Status:** `UNVERIFIED / BLOCKED`
-   - **Technical Fact:** Local deployment build and Pages-style static server pass. Live URL verification is owner-gated: requires merging to `main` and manually verifying the 8 live routes per `MAN-LIVE`. Never claimed as verified from CI alone.
-
-### Assessment-Specific Owner Risk Acceptances & Deferred Items
-- **`DEC D-18` / `F-46` (Edition Claims Risk Acceptance):** Existing Contemporary (`ET-01`–`ET-07`) edition claims (e.g. *"Edition of 12"*) are retained as-is for assessment submission without claiming factual verification. TR products carry strictly zero edition claims.
-- **`O-6-C` (Existing Image Only Policy):** Best-fitting existing imagery is retained for `TR-01`, `TR-03`, and `TR-07`. No new image generation was commissioned.
-- **`F-17` (Newest Sort):** Deferred by owner decision.
-- **`F-42` (Visible Credit Text):** Metadata fields are implemented in catalog schemas; visible front-end overlay was deferred by decision.
-- **`ThreadLoader` Timing Invariance:** Preserved strictly at **1900 ms active duration** and **400 ms fade**.
+   - **Final Status:** `CLOSED / RESOLVED BY OWNER ACCEPTANCE (2026-10-27)`
+   - **Technical Fact:** Verified in automated suites (`useExhibitionOpening.ts`, `E2E-MOTION-05`), with manual visual review explicitly approved and accepted by project owner. Choreography timings ($\le 1.2\text{s}$, interruptible on dismiss) confirmed.
+2. **`F-24` / `B-7` / `V3-14` (Live GitHub Pages Deployment):**
+   - **Final Status:** `RESOLVED BY OWNER DECISION (Accepted Limitation / Deferred Live Verification)`
+   - **Technical Fact:** Production build and static-server checks pass locally (`npm run build`, `npm run preview`). Merged cleanly to `main` branch (`096e971`) and deployed live via GitHub Actions workflow (`.github/workflows/deploy.yml`) to [https://omkar-d-londhe.github.io/everthread/](https://omkar-d-londhe.github.io/everthread/). Live-domain manual route verification (`MAN-LIVE`) remains deferred by owner decision as an accepted assessment limitation.
+3. **`DEC D-18` / `F-46` (Edition Claims Risk Acceptance):**
+   - **Final Status:** `RESOLVED BY OWNER DECISION (Accepted Risk)`
+   - **Technical Fact:** Existing Contemporary (`ET-01`–`ET-07`) edition claims (e.g. *"Edition of 12"*) are retained as-is for assessment submission without claiming factual verification. Traditional pieces (`TR-01`–`TR-07`) carry strictly zero edition claims.
+4. **`O-6-C` (Existing Image Only Policy):**
+   - **Final Status:** `RESOLVED BY OWNER DECISION (Accepted Policy)`
+   - **Technical Fact:** Best-fitting existing imagery is retained for `TR-01`, `TR-03`, and `TR-07`. No new image generation was commissioned.
+5. **`F-17` (Newest Sort):**
+   - **Final Status:** `RESOLVED BY OWNER DECISION (Deferred)`
+   - **Technical Fact:** Sort by newest deferred by owner decision; catalog maintains curated editorial default order.
+6. **`F-42` (Visible Credit Text Overlay):**
+   - **Final Status:** `RESOLVED BY OWNER DECISION (Deferred)`
+   - **Technical Fact:** Metadata fields are implemented in catalog schemas; visible front-end overlay deferred by owner decision.
+7. **`F-14` (ThreadLoader Timing Invariance):**
+   - **Final Status:** `CLOSED & PRESERVED`
+   - **Technical Fact:** Preserved strictly at **1900 ms active duration** and **400 ms fade duration** across all routes.
 
 ---
 
@@ -277,7 +303,7 @@ EverThread has completed all planned development stages through **Stage 11 — A
 | **1. Install Dependencies** | `npm install` | Clean install; lockfile respected |
 | **2. Start Dev Server** | `npm run dev` | Local server at `http://localhost:5173/everthread/` |
 | **3. TypeScript Typecheck** | `npx tsc --noEmit` | `0 errors` (Exit code 0) |
-| **4. Run Unit Tests** | `npm test` | **355 passed** across 24 test files |
+| **4. Run Unit Tests** | `npm test` | **381 passed** across 26 test files |
 | **5. Run Targeted Test** | `npx vitest run src/tests/walls.test.tsx` | Specific test suite passes |
 | **6. Run E2E Acceptance** | `npx playwright test e2e/stage10-acceptance.spec.ts e2e/compass.spec.ts` | **21 passed** across 3 viewports |
 | **7. Production Build** | `npm run build` | Optimized bundle in `dist/` |
