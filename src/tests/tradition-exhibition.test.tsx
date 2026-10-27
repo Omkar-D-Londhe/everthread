@@ -214,9 +214,9 @@ describe('Phase 6.3.2.2: Immersive Textile Exhibition Suite', () => {
         />
       );
 
-      // Click Next Tradition
+      // Click Next Tradition (in canonical discipline sequence: bagru -> ajrakh -> bandhani)
       fireEvent.click(screen.getByTestId('next-tradition-btn'));
-      expect(handleSelectTradition).toHaveBeenCalledWith('bagru');
+      expect(handleSelectTradition).toHaveBeenCalledWith('bandhani');
     });
 
     it('toggles contextual technical diagram drawer when available', () => {

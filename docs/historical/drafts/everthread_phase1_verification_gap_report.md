@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Phase 1 Verification-Gap Report
 
 No project file was modified. Browser = headless Chromium against a **local production build** served with GitHub-Pages-style 404 fallback. It is not the live site.

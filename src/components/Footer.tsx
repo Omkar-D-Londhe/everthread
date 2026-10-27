@@ -63,16 +63,21 @@ export const Footer: React.FC = () => {
             ) : (
               <form className="gazette-form mb-3" onSubmit={handleSubmit}>
                 <div className="gazette-input-wrap">
+                  <label htmlFor="gazette-email-input" className="visually-hidden">
+                    Email address
+                  </label>
                   <input 
+                    id="gazette-email-input"
                     type="email" 
                     className="gazette-input" 
                     placeholder="Atelier correspondence email" 
+                    aria-label="Email address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required 
                   />
                   <button className="btn btn-sm btn-link p-0 text-oxblood" type="submit" aria-label="Subscribe to Gazette">
-                    <span className="material-symbols-outlined fs-5">arrow_forward</span>
+                    <span className="material-symbols-outlined fs-5" aria-hidden="true">arrow_forward</span>
                   </button>
                 </div>
               </form>

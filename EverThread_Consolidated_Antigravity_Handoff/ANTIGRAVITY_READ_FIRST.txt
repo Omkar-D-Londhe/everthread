@@ -1,0 +1,9 @@
+EVERTHREAD — READ THIS FIRST
+
+1. Open EverThread_Consolidated_Owner_Decisions.md. It is the single consolidated owner-decision record from the current decision session.
+2. Use EverThread_Documentation_Updates.zip as supporting historical/documentation material, not as a substitute for checking the current repository.
+3. Follow the “Instructions to Antigravity — execute in this order” section in the consolidated record.
+4. This pass is documentation reconciliation only. Do not modify code, product data, assets, tests, styles, routes, or the database. Do not commit or push.
+5. Preserve the existing owner-supplied Archive-to-Traditional Collection clothing mapping and the owner's confirmation that the relevant Traditional products are purchasable. Mark contradictory older audit statements superseded.
+6. F-04 stays pending until the owner manually reviews the recording. Add the collection-switching moving-thread smoothness/visibility check as a future task; do not implement it during documentation reconciliation.
+7. Report changed files and a diff summary. Never claim changes or tests happened unless they actually did.

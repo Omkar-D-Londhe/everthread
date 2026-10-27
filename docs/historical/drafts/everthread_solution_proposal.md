@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Solution Proposal (for approval; nothing implemented)
 
 IDs refer to `everthread_master_findings_register.md`. Source paths are real files in `src/`. Exact line numbers must be re-confirmed by the developer at implementation time. Every "regression test" below is **new** unless stated; the repo has no browser/E2E tooling today (see D-17).

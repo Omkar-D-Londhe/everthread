@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Pre-Implementation Completeness Check
 
 Method: every non-PASS row of `everthread_requirements_matrix_v3.csv` and every v2 (`D-nn`) and v3 (`V3-nn`) ID was compared with the master findings register, solution proposal and decision register. All 16 v2 IDs and all 14 v3 IDs are accounted for. The five stage plans do not exist yet; "plan" below means the provisional outline in `everthread_solution_proposal.md` §4. Only omissions and incorrect dispositions are listed. Nothing existing was edited; on your approval I will merge these as F-34…F-46 and D-18…D-22.

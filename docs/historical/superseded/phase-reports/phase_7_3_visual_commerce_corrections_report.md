@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EVERTHREAD — PHASE 7.3 DELIVERABLE REPORT
 ## Commerce Corrections, Traditional Outfit Atelier Lens, Editorial Motion & Production Verification
 

@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Phase 7.0 Release Readiness Report
 
 **Project:** EverThread — Contemporary Heritage Luxury Atelier  

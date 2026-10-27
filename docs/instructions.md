@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 **Purpose:** A practical implementation brief for Antigravity. Use this alongside the existing repository, README, approved Stitch screens, and local `Images/` directory. This is not permission to rebuild the project from scratch.
 
 ## 1. Project goal

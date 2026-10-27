@@ -11,6 +11,12 @@
   overflow: hidden;
   background-color: var(--color-canvas, #faf6f0);
   border-bottom: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.08));
+  --wall-card-lift: 20px;
+  --wall-card-tuck: 28px;
+  --wall-card-radius: 4px;
+  --wall-shadow-active-right: 12px 18px 36px -8px rgba(48, 35, 31, 0.16), 0 2px 8px rgba(48, 35, 31, 0.04);
+  --wall-shadow-active-left: -12px 18px 36px -8px rgba(48, 35, 31, 0.16), 0 2px 8px rgba(48, 35, 31, 0.04);
+  --wall-shadow-receded: 0 4px 16px rgba(48, 35, 31, 0.06);
 }
 
 /* Header & Segmented Tab Navigation */
@@ -52,9 +58,16 @@
   background-color: rgba(255, 255, 255, 0.5);
 }
 
+.wall-tab-btn:focus,
 .wall-tab-btn:focus-visible {
-  outline: 2px solid var(--color-champagne-thread, #b49a70);
-  outline-offset: 2px;
+  outline: 2px solid #49232D !important;
+  outline-offset: 2px !important;
+}
+
+.wall-tab-btn.active:focus,
+.wall-tab-btn.active:focus-visible {
+  outline: 2px solid #F5EFEB !important;
+  outline-offset: 2px !important;
 }
 
 .wall-tab-btn.active {
@@ -93,6 +106,8 @@
   position: relative;
   width: max-content;
   box-sizing: border-box;
+  padding-top: var(--wall-card-lift);
+  padding-bottom: 8px;
 }
 
 /* Panel Width Geometry: 88vw on Desktop (~12% peek of adjacent wing) */
@@ -104,21 +119,72 @@
   box-sizing: border-box;
   position: relative;
   min-height: 440px;
+  transition: z-index 0.4s ease;
+}
+
+.wall-stage-panel.is-active {
+  z-index: 2;
+  cursor: default;
+}
+
+.wall-stage-panel:not(.is-active) {
+  z-index: 1;
+  cursor: pointer;
 }
 
 .wall-panel-inner {
   position: relative;
   background-color: var(--color-cream, #fef9f0);
-  border-right: 1px solid var(--color-hairline, rgba(48, 35, 31, 0.1));
-  height: 100%;
+  border: 1px solid rgba(180, 154, 112, 0.22);
+  border-radius: var(--wall-card-radius, 4px);
+  height: calc(100% - var(--wall-card-lift));
   padding-bottom: 3.5rem !important; /* reserve bottom space for the thread */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.4s ease,
+              background-color 0.4s ease;
 }
 
-.wall-stage-panel--living .wall-panel-inner {
+/* Contemporary active: lowered with rightward shadow over tucked Living */
+.wall-stage-panel--contemporary.is-active .wall-panel-inner {
+  transform: translateY(var(--wall-card-lift));
+  box-shadow: var(--wall-shadow-active-right);
+  border-color: rgba(180, 154, 112, 0.38);
+}
+
+/* Living active: lowered with leftward shadow over tucked Contemporary */
+.wall-stage-panel--living.is-active .wall-panel-inner {
   background: linear-gradient(135deg, #fef9f0 0%, #fbf6ec 100%);
+  transform: translateY(var(--wall-card-lift));
+  box-shadow: var(--wall-shadow-active-left);
+  border-color: rgba(180, 154, 112, 0.38);
+}
+
+/* Inactive panel styling: resting above and tucked behind active card */
+.wall-stage-panel:not(.is-active) .wall-panel-inner {
+  background-color: #f7f1e6;
+  border-color: rgba(180, 154, 112, 0.28);
+  box-shadow: var(--wall-shadow-receded);
+}
+
+/* Contemporary inactive: sits higher at top, tucked right under Living */
+.wall-stage-panel--contemporary:not(.is-active) .wall-panel-inner {
+  transform: translateY(0) translateX(var(--wall-card-tuck));
+}
+
+/* Living inactive: sits higher at top, tucked left under Contemporary */
+.wall-stage-panel--living:not(.is-active) .wall-panel-inner {
+  transform: translateY(0) translateX(calc(-1 * var(--wall-card-tuck)));
+}
+
+/* Hover on inactive exposed sliver */
+.wall-stage-panel:not(.is-active):hover .wall-panel-inner {
+  border-color: var(--color-champagne-thread, #b49a70);
+  box-shadow: 0 8px 24px rgba(48, 35, 31, 0.12);
 }
 
 /* Curatorial Metadata Badges */
@@ -327,14 +393,14 @@
   color: var(--color-muted-editorial, #5a4f48);
 }
 
-/* VISUAL THREAD LAYER (Positioned firmly at bottom; never intersects text) */
+/* VISUAL THREAD LAYER (Positioned firmly at bottom; z-index: 3 floats on top of panels) */
 .wall-thread-container {
   position: absolute;
-  bottom: 0;
+  bottom: 8px;
   left: 0;
   width: 100%;
   height: 36px;
-  z-index: 1;
+  z-index: 3;
   pointer-events: none;
 }
 
@@ -346,6 +412,10 @@
 
 .wall-thread-settled .wall-thread-svg {
   animation: wallThreadPulse 0.5s ease-out;
+}
+
+.wall-thread-head {
+  transition: opacity 0.15s ease-out;
 }
 
 @keyframes wallThreadPulse {
@@ -424,6 +494,11 @@
 
 /* Responsive Overrides (Mobile ~390px Viewport) */
 @media (max-width: 768px) {
+  .wall-stage-root {
+    --wall-card-lift: 8px;
+    --wall-card-tuck: 8px;
+  }
+
   .wall-stage-panel {
     flex: 0 0 92vw;
     width: 92vw;
@@ -531,6 +606,11 @@
 
 /* Tablet (769px to 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
+  .wall-stage-root {
+    --wall-card-lift: 14px;
+    --wall-card-tuck: 16px;
+  }
+
   .wall-stage-panel {
     flex: 0 0 90vw;
     width: 90vw;
@@ -556,5 +636,9 @@
   }
   .wall-thread-settled .wall-thread-svg {
     animation: none !important;
+  }
+  .wall-panel-inner,
+  .wall-stage-panel {
+    transition: none !important;
   }
 }

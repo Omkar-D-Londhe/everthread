@@ -46,6 +46,8 @@ const ContextInspector: React.FC = () => {
 
       <button data-testid="seed-saved-et01" onClick={() => toggleSaved('et-01')}>Save et-01</button>
       <button data-testid="seed-saved-et05" onClick={() => toggleSaved('et-05')}>Save et-05</button>
+      <button data-testid="seed-saved-tr01" onClick={() => toggleSaved('tr-01')}>Save tr-01</button>
+      <button data-testid="seed-saved-tr02" onClick={() => toggleSaved('tr-02')}>Save tr-02</button>
       <button data-testid="seed-clear-saved" onClick={clearSaved}>Clear Saved</button>
       <button 
         data-testid="seed-bag-et01-m" 
@@ -437,6 +439,91 @@ describe('EverThread Stage 3.5: Saved Pieces & Shopping Bag Suite', () => {
       fireEvent.click(addToBagBtn);
 
       expect(screen.getByTestId('test-bag-count')).toHaveTextContent('1');
+    });
+  });
+
+  /* -------------------------------------------------------------------------
+   * Requirement 11: Traditional Collection Wishlist and Bag Isolation
+   * ------------------------------------------------------------------------- */
+  describe('11. Traditional Collection Wishlist and Bag Isolation', () => {
+    it('saves traditional piece tr-01 cleanly without modifying shopping bag', () => {
+      renderWithInspector('/collections');
+
+      expect(screen.getByTestId('test-saved-count')).toHaveTextContent('0');
+      expect(screen.getByTestId('test-bag-count')).toHaveTextContent('0');
+
+      // Save tr-01 via inspector
+      act(() => {
+        screen.getByTestId('seed-saved-tr01').click();
+      });
+
+      expect(screen.getByTestId('test-saved-count')).toHaveTextContent('1');
+      expect(screen.getByTestId('test-saved-ids')).toHaveTextContent('tr-01');
+      expect(screen.getByTestId('test-bag-count')).toHaveTextContent('0');
+      expect(screen.getByTestId('test-bag-lines')).toHaveTextContent('0');
+
+      // Check localStorage persistence
+      const savedInStorage = JSON.parse(localStorage.getItem('everthread_saved_v2') || '[]');
+      expect(savedInStorage).toEqual(['tr-01']);
+      const bagInStorage = JSON.parse(localStorage.getItem('everthread_bag_v2') || '[]');
+      expect(bagInStorage).toEqual([]);
+    });
+
+    it('manages both contemporary and traditional items in saved pieces simultaneously', () => {
+      renderWithInspector('/collections');
+
+      // Save tr-01 and et-01
+      act(() => {
+        screen.getByTestId('seed-saved-tr01').click();
+        screen.getByTestId('seed-saved-et01').click();
+      });
+
+      expect(screen.getByTestId('test-saved-count')).toHaveTextContent('2');
+      expect(screen.getByTestId('test-saved-ids')).toHaveTextContent('tr-01,et-01');
+
+      // Add et-01 to bag
+      act(() => {
+        screen.getByTestId('seed-bag-et01-m').click();
+      });
+
+      expect(screen.getByTestId('test-bag-count')).toHaveTextContent('1');
+      // Saved state remains completely intact
+      expect(screen.getByTestId('test-saved-count')).toHaveTextContent('2');
+      expect(screen.getByTestId('test-saved-ids')).toHaveTextContent('tr-01,et-01');
+
+      // Remove tr-01 from saved
+      act(() => {
+        screen.getByTestId('seed-saved-tr01').click();
+      });
+
+      expect(screen.getByTestId('test-saved-count')).toHaveTextContent('1');
+      expect(screen.getByTestId('test-saved-ids')).toHaveTextContent('et-01');
+      // Bag remains completely intact
+      expect(screen.getByTestId('test-bag-count')).toHaveTextContent('1');
+    });
+
+    it('hydrates saved state from localStorage supporting traditional IDs while filtering invalid ones', () => {
+      localStorage.setItem('everthread_saved_v2', JSON.stringify(['tr-01', 'tr-02', 'et-01', 'nonexistent-99']));
+      renderWithInspector('/collections');
+
+      expect(screen.getByTestId('test-saved-count')).toHaveTextContent('3');
+      expect(screen.getByTestId('test-saved-ids')).toHaveTextContent('tr-01,tr-02,et-01');
+    });
+
+    it('renders traditional product card with accurate title, price, and provenance on /saved', () => {
+      localStorage.setItem('everthread_saved_v2', JSON.stringify(['tr-01']));
+      renderWithAppShell('/saved');
+
+      const card = screen.getByTestId('saved-card-tr-01');
+      expect(card).toBeInTheDocument();
+      expect(screen.getByTestId('saved-title-tr-01')).toHaveTextContent('Banaras Afterlight — Sculpted Brocade Mantle Coat');
+      expect(screen.getByTestId('saved-price-tr-01')).toHaveTextContent('₹1,28,000');
+
+      // Remove traditional piece
+      const removeBtn = screen.getByTestId('remove-saved-tr-01');
+      fireEvent.click(removeBtn);
+      expect(screen.queryByTestId('saved-card-tr-01')).not.toBeInTheDocument();
+      expect(screen.getByTestId('empty-saved-state')).toBeInTheDocument();
     });
   });
 });

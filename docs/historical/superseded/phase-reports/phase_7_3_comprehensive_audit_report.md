@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Phase 7.3 Comprehensive Audit & Remediation Report
 ## Full End-to-End Verification: Canonical Products, Search Correctness, Archive Mappings, Atelier Lens, Editorial Motion & Production Release
 

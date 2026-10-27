@@ -1362,9 +1362,40 @@ export const getTraditionAssets = (keyOrSlug: string): TraditionAssetRecord | un
   return ARCHIVE_ASSET_MAP[keyOrSlug];
 };
 
+// Canonical category-based discipline sequence matching the normal Cultural Archive Weave Library
+export const CANONICAL_TRADITION_ORDER: string[] = [
+  // 1. Pure Loom Weaving (Weave 01, 02, 04, 09, 10, 11, 12, 13)
+  'banarasi-brocade',
+  'kota-doria',
+  'muga-silk',
+  'kanchipuram-silk',
+  'paithani-silk',
+  'patan-patola',
+  'pochampally-ikat',
+  'sambalpuri-ikat',
+  // 2. Surface Needlework (Weave 03, 05)
+  'kashmiri-sozni',
+  'chikankari',
+  // 3. Resist & Vat Dyeing (Weave 06, 07, 08)
+  'bagru',
+  'ajrakh',
+  'bandhani',
+];
+
 export const getAllTraditionAssets = (): TraditionAssetRecord[] => {
   const seen = new Set<string>();
   const list: TraditionAssetRecord[] = [];
+
+  // Order strictly by canonical discipline sequence
+  for (const key of CANONICAL_TRADITION_ORDER) {
+    const record = ARCHIVE_ASSET_MAP[key];
+    if (record && !seen.has(record.traditionKey)) {
+      seen.add(record.traditionKey);
+      list.push(record);
+    }
+  }
+
+  // Fallback for any records not explicitly listed in canonical array
   for (const record of Object.values(ARCHIVE_ASSET_MAP)) {
     if (!seen.has(record.traditionKey)) {
       seen.add(record.traditionKey);

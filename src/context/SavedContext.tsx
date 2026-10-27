@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { SavedContextType } from '../types/index.ts';
-import { getProductById } from '../data/products.ts';
+import { getCatalogueProductById } from '../data/products.ts';
 
 const STORAGE_KEY_SAVED = 'everthread_saved_v2';
 
@@ -14,7 +14,7 @@ export const SavedProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const parsed = JSON.parse(stored);
       if (Array.isArray(parsed)) {
         // Validate each item is a string AND corresponds to an existing product in the catalog
-        return parsed.filter(item => typeof item === 'string' && !!getProductById(item));
+        return parsed.filter(item => typeof item === 'string' && !!getCatalogueProductById(item));
       }
       return [];
     } catch {
@@ -37,7 +37,7 @@ export const SavedProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         try {
           const parsed = JSON.parse(e.newValue);
           if (Array.isArray(parsed)) {
-            setSaved(parsed.filter(item => typeof item === 'string' && !!getProductById(item)));
+            setSaved(parsed.filter(item => typeof item === 'string' && !!getCatalogueProductById(item)));
           }
         } catch {
           // Ignore corrupt data from other storage events
@@ -54,7 +54,7 @@ export const SavedProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const toggleSaved = (productId: string): boolean => {
     // Only toggle valid products
-    if (!getProductById(productId)) return false;
+    if (!getCatalogueProductById(productId)) return false;
 
     let nowSaved = false;
     setSaved(prev => {

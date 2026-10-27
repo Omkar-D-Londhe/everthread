@@ -41,10 +41,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSearch }) => {
         }}
       >
         <div className="header-inner">
-          <div className="d-flex align-items-center gap-3">
+          <div className="d-flex align-items-center gap-1 gap-sm-3">
             {/* Mobile Hamburger Button */}
-            <button 
-              className="d-lg-none action-icon-btn p-1 me-2" 
+            <button
+              className="d-lg-none action-icon-btn p-1 me-0 me-sm-2"
               type="button" 
               aria-label="Open Navigation Menu"
               onClick={() => setMobileMenuOpen(true)}
@@ -120,7 +120,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSearch }) => {
           </nav>
 
           {/* Header Action Controls */}
-          <div className="d-flex align-items-center gap-2 gap-sm-3 flex-shrink-0">
+          <div className="d-flex align-items-center gap-1 gap-sm-3 flex-shrink-0 header-actions">
             <button
               className="action-icon-btn d-inline-flex align-items-center gap-1"
               type="button" 

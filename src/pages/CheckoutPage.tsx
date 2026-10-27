@@ -213,7 +213,7 @@ export const CheckoutPage: React.FC = () => {
         <section className="py-5">
           <div className="page-container">
             <div className="empty-curation-box" data-testid="empty-checkout-state">
-              <span className="material-symbols-outlined text-champagne fs-1 mb-3">shopping_bag</span>
+              <span className="material-symbols-outlined text-champagne fs-1 mb-3" aria-hidden="true">shopping_bag</span>
               <span className="label-caps text-champagne d-block mb-2">Concierge Allocation Demo</span>
               <h1 className="headline-md text-oxblood mb-2">Your Bespoke Bag Is Empty</h1>
               <p className="body-md text-muted-editorial mx-auto mb-4" style={{ maxWidth: 540 }}>
@@ -256,7 +256,7 @@ export const CheckoutPage: React.FC = () => {
           <div className="page-container">
             <div className="p-4 p-md-5 bg-stone border-hairline mb-5">
               <div className="text-center mb-4">
-                <span className="material-symbols-outlined text-champagne fs-1 mb-2">check_circle</span>
+                <span className="material-symbols-outlined text-champagne fs-1 mb-2" aria-hidden="true">check_circle</span>
                 <span className="label-caps text-champagne d-block mb-1">Atelier Allocation Demo</span>
                 <h1 className="headline-lg text-oxblood mb-2" data-testid="confirmation-heading" style={{ fontSize: '2.5rem' }}>
                   Simulated Concierge Allocation Registered
@@ -660,7 +660,7 @@ export const CheckoutPage: React.FC = () => {
                       data-testid="proceed-to-review-btn"
                     >
                       <span>Proceed to Order Review</span>
-                      <span className="material-symbols-outlined fs-6">arrow_forward</span>
+                      <span className="material-symbols-outlined fs-6" aria-hidden="true">arrow_forward</span>
                     </button>
                   </div>
                 </form>
@@ -675,7 +675,7 @@ export const CheckoutPage: React.FC = () => {
                       onClick={() => setStep('details')}
                       data-testid="back-to-details-btn"
                     >
-                      <span className="material-symbols-outlined fs-6">edit</span>
+                      <span className="material-symbols-outlined fs-6" aria-hidden="true">edit</span>
                       <span>Edit Details</span>
                     </button>
                   </div>
@@ -711,7 +711,7 @@ export const CheckoutPage: React.FC = () => {
                   {/* Review Disclaimer Notice */}
                   <div className="p-3 bg-canvas border-hairline mb-4">
                     <div className="d-flex align-items-start gap-2">
-                      <span className="material-symbols-outlined text-champagne fs-5 mt-1">info</span>
+                      <span className="material-symbols-outlined text-champagne fs-5 mt-1" aria-hidden="true">info</span>
                       <div>
                         <span className="label-caps text-oxblood d-block mb-1">Demonstration Checkout Disclosure</span>
                         <p className="body-sm text-muted-editorial mb-0" style={{ fontSize: '0.8125rem', lineHeight: 1.45 }}>
@@ -737,7 +737,7 @@ export const CheckoutPage: React.FC = () => {
                       disabled={isSubmitting}
                       data-testid="complete-demo-order-btn"
                     >
-                      <span className="material-symbols-outlined fs-6">verified</span>
+                      <span className="material-symbols-outlined fs-6" aria-hidden="true">verified</span>
                       <span>Complete Demo Concierge Order</span>
                     </button>
                   </div>

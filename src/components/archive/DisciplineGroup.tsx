@@ -17,10 +17,12 @@ export const DisciplineGroup: React.FC<DisciplineGroupProps> = ({
   if (items.length === 0) return null;
 
   // Render a single weave card with responsive layout flags
-  const renderCard = (item: WeaveLibraryItem, isFeature: boolean) => {
+  const renderCard = (item: WeaveLibraryItem, isFeature: boolean, stretch: boolean = true) => {
     return (
       <article
-        className={`p-4 bg-canvas border-hairline h-100 d-flex flex-column justify-content-between editorial-card ${
+        className={`p-4 bg-canvas border-hairline d-flex flex-column justify-content-between editorial-card ${
+          stretch ? 'h-100' : ''
+        } ${
           isFeature ? 'discipline-feature-card' : 'discipline-standard-card'
         }`}
         data-testid={`weave-card-${item.slug}`}
@@ -96,7 +98,7 @@ export const DisciplineGroup: React.FC<DisciplineGroupProps> = ({
           </p>
         </div>
 
-        <div className="pt-3 border-hairline-t body-sm">
+        <div className="pt-3 border-hairline-t body-sm mt-auto">
           <div className="mb-1">
             <strong className="text-oxblood fw-medium">Fiber:</strong>{' '}
             <span className="text-muted-editorial">{item.fiber}</span>
@@ -218,10 +220,10 @@ export const DisciplineGroup: React.FC<DisciplineGroupProps> = ({
         const otherItems = items.slice(1);
 
         return (
-          <div className="row g-4">
+          <div className="row g-4 align-items-start">
             {leadItem && (
               <div className="col-12 col-lg-6">
-                {renderCard(leadItem, true)}
+                {renderCard(leadItem, true, false)}
               </div>
             )}
             <div className="col-12 col-lg-6">

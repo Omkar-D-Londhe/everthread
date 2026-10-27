@@ -425,7 +425,7 @@ export const ContemporaryWall: React.FC = () => {
                     onClick={() => setSelectedCategory('All')}
                     aria-label={`Remove Category ${selectedCategory} filter`}
                   >
-                    <span className="material-symbols-outlined fs-6">close</span>
+                    <span className="material-symbols-outlined fs-6" aria-hidden="true">close</span>
                   </button>
                 </span>
               )}
@@ -441,7 +441,7 @@ export const ContemporaryWall: React.FC = () => {
                       onClick={() => toggleMaterial(mId)}
                       aria-label={`Remove Material ${opt?.label || mId} filter`}
                     >
-                      <span className="material-symbols-outlined fs-6">close</span>
+                      <span className="material-symbols-outlined fs-6" aria-hidden="true">close</span>
                     </button>
                   </span>
                 );
@@ -458,7 +458,7 @@ export const ContemporaryWall: React.FC = () => {
                       onClick={() => toggleColour(cId)}
                       aria-label={`Remove Colour ${opt?.label || cId} filter`}
                     >
-                      <span className="material-symbols-outlined fs-6">close</span>
+                      <span className="material-symbols-outlined fs-6" aria-hidden="true">close</span>
                     </button>
                   </span>
                 );
@@ -475,7 +475,7 @@ export const ContemporaryWall: React.FC = () => {
                       onClick={() => toggleCraft(crId)}
                       aria-label={`Remove Craft ${opt?.label || crId} filter`}
                     >
-                      <span className="material-symbols-outlined fs-6">close</span>
+                      <span className="material-symbols-outlined fs-6" aria-hidden="true">close</span>
                     </button>
                   </span>
                 );
@@ -490,7 +490,7 @@ export const ContemporaryWall: React.FC = () => {
                     onClick={() => setSelectedPriceTier('all')}
                     aria-label="Remove valuation filter"
                   >
-                    <span className="material-symbols-outlined fs-6">close</span>
+                    <span className="material-symbols-outlined fs-6" aria-hidden="true">close</span>
                   </button>
                 </span>
               )}
@@ -713,7 +713,7 @@ export const ContemporaryWall: React.FC = () => {
                     data-testid="empty-reset-filters-btn"
                   >
                     <span>Reset All Filters</span>
-                    <span className="material-symbols-outlined fs-6">refresh</span>
+                    <span className="material-symbols-outlined fs-6" aria-hidden="true">refresh</span>
                   </button>
                 </div>
               )}
@@ -779,7 +779,7 @@ export const ContemporaryWall: React.FC = () => {
             aria-label="Close filters drawer"
             data-testid="close-mobile-drawer"
           >
-            <span className="material-symbols-outlined fs-5">close</span>
+            <span className="material-symbols-outlined fs-5" aria-hidden="true">close</span>
           </button>
         </div>
 

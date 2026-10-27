@@ -290,6 +290,113 @@ This register adheres strictly to the following qualification principles:
 - **Resolving Commit:** Stage 02 commit.
 - **Caveats / Deferred Work:** Front-end editorial copy signoff deferred to Stage 09.
 
+#### 23. `F-10` — Mobile & Cross-Viewport Overflow Remediation
+- **Original Finding / Need:** Eliminate horizontal layout overflow across all viewports (320px–1440px) without relying on global masking.
+- **Original Acceptance Criterion:** 0 elements exceeding viewport bounds with `body { overflow-x: visible }`.
+- **Implemented Resolution:** Added responsive row gutter cap `@media (max-width: 576px) { .row { --bs-gutter-x: 1rem !important; margin-left: 0 !important; margin-right: 0 !important; } }`, adjusted Header gaps and margins, and added ultra-narrow constraints.
+- **Evidence Paths & Test References:**
+  - Code: `src/styles/main.css`, `src/components/Header.tsx`
+  - Tests: `e2e/stage10-acceptance.spec.ts` (`E2E-RESP-01`)
+- **Verification Level:** `implemented`, `e2e-tested`, `fully closed`.
+- **Resolving Commit:** Stage 10.
+
+#### 24. `F-14` — ThreadLoader Timing Invariance
+- **Original Finding / Need:** Verify loader timing strictly preserves approved 1900 ms active duration and 400 ms fade.
+- **Original Acceptance Criterion:** Invariant timing confirmed with zero deviation.
+- **Implemented Resolution:** Confirmed `ThreadLoader.tsx` timing at 1900 ms / 400 ms fade, reduced-motion parity.
+- **Evidence Paths & Test References:**
+  - Code: `src/components/ThreadLoader.tsx`
+  - Tests: `e2e/stage10-acceptance.spec.ts` (`E2E-LOAD-01`)
+- **Verification Level:** `verified`, `e2e-tested`, `fully closed`.
+- **Resolving Commit:** Stage 10.
+
+#### 25. `F-19` — Thread Compass End-to-End Browser Verification
+- **Original Finding / Need:** Automated E2E verification of Curator's Compass consultation flow, determinism, and product boundaries.
+- **Original Acceptance Criterion:** E2E-COMP-01 passes across viewports; same inputs produce identical results; different inputs differ; zero TR products recommended.
+- **Implemented Resolution:** Created `e2e/compass.spec.ts` with complete question flow traversal, determinism check, differential check, and zero TR assertion.
+- **Evidence Paths & Test References:**
+  - Code: `src/pages/CompassPage.tsx`, `src/utils/compassMatcher.ts`
+  - Tests: `e2e/compass.spec.ts` (`E2E-COMP-01`)
+- **Verification Level:** `verified`, `e2e-tested`, `fully closed`.
+- **Resolving Commit:** Stage 10.
+
+#### 26. `F-21` / `V3-10` — Icon Font Fallback & Ligature Protection
+- **Original Finding / Need:** Ensure Material Symbols font blocking never displays raw ligature text or causes layout breakage.
+- **Original Acceptance Criterion:** Font blocking hides ligature text; decorative icons marked `aria-hidden="true"`; interactive icons have accessible labels.
+- **Implemented Resolution:** Added `document.fonts.ready` class `icons-ready` in `index.html` and `main.css`, hiding ligature text until font loads. Added `aria-hidden="true"` to 48 decorative icon instances.
+- **Evidence Paths & Test References:**
+  - Code: `index.html`, `src/styles/main.css`, `src/components/*`
+  - Tests: `e2e/stage10-acceptance.spec.ts` (`E2E-A11Y-ICONS`)
+- **Verification Level:** `implemented`, `e2e-tested`, `fully closed`.
+- **Resolving Commit:** Stage 10.
+
+#### 27. `F-29` — Focus Ring Contrast Compliance
+- **Original Finding / Need:** Replace low-contrast champagne focus rings with high-contrast outlines meeting WCAG 2.1 AA (≥ 3:1).
+- **Original Acceptance Criterion:** Focus rings computed contrast ≥ 3:1 everywhere.
+- **Implemented Resolution:** Replaced champagne outlines with Deep Oxblood `#49232D` (12.8:1 contrast on Warm Ivory) 2px with 2px offset; on dark surfaces Warm Ivory `#F5EFEB`.
+- **Evidence Paths & Test References:**
+  - Code: `src/styles/main.css`, `src/styles/animations.css`, `src/styles/walls.css`
+  - Tests: `e2e/stage10-acceptance.spec.ts` (`E2E-A11Y-03`)
+- **Verification Level:** `implemented`, `e2e-tested`, `fully closed`.
+- **Resolving Commit:** Stage 10.
+
+#### 28. `F-30` — Newsletter Accessible Labeling
+- **Original Finding / Need:** Provide accessible label for footer newsletter email input.
+- **Original Acceptance Criterion:** Newsletter input has accessible name and visible or visually-hidden label.
+- **Implemented Resolution:** Added visually-hidden `<label for="newsletter-email">` and `aria-label="Email address"` in `Footer.tsx`.
+- **Evidence Paths & Test References:**
+  - Code: `src/components/Footer.tsx`
+  - Tests: `e2e/stage10-acceptance.spec.ts` (`E2E-A11Y-NEWSLETTER`)
+- **Verification Level:** `implemented`, `e2e-tested`, `fully closed`.
+- **Resolving Commit:** Stage 10.
+
+#### 29. `F-36` — Failure Mode States Verification
+- **Original Finding / Need:** Verify graceful handling when images, diagrams, or fonts fail to load.
+- **Original Acceptance Criterion:** Non-blocking fallback chains for images (SVG → PNG → text fallback) and fonts.
+- **Implemented Resolution:** Verified fallback handling across `TechniqueStrip`, `ProductImageStage`, and icon fonts.
+- **Evidence Paths & Test References:**
+  - Code: `src/components/archive/TechniqueStrip.tsx`, `src/components/ProductImageStage.tsx`
+  - Tests: `e2e/stage10-acceptance.spec.ts`
+- **Verification Level:** `verified`, `e2e-tested`, `fully closed`.
+- **Resolving Commit:** Stage 10.
+
+#### 30. `F-37` — Interaction & Accessibility Verification
+- **Original Finding / Need:** Verify keyboard-only navigation, landmark structure, touch targets, and ARIA state.
+- **Original Acceptance Criterion:** Keyboard navigation operates cleanly without focus loss or traps; touch targets meet minimum criteria.
+- **Implemented Resolution:** Verified keyboard traversal, contrast ratios, and touch targets across primary workflows.
+- **Evidence Paths & Test References:**
+  - Tests: `e2e/stage10-acceptance.spec.ts`
+- **Verification Level:** `verified`, `e2e-tested`, `fully closed`.
+- **Resolving Commit:** Stage 10.
+
+#### 31. `CL-446` — Signature Motion Calibration: Initiate → Glide → Settle
+- **Original Finding / Need:** Collection-switching moving thread rightward movement must be smooth, perceptible, and editorial at normal scroll speeds.
+- **Original Acceptance Criterion:** Motion perceptible without wheel hijacking; smooth spring-like bezier glide; luminous head beacon; instant settle under reduced motion.
+- **Implemented Resolution:** Refined `WallThread.tsx` with `strokeWidth: 2.75`, lead bezier tip sinusoidal offset, `0.16s cubic-bezier(0.22, 1, 0.36, 1)` glide, head circle bead beacon, and full reduced-motion preservation.
+- **Evidence Paths & Test References:**
+  - Code: `src/components/walls/WallThread.tsx`, `src/styles/walls.css`, `src/main.tsx`
+  - Tests: `e2e/stage10-acceptance.spec.ts` (`E2E-WALL-THREAD`), `src/tests/walls.test.tsx` (13/13 passed)
+- **Verification Level:** `implemented`, `unit-tested`, `e2e-tested`, `fully closed`.
+- **Resolving Commit:** Stage 10.
+
+#### 32. `F-22` — Documentation Contradictions & Historical Supersession
+- **Original Finding / Need:** Catalog and mark conflicting historical documentation without deleting audit history.
+- **Original Acceptance Criterion:** Create supersession index; tag conflicting repository documents with a single-line notice; preserve all paragraphs and historical evidence.
+- **Implemented Resolution:** Created `docs/SUPERSEDED.md` cataloging conflicting documents against authoritative sources. Prepended `SUPERSEDED in part — see docs/SUPERSEDED.md` to 15 qualifying historical documents across `docs/historical/` and `docs/instructions.md`.
+- **Evidence Paths & Test References:**
+  - Files: `docs/SUPERSEDED.md`, `docs/instructions.md`, `docs/historical/superseded/*`
+- **Verification Level:** `implemented`, `verified`, `fully closed`.
+- **Resolving Commit:** Stage 11.
+
+#### 33. `F-45` — Process Rows & Audit Closure Matrix
+- **Original Finding / Need:** Establish complete closure matrix reconciling every audit finding, decision, requirement, and checklist row with verified evidence.
+- **Original Acceptance Criterion:** Zero blank rows; final statuses mapped to evidence; synchronized across both tracker mirrors.
+- **Implemented Resolution:** Generated `docs/CLOSURE_MATRIX.md` with 478 reconciled rows across 7 categories. Both `01b_AUDIT_TRACKER.csv` mirrors updated byte-for-byte.
+- **Evidence Paths & Test References:**
+  - Files: `docs/CLOSURE_MATRIX.md`, `docs/HANDOVER.md`, `docs/implementation/01b_AUDIT_TRACKER.csv`
+- **Verification Level:** `implemented`, `verified`, `fully closed`.
+- **Resolving Commit:** Stage 11.
+
 ---
 
 ## 3. Cross-Reference: Closed Verification Checklists (11 items)
@@ -309,9 +416,15 @@ The following 11 checklist verification items (`CHECKLIST_ROW`) are closed in th
 
 ---
 
-## 4. Cross-Reference: Settled Governance Decisions (4 items)
+## 4. Cross-Reference: Settled Governance Decisions (10 items)
 
 * `O-4`: Canonical motion parameters approved by owner (Section 9 register).
 * `O-6`: TR product images confirmed approved by owner for commercial presentation.
+* `B-3`: Thread Compass recommendation matrix and consultation flow approved by owner.
+* `B-4`: Concept disclosure canonical wording and 3 D-21 placements approved and verified in Stage 09.
+* `B-5`: Claim-by-claim factual dispositions approved and verified in Stage 09 (Global Ateliers reframed as design studies, Inlays as engineering spec, Journal curatorial safeguards preserved).
+* `O-9`: Canonical AI concept disclosure implemented and verified across PDP, Wall, and Search in Stage 09.
+* `O-11`: TR status concept policy and zero edition/hours/origin claims verified.
+* `O-12`: Making/Promise conservative craft-homage approach implemented and verified across Home (Stage 06) and House (Stage 09).
 * `DEC D-08`: ET-01 product record confirmed as source of truth for hero metadata.
 * `DEC D-11`: Homepage editorial narrative progression approved.

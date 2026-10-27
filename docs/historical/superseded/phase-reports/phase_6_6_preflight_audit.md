@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Phase 6.6 Preflight Audit Report: Final Integrated Verification & Readiness
 
 **Project:** EverThread  

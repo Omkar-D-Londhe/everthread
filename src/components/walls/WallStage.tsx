@@ -282,8 +282,21 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
           <section
             ref={panelContemporaryRef}
             className={`wall-stage-panel wall-stage-panel--contemporary ${activeTab === 'contemporary' ? 'is-active' : ''}`}
-            aria-label="Contemporary Collection Stage Banner"
+            aria-label={activeTab === 'contemporary' ? 'Contemporary Collection Stage Banner' : 'Switch to Contemporary Collection'}
             data-testid="wall-slide-contemporary"
+            onClick={() => {
+              if (activeTab !== 'contemporary') {
+                handleTabClick('contemporary');
+              }
+            }}
+            role={activeTab !== 'contemporary' ? 'button' : undefined}
+            tabIndex={activeTab !== 'contemporary' ? 0 : undefined}
+            onKeyDown={activeTab !== 'contemporary' ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleTabClick('contemporary');
+              }
+            } : undefined}
           >
             <div className="wall-panel-inner p-4 p-md-5">
               <div className="row g-4 align-items-center flex-grow-1">
@@ -313,6 +326,12 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
                       href="#wall-products" 
                       className="btn-oxblood py-2 px-4 d-inline-flex align-items-center gap-2"
                       data-testid="browse-contemporary-btn"
+                      tabIndex={activeTab === 'contemporary' ? 0 : -1}
+                      onClick={(e) => {
+                        if (activeTab !== 'contemporary') {
+                          e.preventDefault();
+                        }
+                      }}
                     >
                       <span>Browse the collection</span>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -362,9 +381,13 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
                 </span>
                 <button
                   type="button"
-                  onClick={() => handleTabClick('living-inheritance')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleTabClick('living-inheritance');
+                  }}
                   data-testid="cue-to-living-inheritance"
                   aria-label="Navigate to The Living Inheritance wall"
+                  tabIndex={activeTab === 'contemporary' ? 0 : -1}
                 >
                   <span>The Living Inheritance</span>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -380,8 +403,21 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
           <section
             ref={panelLivingRef}
             className={`wall-stage-panel wall-stage-panel--living ${activeTab === 'living-inheritance' ? 'is-active' : ''}`}
-            aria-label="The Living Inheritance Stage Banner"
+            aria-label={activeTab === 'living-inheritance' ? 'The Living Inheritance Stage Banner' : 'Switch to The Living Inheritance collection'}
             data-testid="wall-slide-living-inheritance"
+            onClick={() => {
+              if (activeTab !== 'living-inheritance') {
+                handleTabClick('living-inheritance');
+              }
+            }}
+            role={activeTab !== 'living-inheritance' ? 'button' : undefined}
+            tabIndex={activeTab !== 'living-inheritance' ? 0 : undefined}
+            onKeyDown={activeTab !== 'living-inheritance' ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleTabClick('living-inheritance');
+              }
+            } : undefined}
           >
             <div className="wall-panel-inner p-4 p-md-5">
               <div className="row g-4 align-items-center flex-grow-1">
@@ -411,6 +447,12 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
                       href="#wall-products" 
                       className="btn-oxblood py-2 px-4 d-inline-flex align-items-center gap-2"
                       data-testid="browse-living-btn"
+                      tabIndex={activeTab === 'living-inheritance' ? 0 : -1}
+                      onClick={(e) => {
+                        if (activeTab !== 'living-inheritance') {
+                          e.preventDefault();
+                        }
+                      }}
                     >
                       <span>Browse the collection</span>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -444,7 +486,16 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
                       <p className="wall-inquiry-quote">
                         “Prototypes in The Living Inheritance are held in curatorial documentation reserve. Bespoke viewings arranged via consultation.”
                       </p>
-                      <a href="#wall-products" className="wall-inquiry-action">
+                      <a
+                        href="#wall-products"
+                        className="wall-inquiry-action"
+                        tabIndex={activeTab === 'living-inheritance' ? 0 : -1}
+                        onClick={(e) => {
+                          if (activeTab !== 'living-inheritance') {
+                            e.preventDefault();
+                          }
+                        }}
+                      >
                         <span>View Curatorial Dossier</span>
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                           <polyline points="9 18 15 12 9 6"></polyline>
@@ -469,9 +520,13 @@ export const WallStage: React.FC<WallStageProps> = ({ activeTab }) => {
               <div className="wall-edge-cue">
                 <button
                   type="button"
-                  onClick={() => handleTabClick('contemporary')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleTabClick('contemporary');
+                  }}
                   data-testid="cue-to-contemporary"
                   aria-label="Return to Contemporary Collection wall"
+                  tabIndex={activeTab === 'living-inheritance' ? 0 : -1}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <line x1="19" y1="12" x2="5" y2="12"></line>

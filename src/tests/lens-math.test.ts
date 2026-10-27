@@ -116,5 +116,95 @@ describe('UT-LENS-01: Lens Mathematics & Coordinate Geometry Suite', () => {
       // minY = -(1200 - 400) = -800
       expect(resFar.bgY).toBe(-800);
     });
+
+    it('positions reticle precisely at center when in interior, and tracks to edges/corners at boundaries', () => {
+      const rect = { width: 800, height: 600, x: 0, y: 0 };
+      const zoom = 2.0;
+      const previewSize = 200; // 200x200 circular loupe
+
+      // Interior center: (400, 300)
+      const resCenter = previewBackground({ x: 400, y: 300 }, rect, zoom, previewSize);
+      expect(resCenter.reticleX).toBe(100); // 200 / 2
+      expect(resCenter.reticleY).toBe(100); // 200 / 2
+
+      // Left edge: (0, 300)
+      const resLeft = previewBackground({ x: 0, y: 300 }, rect, zoom, previewSize);
+      expect(resLeft.bgX).toBe(0);
+      expect(resLeft.reticleX).toBe(3); // guarded edge margin
+      expect(resLeft.reticleY).toBe(100);
+
+      // Right edge: (800, 300)
+      const resRight = previewBackground({ x: 800, y: 300 }, rect, zoom, previewSize);
+      expect(resRight.bgX).toBe(-(800 * 2 - 200)); // -1400
+      expect(resRight.reticleX).toBe(197); // 200 - 3 margin
+      expect(resRight.reticleY).toBe(100);
+
+      // Top edge: (400, 0)
+      const resTop = previewBackground({ x: 400, y: 0 }, rect, zoom, previewSize);
+      expect(resTop.bgY).toBe(0);
+      expect(resTop.reticleX).toBe(100);
+      expect(resTop.reticleY).toBe(3);
+
+      // Bottom edge: (400, 600)
+      const resBottom = previewBackground({ x: 400, y: 600 }, rect, zoom, previewSize);
+      expect(resBottom.bgY).toBe(-(600 * 2 - 200)); // -1000
+      expect(resBottom.reticleX).toBe(100);
+      expect(resBottom.reticleY).toBe(197);
+
+      // All 4 corners
+      const resTL = previewBackground({ x: 0, y: 0 }, rect, zoom, previewSize);
+      expect(resTL.reticleX).toBe(3);
+      expect(resTL.reticleY).toBe(3);
+
+      const resTR = previewBackground({ x: 800, y: 0 }, rect, zoom, previewSize);
+      expect(resTR.reticleX).toBe(197);
+      expect(resTR.reticleY).toBe(3);
+
+      const resBL = previewBackground({ x: 0, y: 600 }, rect, zoom, previewSize);
+      expect(resBL.reticleX).toBe(3);
+      expect(resBL.reticleY).toBe(197);
+
+      const resBR = previewBackground({ x: 800, y: 600 }, rect, zoom, previewSize);
+      expect(resBR.reticleX).toBe(197);
+      expect(resBR.reticleY).toBe(197);
+    });
+
+    it('accurately handles portrait and square images under object-fit contain without distortion', () => {
+      // Portrait image (1024x1536) in 878x522 container -> contain rect: w=348, h=522
+      const portraitRect = { width: 348, height: 522, x: 265, y: 0 };
+      const zoom = 2.5;
+      const previewSize = 200;
+
+      const center = previewBackground({ x: 174, y: 261 }, portraitRect, zoom, previewSize);
+      expect(center.reticleX).toBe(100);
+      expect(center.reticleY).toBe(100);
+
+      // Sample portrait bottom edge
+      const bottom = previewBackground({ x: 174, y: 522 }, portraitRect, zoom, previewSize);
+      expect(bottom.reticleX).toBe(100);
+      expect(bottom.reticleY).toBe(197);
+      expect(bottom.bgY).toBe(-(522 * 2.5 - 200)); // -1105
+    });
+
+    it('clamps loupe center so the physical glass stays entirely within rendered image bounds', () => {
+      const rect = { width: 800, height: 600, x: 0, y: 0 };
+      const zoom = 3.5;
+      const previewSize = 240; // radius = 120
+
+      // Near top-left corner
+      const tl = previewBackground({ x: 10, y: 20 }, rect, zoom, previewSize);
+      expect(tl.loupeCenterX).toBe(120); // Clamped to radius
+      expect(tl.loupeCenterY).toBe(120);
+
+      // Near bottom-right corner
+      const br = previewBackground({ x: 790, y: 590 }, rect, zoom, previewSize);
+      expect(br.loupeCenterX).toBe(680); // 800 - 120
+      expect(br.loupeCenterY).toBe(480); // 600 - 120
+
+      // In interior
+      const mid = previewBackground({ x: 350, y: 400 }, rect, zoom, previewSize);
+      expect(mid.loupeCenterX).toBe(350);
+      expect(mid.loupeCenterY).toBe(400);
+    });
   });
 });

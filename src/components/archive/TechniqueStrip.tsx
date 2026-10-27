@@ -33,63 +33,96 @@ export const TechniqueStrip: React.FC<TechniqueStripProps> = ({
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const scrollPosRef = useRef<number>(0);
   const prefersReduced = usePrefersReducedMotion();
 
   // Track image error states per diagram: 'none' -> 'svg-failed' (fallback to PNG) -> 'all-failed' (fallback to title text)
   const [imageErrorMap, setImageErrorMap] = useState<Record<string, 'svg-failed' | 'all-failed'>>({});
 
+  // Continuous movement states
+  const [isUserPaused, setIsUserPaused] = useState<boolean>(() => prefersReduced);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
   useEffect(() => {
-    if (typeof window === 'undefined' || prefersReduced) {
-      if (trackRef.current) {
-        trackRef.current.style.transform = '';
-      }
-      return;
+    if (prefersReduced) {
+      setIsUserPaused(true);
     }
-
-    const sectionEl = sectionRef.current;
-    const trackEl = trackRef.current;
-    if (!sectionEl || !trackEl) return;
-
-    if (window.innerWidth < 1024) {
-      trackEl.style.transform = '';
-      return;
-    }
-
-    const totalShift = Math.max(0, trackEl.scrollWidth - trackEl.clientWidth);
-    if (totalShift <= 0) return;
-
-    if (typeof window !== 'undefined') {
-      window.__scrollTriggerCount = (window.__scrollTriggerCount || 0) + 1;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        trackEl,
-        { x: 0 },
-        {
-          x: -totalShift,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionEl,
-            start: 'top 85%',
-            end: 'bottom 15%',
-            scrub: true,
-            invalidateOnRefresh: true
-          }
-        }
-      );
-    }, sectionRef);
-
-    return () => {
-      ctx.revert();
-      if (typeof window !== 'undefined') {
-        window.__scrollTriggerCount = Math.max(0, (window.__scrollTriggerCount || 0) - 1);
-      }
-      if (trackRef.current) {
-        trackRef.current.style.transform = '';
-      }
-    };
   }, [prefersReduced]);
+
+  const isPaused = isUserPaused;
+  const isActivelyMoving = !isPaused && !isHovered && !isFocused && !isDragging;
+
+  // Ensure track transform is clear and outer section stays completely stationary (Bug 4 Fix)
+  useEffect(() => {
+    if (trackRef.current) {
+      trackRef.current.style.transform = '';
+    }
+  }, []);
+
+  // Continuous linear animation loop on inner track using high-precision accumulator
+  useEffect(() => {
+    if (!isActivelyMoving) return;
+    const track = trackRef.current;
+    if (!track) return;
+
+    // Synchronize high-precision accumulator with current DOM scroll position
+    scrollPosRef.current = track.scrollLeft;
+
+    let rafId: number;
+    let lastTime = performance.now();
+    const speed = 45; // 45 pixels per second linear continuous glide
+
+    const step = (now: number) => {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      if (track) {
+        const singleLoopWidth = track.scrollWidth / 2;
+        scrollPosRef.current += speed * dt;
+        if (singleLoopWidth > 0 && scrollPosRef.current >= singleLoopWidth) {
+          scrollPosRef.current -= singleLoopWidth;
+        }
+        track.scrollLeft = scrollPosRef.current;
+      }
+      rafId = requestAnimationFrame(step);
+    };
+
+    rafId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId);
+  }, [isActivelyMoving]);
+
+  const handlePrevCard = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cardStep = 260; // 240px card + 20px gap
+    const singleLoopWidth = track.scrollWidth / 2;
+    if (track.scrollLeft <= 10) {
+      const target = singleLoopWidth > 0 ? singleLoopWidth - cardStep : track.scrollWidth - track.clientWidth;
+      track.scrollTo({ left: Math.max(0, target), behavior: prefersReduced ? 'auto' : 'smooth' });
+      return;
+    }
+    track.scrollBy({ left: -cardStep, behavior: prefersReduced ? 'auto' : 'smooth' });
+  };
+
+  const handleNextCard = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cardStep = 260;
+    const singleLoopWidth = track.scrollWidth / 2;
+    if (singleLoopWidth > 0 && track.scrollLeft >= singleLoopWidth - 10) {
+      track.scrollLeft -= singleLoopWidth;
+    }
+    track.scrollBy({ left: cardStep, behavior: prefersReduced ? 'auto' : 'smooth' });
+  };
+
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    // Isolate horizontal trackpad/wheel gestures to the inner track to prevent browser back/forward history navigation
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      e.stopPropagation();
+    }
+  };
 
   const handleImageError = (id: string) => {
     setImageErrorMap(prev => {
@@ -113,7 +146,7 @@ export const TechniqueStrip: React.FC<TechniqueStripProps> = ({
       aria-label="Archival Technique Drafting Strip"
     >
       <div className="page-container">
-        {/* Header Metadata */}
+        {/* Header Metadata & Stepping Controls */}
         <div className="d-flex align-items-center justify-content-between mb-4 pb-2 border-hairline-b">
           <div>
             <div className="d-flex align-items-center gap-2 mb-1">
@@ -122,19 +155,87 @@ export const TechniqueStrip: React.FC<TechniqueStripProps> = ({
             </div>
             <h2 className="headline-md text-oxblood mb-0">Technique Strip</h2>
           </div>
-          <span className="body-sm text-muted-editorial d-none d-md-inline">
-            9 Archival Schematics • Scroll horizontally to examine
-          </span>
+
+          <div className="d-flex align-items-center gap-3">
+            <span className="body-sm text-muted-editorial d-none d-md-inline">
+              9 Archival Schematics • Scroll horizontally to examine
+            </span>
+
+            {/* Stepping controls with smooth looping */}
+            <div className="d-flex align-items-center gap-1" role="group" aria-label="Technique Strip navigation">
+              <button
+                type="button"
+                className="btn-icon-editorial"
+                onClick={() => setIsUserPaused(prev => !prev)}
+                aria-label={isUserPaused ? "Resume continuous movement" : "Pause continuous movement"}
+                aria-pressed={isUserPaused}
+                title={isUserPaused ? "Resume movement" : "Pause movement"}
+                data-testid="technique-strip-pause-btn"
+              >
+                {isUserPaused ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                  </svg>
+                )}
+              </button>
+              <button
+                type="button"
+                className="btn-icon-editorial"
+                onClick={handlePrevCard}
+                aria-label="Previous technique diagram"
+                title="Previous diagram"
+                data-testid="technique-strip-prev-btn"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="btn-icon-editorial"
+                onClick={handleNextCard}
+                aria-label="Next technique diagram"
+                title="Next diagram"
+                data-testid="technique-strip-next-btn"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Horizontally scrollable snap strip */}
         <div
           ref={trackRef}
-          className="technique-strip-track"
+          className={`technique-strip-track ${isActivelyMoving ? 'is-animating' : ''}`}
           data-testid="technique-strip-track"
-          tabIndex={0}
           role="region"
           aria-label="Horizontal scrollable technique diagrams strip"
+          onWheel={handleWheel}
+          onScroll={() => {
+            if (trackRef.current && !isActivelyMoving) {
+              scrollPosRef.current = trackRef.current.scrollLeft;
+            }
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            if (document.activeElement && trackRef.current?.contains(document.activeElement)) {
+              (document.activeElement as HTMLElement).blur();
+              setIsFocused(false);
+            }
+          }}
+          onTouchStart={() => setIsDragging(true)}
+          onTouchEnd={() => setIsDragging(false)}
+          onPointerDown={() => setIsDragging(true)}
+          onPointerUp={() => setIsDragging(false)}
         >
           {diagrams.map((diag, index) => {
             const errState = imageErrorMap[diag.id];
@@ -148,13 +249,21 @@ export const TechniqueStrip: React.FC<TechniqueStripProps> = ({
                   if (onSelectDiagram) {
                     onSelectDiagram(diag.id);
                   }
+                  (document.activeElement as HTMLElement)?.blur();
+                  setIsFocused(false);
                 }}
                 onFocus={(e) => {
+                  setIsFocused(true);
                   e.currentTarget.scrollIntoView({
                     behavior: 'smooth',
                     block: 'nearest',
                     inline: 'center'
                   });
+                }}
+                onBlur={(e) => {
+                  if (!trackRef.current?.contains(e.relatedTarget as Node)) {
+                    setIsFocused(false);
+                  }
                 }}
                 className={`technique-strip-card ${isActive ? 'is-active' : ''}`}
                 data-testid={`technique-strip-item-${diag.id}`}
@@ -218,6 +327,51 @@ export const TechniqueStrip: React.FC<TechniqueStripProps> = ({
                   </span>
                 </div>
               </Link>
+            );
+          })}
+
+          {/* Seamless continuous loop duplicate set (inert and hidden from assistive technologies) */}
+          {diagrams.map((diag, index) => {
+            const errState = imageErrorMap[diag.id];
+            return (
+              <div
+                key={`clone-${diag.id}`}
+                className="technique-strip-card technique-strip-card--clone"
+                data-testid={`technique-strip-clone-item-${diag.id}`}
+                aria-hidden="true"
+                tabIndex={-1}
+                style={{ pointerEvents: 'none', userSelect: 'none' }}
+              >
+                <div className="technique-strip-thumb-wrap" aria-hidden="true" tabIndex={-1}>
+                  {errState === 'all-failed' ? (
+                    <div className="technique-strip-fallback-text" aria-hidden="true" tabIndex={-1}>
+                      <span className="body-xs text-oxblood fw-medium text-center px-2">
+                        {diag.title}
+                      </span>
+                    </div>
+                  ) : (
+                    <img
+                      src={errState === 'svg-failed' ? diag.fallbackPng : diag.svg}
+                      alt=""
+                      className="technique-strip-img"
+                      loading="lazy"
+                      aria-hidden="true"
+                      tabIndex={-1}
+                    />
+                  )}
+                  <span className="technique-strip-index-badge" aria-hidden="true">
+                    0{index + 1}
+                  </span>
+                </div>
+                <div className="technique-strip-meta" aria-hidden="true" tabIndex={-1}>
+                  <h3 className="technique-strip-title text-oxblood" aria-hidden="true">
+                    {diag.title}
+                  </h3>
+                  <span className="technique-strip-cta text-muted-editorial body-xs" aria-hidden="true">
+                    Examine schematic →
+                  </span>
+                </div>
+              </div>
             );
           })}
         </div>

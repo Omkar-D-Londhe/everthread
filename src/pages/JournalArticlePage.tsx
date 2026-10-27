@@ -14,7 +14,7 @@ export const JournalArticlePage: React.FC = () => {
         <section className="py-5">
           <div className="page-container">
             <div className="empty-curation-box" data-testid="article-not-found">
-              <span className="material-symbols-outlined text-champagne fs-1 mb-3">menu_book</span>
+              <span className="material-symbols-outlined text-champagne fs-1 mb-3" aria-hidden="true">menu_book</span>
               <h1 className="headline-md text-oxblood mb-2">Monograph Not Found</h1>
               <p className="body-md text-muted-editorial mx-auto mb-4" style={{ maxWidth: 540 }}>
                 The requested journal essay &ldquo;{articleSlug}&rdquo; has not been catalogued in the EverThread Gazette archive.

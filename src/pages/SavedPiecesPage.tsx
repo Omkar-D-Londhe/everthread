@@ -163,7 +163,7 @@ const SavedCardItem: React.FC<SavedCardItemProps> = ({ product, onRemove, onMove
               onClick={handleMove}
               data-testid={`move-to-bag-${product.id}`}
             >
-              <span className="material-symbols-outlined fs-6">shopping_bag</span>
+              <span className="material-symbols-outlined fs-6" aria-hidden="true">shopping_bag</span>
               <span>Move to Bespoke Bag</span>
             </button>
           )}
@@ -183,7 +183,7 @@ const SavedCardItem: React.FC<SavedCardItemProps> = ({ product, onRemove, onMove
               data-testid={`remove-saved-${product.id}`}
               aria-label={`Remove ${product.title} from Saved Pieces`}
             >
-              <span className="material-symbols-outlined fs-6">close</span>
+              <span className="material-symbols-outlined fs-6" aria-hidden="true">close</span>
               <span>Remove</span>
             </button>
           </div>
@@ -257,7 +257,7 @@ export const SavedPiecesPage: React.FC = () => {
                   onClick={clearSaved}
                   data-testid="clear-all-saved-btn"
                 >
-                  <span className="material-symbols-outlined fs-6">delete_sweep</span>
+                  <span className="material-symbols-outlined fs-6" aria-hidden="true">delete_sweep</span>
                   <span>Clear Curation</span>
                 </button>
               </div>
@@ -272,7 +272,7 @@ export const SavedPiecesPage: React.FC = () => {
           {savedProducts.length === 0 ? (
             /* Empty State */
             <div className="empty-curation-box" data-testid="empty-saved-state">
-              <span className="material-symbols-outlined text-champagne fs-1 mb-3">bookmark_border</span>
+              <span className="material-symbols-outlined text-champagne fs-1 mb-3" aria-hidden="true">bookmark_border</span>
               <h2 className="headline-md text-oxblood mb-2">Your Saved Curation is Empty</h2>
               <p className="body-md text-muted-editorial mx-auto mb-4" style={{ maxWidth: 540 }}>
                 You have not preserved any heirlooms yet. Explore the permanent capsule to curate and bookmark pieces for bespoke tailoring.
@@ -304,7 +304,7 @@ export const SavedPiecesPage: React.FC = () => {
               {/* Editorial Reassurance Footer */}
               <div className="mt-5 p-4 bg-stone border-hairline d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
                 <div className="d-flex align-items-center gap-3">
-                  <span className="material-symbols-outlined text-champagne fs-4">verified</span>
+                  <span className="material-symbols-outlined text-champagne fs-4" aria-hidden="true">verified</span>
                   <div>
                     <span className="label-caps text-oxblood d-block">House Preservation Guarantee</span>
                     <p className="body-sm text-muted-editorial mb-0">

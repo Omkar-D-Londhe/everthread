@@ -23,6 +23,10 @@ export interface PreviewBackgroundResult {
   bgY: number;
   bgWidth: number;
   bgHeight: number;
+  reticleX: number;
+  reticleY: number;
+  loupeCenterX: number;
+  loupeCenterY: number;
 }
 
 /**
@@ -128,17 +132,58 @@ export function previewBackground(
   zoom: number,
   previewSize: number
 ): PreviewBackgroundResult {
+  if (rect.width <= 0 || rect.height <= 0 || previewSize <= 0) {
+    return {
+      backgroundSize: '0px 0px',
+      backgroundPosition: '0px 0px',
+      bgX: 0,
+      bgY: 0,
+      bgWidth: 0,
+      bgHeight: 0,
+      reticleX: previewSize > 0 ? previewSize / 2 : 0,
+      reticleY: previewSize > 0 ? previewSize / 2 : 0,
+      loupeCenterX: 0,
+      loupeCenterY: 0,
+    };
+  }
+
+  // Ensure pointer is clamped within the rendered image rectangle
+  const clampedX = Math.max(0, Math.min(rect.width, pointerInRect.x));
+  const clampedY = Math.max(0, Math.min(rect.height, pointerInRect.y));
+
+  const radius = previewSize / 2;
+
+  // Clamp the physical center of the loupe glass inside the rendered image rectangle
+  // to prevent the circular loupe from spilling outside the image frame or overflowing into surrounding controls.
+  const loupeCenterX =
+    rect.width >= previewSize
+      ? Math.max(radius, Math.min(rect.width - radius, clampedX))
+      : rect.width / 2;
+
+  const loupeCenterY =
+    rect.height >= previewSize
+      ? Math.max(radius, Math.min(rect.height - radius, clampedY))
+      : rect.height / 2;
+
+  // Calculate reticle coordinate inside loupe so it accurately tracks pointer position all the way to edges and corners
+  const rawReticleX = radius + (clampedX - loupeCenterX);
+  const rawReticleY = radius + (clampedY - loupeCenterY);
+
+  // Guard reticle inside loupe perimeter margin (at least 3px away from bezel rim)
+  const reticleX = Math.max(3, Math.min(previewSize - 3, rawReticleX));
+  const reticleY = Math.max(3, Math.min(previewSize - 3, rawReticleY));
+
   const bgWidth = rect.width * zoom;
   const bgHeight = rect.height * zoom;
 
-  // Center the sampled point in the preview viewport
-  const rawBgX = -(pointerInRect.x * zoom - previewSize / 2);
-  const rawBgY = -(pointerInRect.y * zoom - previewSize / 2);
+  // Center the sampled point exactly under the reticle
+  const idealBgX = reticleX - clampedX * zoom;
+  const idealBgY = reticleY - clampedY * zoom;
 
   let bgX: number;
   if (bgWidth > previewSize) {
     const minX = -(bgWidth - previewSize);
-    bgX = Math.min(0, Math.max(minX, rawBgX));
+    bgX = Math.min(0, Math.max(minX, idealBgX));
   } else {
     bgX = (previewSize - bgWidth) / 2;
   }
@@ -146,7 +191,7 @@ export function previewBackground(
   let bgY: number;
   if (bgHeight > previewSize) {
     const minY = -(bgHeight - previewSize);
-    bgY = Math.min(0, Math.max(minY, rawBgY));
+    bgY = Math.min(0, Math.max(minY, idealBgY));
   } else {
     bgY = (previewSize - bgHeight) / 2;
   }
@@ -158,5 +203,9 @@ export function previewBackground(
     bgY,
     bgWidth,
     bgHeight,
+    reticleX,
+    reticleY,
+    loupeCenterX,
+    loupeCenterY,
   };
 }

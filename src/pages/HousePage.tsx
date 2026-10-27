@@ -114,9 +114,9 @@ export const HousePage: React.FC = () => {
               </p>
 
               <div className="p-4 bg-stone border-hairline">
-                <span className="label-caps text-oxblood d-block mb-1">Generational Inlay Covenant</span>
+                <span className="label-caps text-oxblood d-block mb-1">Generational Inlay Specification</span>
                 <p className="body-sm text-muted-editorial mb-0">
-                  All tailored garments incorporate 1.5-inch hidden side-seam and hem inlays, ensuring each heirloom can be altered and adapted across generations.
+                  Tailoring specifications are engineered around generous hidden side-seam and hem inlays, designed to allow garments to be altered and adapted across generations.
                 </p>
               </div>
             </div>
@@ -198,12 +198,12 @@ export const HousePage: React.FC = () => {
         <div className="page-container">
           <div className="text-center mx-auto mb-5" style={{ maxWidth: 700 }}>
             <span className="label-caps text-champagne d-block mb-2">DEMONSTRATION SANCTUARIES</span>
-            <h2 className="headline-lg text-oxblood mb-2">Our Global Ateliers</h2>
+            <h2 className="headline-lg text-oxblood mb-2">Atelier Design Concepts</h2>
             <p className="body-md text-muted-editorial mb-0">
-              Salon environments where clients explore living textile heritage and bespoke measurement consultations.
+              Conceptual salon environments exploring living textile heritage and bespoke architectural tailoring.
             </p>
             <span className="d-block pt-2 text-muted-editorial label-caps" style={{ fontSize: '0.625rem' }}>
-              (Demonstration Atelier Residences &amp; Design Concepts)
+              (Demonstration Atelier Studies &amp; Curatorial Concepts)
             </span>
           </div>
 
@@ -212,9 +212,9 @@ export const HousePage: React.FC = () => {
               <div className="p-4 bg-stone border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
                   <span className="label-caps text-champagne d-block mb-1">FRANCE</span>
-                  <h3 className="headline-sm text-oxblood mb-2">Paris Atelier</h3>
+                  <h3 className="headline-sm text-oxblood mb-2">Paris Design Study</h3>
                   <p className="body-sm text-muted-editorial mb-0">
-                    Rue de Rivoli. Dedicated to pattern drafting, bias drape architecture, and private European client salons.
+                    Rue de Rivoli design concept exploring pattern drafting, bias drape architecture, and bespoke European silhouettes.
                   </p>
                 </div>
                 <div className="pt-3 border-hairline-t mt-3">
@@ -227,9 +227,9 @@ export const HousePage: React.FC = () => {
               <div className="p-4 bg-stone border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
                   <span className="label-caps text-champagne d-block mb-1">INDIA</span>
-                  <h3 className="headline-sm text-oxblood mb-2">New Delhi Atelier</h3>
+                  <h3 className="headline-sm text-oxblood mb-2">New Delhi Guild Study</h3>
                   <p className="body-sm text-muted-editorial mb-0">
-                    Sundar Nagar Guild House. Coordination center for our master handloom families in Varanasi and Chanderi.
+                    Sundar Nagar study concept dedicated to honoring the generational master handloom traditions of Varanasi and Chanderi.
                   </p>
                 </div>
                 <div className="pt-3 border-hairline-t mt-3">
@@ -242,9 +242,9 @@ export const HousePage: React.FC = () => {
               <div className="p-4 bg-stone border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
                   <span className="label-caps text-champagne d-block mb-1">JAPAN</span>
-                  <h3 className="headline-sm text-oxblood mb-2">Kyoto Salon</h3>
+                  <h3 className="headline-sm text-oxblood mb-2">Kyoto Research Study</h3>
                   <p className="body-sm text-muted-editorial mb-0">
-                    Gion Machiya Sanctuary. Research center for fermented indigo vats and zero-waste radial cutting philosophies.
+                    Gion Machiya research concept exploring fermented indigo vats and zero-waste radial cutting philosophies.
                   </p>
                 </div>
                 <div className="pt-3 border-hairline-t mt-3">
@@ -257,9 +257,9 @@ export const HousePage: React.FC = () => {
               <div className="p-4 bg-stone border-hairline h-100 d-flex flex-column justify-content-between">
                 <div>
                   <span className="label-caps text-champagne d-block mb-1">ITALY</span>
-                  <h3 className="headline-sm text-oxblood mb-2">Milan Showroom</h3>
+                  <h3 className="headline-sm text-oxblood mb-2">Milan Tailoring Study</h3>
                   <p className="body-sm text-muted-editorial mb-0">
-                    Via Montenapoleone. Private showcase for bespoke tailoring, winter cashmere commissions, and archival folios.
+                    Via Montenapoleone showcase concept dedicated to architectural tailoring, cashmere studies, and archival folios.
                   </p>
                 </div>
                 <div className="pt-3 border-hairline-t mt-3">
@@ -278,7 +278,7 @@ export const HousePage: React.FC = () => {
         <div className="page-container">
           <div className="row justify-content-center">
             <div className="col-12 col-lg-8">
-              <div className="p-4 p-md-5 bg-canvas border-hairline">
+              <div className="p-3 p-md-5 bg-canvas border-hairline">
                 <div className="text-center mb-4">
                   <span className="label-caps text-champagne d-block mb-1">BESPOKE CLIENT CONCIERGE</span>
                   <h2 className="headline-md text-oxblood mb-2">Request an Atelier Salon Appointment</h2>
@@ -289,7 +289,7 @@ export const HousePage: React.FC = () => {
 
                 {submitted ? (
                   <div className="p-4 bg-stone border-hairline text-center" data-testid="appointment-success-plinth">
-                    <span className="material-symbols-outlined text-champagne fs-1 mb-2">check_circle</span>
+                    <span className="material-symbols-outlined text-champagne fs-1 mb-2" aria-hidden="true">check_circle</span>
                     <h3 className="headline-sm text-oxblood mb-2">Appointment Request Registered</h3>
                     <p className="body-sm text-muted-editorial mb-3">
                       Thank you, <strong className="text-oxblood">{formData.name}</strong>. Our Master Concierge will contact you at <strong className="text-oxblood">{formData.email}</strong> to coordinate your bespoke session at our {formData.atelier}.
@@ -384,11 +384,11 @@ export const HousePage: React.FC = () => {
 
                     <button
                       type="submit"
-                      className="btn-oxblood w-100 py-3 text-center"
+                      className="btn-oxblood w-100 py-3 text-center flex-wrap"
                       data-testid="submit-appointment-btn"
                     >
                       <span>Request Atelier Salon Consultation</span>
-                      <span className="material-symbols-outlined fs-6 ms-2">calendar_month</span>
+                      <span className="material-symbols-outlined fs-6 ms-2" aria-hidden="true">calendar_month</span>
                     </button>
                   </form>
                 )}

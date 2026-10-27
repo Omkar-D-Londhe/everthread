@@ -259,6 +259,54 @@ section[id] {
 }
 
 /* ==========================================================================
+   F-21: Material Symbols font-display fallback protection
+   ========================================================================== */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Gracefully conceal raw text ligatures if icon font fails or is blocked */
+html:not(.icons-ready) .material-symbols-outlined {
+  font-size: 0 !important;
+  color: transparent !important;
+  user-select: none;
+}
+
+/* Utility helper for flex child truncation */
+.min-w-0 {
+  min-width: 0 !important;
+}
+
+.search-result-item {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.search-result-action {
+  min-height: 28px !important;
+  max-height: 32px !important;
+  padding: 0.25rem 0.625rem !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  font-size: 0.6875rem !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1 !important;
+}
+
+/* ==========================================================================
    Buttons & Interactive Elements
    ========================================================================== */
 .btn-oxblood {
@@ -279,6 +327,48 @@ section[id] {
   transition: var(--transition-smooth);
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 576px) {
+  .btn-oxblood, .btn-outline-editorial {
+    padding: 0.875rem 1rem;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .row {
+    --bs-gutter-x: 1rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .page-container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .header-inner {
+    padding: 0 0.25rem !important;
+    gap: 0.15rem !important;
+  }
+  .header-actions {
+    gap: 0.15rem !important;
+  }
+  .header-actions .action-icon-btn,
+  .header-inner .action-icon-btn {
+    min-width: 34px !important;
+    min-height: 34px !important;
+    width: 34px !important;
+    height: 34px !important;
+    padding: 0.15rem !important;
+  }
+  .brand-title {
+    font-size: 0.95rem !important;
+    letter-spacing: 0.04em !important;
+  }
 }
 
 .btn-oxblood:hover {
@@ -870,20 +960,28 @@ section[id] {
   font-weight: 600;
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
   top: 1rem;
+  outline: 2px solid #49232D !important;
+  outline-offset: 2px !important;
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-champagne-thread) !important;
-  outline-offset: 3px !important;
+:focus-visible,
+:focus,
+button:focus,
+button:focus-visible,
+a:focus,
+a:focus-visible {
+  outline: 2px solid #49232D !important;
+  outline-offset: 2px !important;
 }
 
 .bg-oxblood :focus-visible,
 .bg-oxblood-container :focus-visible,
 .bg-oxblood-dark :focus-visible,
 .atelier-lens-backdrop :focus-visible {
-  outline-color: var(--color-champagne-glow) !important;
+  outline-color: #F5EFEB !important;
 }
 
 /* ==========================================================================
@@ -1028,15 +1126,15 @@ section[id] {
 }
 
 .filter-checkbox:focus-visible {
-  outline: 2px solid var(--color-champagne-thread) !important;
-  outline-offset: 3px !important;
+  outline: 2px solid #49232D !important;
+  outline-offset: 2px !important;
 }
 
 .bg-oxblood :focus-visible,
 .bg-oxblood-container :focus-visible,
 .bg-oxblood-dark :focus-visible,
 .atelier-lens-backdrop :focus-visible {
-  outline-color: var(--color-champagne-glow) !important;
+  outline-color: #F5EFEB !important;
 }
 
 .filter-option-count {
@@ -1071,7 +1169,8 @@ section[id] {
 }
 
 .sort-select:focus-visible {
-  outline: 2px solid var(--color-champagne-thread);
+  outline: 2px solid #49232D;
+  outline-offset: 2px;
   border-color: var(--color-primary);
 }
 

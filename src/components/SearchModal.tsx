@@ -5,6 +5,8 @@ import { WEAVE_LIBRARY, STORIES } from '../data/stories.ts';
 import { JOURNAL_ARTICLES } from '../data/journal.ts';
 import { PRODUCT_ASSET_MAP, TRADITIONAL_PRODUCT_ASSET_MAP } from '../data/assetMap.ts';
 import { useDialogFocus } from '../hooks/useDialogFocus.ts';
+import { isTraditional } from '../types/catalog.ts';
+import { CONCEPT_NOTICE_SHORT_TEXT } from '../data/traditionalProducts.ts';
 
 export const WEAVE_STORY_ROUTES: Record<string, string> = {
   'weave-14': '/archive/the-art-of-the-drape',
@@ -86,15 +88,20 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
       if (matchesAllTokens(haystack)) {
         const asset = PRODUCT_ASSET_MAP[p.id] || TRADITIONAL_PRODUCT_ASSET_MAP[p.id];
         const detailStr = weaveStr || inspirationStr || '';
+        const isTrad = isTraditional(p);
+        const sub = isTrad
+          ? `${p.currency}${p.price.toLocaleString('en-IN')} • ${CONCEPT_NOTICE_SHORT_TEXT}`
+          : `${p.currency}${p.price.toLocaleString('en-IN')}${detailStr ? ` • ${detailStr}` : ''}`;
+
         matches.push({
           id: `prod-${p.id}`,
           category: 'product',
-          categoryLabel: 'Silhouettes & Repertoire',
+          categoryLabel: isTrad ? 'Traditional Concept Repertoire' : 'Silhouettes & Repertoire',
           title: p.title,
-          subtitle: `${p.currency}${p.price.toLocaleString('en-IN')}${detailStr ? ` • ${detailStr}` : ''}`,
+          subtitle: sub,
           url: `/product/${p.slug}`,
           image: asset?.primary.src || p.image,
-          badge: p.category
+          badge: isTrad ? 'CONCEPT' : p.category
         });
       }
     });
@@ -218,7 +225,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                 data-testid="search-close-btn"
               >
                 <span>Close</span>
-                <span className="material-symbols-outlined fs-6">close</span>
+                <span className="material-symbols-outlined fs-6" aria-hidden="true">close</span>
               </button>
             </div>
 
@@ -260,7 +267,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                     }}
                     aria-label="Clear search query"
                   >
-                    <span className="material-symbols-outlined fs-5">clear</span>
+                    <span className="material-symbols-outlined fs-5" aria-hidden="true">clear</span>
                   </button>
                 )}
               </div>
@@ -271,7 +278,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
               ref={listRef}
               id="search-results-list"
               className="p-3 p-sm-4 bg-canvas overflow-y-auto"
-              style={{ maxHeight: '60vh', minHeight: 240 }}
+              style={{ maxHeight: '60vh', minHeight: 240, overflowX: 'hidden' }}
               data-testid="search-results-container"
             >
               {query.trim() === '' ? (
@@ -329,11 +336,13 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                           key={item.id}
                           to={item.url}
                           onClick={onClose}
-                          className={`p-3 bg-stone border-hairline d-flex align-items-center gap-3 text-decoration-none transition-all ${
+                          className={`search-result-item p-3 bg-stone border-hairline d-flex align-items-center gap-3 text-decoration-none transition-all ${
                             isFocused ? 'bg-cream border-oxblood' : ''
                           }`}
                           style={{
-                            borderLeft: isFocused ? '3px solid var(--color-primary)' : '1px solid var(--color-hairline)'
+                            borderLeft: isFocused ? '3px solid var(--color-primary)' : '1px solid var(--color-hairline)',
+                            minWidth: 0,
+                            maxWidth: '100%'
                           }}
                           data-testid="search-result-item"
                           data-result-id={item.id}
@@ -353,7 +362,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                             </div>
                           )}
 
-                          <div className="flex-grow-1 min-w-0">
+                          <div className="flex-grow-1 min-w-0" style={{ minWidth: 0, overflow: 'hidden' }}>
                             <div className="d-flex align-items-center gap-2 mb-1">
                               <span className="label-caps-wide text-champagne" style={{ fontSize: '0.5625rem' }}>
                                 {item.categoryLabel}
@@ -377,7 +386,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                           <div className="d-flex align-items-center gap-2 flex-shrink-0">
                             {item.category === 'product' ? (
                               <span
-                                className="btn-oxblood py-1 px-2 body-sm d-none d-sm-inline-flex align-items-center gap-1"
+                                className="btn-oxblood search-result-action py-1 px-2 body-sm d-none d-sm-inline-flex align-items-center gap-1"
                                 style={{ fontSize: '0.6875rem' }}
                               >
                                 <span>Order Folio</span>
@@ -388,7 +397,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                               </span>
                             ) : (
                               <span
-                                className="btn-outline-editorial py-1 px-2 body-sm d-none d-sm-inline-flex align-items-center"
+                                className="btn-outline-editorial search-result-action py-1 px-2 body-sm d-none d-sm-inline-flex align-items-center"
                                 style={{ fontSize: '0.6875rem' }}
                               >
                                 {item.category === 'tradition' ? 'Examine' : item.category === 'story' ? 'Read Folio' : 'Read Essay'}

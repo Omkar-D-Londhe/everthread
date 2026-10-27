@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Phase 7.2 Deployment Verification Report
 
 **Project:** EverThread — Contemporary Heritage Luxury Atelier\

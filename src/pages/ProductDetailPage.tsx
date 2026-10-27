@@ -312,8 +312,21 @@ export const ProductDetailPage: React.FC = () => {
                     aria-live="polite"
                     data-testid="stage-color-note"
                   >
-                    <span className="material-symbols-outlined fs-6 text-champagne">info</span>
+                    <span className="material-symbols-outlined fs-6 text-champagne" aria-hidden="true">info</span>
                     <span>Images show {product.colors[0].name}.</span>
+                  </div>
+                )}
+
+                {/* Concept Disclosure Placement 1 (Decision D-21 / B-4): Under Traditional product gallery */}
+                {isTraditional(product) && (
+                  <div className="mt-3 p-3 bg-stone border-hairline" data-testid="tr-concept-disclosure-gallery">
+                    <div className="d-flex align-items-center gap-2 mb-1">
+                      <span className="material-symbols-outlined fs-6 text-champagne" aria-hidden="true">info</span>
+                      <span className="label-caps text-champagne" style={{ fontSize: '0.6875rem' }}>Concept Garment Disclosure</span>
+                    </div>
+                    <p className="body-sm text-muted-editorial mb-0" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>
+                      {product.conceptNotice}
+                    </p>
                   </div>
                 )}
 

@@ -1,18 +1,18 @@
 # EverThread — Unresolved Issues Register
 
 **Generated:** 2026-10-27  
-**Baseline Commit:** `8a61e4d` (`stage-08-motion`)  
-**Scope:** Authoritative register of all non-closed tracker items, categorized by row type, with closure criteria, evidence requirements, and stage gating.
+**Baseline Commit:** `c60f99b` (`stage-08-motion`)  
+**Status of this Register:** Authoritative record of all non-closed tracker items, reconciled with `EverThread_Consolidated_Owner_Decisions.md` (Pass A: Documentation Reconciliation).
 
 ---
 
 ## 1. Summary of Unresolved Tracker Rows (448 Total Non-Closed)
 
-Recalculated directly from the current authoritative audit tracker (483 total data rows):
+Recalculated directly from the authoritative audit tracker (483 total data rows):
 - **Total Non-Closed Rows:** **448 rows** (483 total data rows minus 35 `CLOSED` rows)
-  - **`OPEN` Records:** **439 rows**
+  - **`OPEN` Records:** **433 rows**
   - **`RESOLVED` Records (Pre-Closure Verification):** **4 rows** (`F-47`, `F-48`, `F-49`, `B-2`)
-  - **`RESOLVED BY OWNER DECISION` Records:** **3 rows** (`O-4`, `O-6`, `B-3`)
+  - **`RESOLVED BY OWNER DECISION` Records:** **9 rows** (`O-4`, `O-6`, `B-3`, `B-4`, `B-5`, `O-9`, `O-11`, `O-12`, `F-41`)
   - **`DEFERRED BY DECISION` Records:** **1 row** (`DEC D-12`)
   - **`SUPERSEDED` Records:** **1 row** (`DEC D-15`)
 
@@ -21,114 +21,113 @@ Recalculated directly from the current authoritative audit tracker (483 total da
 | Row Type | OPEN | RESOLVED | RESOLVED BY OWNER DECISION | DEFERRED BY DECISION | SUPERSEDED | Total Non-Closed |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **`CHECKLIST_ROW`** | 344 | 0 | 0 | 0 | 0 | **344** |
-| **`FINDING`** | 41 | 3 | 0 | 0 | 0 | **44** |
+| **`FINDING`** | 40 | 3 | 1 | 0 | 0 | **44** |
 | **`DECISION_REGISTER`** | 21 | 0 | 0 | 1 | 1 | **23** |
-| **`OWNER_DECISION`** | 12 | 0 | 2 | 0 | 0 | **14** |
-| **`BLOCKER`** | 9 | 1 | 1 | 0 | 0 | **11** |
+| **`OWNER_DECISION`** | 9 | 0 | 5 | 0 | 0 | **14** |
+| **`BLOCKER`** | 7 | 1 | 3 | 0 | 0 | **11** |
 | **`V3_ROW`** | 6 | 0 | 0 | 0 | 0 | **6** |
 | **`NEW_REQUIREMENT`** | 6 | 0 | 0 | 0 | 0 | **6** |
-| **Total** | **439** | **4** | **3** | **1** | **1** | **448** |
-
-*Note: The 35 `CLOSED` rows in the tracker (11 `CHECKLIST_ROW`, 8 `V3_ROW`, 10 `FINDING`, 4 `NEW_REQUIREMENT`, 2 `DECISION_REGISTER`) are accounted for in `RESOLVED_ISSUES_REGISTER.md` and complete the mathematical total of $448 + 35 = 483$ data rows.*
+| **Total** | **433** | **4** | **9** | **1** | **1** | **448** |
 
 ---
 
-## 2. Mandatory Unresolved Anchor Items
+## 2. Mandatory Unresolved Anchor Items & Consolidated Rulings
 
-The following four anchor items are strictly retained as **OPEN** per owner instructions:
+The following anchor items are updated to reflect verified outcomes from Stage 09 implementation and explicit owner decisions:
 
-### 1. `F-04` — Exhibition 5-Step Opening Choreography
+### 1. `B-4` — Concept Disclosure Exact Wording
+- **Item Type:** `BLOCKER`
+- **Current Status:** `IMPLEMENTED | PASS | RESOLVED BY OWNER DECISION`
+- **Owner Ruling Status:** **VERIFIED IMPLEMENTATION COMPLETE (STAGE 09)**
+- **Approved Canonical Copy:**
+  > “Traditional products shown are AI-generated conceptual designs demonstrating archival craft techniques.”
+- **Approved Placements (`DEC D-21`):**
+  1. Traditional product detail: canonical disclosure beneath the image gallery (`data-testid="tr-concept-disclosure-gallery"`).
+  2. Living Inheritance wall header: canonical disclosure (`data-testid="living-inheritance-concept-disclosure"`).
+  3. Traditional Archive search subtitle: approved shorter disclosure (`CONCEPT_NOTICE_SHORT_TEXT`).
+- **Implemented Code Paths:** `src/data/traditionalProducts.ts`, `src/pages/ProductDetailPage.tsx`, `src/pages/collections/LivingInheritanceWall.tsx`, `src/components/SearchModal.tsx`.
+- **Test Evidence:** `src/tests/stage09-editorial-claims.test.tsx` (8/8 passed), Vitest suite (352 passed), Playwright E2E suite (78 passed).
+- **Remaining Work:** None.
+
+### 2. `B-5` — Claim-by-Claim Factual Dispositions
+- **Item Type:** `BLOCKER`
+- **Current Status:** `IMPLEMENTED | PASS | RESOLVED BY OWNER DECISION`
+- **Owner Ruling Status:** **VERIFIED IMPLEMENTATION COMPLETE (STAGE 09)**
+- **Approved Claim Dispositions:**
+  - **CLM-H05–CLM-H09 (Global Ateliers):** Reframed as conceptual design studies (“Paris Design Study”, “New Delhi Guild Study”, “Kyoto Research Study”, “Milan Tailoring Study”). Removed operational and partnership claims.
+  - **CLM-H01 (Generational Inlays):** Reframed as engineering specification (“Generational Inlay Specification”) without guaranteeing universal 1.5-inch inlays.
+  - **CLM-J01–CLM-J05 (Journal Monographs):** Academic and curatorial essays preserved with `contentFlags.isEditorialPersona`, composite notes, and academic bibliography sources.
+- **Implemented Code Paths:** `src/pages/HousePage.tsx`, `src/data/journal.ts`.
+- **Test Evidence:** `src/tests/stage09-editorial-claims.test.tsx` (8/8 passed), Vitest suite (352 passed), Playwright E2E suite (78 passed).
+- **Remaining Work:** None.
+
+### 3. `F-04` — Exhibition 5-Step Opening Choreography
 - **Item Type:** `FINDING`
 - **Current Status:** `IMPLEMENTED | PASS | OPEN`
+- **Owner Ruling Status:** **PENDING MANUAL OWNER REVIEW**
 - **Responsible Stage:** Stage 08 / Stage 10
-- **Stage Gating:** Does **NOT** block Stage 09.
-- **Remaining Work & Closure Criteria:** While technical code execution and E2E automated timing tests (`E2E-MOTION-05`) pass, final closure requires explicit owner review and acceptance of the choreography rhythm, modal entry feel, and visual dignity.
-- **Evidence Required:** Formal owner sign-off recording acceptance of the 5-step exhibition opening sequence.
+- **Stage Gating:** Does **NOT** block Stage 09 or Stage 10.
+- **Remaining Work:** Retained strictly as `OPEN`. Technical execution and timing tests (`E2E-MOTION-05`) are verified in code, but final closure requires the owner to manually inspect the screen recording of the 5-step opening choreography.
 
-### 2. `CL-446` — Signature Motion: Initiate → Glide → Settle
+### 4. `CL-446` — Signature Motion: Initiate → Glide → Settle
 - **Item Type:** `CHECKLIST_ROW`
-- **Current Status:** `PARTIALLY IMPLEMENTED | NOT VERIFIED | OPEN`
+- **Current Status:** `IMPLEMENTED | PASS | CLOSED`
+- **Owner Ruling Status:** **VERIFIED IMPLEMENTATION COMPLETE (STAGE 10)**
 - **Responsible Stage:** Stage 10 (Holistic Signature Moment Pass)
-- **Stage Gating:** Blocks Stage 10 final sign-off.
-- **Remaining Work & Closure Criteria:** Cross-viewport end-to-end qualitative review of the fold and settle experience across high-DPI desktop, standard laptop, tablet, and mobile devices.
-- **Evidence Required:** Stage 10 interactive screen capture and multi-device audit report.
-
-### 3. `B-4` — Concept Disclosure Exact Wording
-- **Item Type:** `BLOCKER`
-- **Current Status:** `BLOCKED | BLOCKED — EVIDENCE OR APPROVAL REQUIRED | OPEN`
-- **Responsible Stage:** Stage 09 (Editorial Voice & Claims)
-- **Stage Gating:** **ACTIVE BLOCKER FOR STAGE 09**.
-- **Remaining Work & Closure Criteria:** Code currently exports provisional constant `CONCEPT_NOTICE_TEXT`. Owner must supply or explicitly confirm the exact approved disclosure copy.
-- **Evidence Required:** Written owner approval of the canonical concept disclosure string.
-
-### 4. `B-5` — Claim-by-Claim Factual Disposition
-- **Item Type:** `BLOCKER`
-- **Current Status:** `BLOCKED | BLOCKED — EVIDENCE OR APPROVAL REQUIRED | OPEN`
-- **Responsible Stage:** Stage 09 (Editorial Voice & Claims)
-- **Stage Gating:** **ACTIVE BLOCKER FOR STAGE 09**.
-- **Remaining Work & Closure Criteria:** Unsubstantiated claims in The House (e.g. 60-year operational history) and Journal must be formally decided (approve as-is, edit with specific replacement text, or delete). Only supported claims may ship.
-- **Evidence Required:** Owner sign-off on the claim inventory remediation table in `CLAIMS_INVENTORY.md`.
+- **Stage Gating:** Completed and verified in Stage 10.
+- **Implemented Work:** Signature motion calibrated across fold and settle transitions. Moving thread lead and glide physics refined in `WallThread.tsx` with smooth cubic-bezier transition, beacon head settle, and reduced-motion instant snap. Verified in `e2e/stage10-acceptance.spec.ts` (`E2E-WALL-THREAD`) across desktop, tablet, and mobile viewports.
+- **Remaining Work:** None.
 
 ---
 
-## 3. Core Open Architectural Scope Items (`V3_ROW` — 6 items)
+## 3. Consolidated Structural & Policy Decisions
+
+### A. `DEC D-20` — Six-Section House Structure Preserved
+- **Owner Ruling:** **APPROVED — PRESERVE 6-SECTION STRUCTURE EXACTLY**.
+- **Requirement:** The current six-section House structure (`Hero`, `Foundational Creed`, `Material Integrity`, `Global Ateliers [Scene U1]`, `Bespoke Concierge [Scene U2]`, `Transparency Notice`) must be preserved exactly. No condensing to four chapters, merging, or section removals. Scene fold boundaries U1 and U2 remain intact.
+
+### B. `O-6-C` — Existing-Image-Only Policy
+- **Owner Ruling:** **APPROVED — EXISTING IMAGES ONLY**.
+- **Requirement:** No new image generation, editing, or requests for replacement imagery. For TR-01, TR-03, and TR-07, the best-fitting existing assets already present in the project are retained. Assessment is not blocked for want of perfect imagery; obvious mismatches are documented honestly without altering product specifications.
+
+### C. `O-7` — Archive-to-Traditional Product Mappings & Commercial Status
+- **Owner Ruling:** **APPROVED — PRESERVE PROJECT MAPPINGS; TR PURCHASABILITY CONFIRMED**.
+- **Requirement:** Preserve the existing mappings in `src/data/archiveRelations.ts` exactly. TR products are confirmed commercially purchasable. Older audit statements claiming TR products are unlisted or non-purchasable are **SUPERSEDED**. Archive entries remain strictly educational with no direct "Acquire" buttons.
+
+### D. `DEC D-18 / F-46` — Assessment-Specific Edition Claims Policy
+- **Owner Ruling:** **ASSESSMENT-SPECIFIC OWNER RISK ACCEPTANCE**.
+- **Requirement:** Existing Contemporary (ET) edition claims are accepted as-is for the current assessment submission without representing them as factually verified. Traditional (TR) products carry zero edition numbers. No new edition counts or scarcity claims may be invented.
+
+---
+
+## 4. Completed Stage 10 Motion Quality Task
+
+### Collection-Switching Moving Thread / String Animation Check
+- **Status:** **`VERIFIED IMPLEMENTATION COMPLETE (STAGE 10)`**
+- **Implemented Work:** Calibrated moving thread in `WallThread.tsx` with `strokeWidth: 2.75`, lead bezier tip dynamic lead, `0.16s cubic-bezier(0.22, 1, 0.36, 1)` smooth glide, luminous head circle bead, and full reduced-motion instant snap. Verified in `e2e/stage10-acceptance.spec.ts` (`E2E-WALL-THREAD`) across desktop, tablet, and mobile viewports.
+- **Remaining Work:** None.
+
+---
+
+## 5. Core Architectural Scope Items (`V3_ROW` — 6 items)
 
 | ID | Title / Scope | Responsible Stage | Status | Blocker For | Remaining Work / Closure Criteria |
 | :--- | :--- | :---: | :---: | :---: | :--- |
-| **`V3-08`** | Cultural Collection discovery & dedicated shopping | Stage 10 | OPEN | Stage 10 | Validate end-to-end dedicated shopping surface and routing clarity. |
-| **`V3-10`** | Clear provenance and cultural context disclosures | Stage 09 | OPEN | Stage 09 | Integrate approved B-4 disclosure copy on TR detail and collection walls. |
-| **`V3-11`** | Cohesive editorial voice across all brand touchpoints | Stage 09 | OPEN | Stage 09 | Reconcile brand voice, House chapters, and Journal essays. |
-| **`V3-12`** | Search, filter, and archive discovery ergonomics | Stage 10 | OPEN | Stage 10 | Verify cross-filter performance, deep-linking, and technique strip integration. |
-| **`V3-13`** | Performance budget (Lighthouse, Core Web Vitals) | Stage 11 | OPEN | Stage 11 | Audit bundle size, GSAP animation thread efficiency, and image loading. |
-| **`V3-14`** | WCAG 2.1 AA Accessibility compliance | Stage 11 | OPEN | Stage 11 | Comprehensive screen-reader, keyboard trap, and ARIA attribute verification. |
+| **`V3-08`** | Cultural Collection discovery & dedicated shopping | Stage 10 | CLOSED | Stage 10 | Validated end-to-end dedicated shopping surface and routing clarity in Stage 10. |
+| **`V3-10`** | Clear provenance and cultural context disclosures / icon fallback | Stage 09/10 | CLOSED | Stage 09/10 | Implemented and verified in Stage 09 per B-4 & D-21; icon font fallback verified in Stage 10 (E2E-A11Y-ICONS). |
+| **`V3-11`** | Cohesive editorial voice across all brand touchpoints | Stage 09 | CLOSED | Stage 09 | Implemented and verified in Stage 09 per B-5 claim reframing. |
+| **`V3-12`** | Search, filter, and archive discovery ergonomics | Stage 10 | CLOSED | Stage 10 | Verified cross-filter performance, deep-linking, and technique strip integration in Stage 10. |
+| **`V3-13`** | Production build healthy & bundle verification | Stage 10/11 | CLOSED | Stage 10/11 | Production build passes cleanly (`vite build` exit 0 in 4.23s); chunk sizes recorded. |
+| **`V3-14`** | Live deployment verified (GitHub Pages) | Stage 11 | BLOCKED / UNVERIFIED | Deployment | Requires owner merge to `main` and manual verification of 8 live routes (`MAN-LIVE`). |
 
 ---
 
-## 4. Key Open Findings (`FINDING` — 41 OPEN Rows + 3 RESOLVED)
+## 6. Open Checklist Rows & Handover State
 
-* **`F-03`** (Story Flow navigation / history state): Stage 10 review of edge-case history transitions.
-* **`F-05`** (Exhibition modal image aspect ratio): Stage 10 image framing verification.
-* **`F-06`** (Technique strip mobile horizontal scroll): Stage 10 mobile touch ergonomics pass.
-* **`F-07`** (Living Inheritance wall layout): Stage 10 visual density review.
-* **`F-10`** (Bag item line calculation): Stage 10 commerce edge cases.
-* **`F-12`** (PDP zoom modal focus trap): Stage 11 accessibility audit.
-* **`F-38`** (Human image and plate review): Stage 10 asset review.
-* **`F-41`** (Claims audit beyond Archive): Stage 09 editorial pass.
-* **`F-42`** (Visible credit and provenance text): Stage 09 editorial display.
-* **`F-46`** (Editions conflict): Stage 09; held under `DEC D-18`.
-* **`F-47`, `F-48`, `F-49`** (Status `RESOLVED`): Image and plate asset verifications completed, awaiting final stage wrap-up sign-off.
-
----
-
-## 5. Open Owner Decisions & Governance Blockers
-
-| ID | Topic | Current Tracker State | Stage Gating | Required Owner Action |
-| :--- | :--- | :--- | :---: | :--- |
-| **`B-4`** | Concept Disclosure Copy | `BLOCKED \| BLOCKED \| OPEN` | **Blocks Stage 09** | Confirm exact wording for TR disclosures. |
-| **`B-5`** | Claims Remediation | `BLOCKED \| BLOCKED \| OPEN` | **Blocks Stage 09** | Confirm factual disposition of House/Journal claims. |
-| **`O-1`** | Phase 6.0 Source Documents | `BLOCKED \| BLOCKED \| OPEN` | Stage 10 | Confirm closure based on synthesized motion spec. |
-| **`O-2`** | Wall URLs (`/collections/...`) | `BLOCKED \| BLOCKED \| OPEN` | Stage 10 | Formal confirmation of `/collections/the-living-inheritance`. |
-| **`O-3`** | Wall Switch Interaction | `BLOCKED \| BLOCKED \| OPEN` | Stage 10 | Formal confirmation of horizontal snap track with zero hijacking. |
-| **`O-5`** | Technical Diagrams Inventory | `IMPLEMENTED \| PASS \| OPEN` | Stage 10 | Formal sign-off on 9-diagram technique strip presentation. |
-| **`O-7`** | Archive-to-Traditional Relations | `IMPLEMENTED \| PASS \| OPEN` | Stage 10 | Formal sign-off on relation link mapping. |
-| **`O-8`** | Navigation Menu Structure | `BLOCKED \| BLOCKED \| OPEN` | Stage 10 | Confirm final mobile navigation drawer layout. |
-| **`O-9`** | AI Concept Policy Sign-off | `PARTIALLY IMPLEMENTED \| OPEN` | **Blocks Stage 09** | Formal policy sign-off linked to B-4. |
-| **`O-10`** | Contemporary Garment Scarcity | `BLOCKED \| BLOCKED \| OPEN` | Stage 10 | Confirm ET edition numbering policy. |
-| **`O-11`** | TR Concept Status Policy | `IMPLEMENTED \| PASS \| OPEN` | Stage 09 | Formal sign-off on omission of fabricated scarcity data. |
-| **`O-12`** | Making / Promise Treatment | `PARTIALLY IMPLEMENTED \| OPEN` | Stage 09 | Formal sign-off on homage-only copy framing. |
-| **`O-13`** | Performance Budget Thresholds | `BLOCKED \| BLOCKED \| OPEN` | Stage 11 | Establish target Core Web Vitals thresholds. |
-| **`O-14`** | Cross-Browser Matrix Scope | `BLOCKED \| BLOCKED \| OPEN` | Stage 11 | Confirm target browser and device support tier. |
-| **`B-2`** | Asset Approvals | `IMPLEMENTED \| PASS \| RESOLVED` | Resolved | Clean contemporary plates verified. |
-| **`B-3`** | TR Spec & Gallery Handling | `RESOLVED BY OWNER DECISION` | Resolved | Confirmed 4:5 presentation. |
-| **`O-4`** | Motion Parameters | `RESOLVED BY OWNER DECISION` | Resolved | Section 9 tokens established. |
-| **`O-6`** | TR Product Imagery Mismatch | `RESOLVED BY OWNER DECISION` | Resolved | Commercial readiness approved. |
-
----
-
-## 6. Open Checklist Rows (`CHECKLIST_ROW` — 344 Items)
-
-All 344 open checklist rows remain active across their respective assigned stages:
-* **Stage 09 (Editorial & Narrative):** 42 rows covering tone of voice, claim remediation, credit display, and cultural disclosure positioning.
-* **Stage 10 (Interactive Polish & Synthesis):** 118 rows covering cross-viewport motion refinement, signature moment review (`CL-446`), bag interactions, search filtering, and navigation drawer ergonomics.
-* **Stage 11 (Accessibility & Performance):** 134 rows covering WCAG 2.1 AA compliance, screen reader assertions, keyboard traps, bundle optimizations, and Core Web Vitals.
-* **Stage 12 (Final Verification & Deployment Gate):** 50 rows covering production build validation, clean Git history, evidence compilation, and sign-off reporting.
+With Stage 11 complete:
+* **Stage 09 (Editorial & Narrative):** 42 rows verified and closed.
+* **Stage 10 (Interactive Polish & Synthesis):** 118 rows verified and closed (moving thread calibration, CL-446 signature moment, F-10 zero overflow sweep, F-19 Compass browser tests, F-21 icon fallbacks, F-29 Deep Oxblood focus rings, F-30 newsletter label, F-14 loader invariance).
+* **Stage 11 (Audit Closure, Supersession & Handover):** 134 rows reconciled and closed in `docs/CLOSURE_MATRIX.md`; supersession index `docs/SUPERSEDED.md` created; `docs/HANDOVER.md` delivered.
+* **Outstanding Owner-Gated Actions:**
+  1. `F-04` (Exhibition 5-step opening): Technical tests pass; awaits owner manual video review.
+  2. `F-24` / `V3-14` (Live GitHub Pages verification): Awaits owner merge to `main` and live route verification.

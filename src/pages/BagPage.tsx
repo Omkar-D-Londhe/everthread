@@ -56,7 +56,7 @@ export const BagPage: React.FC = () => {
                   onClick={clearBag}
                   data-testid="clear-bag-btn"
                 >
-                  <span className="material-symbols-outlined fs-6">delete_sweep</span>
+                  <span className="material-symbols-outlined fs-6" aria-hidden="true">delete_sweep</span>
                   <span>Clear Bag</span>
                 </button>
               </div>
@@ -71,7 +71,7 @@ export const BagPage: React.FC = () => {
           {bagCount === 0 || bag.length === 0 ? (
             /* Empty State */
             <div className="empty-curation-box" data-testid="empty-bag-state">
-              <span className="material-symbols-outlined text-champagne fs-1 mb-3">shopping_bag</span>
+              <span className="material-symbols-outlined text-champagne fs-1 mb-3" aria-hidden="true">shopping_bag</span>
               <h2 className="headline-md text-oxblood mb-2">Your Bespoke Bag Is Empty</h2>
               <p className="body-md text-muted-editorial mx-auto mb-4" style={{ maxWidth: 540 }}>
                 Discover the permanent capsule and select an heirloom piece tailored to your cadence.
@@ -183,7 +183,7 @@ export const BagPage: React.FC = () => {
                                     aria-label={`Decrease quantity of ${product.title}`}
                                     data-testid={`qty-minus-${idx}`}
                                   >
-                                    <span className="material-symbols-outlined fs-6">remove</span>
+                                    <span className="material-symbols-outlined fs-6" aria-hidden="true">remove</span>
                                   </button>
 
                                   <span 
@@ -201,7 +201,7 @@ export const BagPage: React.FC = () => {
                                     aria-label={`Increase quantity of ${product.title}`}
                                     data-testid={`qty-plus-${idx}`}
                                   >
-                                    <span className="material-symbols-outlined fs-6">add</span>
+                                    <span className="material-symbols-outlined fs-6" aria-hidden="true">add</span>
                                   </button>
                                 </div>
                               </div>
@@ -229,7 +229,7 @@ export const BagPage: React.FC = () => {
                                 data-testid={`move-to-saved-${idx}`}
                                 aria-label={`Save ${product.title} for later`}
                               >
-                                <span className="material-symbols-outlined fs-6">bookmark</span>
+                                <span className="material-symbols-outlined fs-6" aria-hidden="true">bookmark</span>
                                 <span>Save for Later</span>
                               </button>
 
@@ -240,7 +240,7 @@ export const BagPage: React.FC = () => {
                                 data-testid={`remove-item-${idx}`}
                                 aria-label={`Remove ${product.title} from bag`}
                               >
-                                <span className="material-symbols-outlined fs-6">close</span>
+                                <span className="material-symbols-outlined fs-6" aria-hidden="true">close</span>
                                 <span>Remove</span>
                               </button>
                             </div>
@@ -258,7 +258,7 @@ export const BagPage: React.FC = () => {
                     className="btn-outline-editorial d-inline-flex align-items-center gap-2"
                     data-testid="continue-shopping-btn"
                   >
-                    <span className="material-symbols-outlined fs-6">arrow_back</span>
+                    <span className="material-symbols-outlined fs-6" aria-hidden="true">arrow_back</span>
                     <span>Continue Curating Repertoire</span>
                   </Link>
                 </div>
@@ -325,7 +325,7 @@ export const BagPage: React.FC = () => {
                     data-testid="checkout-btn"
                   >
                     <span>Proceed to Concierge Checkout</span>
-                    <span className="material-symbols-outlined fs-6">arrow_forward</span>
+                    <span className="material-symbols-outlined fs-6" aria-hidden="true">arrow_forward</span>
                   </Link>
                 </aside>
               </div>

@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Reassessment Summary (read this first)
 
 Commit `ebf7b6b`, clean tree, unchanged since v2. Browser evidence = local production build, not the live site.

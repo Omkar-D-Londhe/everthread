@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Master Findings Register (canonical)
 
 Commit `ebf7b6b`. One row per issue; v2 (`D-nn`), v3 (`V3-nn`, `CL-nnn`) and new IDs are merged here. Evidence: [B] browser on local production build, [S] source, [M] measured, [SS] screenshot, [R] reused from v2/v3 (valid: unchanged commit).

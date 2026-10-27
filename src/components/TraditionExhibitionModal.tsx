@@ -164,9 +164,9 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Stage 07 Accessibility & Dialog Focus Trap per F-08
+  // Stage 07 Accessibility & Dialog Focus Trap per F-08 (paused while Atelier Lens is active)
   useDialogFocus({
-    isOpen,
+    isOpen: isOpen && !isLensOpen,
     onClose,
     containerRef: modalRef,
     initialFocusRef: closeButtonRef
@@ -189,12 +189,14 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
     ? allTraditions.findIndex(t => t.traditionKey === currentRecord.traditionKey)
     : -1;
 
-  // Reset role and diagram state when tradition changes or modal opens
+  // Reset role and diagram state when tradition changes or modal opens (Bug 3 Fix)
   useEffect(() => {
-    setActiveRole(initialRole);
-    setImageError(false);
-    setShowDiagram(initialDiagramOpen);
-  }, [traditionKeyOrSlug, initialRole, initialDiagramOpen]);
+    if (isOpen) {
+      setActiveRole(initialRole || 'model-01');
+      setImageError(false);
+      setShowDiagram(initialDiagramOpen);
+    }
+  }, [isOpen, traditionKeyOrSlug, initialRole, initialDiagramOpen]);
 
   // Thread animation trigger
   useEffect(() => {
@@ -230,11 +232,13 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
     setImageError(false);
   }, [currentRoleIndex]);
 
-  // Navigation: Next / Prev Tradition
+  // Navigation: Next / Prev Tradition (resets to Plate 01 for every catalogue)
   const handlePrevTradition = useCallback(() => {
     if (currentTraditionIndex === -1 || allTraditions.length === 0) return;
     const prevIdx = (currentTraditionIndex - 1 + allTraditions.length) % allTraditions.length;
     const targetTradition = allTraditions[prevIdx];
+    setActiveRole('model-01');
+    setImageError(false);
     if (onSelectTradition) {
       onSelectTradition(targetTradition.traditionKey);
     }
@@ -244,6 +248,8 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
     if (currentTraditionIndex === -1 || allTraditions.length === 0) return;
     const nextIdx = (currentTraditionIndex + 1) % allTraditions.length;
     const targetTradition = allTraditions[nextIdx];
+    setActiveRole('model-01');
+    setImageError(false);
     if (onSelectTradition) {
       onSelectTradition(targetTradition.traditionKey);
     }
@@ -252,6 +258,11 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
   // Keyboard navigation & Focus trap
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
+      // If Atelier Lens modal is active, yield all keyboard events to the lens dialog
+      if (isLensOpen) {
+        return;
+      }
+
       if (e.key === 'Escape') {
         e.stopPropagation();
         if (showDiagram) {
@@ -297,7 +308,7 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
         }
       }
     },
-    [onClose, showDiagram, handlePrevImage, handleNextImage]
+    [onClose, showDiagram, handlePrevImage, handleNextImage, isLensOpen]
   );
 
   if (!isOpen || !currentRecord) {
@@ -735,8 +746,12 @@ export const TraditionExhibitionModal: React.FC<TraditionExhibitionModalProps> =
           fallbackImageSrc={activeItem?.src}
           title={`${currentRecord.title} — ${activeItem?.label || 'Textile Specimen'}`}
           subtitle={`${currentRecord.region} • ${currentRecord.fiber}`}
-          caption={activeItem?.alt || activeItem?.purpose || currentRecord.structuralProfile}
+          caption={getPlateCaption(currentRecord, activeRole) || activeItem?.alt || currentRecord.structuralProfile}
           zoom={3.5}
+          naturalWidth={activeItem?.width}
+          naturalHeight={activeItem?.height}
+          imageAlt={activeItem?.alt || getPlateCaption(currentRecord, activeRole)}
+          restoreFocusSelector='[data-testid="inspect-tradition-lens-btn"]'
         />
       </div>
     </div>

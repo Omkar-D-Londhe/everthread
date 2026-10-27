@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Phase 7.2 Functionality, Motion, Atelier Lens & Archive Readability Report
 
 ## Executive Summary & Mission

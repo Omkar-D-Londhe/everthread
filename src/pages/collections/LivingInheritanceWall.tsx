@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { TRADITIONAL_PRODUCTS } from '../../data/traditionalProducts.ts';
+import { TRADITIONAL_PRODUCTS, CONCEPT_NOTICE_TEXT } from '../../data/traditionalProducts.ts';
 import { TraditionalProduct } from '../../types/catalog.ts';
 import { ProductCard } from '../../components/ProductCard.tsx';
 import { getListedWallMoments, PopulatedWallMoment } from '../../data/wallMoments.ts';
@@ -119,9 +119,20 @@ export const LivingInheritanceWall: React.FC<LivingInheritanceWallProps> = ({
             The Living Inheritance
           </h1>
 
-          <p className="headline-sm text-on-surface fst-italic fw-light mb-4 editorial-enter" style={{ maxWidth: 760 }}>
+          <p className="headline-sm text-on-surface fst-italic fw-light mb-3 editorial-enter" style={{ maxWidth: 760 }}>
             Classical subcontinental loom lineage, korvai geometries, and double-ikat resist structures translated through contemporary architectural silhouettes.
           </p>
+
+          {/* Concept Disclosure Placement 2 (Decision D-21 / B-4): Living Inheritance wall header */}
+          <div className="mb-4 p-3 bg-stone border-hairline editorial-enter" style={{ maxWidth: 760 }} data-testid="living-inheritance-concept-disclosure">
+            <div className="d-flex align-items-center gap-2 mb-1">
+              <span className="material-symbols-outlined fs-6 text-champagne" aria-hidden="true">info</span>
+              <span className="label-caps text-champagne" style={{ fontSize: '0.6875rem' }}>Archival Concept Disclosure</span>
+            </div>
+            <p className="body-sm text-muted-editorial mb-0" style={{ fontSize: '0.8125rem', lineHeight: 1.5 }}>
+              {CONCEPT_NOTICE_TEXT}
+            </p>
+          </div>
 
           {/* Category Navigation Pills */}
           <nav aria-label="Traditional Category Filter Navigation" className="d-flex flex-wrap gap-2 pt-2">

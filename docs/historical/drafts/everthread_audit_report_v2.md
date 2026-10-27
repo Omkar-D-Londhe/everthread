@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Full Project Audit (ZIP-based, with real-browser testing of a local build)
 
 **Audited source:** uploaded ZIP, `.git` HEAD `ebf7b6b` ("fix: resolve asset paths for both local dev server and GitHub Pages subpath", 2026-10-22), working tree clean. This is the same commit as the earlier GitHub-clone audit, so the exact commit **is confirmed**.

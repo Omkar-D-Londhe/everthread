@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/design-tokens.css';
 import './styles/main.css';
+import './styles/walls.css';
 import './styles/animations.css';
 import './styles/thread-loader.css';
 

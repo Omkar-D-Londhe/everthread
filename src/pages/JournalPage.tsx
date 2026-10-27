@@ -88,7 +88,7 @@ export const JournalPage: React.FC = () => {
                     data-testid={`read-article-${featuredArticle.slug}`}
                   >
                     <span>Read Complete Monograph</span>
-                    <span className="material-symbols-outlined fs-6">arrow_forward</span>
+                    <span className="material-symbols-outlined fs-6" aria-hidden="true">arrow_forward</span>
                   </Link>
                 </div>
 
@@ -177,7 +177,7 @@ export const JournalPage: React.FC = () => {
                       data-testid={`read-article-${article.slug}`}
                     >
                       <span>Read Monograph</span>
-                      <span className="material-symbols-outlined fs-6">arrow_forward</span>
+                      <span className="material-symbols-outlined fs-6" aria-hidden="true">arrow_forward</span>
                     </Link>
                   </div>
                 </article>
@@ -200,7 +200,7 @@ export const JournalPage: React.FC = () => {
 
               {subscribed ? (
                 <div className="p-3 bg-canvas border-hairline" data-testid="gazette-subscribed-plinth">
-                  <span className="material-symbols-outlined text-champagne fs-4 align-middle me-2">verified</span>
+                  <span className="material-symbols-outlined text-champagne fs-4 align-middle me-2" aria-hidden="true">verified</span>
                   <span className="body-sm text-oxblood fw-medium">
                     Correspondence registered. You will receive Volume I in your inbox.
                   </span>

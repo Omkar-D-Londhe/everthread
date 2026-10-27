@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { Header } from './components/Header.tsx';
 import { Footer } from './components/Footer.tsx';
 import { SearchModal } from './components/SearchModal.tsx';
@@ -26,6 +26,7 @@ export const App: React.FC = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const location = useLocation();
+  const navType = useNavigationType();
 
   // Initial loading reveal
   useEffect(() => {
@@ -36,10 +37,16 @@ export const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Scroll to top on route navigation
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+  // Route-aware scroll management (Bug 1 Fix):
+  // When navigating forward (PUSH or REPLACE), jump instantly to top before paint.
+  // When navigating back/forward in browser history (POP), preserve browser scroll restoration.
+  useLayoutEffect(() => {
+    if (navType !== 'POP') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  }, [location.pathname, navType]);
 
   // Global '/' keyboard shortcut for search
   useEffect(() => {

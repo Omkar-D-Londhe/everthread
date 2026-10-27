@@ -433,7 +433,7 @@ export const HomePage: React.FC = () => {
               <div ref={actionsRef} className="d-flex flex-wrap align-items-center gap-3 mb-5" data-testid="hero-actions">
                 <Link to="/collections" className="btn-oxblood" data-testid="hero-primary-cta">
                   <span>Explore the collection</span>
-                  <span className="material-symbols-outlined fs-6 text-champagne-glow">arrow_forward</span>
+                  <span className="material-symbols-outlined fs-6 text-champagne-glow" aria-hidden="true">arrow_forward</span>
                 </Link>
                 {/* Secondary CTA: Standardized to "Enter the Archive" linking /archive per Stage 06 §7.4 */}
                 <Link to="/archive" className="link-editorial ms-2" data-testid="hero-secondary-cta">
@@ -513,7 +513,7 @@ export const HomePage: React.FC = () => {
                       justifyContent: 'center'
                     }}
                   >
-                    <span className="material-symbols-outlined fs-6 text-champagne">loupe</span>
+                    <span className="material-symbols-outlined fs-6 text-champagne" aria-hidden="true">loupe</span>
                   </div>
                   <div className="text-start">
                     <p className="label-caps text-oxblood mb-0" data-testid="hero-image-caption">
@@ -552,7 +552,7 @@ export const HomePage: React.FC = () => {
               </div>
               <div className="d-none d-sm-flex align-items-center gap-2 label-caps text-outline">
                 <span className="text-oxblood fw-medium">FOLIO COMPASS</span>
-                <span className="material-symbols-outlined fs-6 text-champagne">unfold_more</span>
+                <span className="material-symbols-outlined fs-6 text-champagne" aria-hidden="true">unfold_more</span>
               </div>
             </div>
 
@@ -609,7 +609,7 @@ export const HomePage: React.FC = () => {
                   </p>
                 </div>
                 <Link to="/compass" className="text-oxblood fw-medium body-sm d-inline-flex align-items-center gap-1">
-                  Start Consultation <span className="material-symbols-outlined fs-6">arrow_forward</span>
+                  Start Consultation <span className="material-symbols-outlined fs-6" aria-hidden="true">arrow_forward</span>
                 </Link>
               </div>
             </div>
@@ -628,7 +628,7 @@ export const HomePage: React.FC = () => {
                   </p>
                 </div>
                 <Link to="/archive" className="text-champagne-glow fw-medium body-sm d-inline-flex align-items-center gap-1">
-                  Examine Folios <span className="material-symbols-outlined fs-6">arrow_forward</span>
+                  Examine Folios <span className="material-symbols-outlined fs-6" aria-hidden="true">arrow_forward</span>
                 </Link>
               </div>
             </div>
@@ -647,7 +647,7 @@ export const HomePage: React.FC = () => {
                   </p>
                 </div>
                 <Link to="/collections" className="text-oxblood fw-medium body-sm d-inline-flex align-items-center gap-1">
-                  View Collections <span className="material-symbols-outlined fs-6">arrow_forward</span>
+                  View Collections <span className="material-symbols-outlined fs-6" aria-hidden="true">arrow_forward</span>
                 </Link>
               </div>
             </div>
@@ -686,7 +686,7 @@ export const HomePage: React.FC = () => {
               <div className="pt-2">
                 <Link to="/compass" className="btn-oxblood" data-testid="chapter-compass-cta">
                   <span>Begin Personal Consultation</span>
-                  <span className="material-symbols-outlined fs-6 text-champagne-glow">arrow_forward</span>
+                  <span className="material-symbols-outlined fs-6 text-champagne-glow" aria-hidden="true">arrow_forward</span>
                 </Link>
               </div>
             </div>
@@ -786,7 +786,7 @@ export const HomePage: React.FC = () => {
                   data-testid="chapter-archive-story-cta"
                 >
                   <span>Read Folio 1.1</span>
-                  <span className="material-symbols-outlined fs-6">arrow_forward</span>
+                  <span className="material-symbols-outlined fs-6" aria-hidden="true">arrow_forward</span>
                 </Link>
                 <Link to="/archive" className="link-editorial" data-testid="chapter-archive-index-cta">
                   <span>View Complete Archive (8 Folios)</span>
@@ -944,7 +944,7 @@ export const HomePage: React.FC = () => {
                   data-testid="chapter-gazette-lead-cta"
                 >
                   <span>Read Monograph</span>
-                  <span className="material-symbols-outlined fs-6 text-champagne-glow">arrow_forward</span>
+                  <span className="material-symbols-outlined fs-6 text-champagne-glow" aria-hidden="true">arrow_forward</span>
                 </Link>
                 <Link to="/journal" className="link-editorial" data-testid="chapter-gazette-index-cta">
                   <span>Atelier Gazette Index</span>

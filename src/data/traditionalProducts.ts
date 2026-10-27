@@ -14,7 +14,10 @@ export const TR_STATUS_TEXT =
   'Concept specification for creative exploration; not verified artisan or manufacturing provenance.';
 
 export const CONCEPT_NOTICE_TEXT =
-  'Concept garment specification. Images represent exploratory atelier concepts generated with AI.';
+  'Traditional products shown are AI-generated conceptual designs demonstrating archival craft techniques.';
+
+export const CONCEPT_NOTICE_SHORT_TEXT =
+  'AI-generated conceptual design demonstrating archival craft techniques.';
 
 export const TRADITIONAL_PRODUCTS: TraditionalProduct[] = [
   {

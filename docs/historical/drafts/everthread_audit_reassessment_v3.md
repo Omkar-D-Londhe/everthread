@@ -1,3 +1,5 @@
+SUPERSEDED in part — see docs/SUPERSEDED.md
+
 # EverThread — Audit Reassessment v3
 
 **Source:** uploaded ZIP, git HEAD `ebf7b6b`, working tree clean (same commit as v2). Because the source is unchanged, I reused v2's runtime evidence and ran only new checks: signature-motion measurement at 3 widths, Home hero frame, live-site reachability, Actions status, document history searches. Existing artifacts were not overwritten.

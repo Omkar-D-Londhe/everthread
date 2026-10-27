@@ -50,6 +50,7 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const glassRef = useRef<HTMLDivElement>(null);
+  const reticleRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
 
   const [currentSrc, setCurrentSrc] = useState<string>(imageSrc);
@@ -131,23 +132,31 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
         return;
       }
 
-      setIsGlassVisible(true);
-      setGlassPos({ x: px, y: py });
-
-      glass.style.left = `${px}px`;
-      glass.style.top = `${py}px`;
-
       const pointerInRect = {
         x: px - effectiveRect.x,
         y: py - effectiveRect.y,
       };
 
-      const glassDiameter = 160; // 160px diameter loupe glass
+      const glassDiameter = 200; // 200px diameter circular loupe matching CSS
       const bgResult = previewBackground(pointerInRect, effectiveRect, currentZoom, glassDiameter);
+
+      const loupeX = effectiveRect.x + bgResult.loupeCenterX;
+      const loupeY = effectiveRect.y + bgResult.loupeCenterY;
+
+      setIsGlassVisible(true);
+      setGlassPos({ x: loupeX, y: loupeY });
+
+      glass.style.left = `${loupeX}px`;
+      glass.style.top = `${loupeY}px`;
 
       glass.style.backgroundSize = bgResult.backgroundSize;
       glass.style.backgroundPosition = bgResult.backgroundPosition;
       glass.style.opacity = '1';
+
+      if (reticleRef.current) {
+        reticleRef.current.style.left = `${bgResult.reticleX}px`;
+        reticleRef.current.style.top = `${bgResult.reticleY}px`;
+      }
     },
     [renderedRect, dims.w, dims.h, currentZoom, hasError]
   );
@@ -239,13 +248,10 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
   );
 
   const handleTouchEnd = useCallback(() => {
-    setIsGlassVisible(false);
-    if (glassRef.current) {
-      glassRef.current.style.opacity = '0';
-    }
+    // Keep loupe active at the touched location on mobile
   }, []);
 
-  // Double tap on mobile to toggle zoom between 1x and effectiveZoom
+  // Double tap on mobile to toggle zoom between 1x and effectiveZoom; click to center loupe
   const lastTapRef = useRef<number>(0);
   const handleDoubleTap = () => {
     const now = Date.now();
@@ -253,6 +259,11 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
       setCurrentZoom(prev => (prev > 1.5 ? 1 : effectiveZoom));
     }
     lastTapRef.current = now;
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    handleDoubleTap();
+    updateLoupePosition(e.clientX, e.clientY);
   };
 
   const handleImageError = useCallback(() => {
@@ -368,7 +379,7 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           onTouchCancel={handleTouchEnd}
-          onClick={handleDoubleTap}
+          onClick={handleClick}
           data-testid="atelier-lens-viewport"
         >
           {hasError ? (
@@ -404,7 +415,44 @@ export const AtelierLensModal: React.FC<AtelierLensModalProps> = ({
                     backgroundRepeat: 'no-repeat',
                     display: isGlassVisible ? 'block' : 'none',
                   }}
-                />
+                >
+                  {/* Soft glass specular arc highlight */}
+                  <div
+                    className="atelier-lens-specular-arc position-absolute"
+                    style={{
+                      top: '4px',
+                      left: '8px',
+                      right: '8px',
+                      height: '42%',
+                      borderRadius: '50% 50% 40% 40% / 60% 60% 20% 20%',
+                      background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 100%)',
+                      pointerEvents: 'none',
+                    }}
+                  />
+
+                  {/* Circular Deep Oxblood Magnification Badge with Champagne Rim (e.g. 2.1×) */}
+                  <div className="atelier-loupe-zoom-badge" data-testid="modal-loupe-zoom-badge">
+                    {currentZoom === 1 ? '1.0×' : `${currentZoom.toFixed(1)}×`}
+                  </div>
+
+                  {/* Center inspection reticle */}
+                  <div
+                    ref={reticleRef}
+                    className="atelier-lens-reticle position-absolute translate-middle"
+                    style={{
+                      left: '50%',
+                      top: '50%',
+                      width: '6px',
+                      height: '6px',
+                      backgroundColor: 'var(--color-primary, #49232D)',
+                      border: '1px solid #C4A265',
+                      borderRadius: '50%',
+                      boxShadow: '0 0 0 2px rgba(255, 255, 255, 0.6)',
+                      pointerEvents: 'none',
+                    }}
+                    aria-hidden="true"
+                  />
+                </div>
               )}
 
               {/* Inspection Mode Indicator Badge */}
